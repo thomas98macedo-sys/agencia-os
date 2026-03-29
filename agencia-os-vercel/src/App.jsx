@@ -17,6 +17,7 @@ import {
 // CONSTANTS
 // ═══════════════════════════════════════════
 const ROLES = {
+  DIRECTOR: { id: "director", label: "Diretor", color: "#6366f1" },
   ADMIN: { id: "admin", label: "Administrador", color: "#6366f1" },
   CS: { id: "cs", label: "Customer Success", color: "#06b6d4" },
   TRAFFIC: { id: "traffic", label: "Gestor de Tráfego", color: "#f59e0b" },
@@ -24,21 +25,26 @@ const ROLES = {
   DESIGNER: { id: "designer", label: "Designer", color: "#8b5cf6" },
   FILMMAKER: { id: "filmmaker", label: "Filmmaker", color: "#ef4444" },
   COMMERCIAL: { id: "commercial", label: "Comercial", color: "#10b981" },
+  SDR: { id: "sdr", label: "SDR (Pré-Vendas)", color: "#14b8a6" },
+  CLOSER: { id: "closer", label: "Closer", color: "#0ea5e9" },
+  HEAD_TRAFFIC: { id: "head_traffic", label: "Head de Tráfego", color: "#f97316" },
+  CREATION_LEAD: { id: "creation_lead", label: "Líder de Criação", color: "#f97316" },
+  STORE_CREATOR: { id: "store_creator", label: "Criação de Lojas", color: "#d946ef" },
 };
 
 const KANBAN_COLUMNS = [
-  { id: "venda_fechada", label: "Venda Fechada", color: "#6366f1", icon: "💼" },
-  { id: "cs_inicial", label: "CS Inicial", color: "#06b6d4", icon: "📋" },
-  { id: "cobranca_enviada", label: "Cobrança Enviada", color: "#f59e0b", icon: "💳" },
-  { id: "pagamento_confirmado", label: "Pagamento Confirmado", color: "#10b981", icon: "✅" },
-  { id: "onboarding_agendado", label: "Onboarding Agendado", color: "#8b5cf6", icon: "📅" },
-  { id: "onboarding_concluido", label: "Onboarding Concluído", color: "#3b82f6", icon: "🎯" },
-  { id: "alinhamento_visual", label: "Alinhamento Visual", color: "#ec4899", icon: "🎨" },
-  { id: "setup_trafego", label: "Setup Tráfego", color: "#f97316", icon: "⚡" },
-  { id: "trafego_ativo", label: "Tráfego Ativo", color: "#22c55e", icon: "🚀" },
-  { id: "producao_andamento", label: "Produção", color: "#14b8a6", icon: "🔄" },
-  { id: "operacao_semanal", label: "Operação Semanal", color: "#64748b", icon: "📊" },
-  { id: "aguardando_cliente", label: "Aguardando Cliente", color: "#eab308", icon: "⏳" },
+  { id: "venda_fechada", label: "Venda Fechada", color: "#6366f1", icon: "💼", responsible: "cs", responsibleLabel: "CS" },
+  { id: "cs_inicial", label: "CS Inicial", color: "#06b6d4", icon: "📋", responsible: "cs", responsibleLabel: "CS" },
+  { id: "cobranca_enviada", label: "Cobrança Enviada", color: "#f59e0b", icon: "💳", responsible: "cs", responsibleLabel: "CS" },
+  { id: "pagamento_confirmado", label: "Pagamento Confirmado", color: "#10b981", icon: "✅", responsible: "cs", responsibleLabel: "CS" },
+  { id: "onboarding_agendado", label: "Onboarding Agendado", color: "#8b5cf6", icon: "📅", responsible: "cs", responsibleLabel: "CS" },
+  { id: "onboarding_concluido", label: "Onboarding Concluído", color: "#3b82f6", icon: "🎯", responsible: "cs", responsibleLabel: "CS", slaNextDays: 3, slaNextLabel: "3 dias úteis para Setup Tráfego" },
+  { id: "alinhamento_visual", label: "Alinhamento Visual", color: "#ec4899", icon: "🎨", responsible: "creation_lead", responsibleLabel: "Líder Criação (Henrique)" },
+  { id: "setup_trafego", label: "Setup Tráfego", color: "#f97316", icon: "⚡", responsible: "traffic", responsibleLabel: "Gestores de Tráfego", slaHours: 24, slaLabel: "24h para ativar tráfego" },
+  { id: "trafego_ativo", label: "Tráfego Ativo", color: "#22c55e", icon: "🚀", responsible: "traffic", responsibleLabel: "Gestores de Tráfego" },
+  { id: "producao_andamento", label: "Produção", color: "#14b8a6", icon: "🔄", responsible: "creation_lead", responsibleLabel: "Líder Criação + Equipe Criação do GC" },
+  { id: "buscando_aprovacao", label: "Buscando Aprovação do Cliente", color: "#64748b", icon: "📤", responsible: "cs", responsibleLabel: "CS" },
+  { id: "aprovacao_concluida", label: "Aprovação Concluída", color: "#eab308", icon: "✅", responsible: "traffic", responsibleLabel: "Tráfego + Social Media", dualApproval: true, dualRoles: ["traffic", "social"], dualLabels: ["Gestores subir campanhas", "Social Media agendar postagem"] },
   { id: "concluido", label: "Concluído", color: "#059669", icon: "🏆" },
 ];
 
@@ -81,13 +87,31 @@ const GC_TEAMS = {
 };
 
 const SEED_USERS = [
-  { id: "u1", name: "Thomas Macedo", email: "thomas98macedo@gmail.com", role: "admin", avatar: "TM", gc: null },
-  { id: "u2", name: "Amanda Silva", email: "amanda@agencia.com", role: "cs", avatar: "AS", gc: "GC1" },
-  { id: "u3", name: "Rafael Costa", email: "rafael@agencia.com", role: "traffic", avatar: "RC", gc: "GC1" },
-  { id: "u4", name: "Juliana Mendes", email: "juliana@agencia.com", role: "social", avatar: "JM", gc: "GC2" },
-  { id: "u5", name: "Lucas Ferreira", email: "lucas@agencia.com", role: "designer", avatar: "LF", gc: "GC1" },
-  { id: "u6", name: "Bruno Santos", email: "bruno@agencia.com", role: "filmmaker", avatar: "BS", gc: "GC2" },
-  { id: "u7", name: "Mariana Lima", email: "mariana@agencia.com", role: "commercial", avatar: "ML", gc: "GC2" },
+  // ═══ EQUIPE REAL LINCE PERFORMANCE ═══
+  { id: "u1", name: "Thomas Macedo", email: "thomas98macedo@gmail.com", role: "director", avatar: "TM", gc: null },
+  // ═══ COMPARTILHADOS (atuam nos dois GCs) ═══
+  { id: "u2", name: "Amanda Ferreira", email: "amanda@lince.com", role: "cs", avatar: "AF", gc: "BOTH" },
+  { id: "u6", name: "Henrique", email: "henrique@lince.com", role: "creation_lead", avatar: "HE", gc: "BOTH" },
+  // ═══ GC1 🔥 MÁQUINA DE GUERRA ═══
+  { id: "u3", name: "Fernando Garcia", email: "fernando@lince.com", role: "head_traffic", avatar: "FG", gc: "GC1" },
+  { id: "u4", name: "Gabriela", email: "gabriela@lince.com", role: "social", avatar: "GA", gc: "GC1" },
+  { id: "u5", name: "Lucas", email: "lucas@lince.com", role: "designer", avatar: "LU", gc: "GC1" },
+  { id: "u6b", name: "Vincenzo", email: "vincenzo@lince.com", role: "filmmaker", avatar: "VI", gc: "GC1" },
+  { id: "u7", name: "Felipe Dantas", email: "felipe@lince.com", role: "closer", avatar: "FD", gc: "GC1" },
+  { id: "u14", name: "Lucas SDR", email: "lucas.sdr@lince.com", role: "sdr", avatar: "LS", gc: "GC1" },
+  // ═══ GC2 ⚡ TROPA DE ELITE ═══
+  { id: "u8", name: "Leonardo", email: "leonardo@lince.com", role: "head_traffic", avatar: "LE", gc: "GC2" },
+  { id: "u9", name: "Gabriel", email: "gabriel@lince.com", role: "traffic", avatar: "GB", gc: "GC2" },
+  { id: "u10", name: "Allan", email: "allan@lince.com", role: "traffic", avatar: "AL", gc: "GC2" },
+  { id: "u11", name: "Fábio", email: "fabio@lince.com", role: "sdr", avatar: "FA", gc: "GC2" },
+  { id: "u13", name: "Mateus Bueno", email: "bueno@lince.com", role: "sdr", avatar: "MB", gc: "GC2" },
+  { id: "u12", name: "Mateus Paixão", email: "paixao@lince.com", role: "store_creator", avatar: "MP", gc: "GC2" },
+  // ═══ VAGAS ABERTAS — preencher quando entrarem ═══
+  { id: "u20", name: "Designer (novo)", email: "designer2@lince.com", role: "designer", avatar: "??", gc: null, pending: true },
+  { id: "u21", name: "Social Media (nova 1)", email: "social1@lince.com", role: "social", avatar: "??", gc: null, pending: true },
+  { id: "u22", name: "Social Media (nova 2)", email: "social2@lince.com", role: "social", avatar: "??", gc: null, pending: true },
+  { id: "u23", name: "Social Media (nova 3)", email: "social3@lince.com", role: "social", avatar: "??", gc: null, pending: true },
+  { id: "u24", name: "Social Media (nova 4)", email: "social4@lince.com", role: "social", avatar: "??", gc: null, pending: true },
 ];
 
 const mkChecklist = (items) => items.map((text, i) => ({ id: `ck${i}`, text, done: false }));
@@ -109,6 +133,9 @@ const mkClient = (id,company,service,value,status,priority,payDay,payStatus,cont
   const isChurning = status === "CHURNING";
   const isEncerrado = status === "ENCERRADO";
   const kanban = isChurning ? "concluido" : isEncerrado ? "concluido" : paid ? "trafego_ativo" : "cobranca_enviada";
+  // Auto-assign GC: first half active → GC1, second half → GC2
+  const num = parseInt(id.replace(/\D/g,"")) || 0;
+  const autoGC = (isChurning || isEncerrado) ? null : (num <= 17 ? "GC1" : "GC2");
   return {
     id, company, contact:"", phone:"", email:"", segment:"",
     service, contractValue:value,
@@ -117,8 +144,8 @@ const mkClient = (id,company,service,value,status,priority,payDay,payStatus,cont
     status: kanban,
     priority: priority || (value >= 3000 ? "high" : "medium"),
     csId:"u2", trafficId:"u3", socialId: service.toLowerCase().includes("social") || service.toLowerCase().includes("tudo") ? "u4" : null,
-    designerId:"u5", filmmakerId: service.toLowerCase().includes("video") || service.toLowerCase().includes("v/e") || service.toLowerCase().includes("e/v") || service.toLowerCase().includes("criativo") || service.toLowerCase().includes("tudo") ? "u6" : null,
-    commercialId:"u7",
+    designerId:"u5", filmmakerId: service.toLowerCase().includes("video") || service.toLowerCase().includes("v/e") || service.toLowerCase().includes("e/v") || service.toLowerCase().includes("criativo") || service.toLowerCase().includes("tudo") ? "u5" : null,
+    commercialId:"u7", soldBy: null,
     whatsappGroup:"", formStatus: paid ? "responded" : "not_sent",
     onboardingDate: paid ? new Date(entryDate.getTime()+4*DAY).toISOString() : null,
     trafficActivationDate: paid && !isChurning && service.toLowerCase().includes("tráfego") || service.toLowerCase().includes("trafego") || service.toLowerCase().includes("tudo") ? new Date(entryDate.getTime()+5*DAY).toISOString() : null,
@@ -127,6 +154,7 @@ const mkClient = (id,company,service,value,status,priority,payDay,payStatus,cont
     contractEnd: contractEnd || null,
     churning: isChurning,
     encerrado: isEncerrado,
+    gcTeam: autoGC,
     csChecklist: mkChecklist(CS_CK).map((i,idx)=>({...i,done:paid?true:idx<3})),
     onboardingChecklist: mkChecklist(OB_CK).map(i=>({...i,done:!!paid})),
     trafficChecklist: mkChecklist(TR_CK).map(i=>({...i,done:!!paid && !isChurning})),
@@ -236,48 +264,64 @@ const ago = d => { const h=Math.floor((now-new Date(d).getTime())/3600000); if(h
 const getSLA = (p,a) => { if(!p) return null; if(a) return {status:"done",label:"Ativado",color:"#22c55e"}; const h=(now-new Date(p).getTime())/3600000; if(h<=24) return {status:"ok",label:`${Math.round(48-h)}h restantes`,color:"#22c55e",pct:(h/48)*100}; if(h<=48) return {status:"warning",label:`${Math.round(48-h)}h restantes`,color:"#f59e0b",pct:(h/48)*100}; return {status:"critical",label:`${Math.round(h-48)}h atrasado`,color:"#ef4444",pct:100}; };
 
 // ═══════════════════════════════════════════
-// REAL GOOGLE CALENDAR DATA (synced live)
+// REAL GOOGLE CALENDAR DATA — cores exatas do Google Calendar
+// Google colorId: 1=#7986cb 2=#33b679 3=#8e24aa 4=#e67c73 5=#f6bf26 6=#f4511e 7=#039be5 8=#616161 9=#3f51b5 10=#0b8043 11=#d50000 default=#4285f4
 // ═══════════════════════════════════════════
+const GCAL_COLORS = {1:"#7986cb",2:"#33b679",3:"#8e24aa",4:"#e67c73",5:"#f6bf26",6:"#f4511e",7:"#039be5",8:"#616161",9:"#3f51b5",10:"#0b8043",11:"#d50000"};
+const GCAL_COLOR_NAMES = {1:"Lavanda",2:"Sálvia",3:"Uva",4:"Flamingo",5:"Banana",6:"Tangerine",7:"Pavão",8:"Grafite",9:"Mirtilo",10:"Manjericão",11:"Tomate"};
+const DEFAULT_CAL_COLOR = "#4285f4"; // azul padrão google
+const AGENCY_CAL_COLOR = "#d06b64"; // vermelho agência
+
 const REAL_PERSONAL_EVENTS = [
-  { id:"gp1", summary:"Ale Moby 14:30", start:"2026-03-25T14:20:00-03:00", end:"2026-03-25T15:20:00-03:00", calendar:"pessoal", color:"#22c55e" },
-  { id:"gp2", summary:"Thomas - Consultoria Ruanna", start:"2026-03-25T18:00:00-03:00", end:"2026-03-25T19:00:00-03:00", calendar:"pessoal", color:"#22c55e", description:"Ruanna +55 98 8468-6231" },
-  { id:"gp3", summary:"UBER CLNE THOMAS", start:"2026-03-26T12:00:00-03:00", end:"2026-03-26T13:00:00-03:00", calendar:"pessoal", color:"#22c55e" },
-  { id:"gp4", summary:"Flight to Cuiabá (LA 3030)", start:"2026-03-26T15:00:00-03:00", end:"2026-03-26T17:25:00-03:00", calendar:"pessoal", color:"#3b82f6", location:"São Paulo CGH" },
-  { id:"gp5", summary:"Call Kauan Cabral", start:"2026-03-26T21:00:00-03:00", end:"2026-03-26T22:00:00-03:00", calendar:"pessoal", color:"#22c55e" },
-  { id:"gp6", summary:"Flight to São Paulo (LA 3033)", start:"2026-03-28T11:05:00-03:00", end:"2026-03-28T13:30:00-03:00", calendar:"pessoal", color:"#3b82f6", location:"Cuiabá CGB" },
+  { id:"gp1", summary:"Thomas barbearia", start:"2026-03-30T17:00:00-03:00", end:"2026-03-30T18:45:00-03:00", calendar:"pessoal", color:DEFAULT_CAL_COLOR },
+  { id:"gp2", summary:"Thomas e ale moby", start:"2026-03-31T16:00:00-03:00", end:"2026-03-31T18:00:00-03:00", calendar:"pessoal", color:GCAL_COLORS[10] },
+  { id:"gp3", summary:"REUNIÃO TRITON", start:"2026-03-31T19:00:00-03:00", end:"2026-03-31T22:00:00-03:00", calendar:"pessoal", color:GCAL_COLORS[10] },
+  { id:"gp4", summary:"CANTON FAIR 12 ABR — 06 MAI", start:"2026-04-12T01:30:00-03:00", end:"2026-05-06T02:30:00-03:00", calendar:"pessoal", color:DEFAULT_CAL_COLOR, allDay:true },
 ];
 
 const REAL_AGENCY_EVENTS = [
-  { id:"ga1", summary:"CAPTAÇÕES DEBORA - MORY", start:"2026-03-25T09:30:00-03:00", end:"2026-03-25T13:30:00-03:00", calendar:"agência", color:"#f59e0b", description:"Conteúdo em dobro: Março e Abril" },
-  { id:"ga2", summary:"ALINHAMENTO RELIVE - NANDO/THOMAS", start:"2026-03-25T10:00:00-03:00", end:"2026-03-25T11:00:00-03:00", calendar:"agência", color:"#22c55e" },
-  { id:"ga3", summary:"Weekly - Auto Peças Fama", start:"2026-03-25T14:00:00-03:00", end:"2026-03-25T15:00:00-03:00", calendar:"agência", color:"#f97316", recurring:true },
-  { id:"ga4", summary:"Weekly - Negocios com a China", start:"2026-03-25T16:00:00-03:00", end:"2026-03-25T17:00:00-03:00", calendar:"agência", color:"#f97316", recurring:true },
-  { id:"ga5", summary:"Alinhamento geral - Levix", start:"2026-03-25T16:00:00-03:00", end:"2026-03-25T17:00:00-03:00", calendar:"agência", color:"#8b5cf6" },
-  { id:"ga6", summary:"China Link - On", start:"2026-03-25T17:00:00-03:00", end:"2026-03-25T18:00:00-03:00", calendar:"agência", color:"#64748b" },
-  { id:"ga7", summary:"CHINALINK NA ESTRADA", start:"2026-03-26T00:00:00-03:00", end:"2026-03-29T00:00:00-03:00", calendar:"agência", color:"#22c55e", allDay:true },
-  { id:"ga8", summary:"Nathaly Castro - Texas - Thomas", start:"2026-03-26T09:00:00-03:00", end:"2026-03-26T12:00:00-03:00", calendar:"agência", color:"#22c55e" },
-  { id:"ga9", summary:"Live sobre vendas online Chinalink", start:"2026-03-26T12:00:00-03:00", end:"2026-03-26T13:00:00-03:00", calendar:"agência", color:"#22c55e" },
-  { id:"ga10", summary:"Weekly - Derma House", start:"2026-03-26T14:00:00-03:00", end:"2026-03-26T15:00:00-03:00", calendar:"agência", color:"#f97316", recurring:true },
-  { id:"ga11", summary:"Alinhamento ID visual - GURU", start:"2026-03-26T15:00:00-03:00", end:"2026-03-26T16:00:00-03:00", calendar:"agência", color:"#eab308" },
-  { id:"ga12", summary:"Weekly - Megatrucks", start:"2026-03-26T15:00:00-03:00", end:"2026-03-26T16:00:00-03:00", calendar:"agência", color:"#f97316", recurring:true },
-  { id:"ga13", summary:"Captação Gabrielle - Vincenzo", start:"2026-03-26T18:00:00-03:00", end:"2026-03-26T19:45:00-03:00", calendar:"agência", color:"#ec4899" },
-  { id:"ga14", summary:"Weekly - Scarf", start:"2026-03-27T14:00:00-03:00", end:"2026-03-27T15:00:00-03:00", calendar:"agência", color:"#f97316", recurring:true },
-  { id:"ga15", summary:"Weekley - Alinhamento Comercial [Chinalink SUL]", start:"2026-03-27T15:00:00-03:00", end:"2026-03-27T16:00:00-03:00", calendar:"agência", color:"#f97316", recurring:true },
-  { id:"ga16", summary:"Weekly - João Januário (alinhamento geral)", start:"2026-03-27T16:00:00-03:00", end:"2026-03-27T17:00:00-03:00", calendar:"agência", color:"#f97316", recurring:true },
-  { id:"ga17", summary:"Weekly - Parrilo (META ADS)", start:"2026-03-30T14:00:00-03:00", end:"2026-03-30T15:00:00-03:00", calendar:"agência", color:"#f97316", recurring:true },
-  { id:"ga18", summary:"Weekly - Mazzi (GOOGLE ADS)", start:"2026-03-30T15:00:00-03:00", end:"2026-03-30T16:00:00-03:00", calendar:"agência", color:"#f97316", recurring:true },
-  { id:"ga19", summary:"Weekly - Time Comercial (chinaLink)", start:"2026-03-30T16:00:00-03:00", end:"2026-03-30T17:00:00-03:00", calendar:"agência", color:"#f97316", recurring:true },
-  { id:"ga20", summary:"Weekly - Casa Souza Guedes", start:"2026-03-31T10:00:00-03:00", end:"2026-03-31T11:00:00-03:00", calendar:"agência", color:"#f97316", recurring:true },
-  { id:"ga21", summary:"Weekly - Gabrielle", start:"2026-03-31T11:00:00-03:00", end:"2026-03-31T12:00:00-03:00", calendar:"agência", color:"#f97316", recurring:true },
-  { id:"ga22", summary:"Weekly - Leads Lincoln", start:"2026-03-31T15:00:00-03:00", end:"2026-03-31T16:00:00-03:00", calendar:"agência", color:"#f97316", recurring:true },
-  { id:"ga23", summary:"GENE ALINHAMENTO - NANDO", start:"2026-03-31T17:00:00-03:00", end:"2026-03-31T17:30:00-03:00", calendar:"agência", color:"#64748b", recurring:true },
-  { id:"ga24", summary:"Weekly - Ferragens Vieira", start:"2026-04-01T10:00:00-03:00", end:"2026-04-01T11:00:00-03:00", calendar:"agência", color:"#f97316", recurring:true },
-  { id:"ga25", summary:"Weekly - Bike Cajueiro", start:"2026-04-02T15:00:00-03:00", end:"2026-04-02T16:00:00-03:00", calendar:"agência", color:"#f97316", recurring:true },
-  { id:"ga26", summary:"Weekly - Gymee", start:"2026-04-02T16:00:00-03:00", end:"2026-04-02T17:00:00-03:00", calendar:"agência", color:"#f97316", recurring:true },
-  { id:"ga27", summary:"Weekly - Mafra", start:"2026-04-02T17:30:00-03:00", end:"2026-04-02T18:30:00-03:00", calendar:"agência", color:"#f97316", recurring:true },
-  { id:"ga28", summary:"Weekly - Vagner Acessórios", start:"2026-04-03T14:00:00-03:00", end:"2026-04-03T15:00:00-03:00", calendar:"agência", color:"#f97316", recurring:true },
-  { id:"ga29", summary:"Weekly - EG Beauty", start:"2026-04-03T15:00:00-03:00", end:"2026-04-03T16:00:00-03:00", calendar:"agência", color:"#f97316", recurring:true },
-  { id:"ga30", summary:"Weekly - Lira Sat", start:"2026-04-07T14:00:00-03:00", end:"2026-04-07T15:00:00-03:00", calendar:"agência", color:"#f97316", recurring:true },
+  // 30/mar
+  { id:"ga01", summary:"Visita cliente FRIGA — Thomas, Dantas, Paixão", start:"2026-03-30T09:00:00-03:00", end:"2026-03-30T15:00:00-03:00", calendar:"agência", color:GCAL_COLORS[10], description:"Av. Santo Antônio 2641, Bela Vista, Osasco", location:"Osasco" },
+  { id:"ga02", summary:"Weekly - Parrilo (META ADS)", start:"2026-03-30T14:00:00-03:00", end:"2026-03-30T15:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  { id:"ga03", summary:"Weekly - Mazzi (GOOGLE ADS)", start:"2026-03-30T15:00:00-03:00", end:"2026-03-30T16:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  { id:"ga04", summary:"Weekly - Time Comercial (ChinaLink)", start:"2026-03-30T16:00:00-03:00", end:"2026-03-30T17:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  // 31/mar
+  { id:"ga05", summary:"Thomas - Consultoria Elaine / Renata", start:"2026-03-31T10:00:00-03:00", end:"2026-03-31T11:00:00-03:00", calendar:"agência", color:GCAL_COLORS[10], description:"Elaine +55 43 9145-2110" },
+  { id:"ga06", summary:"Weekly - Casa Souza Guedes", start:"2026-03-31T10:00:00-03:00", end:"2026-03-31T11:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  { id:"ga07", summary:"Weekly - Gabrielle", start:"2026-03-31T11:00:00-03:00", end:"2026-03-31T12:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  { id:"ga08", summary:"Weekly - Scarf", start:"2026-03-31T14:00:00-03:00", end:"2026-03-31T15:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  { id:"ga09", summary:"Weekly - Leads Lincoln", start:"2026-03-31T15:00:00-03:00", end:"2026-03-31T16:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  { id:"ga10", summary:"GENE ALINHAMENTO - NANDO", start:"2026-03-31T17:00:00-03:00", end:"2026-03-31T17:30:00-03:00", calendar:"agência", color:GCAL_COLORS[8], recurring:true },
+  // 01/abr
+  { id:"ga11", summary:"Weekly - Ferragens Vieira", start:"2026-04-01T10:00:00-03:00", end:"2026-04-01T11:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  { id:"ga12", summary:"ID visual - Guru do RH", start:"2026-04-01T15:00:00-03:00", end:"2026-04-01T16:00:00-03:00", calendar:"agência", color:GCAL_COLORS[1] },
+  { id:"ga13", summary:"Weekly - Negocios com a China", start:"2026-04-01T16:00:00-03:00", end:"2026-04-01T17:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  // 02/abr
+  { id:"ga14", summary:"Weekly - Bike Cajueiro", start:"2026-04-02T15:00:00-03:00", end:"2026-04-02T16:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  { id:"ga15", summary:"Weekly - Gymee", start:"2026-04-02T16:00:00-03:00", end:"2026-04-02T17:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  { id:"ga16", summary:"Weekly - Mafra", start:"2026-04-02T17:30:00-03:00", end:"2026-04-02T18:30:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  // 03/abr
+  { id:"ga17", summary:"Weekly - Vagner Acessórios", start:"2026-04-03T14:00:00-03:00", end:"2026-04-03T15:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  { id:"ga18", summary:"Alinhamento Comercial [ChinaLink SUL]", start:"2026-04-03T15:00:00-03:00", end:"2026-04-03T16:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  { id:"ga19", summary:"Weekly - EG Beauty", start:"2026-04-03T15:00:00-03:00", end:"2026-04-03T16:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  { id:"ga20", summary:"Weekly - João Januário (alinhamento geral)", start:"2026-04-03T16:00:00-03:00", end:"2026-04-03T17:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  // 06/abr
+  { id:"ga21", summary:"Weekly - Parrilo (META ADS)", start:"2026-04-06T14:00:00-03:00", end:"2026-04-06T15:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  { id:"ga22", summary:"Weekly - Mazzi (GOOGLE ADS)", start:"2026-04-06T15:00:00-03:00", end:"2026-04-06T16:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  { id:"ga23", summary:"Weekly - Time Comercial (ChinaLink)", start:"2026-04-06T16:00:00-03:00", end:"2026-04-06T17:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  // 07/abr
+  { id:"ga24", summary:"Weekly - Lira Sat", start:"2026-04-07T14:00:00-03:00", end:"2026-04-07T15:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  { id:"ga25", summary:"Weekly - Leads Lincoln", start:"2026-04-07T15:00:00-03:00", end:"2026-04-07T16:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  { id:"ga26", summary:"GENE ALINHAMENTO - NANDO", start:"2026-04-07T17:00:00-03:00", end:"2026-04-07T17:30:00-03:00", calendar:"agência", color:GCAL_COLORS[8], recurring:true },
+  // 08/abr
+  { id:"ga27", summary:"Weekly - Auto Peças Fama", start:"2026-04-08T15:00:00-03:00", end:"2026-04-08T16:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  { id:"ga28", summary:"Weekly - Negocios com a China", start:"2026-04-08T16:00:00-03:00", end:"2026-04-08T17:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  // 09/abr
+  { id:"ga29", summary:"Weekly - Megatrucks", start:"2026-04-09T15:00:00-03:00", end:"2026-04-09T16:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  { id:"ga30", summary:"Weekly - Derma House", start:"2026-04-09T15:00:00-03:00", end:"2026-04-09T16:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  // 10/abr
+  { id:"ga31", summary:"Alinhamento Comercial [ChinaLink SUL]", start:"2026-04-10T15:00:00-03:00", end:"2026-04-10T16:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
+  { id:"ga32", summary:"Weekly - João Januário (alinhamento geral)", start:"2026-04-10T16:00:00-03:00", end:"2026-04-10T17:00:00-03:00", calendar:"agência", color:GCAL_COLORS[6], recurring:true },
 ];
 
 const ALL_GCAL_EVENTS = [...REAL_PERSONAL_EVENTS, ...REAL_AGENCY_EVENTS].sort((a,b) => new Date(a.start) - new Date(b.start));
@@ -338,9 +382,99 @@ export default function AgenciaOS() {
   const [draggedId, setDraggedId] = useState(null);
   const [taskFilter, setTaskFilter] = useState("all");
   const [loaded, setLoaded] = useState(false);
-  const [calEvents] = useState(ALL_GCAL_EVENTS);
-  const calSynced = true;
+  const [calEvents, setCalEvents] = useState(ALL_GCAL_EVENTS);
+  const [calSynced, setCalSynced] = useState(false);
+  const [calLastFetch, setCalLastFetch] = useState(null);
   const [creatingEvent, setCreatingEvent] = useState(false);
+  const [googleAccessToken, setGoogleAccessToken] = useState(null);
+
+  // ═══════════════════════════════════════════
+  // GOOGLE CALENDAR LIVE SYNC
+  // ═══════════════════════════════════════════
+  const GOOGLE_CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com";
+  const CALENDAR_IDS = ["thomas98macedo@gmail.com", "cltmkt2@gmail.com"];
+  const CALENDAR_LABELS = {"thomas98macedo@gmail.com":"pessoal","cltmkt2@gmail.com":"agência"};
+
+  const fetchGoogleCalendarEvents = useCallback(async (token) => {
+    if (!token) return;
+    try {
+      const today = new Date();
+      const timeMin = new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString();
+      const timeMax = new Date(today.getTime() + 21 * DAY).toISOString(); // 3 weeks ahead
+
+      const allEvts = [];
+      for (const calId of CALENDAR_IDS) {
+        try {
+          const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calId)}/events?timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime&maxResults=100&timeZone=America/Sao_Paulo`;
+          const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
+          if (!res.ok) continue;
+          const data = await res.json();
+          const calLabel = CALENDAR_LABELS[calId] || "outro";
+          (data.items || []).forEach(ev => {
+            if (ev.status === "cancelled") return;
+            const colorHex = ev.colorId ? (GCAL_COLORS[ev.colorId] || DEFAULT_CAL_COLOR) : (calLabel === "agência" ? GCAL_COLORS[6] : DEFAULT_CAL_COLOR);
+            allEvts.push({
+              id: ev.id,
+              summary: ev.summary || "(Sem título)",
+              start: ev.start?.dateTime || ev.start?.date || "",
+              end: ev.end?.dateTime || ev.end?.date || "",
+              color: colorHex,
+              colorId: ev.colorId,
+              colorName: ev.colorId ? GCAL_COLOR_NAMES[ev.colorId] : null,
+              calendar: calLabel,
+              location: ev.location || "",
+              description: ev.description || "",
+              recurring: !!ev.recurringEventId,
+              allDay: !!ev.start?.date && !ev.start?.dateTime,
+              htmlLink: ev.htmlLink || "",
+              attendees: ev.attendees?.map(a => a.email) || [],
+            });
+          });
+        } catch (e) { console.warn(`Erro ao buscar ${calId}:`, e); }
+      }
+      allEvts.sort((a, b) => new Date(a.start) - new Date(b.start));
+      setCalEvents(allEvts);
+      setCalSynced(true);
+      setCalLastFetch(new Date().toISOString());
+    } catch (e) { console.error("Calendar fetch error:", e); }
+  }, []);
+
+  // Poll Google Calendar every 30 seconds
+  useEffect(() => {
+    if (!googleAccessToken) return;
+    fetchGoogleCalendarEvents(googleAccessToken);
+    const interval = setInterval(() => fetchGoogleCalendarEvents(googleAccessToken), 30000);
+    return () => clearInterval(interval);
+  }, [googleAccessToken, fetchGoogleCalendarEvents]);
+
+  // Check for OAuth2 token in URL hash (redirect flow)
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash.includes("access_token=")) {
+      const params = new URLSearchParams(hash.substring(1));
+      const token = params.get("access_token");
+      if (token) {
+        setGoogleAccessToken(token);
+        localStorage.setItem("agos-gcal-token", token);
+        // Clean URL
+        window.history.replaceState(null, "", window.location.pathname);
+        // Extract user info from token
+        fetch("https://www.googleapis.com/oauth2/v2/userinfo", { headers: { Authorization: `Bearer ${token}` } })
+          .then(r => r.json())
+          .then(info => { if (info.email) processLogin(info.email, info.name, info.picture); })
+          .catch(() => {});
+      }
+    } else {
+      // Try stored token
+      const stored = localStorage.getItem("agos-gcal-token");
+      if (stored) {
+        // Validate token
+        fetch("https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=" + stored)
+          .then(r => { if (r.ok) { setGoogleAccessToken(stored); } else { localStorage.removeItem("agos-gcal-token"); } })
+          .catch(() => localStorage.removeItem("agos-gcal-token"));
+      }
+    }
+  }, []);
 
   // ═══════════════════════════════════════════
   // AUTH SYSTEM
@@ -354,10 +488,26 @@ export default function AgenciaOS() {
   const [inviteGC, setInviteGC] = useState("GC1");
   const [inviteSent, setInviteSent] = useState(false);
   const [authorizedUsers, setAuthorizedUsers] = useState([
-    { email: "thomas98macedo@gmail.com", name: "Thomas Macedo", role: "admin", avatar: "TM", status: "active", invitedAt: new Date().toISOString() },
-    { email: "cltmkt2@gmail.com", name: "CLT MKT", role: "admin", avatar: "CM", status: "active", invitedAt: new Date().toISOString() },
+    { email: "thomas98macedo@gmail.com", name: "Thomas Macedo", role: "director", avatar: "TM", gc: null, status: "active", invitedAt: new Date().toISOString() },
+    { email: "cltmkt2@gmail.com", name: "CLT MKT", role: "director", avatar: "CM", gc: null, status: "active", invitedAt: new Date().toISOString() },
+    { email: "fernando@lince.com", name: "Fernando Garcia", role: "head_traffic", avatar: "FG", gc: "GC1", status: "invited", invitedAt: new Date().toISOString() },
+    { email: "amanda@lince.com", name: "Amanda Ferreira", role: "cs", avatar: "AF", gc: "BOTH", status: "invited", invitedAt: new Date().toISOString() },
+    { email: "gabriela@lince.com", name: "Gabriela", role: "social", avatar: "GA", gc: "GC1", status: "invited", invitedAt: new Date().toISOString() },
+    { email: "lucas@lince.com", name: "Lucas", role: "designer", avatar: "LU", gc: "GC1", status: "invited", invitedAt: new Date().toISOString() },
+    { email: "henrique@lince.com", name: "Henrique", role: "creation_lead", avatar: "HE", gc: "BOTH", status: "invited", invitedAt: new Date().toISOString() },
+    { email: "vincenzo@lince.com", name: "Vincenzo", role: "filmmaker", avatar: "VI", gc: "GC1", status: "invited", invitedAt: new Date().toISOString() },
+    { email: "felipe@lince.com", name: "Felipe Dantas", role: "closer", avatar: "FD", gc: "GC1", status: "invited", invitedAt: new Date().toISOString() },
+    { email: "lucas.sdr@lince.com", name: "Lucas SDR", role: "sdr", avatar: "LS", gc: "GC1", status: "invited", invitedAt: new Date().toISOString() },
+    { email: "leonardo@lince.com", name: "Leonardo", role: "head_traffic", avatar: "LE", gc: "GC2", status: "invited", invitedAt: new Date().toISOString() },
+    { email: "gabriel@lince.com", name: "Gabriel", role: "traffic", avatar: "GB", gc: "GC2", status: "invited", invitedAt: new Date().toISOString() },
+    { email: "allan@lince.com", name: "Allan", role: "traffic", avatar: "AL", gc: "GC2", status: "invited", invitedAt: new Date().toISOString() },
+    { email: "fabio@lince.com", name: "Fábio", role: "sdr", avatar: "FA", gc: "GC2", status: "invited", invitedAt: new Date().toISOString() },
+    { email: "bueno@lince.com", name: "Mateus Bueno", role: "sdr", avatar: "MB", gc: "GC2", status: "invited", invitedAt: new Date().toISOString() },
+    { email: "paixao@lince.com", name: "Mateus Paixão", role: "store_creator", avatar: "MP", gc: "GC2", status: "invited", invitedAt: new Date().toISOString() },
   ]);
   const [showInviteModal, setShowInviteModal] = useState(false);
+  const [showEditUser, setShowEditUser] = useState(false);
+  const [editingUser, setEditingUser] = useState(null);
 
   // Load auth data from persistent storage
   useEffect(() => {
@@ -381,20 +531,17 @@ export default function AgenciaOS() {
     if (!authLoading) saveData("agos-authorized-users", authorizedUsers);
   }, [authorizedUsers, authLoading]);
 
-  // Google Sign-In handler
+  // Google Sign-In handler — OAuth2 implicit flow with Calendar scope
   const handleGoogleSignIn = useCallback(() => {
-    // Use Google Identity Services
-    if (typeof window !== "undefined" && window.google?.accounts?.id) {
-      window.google.accounts.id.prompt();
-    } else {
-      // Fallback: OAuth2 redirect flow
-      const clientId = ""; // Will be set via env
-      const redirectUri = window.location.origin + window.location.pathname;
-      const scope = "email profile";
-      const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token&scope=${encodeURIComponent(scope)}&prompt=select_account`;
+    const redirectUri = window.location.origin + window.location.pathname;
+    const scope = "email profile https://www.googleapis.com/auth/calendar.readonly";
+    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token&scope=${encodeURIComponent(scope)}&prompt=select_account`;
 
-      // For demo/development: show manual email entry
+    if (GOOGLE_CLIENT_ID.includes("YOUR_GOOGLE_CLIENT_ID")) {
+      // No client ID configured — use manual email login
       setAuthError("google_fallback");
+    } else {
+      window.location.href = authUrl;
     }
   }, []);
 
@@ -426,7 +573,10 @@ export default function AgenciaOS() {
   // Logout
   const handleLogout = useCallback(async () => {
     setAuthUser(null);
-    try { localStorage.removeItem("agos-session"); } catch(e) {}
+    setGoogleAccessToken(null);
+    setCalSynced(false);
+    setCalEvents(ALL_GCAL_EVENTS); // fallback to static
+    try { localStorage.removeItem("agos-session"); localStorage.removeItem("agos-gcal-token"); } catch(e) {}
   }, []);
 
   // Invite collaborator
@@ -463,44 +613,42 @@ export default function AgenciaOS() {
 
   // Remove collaborator
   const handleRemoveUser = useCallback((email) => {
-    if (email === "thomas98macedo@gmail.com") return; // Can't remove owner
+    if (email === "thomas98macedo@gmail.com") return;
     setAuthorizedUsers(prev => prev.filter(u => u.email !== email));
   }, []);
 
-  // Google Identity Services initialization
-  useEffect(() => {
-    if (authUser) return; // Already logged in
-    const script = document.createElement("script");
-    script.src = "https://accounts.google.com/gsi/client";
-    script.async = true;
-    script.defer = true;
-    script.onload = () => {
-      if (window.google?.accounts?.id) {
-        window.google.accounts.id.initialize({
-          client_id: "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com",
-          callback: (response) => {
-            try {
-              // Decode JWT token
-              const payload = JSON.parse(atob(response.credential.split(".")[1]));
-              processLogin(payload.email, payload.name, payload.picture);
-            } catch (e) {
-              setAuthError("google_fallback");
-            }
-          },
-          auto_select: false,
-        });
-      }
-    };
-    document.head.appendChild(script);
-    return () => { try { document.head.removeChild(script); } catch(e) {} };
-  }, [authUser, processLogin]);
+  // Edit collaborator (name, role, GC, email)
+  const saveEditUser = useCallback(() => {
+    if (!editingUser) return;
+    const oldEmail = editingUser._origEmail || editingUser.email;
+    setAuthorizedUsers(prev => prev.map(u => {
+      if (u.email !== oldEmail) return u;
+      const initials = editingUser.name.split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2);
+      return { ...u, name: editingUser.name, email: editingUser.email, role: editingUser.role, gc: editingUser.gc, avatar: initials };
+    }));
+    // Also update SEED_USERS
+    const idx = SEED_USERS.findIndex(u => u.email === oldEmail || u.id === editingUser.id);
+    if (idx >= 0) {
+      const initials = editingUser.name.split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2);
+      SEED_USERS[idx] = { ...SEED_USERS[idx], name: editingUser.name, email: editingUser.email, role: editingUser.role, gc: editingUser.gc, avatar: initials };
+    }
+    setShowEditUser(false);
+    setEditingUser(null);
+  }, [editingUser]);
+
+  // Google Sign-In uses OAuth2 redirect flow (see handleGoogleSignIn)
+  // No script initialization needed — auth happens via redirect
 
   // New forms
   const emptyNC = {company:"",contact:"",phone:"",email:"",segment:"",contractValue:"",priority:"high",notes:"",
-    trafficPlatforms:[],creativeOption:"",socialOption:"social_none",storePlatforms:[],gcTeam:"GC1"};
+    trafficPlatforms:[],creativeOption:"",socialOption:"social_none",storePlatforms:[],gcTeam:"GC1",
+    pickCs:"",pickTraffic:"",pickSocial:"",pickDesigner:"",pickFilmmaker:"",pickCommercial:"",soldBy:""};
   const [nC, setNC] = useState({...emptyNC});
   const [nT, setNT] = useState({title:"",clientId:"",assigneeId:"",sector:"cs",priority:"medium",dueDate:""});
   const [nM, setNM] = useState({clientId:"",title:"",date:"",time:"10:00",duration:"60",notes:""});
+  const [showEditTeam, setShowEditTeam] = useState(false);
+  const [editTeamData, setEditTeamData] = useState({csId:"",trafficId:"",socialId:"",designerId:"",filmmakerId:"",commercialId:""});
+  const [toasts, setToasts] = useState([]);
 
   // Toggle array helper for checkboxes
   const toggleArr = (arr, val) => arr.includes(val) ? arr.filter(x=>x!==val) : [...arr, val];
@@ -533,6 +681,43 @@ export default function AgenciaOS() {
   useEffect(() => { if(loaded) saveData("agos-tasks", tasks); }, [tasks, loaded]);
   useEffect(() => { if(loaded) saveData("agos-notifs", notifications); }, [notifications, loaded]);
 
+  // ═══ NOTIFICATION TIMER — 10 min before each event ═══
+  useEffect(() => {
+    const notifiedRef = new Set();
+    const checkNotifications = () => {
+      const nowMs = Date.now();
+      const TEN_MIN = 10 * 60 * 1000;
+      calEvents.forEach(ev => {
+        if (!ev.start || ev.allDay) return;
+        const evStart = new Date(ev.start).getTime();
+        const diff = evStart - nowMs;
+        // Between 0 and 10 minutes from now
+        if (diff > 0 && diff <= TEN_MIN && !notifiedRef.has(ev.id)) {
+          notifiedRef.add(ev.id);
+          const mins = Math.round(diff / 60000);
+          setNotifications(prev => [{
+            id: `notif_${ev.id}`,
+            type: "meeting",
+            message: `⏰ Em ${mins} min: ${ev.summary}${ev.location ? ` — ${ev.location}` : ""}`,
+            time: new Date().toISOString(),
+            read: false,
+          }, ...prev]);
+          // Browser notification
+          if (typeof Notification !== "undefined" && Notification.permission === "granted") {
+            new Notification(`⏰ Em ${mins} min`, { body: ev.summary, icon: "/icon.svg" });
+          }
+        }
+      });
+    };
+    // Request browser notification permission
+    if (typeof Notification !== "undefined" && Notification.permission === "default") {
+      Notification.requestPermission();
+    }
+    checkNotifications();
+    const interval = setInterval(checkNotifications, 30000); // check every 30s
+    return () => clearInterval(interval);
+  }, [calEvents]);
+
   const handleCreateMeeting = useCallback(async () => {
     if(!nM.clientId || !nM.date || !nM.time) return;
     setCreatingEvent(true);
@@ -558,26 +743,105 @@ export default function AgenciaOS() {
 
   const toggleCk = (cid,key,iid) => setClients(p=>p.map(c=>c.id!==cid?c:{...c,[key]:c[key].map(i=>i.id===iid?{...i,done:!i.done}:i)}));
 
+  // ═══ TOAST POPUP SYSTEM ═══
+  const showToast = useCallback((msg, type="info") => {
+    const id = `toast_${uid()}`;
+    setToasts(prev => [...prev, { id, message: msg, type, time: Date.now() }]);
+    // Auto-remove after 6 seconds
+    setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 6000);
+    // Browser notification
+    if (typeof Notification !== "undefined" && Notification.permission === "granted") {
+      new Notification("AgênciaOS", { body: msg.replace(/[🔄✅🚀📋⏰👥🆕]/g, "").trim(), icon: "/icon.svg" });
+    }
+  }, []);
+
+  // ═══ TIME FORMATTING HELPER ═══
+  const formatDuration = (ms) => {
+    if (!ms || ms < 0) return "agora";
+    const mins = Math.floor(ms / 60000);
+    if (mins < 1) return "< 1 min";
+    if (mins < 60) return `${mins} min`;
+    const hrs = Math.floor(mins / 60);
+    const remMins = mins % 60;
+    if (hrs < 24) return remMins > 0 ? `${hrs}h ${remMins}min` : `${hrs}h`;
+    const days = Math.floor(hrs / 24);
+    const remHrs = hrs % 24;
+    return remHrs > 0 ? `${days}d ${remHrs}h` : `${days}d`;
+  };
+
   const moveClient = (cid,newSt) => {
     setClients(p => p.map(c => {
       if(c.id!==cid) return c;
-      const u = {...c, status:newSt, timeline:[...c.timeline,{date:new Date().toISOString(),event:`Movido → ${KANBAN_COLUMNS.find(k=>k.id===newSt)?.label}`,user:"Thomas"}]};
-      if(newSt==="pagamento_confirmado"&&!c.paymentDate) { u.paymentDate=new Date().toISOString(); u.timeline.push({date:new Date().toISOString(),event:"Pagamento confirmado — SLA 48h",user:"Sistema"}); }
-      if(newSt==="trafego_ativo"&&!c.trafficActivationDate) { u.trafficActivationDate=new Date().toISOString(); u.timeline.push({date:new Date().toISOString(),event:"Tráfego ativado!",user:"Thomas"}); }
+
+      // ═══ DUAL APPROVAL BLOCK — can't move to Concluído unless both done ═══
+      if(c.status==="aprovacao_concluida" && newSt==="concluido" && (!c.trafficDone || !c.socialDone)) {
+        const missing = [];
+        if(!c.trafficDone) missing.push("Tráfego (campanhas)");
+        if(!c.socialDone) missing.push("Social Media (postagens)");
+        showToast(`⛔ ${c.company}: Não pode concluir — falta: ${missing.join(" e ")}`, "error");
+        return c; // Don't move
+      }
+
+      // ═══ CALCULATE TIME IN PREVIOUS STATUS ═══
+      const prevCol = KANBAN_COLUMNS.find(k=>k.id===c.status);
+      const newCol = KANBAN_COLUMNS.find(k=>k.id===newSt);
+      const prevLabel = prevCol?.label || c.status;
+      const newLabel = newCol?.label || newSt;
+      const lastMove = c.statusChangedAt || c.closedDate || new Date().toISOString();
+      const timeInStatus = Date.now() - new Date(lastMove).getTime();
+      const timeStr = formatDuration(timeInStatus);
+      const moverName = authUser?.name || "Thomas";
+
+      const u = {
+        ...c,
+        status: newSt,
+        statusChangedAt: new Date().toISOString(),
+        timeline:[...c.timeline,{
+          date: new Date().toISOString(),
+          event: `${prevLabel} → ${newLabel} — ${timeStr} — por ${moverName}`,
+          user: moverName,
+        }],
+      };
+
+      if(newSt==="pagamento_confirmado"&&!c.paymentDate) {
+        u.paymentDate=new Date().toISOString();
+        u.timeline.push({date:new Date().toISOString(),event:"Pagamento confirmado — SLA 48h",user:"Sistema"});
+      }
+      if(newSt==="trafego_ativo"&&!c.trafficActivationDate) {
+        u.trafficActivationDate=new Date().toISOString();
+        u.timeline.push({date:new Date().toISOString(),event:"Tráfego ativado!",user:moverName});
+      }
       if(newSt==="onboarding_concluido"&&!c.onboardingDate) u.onboardingDate=new Date().toISOString();
-      // ═══ ONBOARDING NOTIFICATION — notify all collaborators ═══
+
+      // ═══ NOTIFY ALL — toast + notification history ═══
+      const notifMsg = `🔄 ${c.company}: ${prevLabel} → ${newLabel} — ${timeStr} — por ${moverName}`;
+      setTimeout(() => {
+        // Save to notification history (bell icon)
+        setNotifications(prev => [{
+          id:`n${uid()}`,
+          type: newSt==="concluido" ? "success" : "kanban",
+          message: notifMsg,
+          time: new Date().toISOString(),
+          read: false,
+          clientId: c.id,
+        }, ...prev]);
+        // Show toast popup (top-right corner)
+        showToast(notifMsg, newSt==="concluido"?"success":"info");
+      }, 100);
+
+      // Extra notification for onboarding
       if(newSt==="onboarding_agendado"||newSt==="onboarding_concluido") {
-        const products = c.products || {};
         const prodList = c.service || "serviços contratados";
         const gcLabel = c.gcTeam ? GC_TEAMS[c.gcTeam]?.name : "";
-        const notifMsg = `🚀 ONBOARDING: ${c.company} entrou em ${KANBAN_COLUMNS.find(k=>k.id===newSt)?.label}! Produtos: ${prodList}${gcLabel ? ` | ${gcLabel}` : ""}`;
         setTimeout(() => {
-          setNotifications(prev => [
-            { id:`n${uid()}`, type:"alert", message:notifMsg, time:new Date().toISOString(), read:false, clientId:c.id },
-            ...prev
-          ]);
-        }, 100);
+          setNotifications(prev => [{
+            id:`n${uid()}`, type:"alert",
+            message:`🚀 ONBOARDING: ${c.company} → ${newLabel}! Produtos: ${prodList}${gcLabel ? ` | ${gcLabel}` : ""}`,
+            time:new Date().toISOString(), read:false, clientId:c.id
+          }, ...prev]);
+        }, 200);
       }
+
       return u;
     }));
   };
@@ -589,22 +853,23 @@ export default function AgenciaOS() {
     const hasCreative = !!nC.creativeOption;
     const hasStore = nC.storePlatforms.length > 0;
 
-    // Auto-assign sectors based on products
-    const gcUsers = SEED_USERS.filter(u => u.gc === nC.gcTeam);
-    const findByRole = (role) => gcUsers.find(u => u.role === role)?.id || SEED_USERS.find(u => u.role === role)?.id || null;
+    // Manual picks first, then auto-assign by GC as fallback
+    const gcUsers = SEED_USERS.filter(u => u.gc === nC.gcTeam || u.gc === "BOTH");
+    const findByRole = (role) => gcUsers.find(u => u.role === role)?.id || gcUsers.find(u => u.role === "head_traffic")?.id || SEED_USERS.find(u => u.role === role)?.id || null;
 
     const c = {
       id:`c${uid()}`, company:nC.company, contact:nC.contact, phone:nC.phone, email:nC.email,
       segment:nC.segment, service:serviceDesc, contractValue:Number(nC.contractValue)||0,
       closedDate:new Date().toISOString(), paymentDate:null, status:"venda_fechada",
       priority:nC.priority,
-      // Auto-assigned by sector
-      csId: findByRole("cs"),
-      trafficId: hasTraffic ? findByRole("traffic") : null,
-      socialId: hasSocial ? findByRole("social") : null,
-      designerId: hasCreative ? findByRole("designer") : null,
-      filmmakerId: hasCreative ? findByRole("filmmaker") : null,
-      commercialId: findByRole("commercial"),
+      // Manual pick > auto-assign
+      csId: nC.pickCs || findByRole("cs"),
+      trafficId: hasTraffic ? (nC.pickTraffic || findByRole("traffic")) : null,
+      socialId: hasSocial ? (nC.pickSocial || findByRole("social")) : null,
+      designerId: hasCreative ? (nC.pickDesigner || findByRole("designer")) : null,
+      filmmakerId: hasCreative ? (nC.pickFilmmaker || findByRole("filmmaker")) : null,
+      commercialId: nC.pickCommercial || findByRole("commercial"),
+      soldBy: nC.soldBy || null,
       // Products detail
       products: {
         trafficPlatforms: nC.trafficPlatforms,
@@ -617,7 +882,7 @@ export default function AgenciaOS() {
       notes:nC.notes,
       csChecklist:mkChecklist(CS_CK), onboardingChecklist:mkChecklist(OB_CK),
       trafficChecklist:mkChecklist(TR_CK), creationChecklist:mkChecklist(CR_CK),
-      timeline:[{date:new Date().toISOString(),event:`Venda fechada — ${serviceDesc} | ${GC_TEAMS[nC.gcTeam]?.name||""}`,user:"Thomas"}],
+      timeline:[{date:new Date().toISOString(),event:`Venda fechada — ${serviceDesc} | ${GC_TEAMS[nC.gcTeam]?.name||""}${nC.soldBy ? ` | Vendido por: ${getUser(nC.soldBy)?.name||""}` : ""}`,user:authUser?.name||"Thomas"}],
       meetings:[], reports:[],
     };
     setClients(p=>[c,...p]);
@@ -628,9 +893,65 @@ export default function AgenciaOS() {
       hasSocial ? "Social Media" : "",
       hasStore ? `Loja (${nC.storePlatforms.length})` : "",
     ].filter(Boolean).join(", ");
-    setNotifications(p=>[{id:`n${uid()}`,type:"info",message:`🆕 Nova venda: ${c.company} — R$${c.contractValue?.toLocaleString("pt-BR")} | ${prodSummary} | ${GC_TEAMS[nC.gcTeam]?.icon} ${GC_TEAMS[nC.gcTeam]?.name}`,time:new Date().toISOString(),read:false,clientId:c.id},...p]);
+    const sellerName = nC.soldBy ? getUser(nC.soldBy)?.name : null;
+    setNotifications(p=>[{id:`n${uid()}`,type:"info",message:`🆕 Nova venda: ${c.company} — R$${c.contractValue?.toLocaleString("pt-BR")} | ${prodSummary} | ${GC_TEAMS[nC.gcTeam]?.icon} ${GC_TEAMS[nC.gcTeam]?.name}${sellerName ? ` | Vendido por: ${sellerName}` : ""}`,time:new Date().toISOString(),read:false,clientId:c.id},...p]);
     setShowNewClient(false);
     setNC({...emptyNC});
+  };
+
+  // ═══ EDIT TEAM — swap collaborators on any client ═══
+  const openEditTeam = (cid) => {
+    const c = clients.find(x => x.id === cid);
+    if (!c) return;
+    setEditTeamData({ csId:c.csId||"", trafficId:c.trafficId||"", socialId:c.socialId||"", designerId:c.designerId||"", filmmakerId:c.filmmakerId||"", commercialId:c.commercialId||"" });
+    setShowEditTeam(true);
+  };
+  const saveEditTeam = () => {
+    if (!selectedClient) return;
+    setClients(p => p.map(c => {
+      if (c.id !== selectedClient) return c;
+      const changes = [];
+      if (editTeamData.csId !== (c.csId||"")) changes.push(`CS: ${getUser(editTeamData.csId)?.name||"removido"}`);
+      if (editTeamData.trafficId !== (c.trafficId||"")) changes.push(`Tráfego: ${getUser(editTeamData.trafficId)?.name||"removido"}`);
+      if (editTeamData.socialId !== (c.socialId||"")) changes.push(`Social: ${getUser(editTeamData.socialId)?.name||"removido"}`);
+      if (editTeamData.designerId !== (c.designerId||"")) changes.push(`Design: ${getUser(editTeamData.designerId)?.name||"removido"}`);
+      if (editTeamData.filmmakerId !== (c.filmmakerId||"")) changes.push(`Filmmaker: ${getUser(editTeamData.filmmakerId)?.name||"removido"}`);
+      if (editTeamData.commercialId !== (c.commercialId||"")) changes.push(`Comercial: ${getUser(editTeamData.commercialId)?.name||"removido"}`);
+      return {
+        ...c,
+        csId: editTeamData.csId || null,
+        trafficId: editTeamData.trafficId || null,
+        socialId: editTeamData.socialId || null,
+        designerId: editTeamData.designerId || null,
+        filmmakerId: editTeamData.filmmakerId || null,
+        commercialId: editTeamData.commercialId || null,
+        timeline: [...c.timeline, ...(changes.length ? [{ date:new Date().toISOString(), event:`Equipe alterada: ${changes.join(", ")}`, user:"Thomas" }] : [])],
+      };
+    }));
+    if (editTeamData.csId || editTeamData.trafficId || editTeamData.socialId || editTeamData.designerId || editTeamData.filmmakerId) {
+      const cl = clients.find(c => c.id === selectedClient);
+      setNotifications(prev => [{ id:`n${uid()}`, type:"info", message:`👥 Equipe atualizada: ${cl?.company}`, time:new Date().toISOString(), read:false, clientId:selectedClient }, ...prev]);
+    }
+    setShowEditTeam(false);
+  };
+
+  // Helper: build user options for role selector
+  const userOptionsForRole = (role) => {
+    const opts = [{value:"", label:"— Nenhum —"}];
+    SEED_USERS.filter(u => !role || u.role === role || u.role === "admin" || u.role === "director" || (role==="traffic" && u.role==="head_traffic")).forEach(u => {
+      const gc = GC_TEAMS[u.gc];
+      opts.push({ value: u.id, label: `${u.name}${gc ? ` (${gc.icon} ${gc.id})` : ""}` });
+    });
+    return opts;
+  };
+  const allUserOptions = () => {
+    const opts = [{value:"", label:"— Nenhum —"}];
+    SEED_USERS.forEach(u => {
+      const role = ROLES[u.role?.toUpperCase()];
+      const gc = GC_TEAMS[u.gc];
+      opts.push({ value: u.id, label: `${u.name} — ${role?.label||u.role}${gc ? ` (${gc.icon})` : ""}` });
+    });
+    return opts;
   };
 
   const createTask = () => {
@@ -653,6 +974,7 @@ export default function AgenciaOS() {
     {id:"kanban",icon:Kanban,label:"Kanban"},
     {id:"clients",icon:Building2,label:"Clientes"},
     {id:"tasks",icon:ListTodo,label:"Tarefas"},
+    {id:"gc",icon:Zap,label:"Grupos de Combate"},
     {id:"calendar",icon:CalendarDays,label:"Reuniões"},
     {id:"lince",icon:LineChart,label:"Lince"},
     {id:"reports",icon:BarChart3,label:"Relatórios"},
@@ -711,9 +1033,14 @@ export default function AgenciaOS() {
           <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
             <h3 style={{margin:0,fontSize:13,fontWeight:700,color:"#f1f5f9",display:"flex",alignItems:"center",gap:6}}>
               <CalendarDays size={14} color="#6366f1"/> Google Calendar
-              {calSynced&&<Bg color="#22c55e" small><Wifi size={10}/> Conectado</Bg>}
+              {calSynced&&<Bg color="#22c55e" small><Wifi size={10}/> Live</Bg>}
+              {!calSynced&&googleAccessToken&&<Bg color="#f59e0b" small><Loader2 size={10}/> Sync...</Bg>}
+              {!googleAccessToken&&<Bg color="#64748b" small>Offline</Bg>}
             </h3>
-            <Btn variant="ghost" small icon={CheckCircle2}>Conectado</Btn>
+            <div style={{display:"flex",gap:4,alignItems:"center"}}>
+              {calLastFetch&&<span style={{fontSize:9,color:"#475569"}}>Atualizado {new Date(calLastFetch).toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit",second:"2-digit"})}</span>}
+              {googleAccessToken&&<Btn variant="ghost" small onClick={()=>fetchGoogleCalendarEvents(googleAccessToken)} icon={RefreshCw}>Sync</Btn>}
+            </div>
           </div>
           {false && (
             <div style={{textAlign:"center",padding:20}}>
@@ -767,11 +1094,25 @@ export default function AgenciaOS() {
         {KANBAN_COLUMNS.map(col=>{
           const cc=filtered.filter(c=>c.status===col.id);
           return <div key={col.id} onDragOver={e=>e.preventDefault()} onDrop={()=>{if(draggedId){moveClient(draggedId,col.id);setDraggedId(null);}}}
-            style={{minWidth:260,width:260,background:"#0f172a",borderRadius:12,border:"1px solid #1e293b",display:"flex",flexDirection:"column",flexShrink:0,maxHeight:"100%"}}>
-            <div style={{padding:"10px 12px",borderBottom:"1px solid #1e293b",display:"flex",alignItems:"center",gap:6}}>
-              <span style={{fontSize:13}}>{col.icon}</span>
-              <span style={{fontSize:12,fontWeight:700,color:"#e2e8f0",flex:1}}>{col.label}</span>
-              <span style={{fontSize:10,fontWeight:700,color:col.color,background:`${col.color}20`,padding:"1px 7px",borderRadius:10}}>{cc.length}</span>
+            style={{minWidth:270,width:270,background:"#0f172a",borderRadius:12,border:"1px solid #1e293b",display:"flex",flexDirection:"column",flexShrink:0,maxHeight:"100%"}}>
+            <div style={{padding:"10px 12px",borderBottom:"1px solid #1e293b"}}>
+              <div style={{display:"flex",alignItems:"center",gap:6}}>
+                <span style={{fontSize:13}}>{col.icon}</span>
+                <span style={{fontSize:11,fontWeight:700,color:"#e2e8f0",flex:1}}>{col.label}</span>
+                <span style={{fontSize:10,fontWeight:700,color:col.color,background:`${col.color}20`,padding:"1px 7px",borderRadius:10}}>{cc.length}</span>
+              </div>
+              {col.responsibleLabel&&<div style={{fontSize:9,color:"#64748b",marginTop:3,display:"flex",alignItems:"center",gap:3}}>
+                <Users size={8}/> {col.responsibleLabel}
+              </div>}
+              {col.slaHours&&<div style={{fontSize:9,color:"#f59e0b",marginTop:2,display:"flex",alignItems:"center",gap:3}}>
+                <Clock size={8}/> SLA: {col.slaLabel}
+              </div>}
+              {col.slaNextDays&&<div style={{fontSize:9,color:"#3b82f6",marginTop:2,display:"flex",alignItems:"center",gap:3}}>
+                <Clock size={8}/> Meta: {col.slaNextLabel}
+              </div>}
+              {col.dualApproval&&<div style={{fontSize:9,color:"#eab308",marginTop:2,display:"flex",alignItems:"center",gap:3}}>
+                <AlertCircle size={8}/> Ambos devem concluir para avançar
+              </div>}
             </div>
             <div style={{flex:1,overflowY:"auto",padding:6,display:"flex",flexDirection:"column",gap:6}}>
               {cc.map(c=>{const sla=getSLA(c.paymentDate,c.trafficActivationDate);return(
@@ -779,12 +1120,30 @@ export default function AgenciaOS() {
                   style={{background:"#020617",border:`1px solid ${draggedId===c.id?col.color:"#1e293b"}`,borderRadius:10,padding:10,cursor:"grab",opacity:draggedId===c.id?.5:1}}>
                   <div style={{display:"flex",justifyContent:"space-between",marginBottom:6}}>
                     <div style={{fontSize:12,fontWeight:700,color:"#f1f5f9"}}>{c.company}</div>
-                    <Bg color={PRIORITIES[c.priority].color} small>{PRIORITIES[c.priority].label}</Bg>
+                    <Bg color={PRIORITIES[c.priority]?.color||"#64748b"} small>{PRIORITIES[c.priority]?.label||""}</Bg>
                   </div>
                   <div style={{fontSize:10,color:"#94a3b8",marginBottom:6}}>{c.contact} • {c.service}</div>
                   {sla&&sla.status!=="done"&&<div style={{marginBottom:6}}><SLABg sla={sla}/>{sla.pct!==undefined&&<div style={{marginTop:3}}><PB v={sla.pct} m={100} c={sla.color} h={3}/></div>}</div>}
+                  {/* DUAL APPROVAL STATUS for Aprovação Concluída */}
+                  {col.dualApproval&&<div style={{marginBottom:6,background:"#1e293b",borderRadius:8,padding:6}}>
+                    <div style={{fontSize:9,fontWeight:700,color:"#94a3b8",marginBottom:4}}>Checklist p/ Concluir:</div>
+                    <div onClick={e=>{e.stopPropagation();setClients(p=>p.map(x=>x.id!==c.id?x:{...x,trafficDone:!x.trafficDone}));}} style={{display:"flex",alignItems:"center",gap:4,cursor:"pointer",marginBottom:2}}>
+                      {c.trafficDone?<CheckCircle2 size={12} color="#22c55e"/>:<Circle size={12} color="#475569"/>}
+                      <span style={{fontSize:10,color:c.trafficDone?"#22c55e":"#94a3b8"}}>Tráfego: Campanhas subidas</span>
+                    </div>
+                    <div onClick={e=>{e.stopPropagation();setClients(p=>p.map(x=>x.id!==c.id?x:{...x,socialDone:!x.socialDone}));}} style={{display:"flex",alignItems:"center",gap:4,cursor:"pointer"}}>
+                      {c.socialDone?<CheckCircle2 size={12} color="#22c55e"/>:<Circle size={12} color="#475569"/>}
+                      <span style={{fontSize:10,color:c.socialDone?"#22c55e":"#94a3b8"}}>Social: Postagens agendadas</span>
+                    </div>
+                  </div>}
                   <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-                    <div style={{display:"flex",gap:2}}>{getUser(c.csId)&&<Av i={getUser(c.csId).avatar} c={ROLES.CS.color} s={20}/>}{getUser(c.trafficId)&&<Av i={getUser(c.trafficId).avatar} c={ROLES.TRAFFIC.color} s={20}/>}</div>
+                    <div style={{display:"flex",gap:2}}>
+                      {getUser(c.csId)&&<Av i={getUser(c.csId).avatar} c={ROLES.CS.color} s={20}/>}
+                      {getUser(c.trafficId)&&<Av i={getUser(c.trafficId).avatar} c={ROLES.TRAFFIC.color} s={20}/>}
+                      {getUser(c.socialId)&&<Av i={getUser(c.socialId).avatar} c={ROLES.SOCIAL.color} s={20}/>}
+                      {getUser(c.designerId)&&<Av i={getUser(c.designerId).avatar} c={ROLES.DESIGNER?.color||"#8b5cf6"} s={20}/>}
+                      <button onClick={e=>{e.stopPropagation();openEditTeam(c.id);setSelectedClient(c.id);}} style={{width:20,height:20,borderRadius:"50%",background:"#1e293b",border:"1px solid #334155",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",color:"#64748b",flexShrink:0}}><Edit3 size={9}/></button>
+                    </div>
                     <span style={{fontSize:10,color:"#64748b"}}>R${c.contractValue?.toLocaleString("pt-BR")}</span>
                   </div>
                 </div>
@@ -874,7 +1233,8 @@ export default function AgenciaOS() {
           <div><span style={{fontSize:10,color:"#64748b",textTransform:"uppercase"}}>Telefone</span><div style={{fontSize:12,color:"#e2e8f0",marginTop:2}}>{client.phone}</div></div>
         </div>
         <div style={{display:"flex",gap:8,marginTop:12,paddingTop:12,borderTop:"1px solid #1e293b",flexWrap:"wrap"}}>
-          {[{u:getUser(client.csId),r:"CS"},{u:getUser(client.trafficId),r:"Tráfego"},{u:getUser(client.socialId),r:"Social"},{u:getUser(client.designerId),r:"Design"},{u:getUser(client.filmmakerId),r:"Vídeo"}].map(({u,r})=>u&&<div key={r} style={{display:"flex",alignItems:"center",gap:4,background:"#020617",padding:"3px 8px 3px 3px",borderRadius:16}}><Av i={u.avatar} c={ROLES[u.role.toUpperCase()]?.color} s={18}/><span style={{fontSize:10,color:"#94a3b8"}}>{r}: <strong style={{color:"#e2e8f0"}}>{u.name.split(" ")[0]}</strong></span></div>)}
+          {[{u:getUser(client.csId),r:"CS"},{u:getUser(client.trafficId),r:"Tráfego"},{u:getUser(client.socialId),r:"Social"},{u:getUser(client.designerId),r:"Design"},{u:getUser(client.filmmakerId),r:"Vídeo"},{u:getUser(client.commercialId),r:"SDR"}].map(({u,r})=>u&&<div key={r+u.id} style={{display:"flex",alignItems:"center",gap:4,background:"#020617",padding:"3px 8px 3px 3px",borderRadius:16}}><Av i={u.avatar} c={ROLES[u.role.toUpperCase()]?.color||"#64748b"} s={18}/><span style={{fontSize:10,color:"#94a3b8"}}>{r}: <strong style={{color:"#e2e8f0"}}>{u.name.split(" ")[0]}</strong></span></div>)}
+          <button onClick={()=>openEditTeam(client.id)} style={{background:"#1e293b",border:"1px solid #334155",borderRadius:16,padding:"3px 10px",fontSize:10,color:"#94a3b8",cursor:"pointer",display:"flex",alignItems:"center",gap:3}}><Edit3 size={10}/> Editar</button>
         </div>
       </div>
 
@@ -1285,7 +1645,7 @@ export default function AgenciaOS() {
             ))}
           </div>
 
-          <Bg color="#22c55e" small><Wifi size={9}/> GCal Conectado</Bg>
+          <Bg color={calSynced?"#22c55e":"#f59e0b"} small><Wifi size={9}/> {calSynced?`Live — ${calEvents.length} eventos`:"Estático"}</Bg>
           <Btn onClick={()=>setShowNewMeeting(true)} icon={Plus} small>Novo Evento</Btn>
         </div>
 
@@ -1434,17 +1794,223 @@ export default function AgenciaOS() {
     </div>
   </div>;
 
+  // ═══ GRUPOS DE COMBATE PAGE ═══
+  const GCPage = () => {
+    const SALES_GOAL = 14000; // meta mensal por vendedor/closer
+    const sellers = SEED_USERS.filter(u => ["sdr","commercial","closer"].includes(u.role) && !u.pending);
+    
+    const gcData = Object.values(GC_TEAMS).map(gc => {
+      const members = SEED_USERS.filter(u => (u.gc === gc.id || u.gc === "BOTH") && !u.pending);
+      const gcClients = clients.filter(c => {
+        const assignedUsers = [c.csId, c.trafficId, c.socialId, c.designerId, c.filmmakerId, c.commercialId].filter(Boolean);
+        return assignedUsers.some(uid => members.find(m => m.id === uid)) || c.gcTeam === gc.id;
+      });
+      const activeClients = gcClients.filter(c => !c.churning && !c.encerrado);
+      const churned = gcClients.filter(c => c.churning);
+      const faturamento = activeClients.reduce((sum, c) => sum + (c.contractValue || 0), 0);
+      const churnValue = churned.reduce((sum, c) => sum + (c.contractValue || 0), 0);
+      const gcTasks = tasks.filter(t => members.find(m => m.id === t.assigneeId));
+      const overdue = gcTasks.filter(t => t.status !== "done" && t.dueDate && new Date(t.dueDate) < new Date());
+      const gcSellers = sellers.filter(s => s.gc === gc.id);
+      // Vendas do mês: clientes novos vendidos por SDRs deste GC
+      const sellerSales = gcSellers.map(s => {
+        const sold = clients.filter(c => c.soldBy === s.id && !c.churning && !c.encerrado);
+        const totalSold = sold.reduce((sum, c) => sum + (c.contractValue || 0), 0);
+        return { ...s, sold, totalSold, pct: Math.min((totalSold / SALES_GOAL) * 100, 100) };
+      });
+      const totalGCSales = sellerSales.reduce((sum, s) => sum + s.totalSold, 0);
+
+      return { gc, members, activeClients, churned, faturamento, churnValue, gcTasks, overdue, gcSellers: sellerSales, totalGCSales };
+    });
+
+    return <div style={{padding:20,maxWidth:1400,margin:"0 auto"}}>
+      <h1 style={{fontSize:20,fontWeight:800,color:"#f1f5f9",margin:"0 0 16px"}}>Grupos de Combate</h1>
+      
+      {/* GC COMPARISON CARDS */}
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16,marginBottom:20}}>
+        {gcData.map(({gc, members, activeClients, churned, faturamento, churnValue, gcTasks, overdue, gcSellers, totalGCSales}) => (
+          <div key={gc.id} style={{background:"#0f172a",border:`2px solid ${gc.color}40`,borderRadius:16,overflow:"hidden"}}>
+            {/* HEADER */}
+            <div style={{background:`linear-gradient(135deg,${gc.color}20,${gc.color}08)`,padding:"16px 20px",borderBottom:`1px solid ${gc.color}30`,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+              <div style={{display:"flex",alignItems:"center",gap:12}}>
+                <div style={{fontSize:32}}>{gc.icon}</div>
+                <div>
+                  <div style={{fontSize:18,fontWeight:800,color:"#f1f5f9"}}>{gc.name}</div>
+                  <div style={{fontSize:12,color:"#94a3b8"}}>{gc.id} • {members.length} membros</div>
+                </div>
+              </div>
+              <div style={{textAlign:"right"}}>
+                <div style={{fontSize:24,fontWeight:800,color:gc.color}}>R${faturamento.toLocaleString("pt-BR")}</div>
+                <div style={{fontSize:10,color:"#64748b"}}>Faturamento mensal ativo</div>
+              </div>
+            </div>
+
+            {/* METRICS */}
+            <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:8,padding:"14px 20px"}}>
+              <div style={{textAlign:"center",background:"#020617",borderRadius:10,padding:10}}>
+                <div style={{fontSize:22,fontWeight:800,color:"#22c55e"}}>{activeClients.length}</div>
+                <div style={{fontSize:9,color:"#64748b"}}>Clientes Ativos</div>
+              </div>
+              <div style={{textAlign:"center",background:"#020617",borderRadius:10,padding:10}}>
+                <div style={{fontSize:22,fontWeight:800,color:"#ef4444"}}>{churned.length}</div>
+                <div style={{fontSize:9,color:"#64748b"}}>Churn</div>
+              </div>
+              <div style={{textAlign:"center",background:"#020617",borderRadius:10,padding:10}}>
+                <div style={{fontSize:22,fontWeight:800,color:"#f59e0b"}}>{gcTasks.length}</div>
+                <div style={{fontSize:9,color:"#64748b"}}>Tarefas</div>
+              </div>
+              <div style={{textAlign:"center",background:"#020617",borderRadius:10,padding:10}}>
+                <div style={{fontSize:22,fontWeight:800,color:overdue.length>0?"#ef4444":"#22c55e"}}>{overdue.length}</div>
+                <div style={{fontSize:9,color:"#64748b"}}>Atrasadas</div>
+              </div>
+            </div>
+
+            {/* CHURN DETAIL */}
+            {churned.length>0&&<div style={{padding:"0 20px 12px"}}>
+              <div style={{background:"#ef444410",border:"1px solid #ef444420",borderRadius:10,padding:10}}>
+                <div style={{fontSize:10,fontWeight:700,color:"#ef4444",marginBottom:4}}>Churn: R${churnValue.toLocaleString("pt-BR")} perdidos</div>
+                <div style={{fontSize:10,color:"#fca5a5"}}>{churned.map(c=>c.company).join(", ")}</div>
+              </div>
+            </div>}
+
+            {/* VENDEDORES / SDRs */}
+            <div style={{padding:"0 20px 14px"}}>
+              <div style={{fontSize:11,fontWeight:700,color:"#94a3b8",textTransform:"uppercase",letterSpacing:".04em",marginBottom:8}}>Vendas — Closers + SDRs — Meta R${(SALES_GOAL/1000).toFixed(0)}k/mês cada</div>
+              {gcSellers.length===0&&<div style={{fontSize:11,color:"#475569",padding:8}}>Nenhum vendedor neste GC</div>}
+              {gcSellers.map(s => (
+                <div key={s.id} style={{display:"flex",alignItems:"center",gap:8,padding:"8px 0",borderBottom:"1px solid #1e293b20"}}>
+                  <Av i={s.avatar} c={ROLES[s.role?.toUpperCase()]?.color||"#14b8a6"} s={32}/>
+                  <div style={{flex:1,minWidth:0}}>
+                    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                      <span style={{fontSize:12,fontWeight:700,color:"#e2e8f0"}}>{s.name}</span>
+                      <span style={{fontSize:12,fontWeight:800,color:s.pct>=100?"#22c55e":s.pct>=70?"#f59e0b":"#ef4444"}}>
+                        R${s.totalSold.toLocaleString("pt-BR")}
+                      </span>
+                    </div>
+                    <div style={{display:"flex",alignItems:"center",gap:6,marginTop:4}}>
+                      <div style={{flex:1}}><PB v={s.totalSold} m={SALES_GOAL} c={s.pct>=100?"#22c55e":s.pct>=70?"#f59e0b":"#ef4444"} h={5}/></div>
+                      <span style={{fontSize:10,fontWeight:700,color:s.pct>=100?"#22c55e":"#94a3b8",whiteSpace:"nowrap"}}>{Math.round(s.pct)}%</span>
+                    </div>
+                    <div style={{fontSize:9,color:"#64748b",marginTop:2}}>{s.sold.length} venda{s.sold.length!==1?"s":""}{s.sold.length>0?`: ${s.sold.map(c=>c.company).join(", ")}`:""}</div>
+                  </div>
+                </div>
+              ))}
+              {gcSellers.length>0&&<div style={{marginTop:6,fontSize:11,fontWeight:700,color:gc.color,display:"flex",justifyContent:"space-between"}}>
+                <span>Total vendas {gc.id}:</span>
+                <span>R${totalGCSales.toLocaleString("pt-BR")}</span>
+              </div>}
+            </div>
+
+            {/* MEMBROS */}
+            <div style={{padding:"0 20px 16px"}}>
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
+                <div style={{fontSize:11,fontWeight:700,color:"#94a3b8",textTransform:"uppercase",letterSpacing:".04em"}}>Membros</div>
+                <button onClick={()=>setPage("team")} style={{background:"none",border:"none",color:"#6366f1",cursor:"pointer",fontSize:10,fontWeight:600}}>Editar equipe →</button>
+              </div>
+              {/* HEAD DE TRÁFEGO */}
+              {members.filter(m=>m.role==="head_traffic").map(m=>{const role=ROLES.HEAD_TRAFFIC;return(
+                <div key={m.id} style={{display:"flex",alignItems:"center",gap:8,background:`${role.color}10`,border:`1px solid ${role.color}30`,borderRadius:10,padding:"8px 10px",marginBottom:6}}>
+                  <Av i={m.avatar} c={role.color} s={28}/>
+                  <div style={{flex:1}}>
+                    <div style={{fontSize:12,fontWeight:800,color:"#f1f5f9"}}>{m.name}</div>
+                    <div style={{fontSize:9,color:role.color,fontWeight:700}}>⭐ {role.label}</div>
+                  </div>
+                </div>
+              );})}
+              {/* OUTROS MEMBROS */}
+              <div style={{display:"flex",flexWrap:"wrap",gap:6}}>
+                {members.filter(m=>m.role!=="head_traffic").map(m=>{const role=ROLES[m.role?.toUpperCase()];const isShared=m.gc==="BOTH";return(
+                  <div key={m.id} style={{display:"flex",alignItems:"center",gap:4,background:isShared?"#6366f108":"#020617",padding:"4px 8px 4px 4px",borderRadius:12,border:isShared?"1px solid #6366f120":"none"}}>
+                    <Av i={m.avatar} c={role?.color||"#64748b"} s={22}/>
+                    <div>
+                      <div style={{fontSize:10,fontWeight:600,color:"#e2e8f0"}}>{m.name}{isShared?" 🔗":""}</div>
+                      <div style={{fontSize:8,color:isShared?"#6366f1":"#64748b"}}>{role?.label||m.role}{isShared?" (ambos GCs)":""}</div>
+                    </div>
+                  </div>
+                );})}
+              </div>
+            </div>
+
+            {/* TOP CLIENTES */}
+            <div style={{padding:"0 20px 16px"}}>
+              <div style={{fontSize:11,fontWeight:700,color:"#94a3b8",textTransform:"uppercase",letterSpacing:".04em",marginBottom:6}}>Top 5 Clientes por Valor</div>
+              {activeClients.sort((a,b)=>(b.contractValue||0)-(a.contractValue||0)).slice(0,5).map(c=>(
+                <div key={c.id} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"4px 0",borderBottom:"1px solid #1e293b15"}}>
+                  <span style={{fontSize:11,color:"#e2e8f0",fontWeight:500}}>{c.company}</span>
+                  <span style={{fontSize:11,fontWeight:700,color:gc.color}}>R${(c.contractValue||0).toLocaleString("pt-BR")}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* COMPARATIVO GERAL */}
+      <div style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:16,padding:20}}>
+        <h3 style={{margin:"0 0 14px",fontSize:14,fontWeight:700,color:"#f1f5f9"}}>Comparativo Geral</h3>
+        <table style={{width:"100%",borderCollapse:"collapse",fontSize:12}}>
+          <thead><tr style={{borderBottom:"2px solid #1e293b"}}>
+            {["Métrica",...gcData.map(g=>g.gc.icon+" "+g.gc.name),"Total"].map(h=><th key={h} style={{padding:"8px 12px",textAlign:"left",color:"#64748b",fontWeight:700,fontSize:11}}>{h}</th>)}
+          </tr></thead>
+          <tbody>
+            {[
+              {label:"Clientes Ativos",vals:gcData.map(g=>g.activeClients.length),fmt:v=>v},
+              {label:"Faturamento Ativo",vals:gcData.map(g=>g.faturamento),fmt:v=>`R$${v.toLocaleString("pt-BR")}`},
+              {label:"Clientes Churn",vals:gcData.map(g=>g.churned.length),fmt:v=>v,warn:true},
+              {label:"Valor Churn",vals:gcData.map(g=>g.churnValue),fmt:v=>`R$${v.toLocaleString("pt-BR")}`,warn:true},
+              {label:"Tarefas Ativas",vals:gcData.map(g=>g.gcTasks.length),fmt:v=>v},
+              {label:"Tarefas Atrasadas",vals:gcData.map(g=>g.overdue.length),fmt:v=>v,warn:true},
+              {label:"Vendas (SDRs)",vals:gcData.map(g=>g.totalGCSales),fmt:v=>`R$${v.toLocaleString("pt-BR")}`},
+              {label:"Ticket Médio",vals:gcData.map(g=>g.activeClients.length?Math.round(g.faturamento/g.activeClients.length):0),fmt:v=>`R$${v.toLocaleString("pt-BR")}`},
+            ].map(row=>(
+              <tr key={row.label} style={{borderBottom:"1px solid #1e293b30"}}>
+                <td style={{padding:"8px 12px",fontWeight:600,color:"#e2e8f0"}}>{row.label}</td>
+                {row.vals.map((v,i)=><td key={i} style={{padding:"8px 12px",fontWeight:700,color:row.warn&&v>0?"#ef4444":gcData[i].gc.color}}>{row.fmt(v)}</td>)}
+                <td style={{padding:"8px 12px",fontWeight:800,color:"#f1f5f9"}}>{row.fmt(row.vals.reduce((a,b)=>a+b,0))}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>;
+  };
+
   const TeamPage = () => <div style={{padding:20,maxWidth:1200,margin:"0 auto"}}>
-    <h1 style={{fontSize:20,fontWeight:800,color:"#f1f5f9",margin:"0 0 16px"}}>Equipe</h1>
+    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:16}}>
+      <h1 style={{fontSize:20,fontWeight:800,color:"#f1f5f9",margin:0}}>Equipe ({SEED_USERS.filter(u=>!u.pending).length} ativos • {SEED_USERS.filter(u=>u.pending).length} vagas)</h1>
+      <Btn onClick={()=>setShowInviteModal(true)} icon={UserPlus} small>Convidar</Btn>
+    </div>
     <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))",gap:12}}>
-      {SEED_USERS.map(u=>{const role=ROLES[u.role.toUpperCase()];const uT=tasks.filter(t=>t.assigneeId===u.id);const uC=clients.filter(c=>[c.csId,c.trafficId,c.socialId,c.designerId,c.filmmakerId].includes(u.id));return(
-        <div key={u.id} style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,padding:16}}>
-          <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:12}}><Av i={u.avatar} c={role?.color} s={44}/><div><div style={{fontSize:15,fontWeight:700,color:"#f1f5f9"}}>{u.name}</div><Bg color={role?.color}>{role?.label}</Bg></div></div>
-          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8}}>
+      {SEED_USERS.map(u=>{const role=ROLES[u.role?.toUpperCase()];const gc=GC_TEAMS[u.gc];const uT=tasks.filter(t=>t.assigneeId===u.id);const uC=clients.filter(c=>[c.csId,c.trafficId,c.socialId,c.designerId,c.filmmakerId,c.commercialId].includes(u.id));const isPending=u.pending;return(
+        <div key={u.id} style={{background:"#0f172a",border:`1px solid ${isPending?"#f59e0b30":"#1e293b"}`,borderRadius:12,padding:16,opacity:isPending?.65:1}}>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:12}}>
+            <div style={{display:"flex",alignItems:"center",gap:12}}>
+              <Av i={u.avatar} c={role?.color||"#64748b"} s={44}/>
+              <div>
+                <div style={{fontSize:15,fontWeight:700,color:isPending?"#f59e0b":"#f1f5f9"}}>{u.name}{isPending?" ⏳":""}</div>
+                <div style={{display:"flex",gap:4,flexWrap:"wrap",marginTop:2}}>
+                  <Bg color={role?.color||"#64748b"} small>{role?.label||u.role}</Bg>
+                  {gc&&<Bg color={gc.color} small>{gc.icon}</Bg>}
+                </div>
+              </div>
+            </div>
+            <button onClick={()=>{
+              const authU = authorizedUsers.find(a => a.email === u.email) || {name:u.name,email:u.email,role:u.role,gc:u.gc,id:u.id};
+              setEditingUser(authU);
+              setShowEditUser(true);
+            }} style={{background:"#1e293b",border:"1px solid #334155",borderRadius:8,width:30,height:30,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",color:"#94a3b8",flexShrink:0}}>
+              <Edit3 size={13}/>
+            </button>
+          </div>
+          {!isPending&&<div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8}}>
             <div style={{textAlign:"center",padding:6,background:"#020617",borderRadius:8}}><div style={{fontSize:16,fontWeight:800,color:"#e2e8f0"}}>{uC.length}</div><div style={{fontSize:9,color:"#64748b"}}>Clientes</div></div>
             <div style={{textAlign:"center",padding:6,background:"#020617",borderRadius:8}}><div style={{fontSize:16,fontWeight:800,color:"#e2e8f0"}}>{uT.length}</div><div style={{fontSize:9,color:"#64748b"}}>Tarefas</div></div>
             <div style={{textAlign:"center",padding:6,background:"#020617",borderRadius:8}}><div style={{fontSize:16,fontWeight:800,color:uT.filter(t=>t.status!=="done"&&t.dueDate&&new Date(t.dueDate)<new Date()).length>0?"#ef4444":"#e2e8f0"}}>{uT.filter(t=>t.status!=="done"&&t.dueDate&&new Date(t.dueDate)<new Date()).length}</div><div style={{fontSize:9,color:"#64748b"}}>Atrasadas</div></div>
-          </div>
+          </div>}
+          {isPending&&<div style={{textAlign:"center",padding:12,background:"#f59e0b08",borderRadius:8,border:"1px dashed #f59e0b30"}}>
+            <div style={{fontSize:11,color:"#f59e0b",fontWeight:600}}>Vaga aberta</div>
+            <div style={{fontSize:10,color:"#64748b",marginTop:2}}>Clique em ✏️ para preencher nome, email e GC</div>
+          </div>}
         </div>
       );})}
     </div>
@@ -1465,14 +2031,17 @@ export default function AgenciaOS() {
             {["Usuário","Email","Função","GC","Status","Ações"].map(h=><th key={h} style={{padding:"8px 10px",textAlign:"left",color:"#64748b",fontWeight:600,fontSize:10,textTransform:"uppercase"}}>{h}</th>)}
           </tr></thead>
           <tbody>
-            {authorizedUsers.map(u=>{const role=ROLES[u.role?.toUpperCase()];const gc=GC_TEAMS[u.gc];return(
-              <tr key={u.email} style={{borderBottom:"1px solid #1e293b30"}}>
-                <td style={{padding:"8px 10px"}}><div style={{display:"flex",alignItems:"center",gap:8}}><Av i={u.avatar||"??"} c={role?.color||"#64748b"} s={28}/><span style={{fontWeight:600,color:"#e2e8f0"}}>{u.name}</span></div></td>
+            {authorizedUsers.map(u=>{const role=ROLES[u.role?.toUpperCase()];const gc=GC_TEAMS[u.gc];const isPending=u.name?.includes("(nov")||u.avatar==="??";return(
+              <tr key={u.email} style={{borderBottom:"1px solid #1e293b30",opacity:isPending?.6:1}}>
+                <td style={{padding:"8px 10px"}}><div style={{display:"flex",alignItems:"center",gap:8}}><Av i={u.avatar||"??"} c={role?.color||"#64748b"} s={28}/><span style={{fontWeight:600,color:isPending?"#f59e0b":"#e2e8f0"}}>{u.name}{isPending?" ⏳":""}</span></div></td>
                 <td style={{padding:"8px 10px",color:"#94a3b8"}}>{u.email}</td>
                 <td style={{padding:"8px 10px"}}><Bg color={role?.color||"#64748b"} small>{role?.label||u.role}</Bg></td>
                 <td style={{padding:"8px 10px"}}>{gc?<Bg color={gc.color} small>{gc.icon} {gc.name}</Bg>:<span style={{color:"#475569",fontSize:11}}>—</span>}</td>
-                <td style={{padding:"8px 10px"}}><Bg color={u.status==="active"?"#22c55e":"#f59e0b"} small>{u.status==="active"?"Ativo":"Convidado"}</Bg></td>
-                <td style={{padding:"8px 10px"}}>{u.email!=="thomas98macedo@gmail.com"&&<button onClick={()=>handleRemoveUser(u.email)} style={{background:"none",border:"none",color:"#ef4444",cursor:"pointer",fontSize:11,fontWeight:600}}>Remover</button>}</td>
+                <td style={{padding:"8px 10px"}}><Bg color={isPending?"#f59e0b":u.status==="active"?"#22c55e":"#3b82f6"} small>{isPending?"Vaga aberta":u.status==="active"?"Ativo":"Convidado"}</Bg></td>
+                <td style={{padding:"8px 10px"}}><div style={{display:"flex",gap:4}}>
+                  <button onClick={()=>{setEditingUser({...u});setShowEditUser(true);}} style={{background:"none",border:"none",color:"#6366f1",cursor:"pointer",fontSize:11,fontWeight:600}}>Editar</button>
+                  {u.email!=="thomas98macedo@gmail.com"&&u.email!=="cltmkt2@gmail.com"&&<button onClick={()=>handleRemoveUser(u.email)} style={{background:"none",border:"none",color:"#ef4444",cursor:"pointer",fontSize:11,fontWeight:600}}>Remover</button>}
+                </div></td>
               </tr>
             );})}
           </tbody>
@@ -1495,11 +2064,15 @@ export default function AgenciaOS() {
     </div>
 
     <div style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,padding:16,marginBottom:12}}>
-      <h3 style={{margin:"0 0 12px",fontSize:13,fontWeight:700,color:"#e2e8f0",display:"flex",alignItems:"center",gap:6}}><Wifi size={14} color="#22c55e"/> Google Calendar Integrado</h3>
-      <div style={{fontSize:12,color:"#94a3b8",marginBottom:8}}>Calendário conectado: <strong style={{color:"#e2e8f0"}}>thomas98macedo@gmail.com</strong></div>
+      <h3 style={{margin:"0 0 12px",fontSize:13,fontWeight:700,color:"#e2e8f0",display:"flex",alignItems:"center",gap:6}}><Wifi size={14} color={calSynced?"#22c55e":"#f59e0b"}/> Google Calendar {calSynced?"— Tempo Real":"— Estático"}</h3>
+      <div style={{fontSize:12,color:"#94a3b8",marginBottom:8}}>Calendário pessoal: <strong style={{color:"#e2e8f0"}}>thomas98macedo@gmail.com</strong></div>
       <div style={{fontSize:12,color:"#94a3b8",marginBottom:8}}>Calendário da agência: <strong style={{color:"#e2e8f0"}}>cltmkt2@gmail.com</strong></div>
-      <div style={{fontSize:12,color:"#94a3b8"}}>Timezone: <strong style={{color:"#e2e8f0"}}>America/Sao_Paulo</strong></div>
-      <div style={{marginTop:12}}><Btn icon={CheckCircle2} small variant="success">Conectado ✓</Btn></div>
+      <div style={{fontSize:12,color:"#94a3b8",marginBottom:4}}>Sync: <strong style={{color:calSynced?"#22c55e":"#f59e0b"}}>{calSynced?`Live — atualiza a cada 30s — ${calEvents.length} eventos carregados`:"Usando dados offline. Faça login com Google para sincronizar em tempo real."}</strong></div>
+      {calLastFetch&&<div style={{fontSize:11,color:"#64748b",marginBottom:8}}>Última busca: {new Date(calLastFetch).toLocaleString("pt-BR")}</div>}
+      <div style={{marginTop:12,display:"flex",gap:8}}>
+        {googleAccessToken?<Btn icon={CheckCircle2} small variant="success">Conectado ✓</Btn>:<Btn icon={Zap} small onClick={handleGoogleSignIn}>Conectar Google Calendar</Btn>}
+        {googleAccessToken&&<Btn icon={RefreshCw} small variant="secondary" onClick={()=>fetchGoogleCalendarEvents(googleAccessToken)}>Forçar Sync</Btn>}
+      </div>
     </div>
     <div style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,padding:16,marginBottom:12}}>
       <h3 style={{margin:"0 0 12px",fontSize:13,fontWeight:700,color:"#e2e8f0"}}>Armazenamento Persistente</h3>
@@ -1517,27 +2090,34 @@ export default function AgenciaOS() {
     </div>
   </div>;
 
+  const [linceFullscreen, setLinceFullscreen] = useState(false);
+  const linceRef = useRef(null);
+
   const LincePage = () => (
     <div style={{height:"calc(100vh - 56px)",display:"flex",flexDirection:"column"}}>
-      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"12px 20px",borderBottom:"1px solid #1e293b",background:"#0f172a",flexShrink:0}}>
-        <div style={{display:"flex",alignItems:"center",gap:10}}>
-          <div style={{width:32,height:32,borderRadius:8,background:"linear-gradient(135deg,#06b6d4,#3b82f6)",display:"flex",alignItems:"center",justifyContent:"center"}}><LineChart size={16} color="#fff"/></div>
+      {!linceFullscreen&&<div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"8px 16px",borderBottom:"1px solid #1e293b",background:"#0f172a",flexShrink:0}}>
+        <div style={{display:"flex",alignItems:"center",gap:8}}>
+          <div style={{width:28,height:28,borderRadius:8,background:"linear-gradient(135deg,#06b6d4,#3b82f6)",display:"flex",alignItems:"center",justifyContent:"center"}}><LineChart size={14} color="#fff"/></div>
           <div>
-            <h2 style={{margin:0,fontSize:16,fontWeight:800,color:"#f1f5f9"}}>Lince Dashboard</h2>
-            <span style={{fontSize:10,color:"#64748b"}}>Métricas de performance em tempo real</span>
+            <h2 style={{margin:0,fontSize:14,fontWeight:800,color:"#f1f5f9"}}>Lince Dashboard</h2>
+            <span style={{fontSize:9,color:"#64748b"}}>Métricas em tempo real • lince-dashboard.vercel.app</span>
           </div>
         </div>
-        <div style={{display:"flex",gap:6,alignItems:"center"}}>
+        <div style={{display:"flex",gap:4,alignItems:"center"}}>
           <Bg color="#06b6d4" small><Wifi size={9}/> Ao Vivo</Bg>
-          <a href="https://lince-dashboard.vercel.app/" target="_blank" rel="noopener noreferrer" style={{display:"inline-flex",alignItems:"center",gap:4,padding:"5px 10px",borderRadius:8,fontSize:11,fontWeight:600,color:"#94a3b8",background:"#1e293b",border:"1px solid #334155",textDecoration:"none",cursor:"pointer"}}><ExternalLink size={12}/> Abrir em nova aba</a>
+          <button onClick={()=>{if(linceRef.current)linceRef.current.src=linceRef.current.src;}} style={{background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"4px 8px",cursor:"pointer",color:"#94a3b8",display:"flex",alignItems:"center",gap:3,fontSize:10}}><RefreshCw size={10}/> Reload</button>
+          <button onClick={()=>setLinceFullscreen(true)} style={{background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"4px 8px",cursor:"pointer",color:"#94a3b8",display:"flex",alignItems:"center",gap:3,fontSize:10}}><Layers size={10}/> Fullscreen</button>
+          <a href="https://lince-dashboard.vercel.app/" target="_blank" rel="noopener noreferrer" style={{display:"inline-flex",alignItems:"center",gap:3,padding:"4px 8px",borderRadius:6,fontSize:10,fontWeight:600,color:"#94a3b8",background:"#1e293b",border:"1px solid #334155",textDecoration:"none",cursor:"pointer"}}><ExternalLink size={10}/> Nova aba</a>
         </div>
-      </div>
+      </div>}
+      {linceFullscreen&&<button onClick={()=>setLinceFullscreen(false)} style={{position:"fixed",top:8,right:8,zIndex:9999,background:"#0f172a",border:"1px solid #334155",borderRadius:8,padding:"6px 12px",cursor:"pointer",color:"#e2e8f0",display:"flex",alignItems:"center",gap:4,fontSize:11,fontWeight:600,boxShadow:"0 4px 16px rgba(0,0,0,.5)"}}><X size={12}/> Sair Fullscreen</button>}
       <div style={{flex:1,position:"relative",background:"#020617"}}>
         <iframe
+          ref={linceRef}
           src="https://lince-dashboard.vercel.app/"
-          style={{width:"100%",height:"100%",border:"none",borderRadius:0}}
+          style={{width:"100%",height:"100%",border:"none"}}
           title="Lince Dashboard"
-          allow="clipboard-read; clipboard-write"
+          allow="clipboard-read; clipboard-write; fullscreen"
         />
       </div>
     </div>
@@ -1553,6 +2133,7 @@ export default function AgenciaOS() {
       case "calendar": return <CalendarPage/>;
       case "lince": return <LincePage/>;
       case "reports": return <ReportsPage/>;
+      case "gc": return <GCPage/>;
       case "team": return <TeamPage/>;
       case "settings": return <SettingsPage/>;
       default: return <Dashboard/>;
@@ -1856,7 +2437,7 @@ export default function AgenciaOS() {
           {/* RESUMO */}
           {(nC.trafficPlatforms.length>0||nC.creativeOption||nC.socialOption==="social_2x"||nC.storePlatforms.length>0) && (
             <div style={{gridColumn:"1/-1",background:"linear-gradient(135deg,#6366f110,#8b5cf610)",border:"1px solid #6366f130",borderRadius:12,padding:14}}>
-              <div style={{fontSize:11,fontWeight:700,color:"#94a3b8",textTransform:"uppercase",letterSpacing:".06em",marginBottom:6}}>Resumo — Setores atribuídos automaticamente</div>
+              <div style={{fontSize:11,fontWeight:700,color:"#94a3b8",textTransform:"uppercase",letterSpacing:".06em",marginBottom:6}}>Resumo — Setores atribuídos</div>
               <div style={{fontSize:13,fontWeight:600,color:"#e2e8f0",marginBottom:6}}>{buildServiceDesc(nC)}</div>
               <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
                 <Bg color="#06b6d4" small>CS</Bg>
@@ -1868,6 +2449,29 @@ export default function AgenciaOS() {
               </div>
             </div>
           )}
+
+          {/* ═══ EQUIPE DO PROJETO — escolher colaboradores ═══ */}
+          <div style={{gridColumn:"1/-1",background:"#020617",border:"1px solid #1e293b",borderRadius:12,padding:14}}>
+            <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:10}}>
+              <Users size={16} color="#6366f1"/>
+              <span style={{fontSize:13,fontWeight:700,color:"#e2e8f0"}}>Equipe do Projeto</span>
+              <span style={{fontSize:10,color:"#64748b"}}>(deixe vazio para auto-assign pelo GC)</span>
+            </div>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8}}>
+              <div style={{gridColumn:"1/-1",marginBottom:4}}>
+                <Sel label="🏆 QUEM VENDEU (Comercial/SDR responsável pela venda)" value={nC.soldBy} onChange={v=>setNC({...nC,soldBy:v})} options={[{value:"",label:"— Selecione quem fechou a venda —"},...SEED_USERS.filter(u=>["sdr","commercial","admin","director"].includes(u.role)).map(u=>({value:u.id,label:`${u.name} — ${ROLES[u.role?.toUpperCase()]?.label||u.role}`})),...SEED_USERS.filter(u=>!["sdr","commercial","admin","director"].includes(u.role)).map(u=>({value:u.id,label:`${u.name} — ${ROLES[u.role?.toUpperCase()]?.label||u.role}`}))]}/>
+              </div>
+              <Sel label="CS (Customer Success)" value={nC.pickCs} onChange={v=>setNC({...nC,pickCs:v})} options={userOptionsForRole("cs")}/>
+              <Sel label="Gestor de Tráfego" value={nC.pickTraffic} onChange={v=>setNC({...nC,pickTraffic:v})} options={userOptionsForRole("traffic")}/>
+              <Sel label="Social Media" value={nC.pickSocial} onChange={v=>setNC({...nC,pickSocial:v})} options={userOptionsForRole("social")}/>
+              <Sel label="Designer" value={nC.pickDesigner} onChange={v=>setNC({...nC,pickDesigner:v})} options={userOptionsForRole("designer")}/>
+              <Sel label="Filmmaker" value={nC.pickFilmmaker} onChange={v=>setNC({...nC,pickFilmmaker:v})} options={userOptionsForRole("filmmaker")}/>
+              <Sel label="Comercial" value={nC.pickCommercial} onChange={v=>setNC({...nC,pickCommercial:v})} options={userOptionsForRole("commercial")}/>
+            </div>
+            <div style={{marginTop:8,fontSize:10,color:"#475569",display:"flex",alignItems:"center",gap:4}}>
+              <UserPlus size={10}/> Não encontrou o colaborador? Vá em <strong style={{color:"#6366f1",cursor:"pointer"}} onClick={()=>{setShowNewClient(false);setShowInviteModal(true);}}>Config → Convidar</strong> para adicionar por email.
+            </div>
+          </div>
 
           <div style={{gridColumn:"1/-1"}}><Inp label="Observações" value={nC.notes} onChange={v=>setNC({...nC,notes:v})} textarea placeholder="Notas sobre o cliente..."/></div>
         </div>
@@ -1913,6 +2517,98 @@ export default function AgenciaOS() {
           <Btn onClick={handleCreateMeeting} disabled={!nM.clientId||!nM.date||!nM.time||creatingEvent} icon={creatingEvent?Loader2:CalendarDays}>
             {creatingEvent?"Agendando...":"Agendar Reunião"}
           </Btn>
+        </div>
+      </Modal>
+
+      {/* EDIT USER MODAL */}
+      <Modal open={showEditUser&&editingUser} onClose={()=>{setShowEditUser(false);setEditingUser(null);}} title={`Editar Colaborador — ${editingUser?.name||""}`}>
+        {editingUser&&<>
+          <div style={{display:"flex",flexDirection:"column",gap:12}}>
+            <Inp label="Nome completo" value={editingUser.name} onChange={v=>setEditingUser({...editingUser,_origEmail:editingUser._origEmail||editingUser.email,name:v})} placeholder="Nome do colaborador"/>
+            <Inp label="Email" value={editingUser.email} onChange={v=>setEditingUser({...editingUser,_origEmail:editingUser._origEmail||editingUser.email,email:v})} type="email" placeholder="email@lince.com"/>
+            <Sel label="Função / Cargo" value={editingUser.role} onChange={v=>setEditingUser({...editingUser,role:v})} options={Object.entries(ROLES).map(([k,v])=>({value:v.id,label:v.label}))}/>
+            <div>
+              <label style={{fontSize:11,fontWeight:600,color:"#94a3b8",textTransform:"uppercase",letterSpacing:".04em",marginBottom:6,display:"block"}}>Grupo de Combate</label>
+              <div style={{display:"flex",gap:8}}>
+                <button onClick={()=>setEditingUser({...editingUser,gc:null})}
+                  style={{flex:1,padding:"10px",borderRadius:10,border:`2px solid ${!editingUser.gc?"#64748b":"#334155"}`,background:!editingUser.gc?"#64748b15":"#1e293b",cursor:"pointer",textAlign:"center"}}>
+                  <div style={{fontSize:11,fontWeight:700,color:!editingUser.gc?"#e2e8f0":"#64748b"}}>Nenhum</div>
+                </button>
+                {Object.values(GC_TEAMS).map(gc=>(
+                  <button key={gc.id} onClick={()=>setEditingUser({...editingUser,gc:gc.id})}
+                    style={{flex:1,padding:"10px",borderRadius:10,border:`2px solid ${editingUser.gc===gc.id?gc.color:"#334155"}`,background:editingUser.gc===gc.id?`${gc.color}15`:"#1e293b",cursor:"pointer",textAlign:"center"}}>
+                    <div style={{fontSize:16}}>{gc.icon}</div>
+                    <div style={{fontSize:11,fontWeight:700,color:editingUser.gc===gc.id?gc.color:"#94a3b8"}}>{gc.name}</div>
+                  </button>
+                ))}
+                <button onClick={()=>setEditingUser({...editingUser,gc:"BOTH"})}
+                  style={{flex:1,padding:"10px",borderRadius:10,border:`2px solid ${editingUser.gc==="BOTH"?"#6366f1":"#334155"}`,background:editingUser.gc==="BOTH"?"#6366f115":"#1e293b",cursor:"pointer",textAlign:"center"}}>
+                  <div style={{fontSize:16}}>🔗</div>
+                  <div style={{fontSize:11,fontWeight:700,color:editingUser.gc==="BOTH"?"#6366f1":"#94a3b8"}}>Ambos</div>
+                </button>
+              </div>
+            </div>
+          </div>
+          {/* Preview */}
+          <div style={{marginTop:14,background:"#020617",border:"1px solid #1e293b",borderRadius:10,padding:12,display:"flex",alignItems:"center",gap:10}}>
+            <Av i={editingUser.name?.split(" ").map(w=>w[0]).join("").toUpperCase().slice(0,2)||"??"} c={ROLES[editingUser.role?.toUpperCase()]?.color||"#64748b"} s={36}/>
+            <div>
+              <div style={{fontWeight:700,color:"#e2e8f0",fontSize:14}}>{editingUser.name||"—"}</div>
+              <div style={{display:"flex",gap:4,marginTop:2}}>
+                <Bg color={ROLES[editingUser.role?.toUpperCase()]?.color||"#64748b"} small>{ROLES[editingUser.role?.toUpperCase()]?.label||editingUser.role}</Bg>
+                {editingUser.gc&&editingUser.gc!=="BOTH"&&<Bg color={GC_TEAMS[editingUser.gc]?.color} small>{GC_TEAMS[editingUser.gc]?.icon} {GC_TEAMS[editingUser.gc]?.name}</Bg>}
+                {editingUser.gc==="BOTH"&&<Bg color="#6366f1" small>🔗 Ambos GCs</Bg>}
+              </div>
+            </div>
+          </div>
+          <div style={{display:"flex",justifyContent:"flex-end",gap:8,marginTop:16}}>
+            <Btn variant="secondary" onClick={()=>{setShowEditUser(false);setEditingUser(null);}}>Cancelar</Btn>
+            <Btn onClick={saveEditUser} disabled={!editingUser.name||!editingUser.email} icon={Check}>Salvar</Btn>
+          </div>
+        </>}
+      </Modal>
+
+      {/* EDIT TEAM MODAL */}
+      <Modal open={showEditTeam} onClose={()=>setShowEditTeam(false)} title={`Editar Equipe — ${client?.company||""}`} wide>
+        <div style={{background:"linear-gradient(135deg,#6366f110,#8b5cf610)",border:"1px solid #6366f130",borderRadius:10,padding:14,marginBottom:16,display:"flex",alignItems:"center",gap:10}}>
+          <Users size={20} color="#6366f1"/>
+          <div>
+            <div style={{fontSize:13,fontWeight:700,color:"#e2e8f0"}}>Gerenciar Colaboradores do Projeto</div>
+            <div style={{fontSize:11,color:"#94a3b8"}}>Escolha quem ficará responsável por cada setor deste cliente. As alterações ficam registradas na timeline.</div>
+          </div>
+        </div>
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
+          <div>
+            <Sel label="CS (Customer Success)" value={editTeamData.csId} onChange={v=>setEditTeamData({...editTeamData,csId:v})} options={allUserOptions()}/>
+            {editTeamData.csId && getUser(editTeamData.csId) && <div style={{marginTop:4,display:"flex",alignItems:"center",gap:4}}><Av i={getUser(editTeamData.csId).avatar} c={ROLES.CS.color} s={20}/><span style={{fontSize:11,color:"#e2e8f0"}}>{getUser(editTeamData.csId).name}</span></div>}
+          </div>
+          <div>
+            <Sel label="Gestor de Tráfego" value={editTeamData.trafficId} onChange={v=>setEditTeamData({...editTeamData,trafficId:v})} options={allUserOptions()}/>
+            {editTeamData.trafficId && getUser(editTeamData.trafficId) && <div style={{marginTop:4,display:"flex",alignItems:"center",gap:4}}><Av i={getUser(editTeamData.trafficId).avatar} c={ROLES.TRAFFIC.color} s={20}/><span style={{fontSize:11,color:"#e2e8f0"}}>{getUser(editTeamData.trafficId).name}</span></div>}
+          </div>
+          <div>
+            <Sel label="Social Media" value={editTeamData.socialId} onChange={v=>setEditTeamData({...editTeamData,socialId:v})} options={allUserOptions()}/>
+            {editTeamData.socialId && getUser(editTeamData.socialId) && <div style={{marginTop:4,display:"flex",alignItems:"center",gap:4}}><Av i={getUser(editTeamData.socialId).avatar} c={ROLES.SOCIAL.color} s={20}/><span style={{fontSize:11,color:"#e2e8f0"}}>{getUser(editTeamData.socialId).name}</span></div>}
+          </div>
+          <div>
+            <Sel label="Designer" value={editTeamData.designerId} onChange={v=>setEditTeamData({...editTeamData,designerId:v})} options={allUserOptions()}/>
+            {editTeamData.designerId && getUser(editTeamData.designerId) && <div style={{marginTop:4,display:"flex",alignItems:"center",gap:4}}><Av i={getUser(editTeamData.designerId).avatar} c={ROLES.DESIGNER.color} s={20}/><span style={{fontSize:11,color:"#e2e8f0"}}>{getUser(editTeamData.designerId).name}</span></div>}
+          </div>
+          <div>
+            <Sel label="Filmmaker" value={editTeamData.filmmakerId} onChange={v=>setEditTeamData({...editTeamData,filmmakerId:v})} options={allUserOptions()}/>
+            {editTeamData.filmmakerId && getUser(editTeamData.filmmakerId) && <div style={{marginTop:4,display:"flex",alignItems:"center",gap:4}}><Av i={getUser(editTeamData.filmmakerId).avatar} c={ROLES.FILMMAKER.color} s={20}/><span style={{fontSize:11,color:"#e2e8f0"}}>{getUser(editTeamData.filmmakerId).name}</span></div>}
+          </div>
+          <div>
+            <Sel label="Comercial" value={editTeamData.commercialId} onChange={v=>setEditTeamData({...editTeamData,commercialId:v})} options={allUserOptions()}/>
+            {editTeamData.commercialId && getUser(editTeamData.commercialId) && <div style={{marginTop:4,display:"flex",alignItems:"center",gap:4}}><Av i={getUser(editTeamData.commercialId).avatar} c={ROLES.COMMERCIAL.color} s={20}/><span style={{fontSize:11,color:"#e2e8f0"}}>{getUser(editTeamData.commercialId).name}</span></div>}
+          </div>
+        </div>
+        <div style={{marginTop:12,fontSize:10,color:"#475569",display:"flex",alignItems:"center",gap:4}}>
+          <UserPlus size={10}/> Precisa adicionar alguém novo? <strong style={{color:"#6366f1",cursor:"pointer"}} onClick={()=>{setShowEditTeam(false);setShowInviteModal(true);}}>Convidar colaborador</strong>
+        </div>
+        <div style={{display:"flex",justifyContent:"flex-end",gap:8,marginTop:16}}>
+          <Btn variant="secondary" onClick={()=>setShowEditTeam(false)}>Cancelar</Btn>
+          <Btn onClick={saveEditTeam} icon={Check}>Salvar Equipe</Btn>
         </div>
       </Modal>
 
@@ -1969,6 +2665,33 @@ export default function AgenciaOS() {
           <Btn onClick={()=>{setAuthError("");handleInvite();}} disabled={!inviteEmail||!inviteName} icon={SendIcon}>Enviar Convite</Btn>
         </div>
       </Modal>
+
+      {/* ═══ TOAST POPUP NOTIFICATIONS (top-right corner like macOS) ═══ */}
+      <div style={{position:"fixed",top:16,right:16,zIndex:9999,display:"flex",flexDirection:"column",gap:8,pointerEvents:"none",maxWidth:380}}>
+        {toasts.map((t,i) => (
+          <div key={t.id} style={{
+            background:t.type==="success"?"linear-gradient(135deg,#065f46,#064e3b)":"linear-gradient(135deg,#1e293b,#0f172a)",
+            border:`1px solid ${t.type==="success"?"#10b981":"#334155"}`,
+            borderRadius:14,padding:"14px 16px",
+            boxShadow:"0 8px 32px rgba(0,0,0,.5),0 2px 8px rgba(0,0,0,.3)",
+            backdropFilter:"blur(12px)",
+            pointerEvents:"auto",
+            animation:"slideInRight .3s ease-out",
+            display:"flex",alignItems:"flex-start",gap:10,
+          }}>
+            <div style={{width:32,height:32,borderRadius:8,background:t.type==="success"?"#10b98130":"#6366f130",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+              {t.type==="success"?<CheckCircle2 size={16} color="#10b981"/>:<Activity size={16} color="#6366f1"/>}
+            </div>
+            <div style={{flex:1,minWidth:0}}>
+              <div style={{fontSize:12,fontWeight:700,color:"#f1f5f9",marginBottom:2}}>Kanban Atualizado</div>
+              <div style={{fontSize:11,color:"#94a3b8",lineHeight:1.4}}>{t.message}</div>
+              <div style={{fontSize:9,color:"#475569",marginTop:4}}>{new Date(t.time).toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit",second:"2-digit"})}</div>
+            </div>
+            <button onClick={()=>setToasts(prev=>prev.filter(x=>x.id!==t.id))} style={{background:"none",border:"none",color:"#475569",cursor:"pointer",padding:2,flexShrink:0}}><X size={14}/></button>
+          </div>
+        ))}
+      </div>
+      <style>{`@keyframes slideInRight{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}`}</style>
     </div>
   );
 }

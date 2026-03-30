@@ -650,7 +650,7 @@ export default function AgenciaOS() {
   const [editTeamData, setEditTeamData] = useState({csId:"",trafficId:"",socialId:"",designerId:"",filmmakerId:"",commercialId:""});
   const [toasts, setToasts] = useState([]);
   const [telegramConfig, setTelegramConfig] = useState(() => {
-    try { return JSON.parse(localStorage.getItem("agos-telegram") || "null") || { botToken: "", chatId: "", enabled: false }; } catch(e) { return { botToken: "", chatId: "", enabled: false }; }
+    try { return JSON.parse(localStorage.getItem("agos-telegram") || "null") || { botToken: "8700103821:AAEDJX4N3Ov-JH0p8HxqEMNMgju_xmeVVIA", chatId: "-5220667203", enabled: true }; } catch(e) { return { botToken: "8700103821:AAEDJX4N3Ov-JH0p8HxqEMNMgju_xmeVVIA", chatId: "-5220667203", enabled: true }; }
   });
 
   // Toggle array helper for checkboxes
@@ -868,6 +868,78 @@ export default function AgenciaOS() {
             time:new Date().toISOString(), read:false, clientId:c.id
           }, ...prev]);
         }, 200);
+      }
+
+      // ═══ AUTO-CREATE TASKS — templates por status ═══
+      const autoTasks = [];
+      const DAY_MS = 86400000;
+      const nowISO = new Date().toISOString();
+
+      if (newSt === "alinhamento_visual") {
+        autoTasks.push(
+          { title: `Alinhamento Visual — ${c.company}`, sector: "creation_lead", assigneeId: c.designerId || SEED_USERS.find(u=>u.role==="creation_lead")?.id, priority: "high", dueDate: new Date(Date.now()+2*DAY_MS).toISOString() },
+          { title: `Referências visuais e paleta — ${c.company}`, sector: "designer", assigneeId: c.designerId, priority: "medium", dueDate: new Date(Date.now()+2*DAY_MS).toISOString() },
+        );
+      }
+      if (newSt === "setup_trafego") {
+        autoTasks.push(
+          { title: `Conectar BM/conta de anúncios — ${c.company}`, sector: "traffic", assigneeId: c.trafficId, priority: "urgent", dueDate: new Date(Date.now()+1*DAY_MS).toISOString() },
+          { title: `Configurar campanhas — ${c.company}`, sector: "traffic", assigneeId: c.trafficId, priority: "urgent", dueDate: new Date(Date.now()+1*DAY_MS).toISOString() },
+          { title: `Ativar tráfego (SLA 24h) — ${c.company}`, sector: "traffic", assigneeId: c.trafficId, priority: "urgent", dueDate: new Date(Date.now()+1*DAY_MS).toISOString() },
+        );
+      }
+      if (newSt === "trafego_ativo") {
+        autoTasks.push(
+          { title: `Weekly semanal — ${c.company}`, sector: "traffic", assigneeId: c.trafficId, priority: "medium", dueDate: new Date(Date.now()+7*DAY_MS).toISOString() },
+          { title: `Relatório mensal — ${c.company}`, sector: "traffic", assigneeId: c.trafficId, priority: "medium", dueDate: new Date(Date.now()+30*DAY_MS).toISOString() },
+        );
+      }
+      if (newSt === "producao_andamento") {
+        const creationLead = SEED_USERS.find(u=>u.role==="creation_lead");
+        autoTasks.push(
+          { title: `Criar peças criativas — ${c.company}`, sector: "designer", assigneeId: c.designerId, priority: "high", dueDate: new Date(Date.now()+5*DAY_MS).toISOString() },
+          { title: `Gravar/editar vídeos — ${c.company}`, sector: "filmmaker", assigneeId: c.filmmakerId, priority: "high", dueDate: new Date(Date.now()+5*DAY_MS).toISOString() },
+          { title: `Planejamento conteúdo social — ${c.company}`, sector: "social", assigneeId: c.socialId, priority: "medium", dueDate: new Date(Date.now()+3*DAY_MS).toISOString() },
+          { title: `Revisar entregáveis criação — ${c.company}`, sector: "creation_lead", assigneeId: creationLead?.id, priority: "high", dueDate: new Date(Date.now()+6*DAY_MS).toISOString() },
+        );
+      }
+      if (newSt === "aprovacao_concluida") {
+        autoTasks.push(
+          { title: `Subir campanhas aprovadas — ${c.company}`, sector: "traffic", assigneeId: c.trafficId, priority: "urgent", dueDate: new Date(Date.now()+1*DAY_MS).toISOString() },
+          { title: `Agendar postagens aprovadas — ${c.company}`, sector: "social", assigneeId: c.socialId, priority: "urgent", dueDate: new Date(Date.now()+1*DAY_MS).toISOString() },
+        );
+      }
+
+      if (autoTasks.length > 0) {
+        setTimeout(() => {
+          const newTasks = autoTasks.filter(at => at.assigneeId).map(at => ({
+            id: `t${uid()}`,
+            title: at.title,
+            clientId: c.id,
+            assigneeId: at.assigneeId,
+            sector: at.sector,
+            priority: at.priority,
+            status: "pending",
+            dueDate: at.dueDate,
+            subtasks: [],
+            autoCreated: true,
+          }));
+          setTasks(prev => [...prev, ...newTasks]);
+
+          // Notify each task via toast + telegram
+          const taskSummary = newTasks.map(t => {
+            const user = getUser(t.assigneeId);
+            return `• ${t.title} → ${user?.name||"?"} (prazo ${new Date(t.dueDate).toLocaleDateString("pt-BR")})`;
+          }).join("\n");
+          const telegramMsg = `📋 *Tarefas automáticas criadas*\n${c.company} → ${newLabel}\n\n${taskSummary}`;
+          sendTelegram(telegramMsg);
+          showToast(`📋 ${newTasks.length} tarefas criadas para ${c.company}`);
+          setNotifications(prev => [{
+            id:`n${uid()}`, type:"info",
+            message:`📋 ${newTasks.length} tarefas automáticas: ${c.company} → ${newLabel}`,
+            time: nowISO, read: false, clientId: c.id,
+          }, ...prev]);
+        }, 300);
       }
 
       return u;

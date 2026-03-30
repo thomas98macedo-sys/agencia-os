@@ -649,6 +649,9 @@ export default function AgenciaOS() {
   const [showEditTeam, setShowEditTeam] = useState(false);
   const [editTeamData, setEditTeamData] = useState({csId:"",trafficId:"",socialId:"",designerId:"",filmmakerId:"",commercialId:""});
   const [toasts, setToasts] = useState([]);
+  const [telegramConfig, setTelegramConfig] = useState(() => {
+    try { return JSON.parse(localStorage.getItem("agos-telegram") || "null") || { botToken: "", chatId: "", enabled: false }; } catch(e) { return { botToken: "", chatId: "", enabled: false }; }
+  });
 
   // Toggle array helper for checkboxes
   const toggleArr = (arr, val) => arr.includes(val) ? arr.filter(x=>x!==val) : [...arr, val];
@@ -751,9 +754,32 @@ export default function AgenciaOS() {
     setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 6000);
     // Browser notification
     if (typeof Notification !== "undefined" && Notification.permission === "granted") {
-      new Notification("AgênciaOS", { body: msg.replace(/[🔄✅🚀📋⏰👥🆕]/g, "").trim(), icon: "/icon.svg" });
+      new Notification("AgênciaOS", { body: msg.replace(/[🔄✅🚀📋⏰👥🆕⛔💣🚨]/g, "").trim(), icon: "/icon.svg" });
     }
   }, []);
+
+  // ═══ TELEGRAM BOT INTEGRATION ═══
+  const sendTelegram = useCallback(async (msg) => {
+    if (!telegramConfig.enabled || !telegramConfig.botToken || !telegramConfig.chatId) return;
+    try {
+      const text = msg.replace(/[<>]/g, "");
+      await fetch(`https://api.telegram.org/bot${telegramConfig.botToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: telegramConfig.chatId,
+          text: `📊 *AgênciaOS*\n\n${text}`,
+          parse_mode: "Markdown",
+          disable_web_page_preview: true,
+        }),
+      });
+    } catch (e) { console.warn("Telegram send failed:", e); }
+  }, [telegramConfig]);
+
+  // Save telegram config
+  useEffect(() => {
+    try { localStorage.setItem("agos-telegram", JSON.stringify(telegramConfig)); } catch(e) {}
+  }, [telegramConfig]);
 
   // ═══ TIME FORMATTING HELPER ═══
   const formatDuration = (ms) => {
@@ -827,6 +853,8 @@ export default function AgenciaOS() {
         }, ...prev]);
         // Show toast popup (top-right corner)
         showToast(notifMsg, newSt==="concluido"?"success":"info");
+        // Send to Telegram group
+        sendTelegram(notifMsg);
       }, 100);
 
       // Extra notification for onboarding
@@ -894,7 +922,10 @@ export default function AgenciaOS() {
       hasStore ? `Loja (${nC.storePlatforms.length})` : "",
     ].filter(Boolean).join(", ");
     const sellerName = nC.soldBy ? getUser(nC.soldBy)?.name : null;
-    setNotifications(p=>[{id:`n${uid()}`,type:"info",message:`🆕 Nova venda: ${c.company} — R$${c.contractValue?.toLocaleString("pt-BR")} | ${prodSummary} | ${GC_TEAMS[nC.gcTeam]?.icon} ${GC_TEAMS[nC.gcTeam]?.name}${sellerName ? ` | Vendido por: ${sellerName}` : ""}`,time:new Date().toISOString(),read:false,clientId:c.id},...p]);
+    const newClientMsg = `🆕 Nova venda: ${c.company} — R$${c.contractValue?.toLocaleString("pt-BR")} | ${prodSummary} | ${GC_TEAMS[nC.gcTeam]?.icon} ${GC_TEAMS[nC.gcTeam]?.name}${sellerName ? ` | Vendido por: ${sellerName}` : ""}`;
+    setNotifications(p=>[{id:`n${uid()}`,type:"info",message:newClientMsg,time:new Date().toISOString(),read:false,clientId:c.id},...p]);
+    sendTelegram(newClientMsg);
+    showToast(newClientMsg);
     setShowNewClient(false);
     setNC({...emptyNC});
   };
@@ -2159,6 +2190,54 @@ export default function AgenciaOS() {
         {googleAccessToken&&<Btn icon={RefreshCw} small variant="secondary" onClick={()=>fetchGoogleCalendarEvents(googleAccessToken)}>Forçar Sync</Btn>}
       </div>
     </div>
+
+    {/* TELEGRAM BOT */}
+    <div style={{background:"#0f172a",border:`1px solid ${telegramConfig.enabled?"#0ea5e930":"#1e293b"}`,borderRadius:12,padding:16,marginBottom:12}}>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
+        <h3 style={{margin:0,fontSize:13,fontWeight:700,color:"#e2e8f0",display:"flex",alignItems:"center",gap:6}}>
+          <SendIcon size={14} color="#0ea5e9"/> Telegram Bot — Notificações no Grupo
+        </h3>
+        <button onClick={()=>setTelegramConfig(p=>({...p,enabled:!p.enabled}))}
+          style={{background:telegramConfig.enabled?"#22c55e":"#334155",border:"none",borderRadius:12,width:44,height:24,cursor:"pointer",position:"relative",transition:"background .2s"}}>
+          <div style={{width:18,height:18,borderRadius:"50%",background:"#fff",position:"absolute",top:3,left:telegramConfig.enabled?23:3,transition:"left .2s"}}/>
+        </button>
+      </div>
+      {telegramConfig.enabled ? <>
+        <div style={{fontSize:11,color:"#94a3b8",marginBottom:12,lineHeight:1.6}}>
+          Toda movimentação do Kanban e nova venda será enviada automaticamente no grupo do Telegram.
+        </div>
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:12}}>
+          <div>
+            <label style={{fontSize:10,fontWeight:600,color:"#64748b",textTransform:"uppercase",display:"block",marginBottom:4}}>Bot Token</label>
+            <input type="text" value={telegramConfig.botToken} onChange={e=>setTelegramConfig(p=>({...p,botToken:e.target.value}))}
+              placeholder="123456:ABC-DEF..." style={{width:"100%",background:"#020617",border:"1px solid #334155",borderRadius:8,padding:"8px 10px",color:"#e2e8f0",fontSize:11,outline:"none",fontFamily:"monospace",boxSizing:"border-box"}}/>
+          </div>
+          <div>
+            <label style={{fontSize:10,fontWeight:600,color:"#64748b",textTransform:"uppercase",display:"block",marginBottom:4}}>Chat ID do Grupo</label>
+            <input type="text" value={telegramConfig.chatId} onChange={e=>setTelegramConfig(p=>({...p,chatId:e.target.value}))}
+              placeholder="-100123456789" style={{width:"100%",background:"#020617",border:"1px solid #334155",borderRadius:8,padding:"8px 10px",color:"#e2e8f0",fontSize:11,outline:"none",fontFamily:"monospace",boxSizing:"border-box"}}/>
+          </div>
+        </div>
+        <div style={{display:"flex",gap:8,marginBottom:12}}>
+          <Btn small variant="secondary" icon={SendIcon} onClick={()=>sendTelegram("✅ Teste de conexão — AgênciaOS está conectado!")}>Testar Envio</Btn>
+          {telegramConfig.botToken&&telegramConfig.chatId&&<Bg color="#22c55e" small>Configurado ✓</Bg>}
+        </div>
+        <div style={{background:"#020617",border:"1px solid #1e293b",borderRadius:10,padding:12}}>
+          <div style={{fontSize:11,fontWeight:700,color:"#f59e0b",marginBottom:6}}>📋 Como configurar (2 minutos):</div>
+          <div style={{fontSize:11,color:"#94a3b8",lineHeight:1.8}}>
+            <strong style={{color:"#e2e8f0"}}>1.</strong> Abra o Telegram → pesquise <strong style={{color:"#0ea5e9"}}>@BotFather</strong><br/>
+            <strong style={{color:"#e2e8f0"}}>2.</strong> Envie <strong style={{color:"#22c55e"}}>/newbot</strong> → dê um nome (ex: "Lince Bot") → dê um username (ex: "lince_agencia_bot")<br/>
+            <strong style={{color:"#e2e8f0"}}>3.</strong> O BotFather vai te dar um <strong style={{color:"#f59e0b"}}>Token</strong> — cole acima<br/>
+            <strong style={{color:"#e2e8f0"}}>4.</strong> Crie um <strong style={{color:"#e2e8f0"}}>grupo no Telegram</strong> com sua equipe → adicione o bot ao grupo<br/>
+            <strong style={{color:"#e2e8f0"}}>5.</strong> Envie qualquer mensagem no grupo, depois acesse:<br/>
+            <span style={{fontFamily:"monospace",fontSize:10,color:"#6366f1"}}>https://api.telegram.org/bot[TOKEN]/getUpdates</span><br/>
+            <strong style={{color:"#e2e8f0"}}>6.</strong> Procure o <strong style={{color:"#f59e0b"}}>chat.id</strong> (número negativo tipo -100...) — cole acima<br/>
+            <strong style={{color:"#e2e8f0"}}>7.</strong> Clique <strong style={{color:"#22c55e"}}>"Testar Envio"</strong> — se chegou no grupo, está pronto!
+          </div>
+        </div>
+      </> : <div style={{fontSize:11,color:"#64748b"}}>Ative para enviar notificações automáticas no Telegram da equipe.</div>}
+    </div>
+
     <div style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,padding:16,marginBottom:12}}>
       <h3 style={{margin:"0 0 12px",fontSize:13,fontWeight:700,color:"#e2e8f0"}}>Armazenamento Persistente</h3>
       <div style={{fontSize:12,color:"#94a3b8",marginBottom:8}}>Todos os dados são salvos automaticamente e persistem entre sessões.</div>

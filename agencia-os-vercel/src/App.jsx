@@ -715,25 +715,31 @@ export default function AgenciaOS() {
 
         sheetClients.forEach(sc => {
           // Find matching client by name similarity
-          const existing = updated_list.find(c => {
+          const existingIdx = updated_list.findIndex(c => {
             const cNorm = c.company.toLowerCase().replace(/[^a-záàâãéêíóôõúüç0-9\s]/gi,"").trim();
             return cNorm === sc.nameNorm || cNorm.includes(sc.nameNorm) || sc.nameNorm.includes(cNorm);
           });
 
-          if (existing) {
+          if (existingIdx >= 0) {
+            const existing = updated_list[existingIdx];
+            let changed = false;
+            let updatedClient = {...existing};
             // Update status if changed (e.g. client churned in sheet)
             if (sc.isChurning && !existing.churning) {
-              existing.churning = true;
-              existing.status = "concluido";
-              existing.notes = `${existing.notes} ⚠️ CHURNING (sync planilha)`.trim();
-              existing.timeline = [...existing.timeline, { date: new Date().toISOString(), event: "Cliente marcado como CHURNING (sync planilha)", user: "Planilha" }];
+              updatedClient = {...updatedClient, churning: true, status: "concluido",
+                notes: `${existing.notes} ⚠️ CHURNING (sync planilha)`.trim(),
+                timeline: [...existing.timeline, { date: new Date().toISOString(), event: "Cliente marcado como CHURNING (sync planilha)", user: "Planilha" }]
+              };
               churned++;
+              changed = true;
             }
             // Update value if different
             if (sc.value && sc.value !== existing.contractValue) {
-              existing.contractValue = sc.value;
+              updatedClient = {...updatedClient, contractValue: sc.value};
               updated++;
+              changed = true;
             }
+            if (changed) updated_list[existingIdx] = updatedClient;
           } else if (sc.isActive) {
             // New client from sheet — add to app
             const monthMap = {DEZEMBRO:11,JANEIRO:0,FEVEREIRO:1,"MARÇO":2,ABRIL:3,MAIO:4,JUNHO:5};
@@ -1404,7 +1410,7 @@ export default function AgenciaOS() {
         <h3 style={{margin:"0 0 10px",fontSize:13,fontWeight:700,color:"#f1f5f9"}}>Tarefas Urgentes</h3>
         {tasks.filter(t=>t.priority==="urgent"&&t.status!=="done").slice(0,5).map(t=>{const cl=clients.find(c=>c.id===t.clientId);const u=getUser(t.assigneeId);return(
           <div key={t.id} style={{display:"flex",alignItems:"center",gap:10,padding:"7px 0",borderBottom:"1px solid #1e293b30"}}>
-            <div style={{width:3,height:24,borderRadius:3,background:PRIORITIES[t.priority].color}}/>
+            <div style={{width:3,height:24,borderRadius:3,background:PRIORITIES[t.priority]?.color||"#64748b"}}/>
             <div style={{flex:1}}><div style={{fontSize:12,fontWeight:600,color:"#e2e8f0"}}>{t.title}</div><div style={{fontSize:10,color:"#64748b"}}>{cl?.company} • {u?.name}</div></div>
             <span style={{fontSize:10,color:new Date(t.dueDate)<new Date()?"#ef4444":"#64748b"}}>{fmt(t.dueDate)}</span>
           </div>
@@ -1549,7 +1555,7 @@ export default function AgenciaOS() {
                   <td style={{padding:"8px 12px"}}><Bg color={col?.color} small>{col?.icon} {col?.label}</Bg></td>
                   <td style={{padding:"8px 12px"}}>{cs&&<Av i={cs.avatar} c={ROLES.CS.color} s={22}/>}</td>
                   <td style={{padding:"8px 12px"}}><SLABg sla={sla}/></td>
-                  <td style={{padding:"8px 12px"}}><Bg color={PRIORITIES[c.priority].color} small>{PRIORITIES[c.priority].label}</Bg></td>
+                  <td style={{padding:"8px 12px"}}><Bg color={PRIORITIES[c.priority]?.color||"#64748b"} small>{PRIORITIES[c.priority]?.label||""}</Bg></td>
                 </tr>
               );})}
             </tbody>
@@ -1583,7 +1589,7 @@ export default function AgenciaOS() {
               <h2 style={{margin:0,fontSize:20,fontWeight:800,color:"#f1f5f9"}}>{client.company}</h2>
               <div style={{display:"flex",gap:6,marginTop:4,flexWrap:"wrap"}}>
                 <Bg color={col?.color}>{col?.icon} {col?.label}</Bg>
-                <Bg color={PRIORITIES[client.priority].color}><Flag size={9}/> {PRIORITIES[client.priority].label}</Bg>
+                <Bg color={PRIORITIES[client.priority]?.color||"#64748b"}><Flag size={9}/> {PRIORITIES[client.priority]?.label||""}</Bg>
                 <SLABg sla={sla}/>
               </div>
             </div>
@@ -1634,7 +1640,7 @@ export default function AgenciaOS() {
             <button onClick={()=>setTasks(p=>p.map(x=>x.id===t.id?{...x,status:x.status==="done"?"pending":"done"}:x))} style={{background:"none",border:"none",cursor:"pointer",padding:0}}>{t.status==="done"?<CheckCircle2 size={16} color="#22c55e"/>:<Circle size={16} color="#475569"/>}</button>
             <div style={{flex:1}}><div style={{fontSize:12,fontWeight:600,color:t.status==="done"?"#64748b":"#e2e8f0",textDecoration:t.status==="done"?"line-through":"none"}}>{t.title}</div></div>
             {u&&<Av i={u.avatar} c={ROLES[u.role.toUpperCase()]?.color} s={20}/>}
-            <Bg color={PRIORITIES[t.priority].color} small>{PRIORITIES[t.priority].label}</Bg>
+            <Bg color={PRIORITIES[t.priority]?.color||"#64748b"} small>{PRIORITIES[t.priority]?.label||""}</Bg>
           </div>;})}
         </div>
       </div>}

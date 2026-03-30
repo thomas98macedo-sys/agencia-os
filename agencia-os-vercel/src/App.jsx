@@ -1117,13 +1117,48 @@ export default function AgenciaOS() {
             <div style={{flex:1,overflowY:"auto",padding:6,display:"flex",flexDirection:"column",gap:6}}>
               {cc.map(c=>{const sla=getSLA(c.paymentDate,c.trafficActivationDate);return(
                 <div key={c.id} draggable onDragStart={()=>setDraggedId(c.id)} onDragEnd={()=>setDraggedId(null)} onClick={()=>openClient(c.id)}
-                  style={{background:"#020617",border:`1px solid ${draggedId===c.id?col.color:"#1e293b"}`,borderRadius:10,padding:10,cursor:"grab",opacity:draggedId===c.id?.5:1}}>
+                  style={{background:"#020617",border:`1px solid ${draggedId===c.id?col.color:"#1e293b"}`,borderRadius:10,padding:10,cursor:"grab",opacity:draggedId===c.id?.5:1,position:"relative"}}>
+                  {/* ═══ TIME BUBBLE — tempo na coluna (produção/aprovação) ═══ */}
+                  {(()=>{
+                    const trackCols = ["producao_andamento","buscando_aprovacao","aprovacao_concluida"];
+                    if (!trackCols.includes(col.id)) return null;
+                    const changedAt = c.statusChangedAt || c.closedDate;
+                    if (!changedAt) return null;
+                    const hoursInCol = (Date.now() - new Date(changedAt).getTime()) / 3600000;
+                    const daysInCol = hoursInCol / 24;
+                    const timeLabel = daysInCol >= 1 ? `${Math.floor(daysInCol)}d ${Math.floor(hoursInCol%24)}h` : `${Math.floor(hoursInCol)}h`;
+                    const isWarning = daysInCol >= 3 && daysInCol < 5;
+                    const isCritical = daysInCol >= 5;
+                    const bgColor = isCritical ? "#ef4444" : isWarning ? "#f59e0b" : "#334155";
+                    const icon = isCritical ? "💣" : isWarning ? "🚨" : "⏱️";
+                    return <div style={{position:"absolute",top:-8,right:-4,display:"flex",alignItems:"center",gap:2,background:bgColor,padding:"2px 7px",borderRadius:10,fontSize:10,fontWeight:700,color:"#fff",boxShadow:"0 2px 8px rgba(0,0,0,.4)",zIndex:2,animation:isCritical?"pulse 1s infinite":isWarning?"pulse 2s infinite":"none"}}>
+                      <span>{icon}</span> {timeLabel}
+                    </div>;
+                  })()}
                   <div style={{display:"flex",justifyContent:"space-between",marginBottom:6}}>
                     <div style={{fontSize:12,fontWeight:700,color:"#f1f5f9"}}>{c.company}</div>
                     <Bg color={PRIORITIES[c.priority]?.color||"#64748b"} small>{PRIORITIES[c.priority]?.label||""}</Bg>
                   </div>
                   <div style={{fontSize:10,color:"#94a3b8",marginBottom:6}}>{c.contact} • {c.service}</div>
                   {sla&&sla.status!=="done"&&<div style={{marginBottom:6}}><SLABg sla={sla}/>{sla.pct!==undefined&&<div style={{marginTop:3}}><PB v={sla.pct} m={100} c={sla.color} h={3}/></div>}</div>}
+                  {/* ═══ DRIVE LINK — link das artes para o gestor de tráfego ═══ */}
+                  {(col.id==="producao_andamento"||col.id==="buscando_aprovacao"||col.id==="aprovacao_concluida") && (
+                    <div style={{marginBottom:6,background:"#1e293b",borderRadius:8,padding:6}} onClick={e=>e.stopPropagation()}>
+                      <div style={{fontSize:9,fontWeight:700,color:"#94a3b8",marginBottom:3,display:"flex",alignItems:"center",gap:3}}>
+                        <ExternalLink size={9}/> Link do Drive (artes)
+                      </div>
+                      <div style={{display:"flex",gap:4}}>
+                        <input
+                          type="text"
+                          value={c.driveLink||""}
+                          onChange={e=>{const v=e.target.value;setClients(p=>p.map(x=>x.id!==c.id?x:{...x,driveLink:v}));}}
+                          placeholder="Cole o link do Google Drive..."
+                          style={{flex:1,background:"#020617",border:"1px solid #334155",borderRadius:6,padding:"4px 6px",color:"#e2e8f0",fontSize:10,outline:"none",fontFamily:"inherit",minWidth:0}}
+                        />
+                        {c.driveLink&&<a href={c.driveLink} target="_blank" rel="noopener noreferrer" onClick={e=>e.stopPropagation()} style={{background:"#3b82f620",border:"1px solid #3b82f640",borderRadius:6,padding:"4px 6px",color:"#3b82f6",fontSize:9,fontWeight:700,textDecoration:"none",display:"flex",alignItems:"center",gap:2,whiteSpace:"nowrap"}}><Download size={9}/> Abrir</a>}
+                      </div>
+                    </div>
+                  )}
                   {/* DUAL APPROVAL STATUS for Aprovação Concluída */}
                   {col.dualApproval&&<div style={{marginBottom:6,background:"#1e293b",borderRadius:8,padding:6}}>
                     <div style={{fontSize:9,fontWeight:700,color:"#94a3b8",marginBottom:4}}>Checklist p/ Concluir:</div>
@@ -1143,6 +1178,7 @@ export default function AgenciaOS() {
                       {getUser(c.socialId)&&<Av i={getUser(c.socialId).avatar} c={ROLES.SOCIAL.color} s={20}/>}
                       {getUser(c.designerId)&&<Av i={getUser(c.designerId).avatar} c={ROLES.DESIGNER?.color||"#8b5cf6"} s={20}/>}
                       <button onClick={e=>{e.stopPropagation();openEditTeam(c.id);setSelectedClient(c.id);}} style={{width:20,height:20,borderRadius:"50%",background:"#1e293b",border:"1px solid #334155",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",color:"#64748b",flexShrink:0}}><Edit3 size={9}/></button>
+                      {c.status!=="concluido"&&<button onClick={e=>{e.stopPropagation();if(confirm(`Mover "${c.company}" para Concluído?`)){moveClient(c.id,"concluido");}}} style={{width:20,height:20,borderRadius:"50%",background:"#05966920",border:"1px solid #05966940",display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",color:"#059669",flexShrink:0}} title="Concluir projeto"><CheckCircle2 size={9}/></button>}
                     </div>
                     <span style={{fontSize:10,color:"#64748b"}}>R${c.contractValue?.toLocaleString("pt-BR")}</span>
                   </div>
@@ -1219,6 +1255,7 @@ export default function AgenciaOS() {
           </div>
           <div style={{display:"flex",gap:6}}>
             <Btn onClick={()=>{setNM({...nM,clientId:client.id,title:`Reunião × ${client.company}`});setShowNewMeeting(true);}} icon={CalendarDays} small variant="secondary">Agendar no Google Cal</Btn>
+            {client.status!=="concluido"&&<Btn onClick={()=>{if(confirm(`Mover "${client.company}" para Concluído?`)){moveClient(client.id,"concluido");}}} icon={CheckCircle2} small variant="success">Concluir</Btn>}
             <select value={client.status} onChange={e=>moveClient(client.id,e.target.value)} style={{background:"#1e293b",border:"1px solid #334155",borderRadius:8,padding:"5px 8px",color:"#e2e8f0",fontSize:11,fontFamily:"inherit"}}>
               {KANBAN_COLUMNS.map(k=><option key={k.id} value={k.id}>{k.label}</option>)}
             </select>

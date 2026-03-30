@@ -1141,22 +1141,28 @@ export default function AgenciaOS() {
                   </div>
                   <div style={{fontSize:10,color:"#94a3b8",marginBottom:6}}>{c.contact} • {c.service}</div>
                   {sla&&sla.status!=="done"&&<div style={{marginBottom:6}}><SLABg sla={sla}/>{sla.pct!==undefined&&<div style={{marginTop:3}}><PB v={sla.pct} m={100} c={sla.color} h={3}/></div>}</div>}
-                  {/* ═══ DRIVE LINK — link das artes para o gestor de tráfego ═══ */}
+                  {/* ═══ DRIVE LINKS — 3 categorias no card ═══ */}
                   {(col.id==="producao_andamento"||col.id==="buscando_aprovacao"||col.id==="aprovacao_concluida") && (
                     <div style={{marginBottom:6,background:"#1e293b",borderRadius:8,padding:6}} onClick={e=>e.stopPropagation()}>
-                      <div style={{fontSize:9,fontWeight:700,color:"#94a3b8",marginBottom:3,display:"flex",alignItems:"center",gap:3}}>
-                        <ExternalLink size={9}/> Link do Drive (artes)
+                      <div style={{fontSize:9,fontWeight:700,color:"#94a3b8",marginBottom:4,display:"flex",alignItems:"center",gap:3}}>
+                        <ExternalLink size={9}/> Drive do Projeto
                       </div>
-                      <div style={{display:"flex",gap:4}}>
-                        <input
-                          type="text"
-                          value={c.driveLink||""}
-                          onChange={e=>{const v=e.target.value;setClients(p=>p.map(x=>x.id!==c.id?x:{...x,driveLink:v}));}}
-                          placeholder="Cole o link do Google Drive..."
-                          style={{flex:1,background:"#020617",border:"1px solid #334155",borderRadius:6,padding:"4px 6px",color:"#e2e8f0",fontSize:10,outline:"none",fontFamily:"inherit",minWidth:0}}
-                        />
-                        {c.driveLink&&<a href={c.driveLink} target="_blank" rel="noopener noreferrer" onClick={e=>e.stopPropagation()} style={{background:"#3b82f620",border:"1px solid #3b82f640",borderRadius:6,padding:"4px 6px",color:"#3b82f6",fontSize:9,fontWeight:700,textDecoration:"none",display:"flex",alignItems:"center",gap:2,whiteSpace:"nowrap"}}><Download size={9}/> Abrir</a>}
-                      </div>
+                      {[
+                        {key:"driveBrutos",label:"Brutos",color:"#f59e0b",icon:"📂"},
+                        {key:"driveAprovacao",label:"Em Aprovação",color:"#8b5cf6",icon:"📋"},
+                        {key:"driveAprovados",label:"Aprovados → Tráfego",color:"#22c55e",icon:"✅"},
+                      ].map(d=>(
+                        <div key={d.key} style={{display:"flex",alignItems:"center",gap:3,marginBottom:2}}>
+                          <span style={{fontSize:8}}>{d.icon}</span>
+                          {c[d.key] ? (
+                            <a href={c[d.key]} target="_blank" rel="noopener noreferrer" onClick={e=>e.stopPropagation()} style={{fontSize:9,color:d.color,fontWeight:600,textDecoration:"none",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{d.label} ↗</a>
+                          ) : (
+                            <input type="text" placeholder={`${d.label}...`} onFocus={e=>e.stopPropagation()}
+                              onChange={e=>{const v=e.target.value;setClients(p=>p.map(x=>x.id!==c.id?x:{...x,[d.key]:v}));}}
+                              style={{flex:1,background:"#020617",border:"1px solid #33415540",borderRadius:4,padding:"2px 4px",color:"#e2e8f0",fontSize:8,outline:"none",fontFamily:"inherit",minWidth:0}}/>
+                          )}
+                        </div>
+                      ))}
                     </div>
                   )}
                   {/* DUAL APPROVAL STATUS for Aprovação Concluída */}
@@ -1339,6 +1345,48 @@ export default function AgenciaOS() {
 
       {/* Creation */}
       {clientTab==="creation"&&<div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
+        {/* DRIVE LINKS — 3 categorias */}
+        <div style={{gridColumn:"1/-1",background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,padding:14}}>
+          <h4 style={{margin:"0 0 10px",fontSize:13,fontWeight:700,color:"#e2e8f0",display:"flex",alignItems:"center",gap:6}}>
+            <ExternalLink size={14} color="#3b82f6"/> Links do Google Drive
+          </h4>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10}}>
+            {/* Brutos */}
+            <div style={{background:"#020617",border:"1px solid #f59e0b30",borderRadius:10,padding:10}}>
+              <div style={{display:"flex",alignItems:"center",gap:4,marginBottom:6}}>
+                <div style={{width:8,height:8,borderRadius:"50%",background:"#f59e0b"}}/>
+                <span style={{fontSize:11,fontWeight:700,color:"#f59e0b"}}>Arquivos Brutos</span>
+              </div>
+              <div style={{fontSize:9,color:"#64748b",marginBottom:6}}>Para o time de criação editar</div>
+              <input type="text" value={client.driveBrutos||""} onChange={e=>setClients(p=>p.map(x=>x.id!==client.id?x:{...x,driveBrutos:e.target.value}))}
+                placeholder="Cole o link do Drive..." style={{width:"100%",background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"6px 8px",color:"#e2e8f0",fontSize:10,outline:"none",fontFamily:"inherit",boxSizing:"border-box"}}/>
+              {client.driveBrutos&&<a href={client.driveBrutos} target="_blank" rel="noopener noreferrer" style={{display:"flex",alignItems:"center",gap:4,marginTop:6,padding:"5px 8px",background:"#f59e0b15",border:"1px solid #f59e0b30",borderRadius:6,color:"#f59e0b",fontSize:10,fontWeight:600,textDecoration:"none"}}><ExternalLink size={10}/> Abrir pasta brutos</a>}
+            </div>
+            {/* Em aprovação */}
+            <div style={{background:"#020617",border:"1px solid #8b5cf630",borderRadius:10,padding:10}}>
+              <div style={{display:"flex",alignItems:"center",gap:4,marginBottom:6}}>
+                <div style={{width:8,height:8,borderRadius:"50%",background:"#8b5cf6"}}/>
+                <span style={{fontSize:11,fontWeight:700,color:"#8b5cf6"}}>Editados em Aprovação</span>
+              </div>
+              <div style={{fontSize:9,color:"#64748b",marginBottom:6}}>Aguardando aprovação do cliente</div>
+              <input type="text" value={client.driveAprovacao||""} onChange={e=>setClients(p=>p.map(x=>x.id!==client.id?x:{...x,driveAprovacao:e.target.value}))}
+                placeholder="Cole o link do Drive..." style={{width:"100%",background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"6px 8px",color:"#e2e8f0",fontSize:10,outline:"none",fontFamily:"inherit",boxSizing:"border-box"}}/>
+              {client.driveAprovacao&&<a href={client.driveAprovacao} target="_blank" rel="noopener noreferrer" style={{display:"flex",alignItems:"center",gap:4,marginTop:6,padding:"5px 8px",background:"#8b5cf615",border:"1px solid #8b5cf630",borderRadius:6,color:"#8b5cf6",fontSize:10,fontWeight:600,textDecoration:"none"}}><ExternalLink size={10}/> Abrir pasta aprovação</a>}
+            </div>
+            {/* Aprovados */}
+            <div style={{background:"#020617",border:"1px solid #22c55e30",borderRadius:10,padding:10}}>
+              <div style={{display:"flex",alignItems:"center",gap:4,marginBottom:6}}>
+                <div style={{width:8,height:8,borderRadius:"50%",background:"#22c55e"}}/>
+                <span style={{fontSize:11,fontWeight:700,color:"#22c55e"}}>Aprovados p/ Tráfego</span>
+              </div>
+              <div style={{fontSize:9,color:"#64748b",marginBottom:6}}>Gestor de tráfego baixar e subir</div>
+              <input type="text" value={client.driveAprovados||""} onChange={e=>setClients(p=>p.map(x=>x.id!==client.id?x:{...x,driveAprovados:e.target.value}))}
+                placeholder="Cole o link do Drive..." style={{width:"100%",background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"6px 8px",color:"#e2e8f0",fontSize:10,outline:"none",fontFamily:"inherit",boxSizing:"border-box"}}/>
+              {client.driveAprovados&&<a href={client.driveAprovados} target="_blank" rel="noopener noreferrer" style={{display:"flex",alignItems:"center",gap:4,marginTop:6,padding:"5px 8px",background:"#22c55e15",border:"1px solid #22c55e30",borderRadius:6,color:"#22c55e",fontSize:10,fontWeight:600,textDecoration:"none"}}><Download size={10}/> Abrir — baixar para campanhas</a>}
+            </div>
+          </div>
+        </div>
+
         <div style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,padding:14}}>
           <h4 style={{margin:"0 0 8px",fontSize:13,fontWeight:700,color:"#e2e8f0"}}>Checklist Criação</h4>
           <PB v={pr(client.creationChecklist)} m={client.creationChecklist.length} c="#8b5cf6"/>

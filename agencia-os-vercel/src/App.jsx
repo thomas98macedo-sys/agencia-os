@@ -666,6 +666,133 @@ export default function AgenciaOS() {
     return parts.join(" + ") || "A definir";
   };
 
+  // ═══ GOOGLE SHEETS SYNC — planilha em tempo real ═══
+  const SHEET_ID = "1PMZF4UMeW41GELJmlopr3ok14xO8_-21wBRqaD6yuIY";
+  const [sheetSyncStatus, setSheetSyncStatus] = useState("idle"); // idle | syncing | synced | error
+  const [lastSheetSync, setLastSheetSync] = useState(null);
+
+  const syncFromSheet = useCallback(async () => {
+    setSheetSyncStatus("syncing");
+    try {
+      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=BASE_2026`;
+      const resp = await fetch(url);
+      const text = await resp.text();
+      // gviz returns JSONP-like: google.visualization.Query.setResponse({...})
+      const jsonStr = text.match(/\{.*\}/s)?.[0];
+      if (!jsonStr) throw new Error("Formato inválido");
+      const data = JSON.parse(jsonStr);
+      const rows = data.table?.rows || [];
+      const cols = data.table?.cols || [];
+
+      // Parse rows (skip header row if present)
+      const sheetClients = [];
+      rows.forEach((row, idx) => {
+        const cells = row.c || [];
+        const name = cells[0]?.v?.toString().trim();
+        const service = cells[1]?.v?.toString().trim() || "";
+        const valueRaw = cells[2]?.v;
+        const value = typeof valueRaw === "number" ? valueRaw : parseFloat(String(valueRaw||"0").replace(/[R$\s.]/g,"").replace(",",".")) || 0;
+        const status = cells[3]?.v?.toString().trim().toUpperCase() || "";
+        const month = cells[4]?.v?.toString().trim().toUpperCase() || "";
+        const obs = cells[5]?.v?.toString().trim() || "";
+
+        if (!name || name === "CLIENTE") return; // skip header
+
+        const isChurning = status.includes("CHURN");
+        const isActive = status.includes("NOVO") || status.includes("ATIVO");
+
+        sheetClients.push({
+          sheetName: name,
+          nameNorm: name.toLowerCase().replace(/[^a-záàâãéêíóôõúüç0-9\s]/gi,"").trim(),
+          service, value, isChurning, isActive, month, obs,
+        });
+      });
+
+      // Compare with existing clients
+      let added = 0, updated = 0, churned = 0;
+      setClients(prev => {
+        let updated_list = [...prev];
+
+        sheetClients.forEach(sc => {
+          // Find matching client by name similarity
+          const existing = updated_list.find(c => {
+            const cNorm = c.company.toLowerCase().replace(/[^a-záàâãéêíóôõúüç0-9\s]/gi,"").trim();
+            return cNorm === sc.nameNorm || cNorm.includes(sc.nameNorm) || sc.nameNorm.includes(cNorm);
+          });
+
+          if (existing) {
+            // Update status if changed (e.g. client churned in sheet)
+            if (sc.isChurning && !existing.churning) {
+              existing.churning = true;
+              existing.status = "concluido";
+              existing.notes = `${existing.notes} ⚠️ CHURNING (sync planilha)`.trim();
+              existing.timeline = [...existing.timeline, { date: new Date().toISOString(), event: "Cliente marcado como CHURNING (sync planilha)", user: "Planilha" }];
+              churned++;
+            }
+            // Update value if different
+            if (sc.value && sc.value !== existing.contractValue) {
+              existing.contractValue = sc.value;
+              updated++;
+            }
+          } else if (sc.isActive) {
+            // New client from sheet — add to app
+            const monthMap = {DEZEMBRO:11,JANEIRO:0,FEVEREIRO:1,"MARÇO":2,ABRIL:3,MAIO:4,JUNHO:5};
+            const mIdx = monthMap[sc.month] ?? 2;
+            const num = updated_list.length;
+            const autoGC = num % 2 === 0 ? "GC1" : "GC2";
+            const newClient = {
+              id: `cs${uid()}`,
+              company: sc.sheetName,
+              contact: "", phone: "", email: "", segment: "",
+              service: sc.service,
+              contractValue: sc.value,
+              closedDate: new Date(2026, mIdx, 15).toISOString(),
+              paymentDate: null, status: "venda_fechada",
+              priority: sc.value >= 3000 ? "high" : "medium",
+              csId: "u2", trafficId: "u3", socialId: null, designerId: "u5", filmmakerId: null, commercialId: "u7", soldBy: null,
+              whatsappGroup: "", formStatus: "not_sent",
+              onboardingDate: null, trafficActivationDate: null,
+              notes: `${sc.obs} Importado da planilha | Mês: ${sc.month}`.trim(),
+              payDay: null, contractEnd: null,
+              churning: false, encerrado: false, gcTeam: autoGC,
+              csChecklist: mkChecklist(CS_CK), onboardingChecklist: mkChecklist(OB_CK),
+              trafficChecklist: mkChecklist(TR_CK), creationChecklist: mkChecklist(CR_CK),
+              timeline: [{ date: new Date().toISOString(), event: `Importado da planilha — ${sc.service} | R$${sc.value}`, user: "Planilha" }],
+              meetings: [], reports: [],
+              fromSheet: true,
+            };
+            updated_list.push(newClient);
+            added++;
+          }
+        });
+
+        return updated_list;
+      });
+
+      setSheetSyncStatus("synced");
+      setLastSheetSync(new Date().toISOString());
+      if (added > 0 || churned > 0) {
+        const msg = `📊 Sync Planilha: ${added} novos clientes, ${churned} churns detectados, ${updated} valores atualizados`;
+        showToast(msg);
+        sendTelegram(msg);
+        setNotifications(prev => [{ id: `n${uid()}`, type: "info", message: msg, time: new Date().toISOString(), read: false }, ...prev]);
+      } else {
+        showToast("✅ Planilha sincronizada — sem alterações");
+      }
+    } catch (e) {
+      console.error("Sheet sync error:", e);
+      setSheetSyncStatus("error");
+      showToast("❌ Erro ao sincronizar planilha: " + e.message);
+    }
+  }, [showToast, sendTelegram]);
+
+  // Auto-sync every 5 minutes
+  useEffect(() => {
+    syncFromSheet(); // sync on load
+    const interval = setInterval(syncFromSheet, 5 * 60 * 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   // Load persistent data
   useEffect(() => {
     (async () => {
@@ -780,6 +907,105 @@ export default function AgenciaOS() {
   useEffect(() => {
     try { localStorage.setItem("agos-telegram", JSON.stringify(telegramConfig)); } catch(e) {}
   }, [telegramConfig]);
+
+  // ═══ DAILY SUMMARY — resumo automático no Telegram ═══
+  const sendDailySummary = useCallback(() => {
+    if (!telegramConfig.enabled) return;
+    const today = new Date().toLocaleDateString("pt-BR", { weekday:"long", day:"2-digit", month:"2-digit", year:"numeric" });
+    const todayStart = new Date(); todayStart.setHours(0,0,0,0);
+
+    // Tarefas atribuídas hoje
+    const todayTasks = tasks.filter(t => t.autoCreated && new Date(t.dueDate||0) >= todayStart);
+    
+    // Tarefas por pessoa
+    const tasksByUser = {};
+    tasks.forEach(t => {
+      if (!t.assigneeId) return;
+      const u = getUser(t.assigneeId);
+      if (!u) return;
+      if (!tasksByUser[u.id]) tasksByUser[u.id] = { name: u.name, role: ROLES[u.role?.toUpperCase()]?.label||u.role, pending: 0, done: 0, overdue: 0, tasks: [] };
+      if (t.status === "done") tasksByUser[u.id].done++;
+      else {
+        tasksByUser[u.id].pending++;
+        if (t.dueDate && new Date(t.dueDate) < new Date()) tasksByUser[u.id].overdue++;
+      }
+      tasksByUser[u.id].tasks.push(t);
+    });
+
+    // Tarefas concluídas hoje
+    const completedToday = tasks.filter(t => t.status === "done");
+
+    // Tarefas atrasadas
+    const overdueTasks = tasks.filter(t => t.status !== "done" && t.dueDate && new Date(t.dueDate) < new Date());
+
+    // Montar mensagem
+    let msg = `📋 *RESUMO DO DIA*\n${today}\n\n`;
+
+    // Tarefas por pessoa
+    msg += `👥 *TAREFAS POR COLABORADOR:*\n`;
+    const sortedUsers = Object.values(tasksByUser).sort((a,b) => (b.pending+b.done) - (a.pending+a.done));
+    sortedUsers.forEach(u => {
+      const status = u.overdue > 0 ? "🔴" : u.pending > 0 ? "🟡" : "🟢";
+      msg += `${status} *${u.name}* (${u.role})\n`;
+      msg += `   📌 ${u.pending} pendentes | ✅ ${u.done} concluídas`;
+      if (u.overdue > 0) msg += ` | ⚠️ ${u.overdue} atrasadas`;
+      msg += `\n`;
+    });
+
+    // Concluídas
+    if (completedToday.length > 0) {
+      msg += `\n✅ *TAREFAS CONCLUÍDAS (${completedToday.length}):*\n`;
+      completedToday.slice(0, 15).forEach(t => {
+        const u = getUser(t.assigneeId);
+        const cl = clients.find(c => c.id === t.clientId);
+        msg += `• ${t.title}${cl ? ` (${cl.company})` : ""} — por ${u?.name||"?"}\n`;
+      });
+      if (completedToday.length > 15) msg += `... e mais ${completedToday.length - 15}\n`;
+    }
+
+    // Atrasadas
+    if (overdueTasks.length > 0) {
+      msg += `\n🚨 *TAREFAS ATRASADAS (${overdueTasks.length}):*\n`;
+      overdueTasks.slice(0, 15).forEach(t => {
+        const u = getUser(t.assigneeId);
+        const cl = clients.find(c => c.id === t.clientId);
+        const daysLate = Math.ceil((Date.now() - new Date(t.dueDate).getTime()) / 86400000);
+        msg += `• ${t.title}${cl ? ` (${cl.company})` : ""} — ${u?.name||"?"} — ${daysLate}d atrasada\n`;
+      });
+      if (overdueTasks.length > 15) msg += `... e mais ${overdueTasks.length - 15}\n`;
+    }
+
+    // Resumo geral
+    const totalActive = clients.filter(c => !c.churning && !c.encerrado && c.status !== "concluido").length;
+    msg += `\n📊 *RESUMO GERAL:*\n`;
+    msg += `• ${totalActive} clientes ativos\n`;
+    msg += `• ${tasks.filter(t=>t.status!=="done").length} tarefas pendentes\n`;
+    msg += `• ${overdueTasks.length} tarefas atrasadas\n`;
+    msg += `• ${completedToday.length} concluídas hoje\n`;
+    msg += `\n💪 _Bora Lince!_`;
+
+    sendTelegram(msg);
+    showToast("📋 Resumo diário enviado no Telegram");
+  }, [telegramConfig, tasks, clients, sendTelegram, showToast]);
+
+  // Timer automático — verifica a cada minuto se é hora de enviar
+  useEffect(() => {
+    if (!telegramConfig.enabled) return;
+    const summaryHour = telegramConfig.summaryHour || 18; // padrão 18h
+    const summaryMin = telegramConfig.summaryMin || 0;
+    const todayKey = new Date().toDateString();
+
+    const checkTime = () => {
+      const now = new Date();
+      const sentToday = localStorage.getItem("agos-summary-sent");
+      if (now.getHours() === summaryHour && now.getMinutes() === summaryMin && sentToday !== todayKey) {
+        localStorage.setItem("agos-summary-sent", todayKey);
+        sendDailySummary();
+      }
+    };
+    const interval = setInterval(checkTime, 60000); // check every minute
+    return () => clearInterval(interval);
+  }, [telegramConfig, sendDailySummary]);
 
   // ═══ TIME FORMATTING HELPER ═══
   const formatDuration = (ms) => {
@@ -1070,7 +1296,7 @@ export default function AgenciaOS() {
   const trafficOn = clients.filter(c=>c.trafficActivationDate);
   const overdueC = clients.filter(c=>{ const s=getSLA(c.paymentDate,c.trafficActivationDate); return s&&s.status==="critical"; });
   const overdueT = tasks.filter(t=>t.status!=="done"&&t.dueDate&&new Date(t.dueDate)<new Date());
-  const filtered = search ? clients.filter(c=>c.company.toLowerCase().includes(search.toLowerCase())||c.contact.toLowerCase().includes(search.toLowerCase())) : clients;
+  const filtered = search ? clients.filter(c=>!c.archived&&(c.company.toLowerCase().includes(search.toLowerCase())||c.contact.toLowerCase().includes(search.toLowerCase()))) : clients.filter(c=>!c.archived);
 
   const navItems = [
     {id:"dashboard",icon:LayoutDashboard,label:"Dashboard"},
@@ -1365,6 +1591,7 @@ export default function AgenciaOS() {
           <div style={{display:"flex",gap:6}}>
             <Btn onClick={()=>{setNM({...nM,clientId:client.id,title:`Reunião × ${client.company}`});setShowNewMeeting(true);}} icon={CalendarDays} small variant="secondary">Agendar no Google Cal</Btn>
             {client.status!=="concluido"&&<Btn onClick={()=>{if(confirm(`Mover "${client.company}" para Concluído?`)){moveClient(client.id,"concluido");}}} icon={CheckCircle2} small variant="success">Concluir</Btn>}
+            <Btn onClick={()=>{if(confirm(`Arquivar "${client.company}"? Você pode reativar depois em Config.`)){setClients(p=>p.map(c=>c.id!==client.id?c:{...c,archived:true,status:"concluido",timeline:[...c.timeline,{date:new Date().toISOString(),event:"Cliente arquivado",user:authUser?.name||"Thomas"}]}));setPage("kanban");showToast(`📦 ${client.company} arquivado`);}}} icon={Download} small variant="secondary">Arquivar</Btn>
             <select value={client.status} onChange={e=>moveClient(client.id,e.target.value)} style={{background:"#1e293b",border:"1px solid #334155",borderRadius:8,padding:"5px 8px",color:"#e2e8f0",fontSize:11,fontFamily:"inherit"}}>
               {KANBAN_COLUMNS.map(k=><option key={k.id} value={k.id}>{k.label}</option>)}
             </select>
@@ -2294,6 +2521,31 @@ export default function AgenciaOS() {
           <Btn small variant="secondary" icon={SendIcon} onClick={()=>sendTelegram("✅ Teste de conexão — AgênciaOS está conectado!")}>Testar Envio</Btn>
           {telegramConfig.botToken&&telegramConfig.chatId&&<Bg color="#22c55e" small>Configurado ✓</Bg>}
         </div>
+
+        {/* RESUMO DIÁRIO */}
+        <div style={{background:"#020617",border:"1px solid #1e293b",borderRadius:10,padding:12,marginBottom:12}}>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
+            <div style={{fontSize:11,fontWeight:700,color:"#e2e8f0",display:"flex",alignItems:"center",gap:4}}>
+              <Clock size={12} color="#f59e0b"/> Resumo Diário Automático
+            </div>
+            <Btn small icon={SendIcon} onClick={sendDailySummary}>Enviar Resumo Agora</Btn>
+          </div>
+          <div style={{fontSize:10,color:"#94a3b8",marginBottom:8}}>
+            Todo dia às {telegramConfig.summaryHour||18}:{String(telegramConfig.summaryMin||0).padStart(2,"0")}h o bot envia automaticamente no grupo: tarefas por pessoa, concluídas, atrasadas e resumo geral.
+          </div>
+          <div style={{display:"flex",gap:8,alignItems:"center"}}>
+            <label style={{fontSize:10,color:"#64748b"}}>Horário:</label>
+            <select value={telegramConfig.summaryHour||18} onChange={e=>setTelegramConfig(p=>({...p,summaryHour:parseInt(e.target.value)}))}
+              style={{background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"4px 8px",color:"#e2e8f0",fontSize:11,fontFamily:"inherit"}}>
+              {Array.from({length:24},(_,i)=>i).map(h=><option key={h} value={h}>{String(h).padStart(2,"0")}h</option>)}
+            </select>
+            <span style={{color:"#475569"}}>:</span>
+            <select value={telegramConfig.summaryMin||0} onChange={e=>setTelegramConfig(p=>({...p,summaryMin:parseInt(e.target.value)}))}
+              style={{background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"4px 8px",color:"#e2e8f0",fontSize:11,fontFamily:"inherit"}}>
+              {[0,15,30,45].map(m=><option key={m} value={m}>{String(m).padStart(2,"0")}</option>)}
+            </select>
+          </div>
+        </div>
         <div style={{background:"#020617",border:"1px solid #1e293b",borderRadius:10,padding:12}}>
           <div style={{fontSize:11,fontWeight:700,color:"#f59e0b",marginBottom:6}}>📋 Como configurar (2 minutos):</div>
           <div style={{fontSize:11,color:"#94a3b8",lineHeight:1.8}}>
@@ -2310,11 +2562,69 @@ export default function AgenciaOS() {
       </> : <div style={{fontSize:11,color:"#64748b"}}>Ative para enviar notificações automáticas no Telegram da equipe.</div>}
     </div>
 
+    {/* GOOGLE SHEETS SYNC */}
+    <div style={{background:"#0f172a",border:`1px solid ${sheetSyncStatus==="synced"?"#22c55e30":"#1e293b"}`,borderRadius:12,padding:16,marginBottom:12}}>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
+        <h3 style={{margin:0,fontSize:13,fontWeight:700,color:"#e2e8f0",display:"flex",alignItems:"center",gap:6}}>
+          <Layers size={14} color="#22c55e"/> Google Sheets — Planilha de Clientes
+        </h3>
+        <div style={{display:"flex",gap:4,alignItems:"center"}}>
+          {sheetSyncStatus==="synced"&&<Bg color="#22c55e" small>Sincronizado ✓</Bg>}
+          {sheetSyncStatus==="syncing"&&<Bg color="#f59e0b" small><Loader2 size={9}/> Sincronizando...</Bg>}
+          {sheetSyncStatus==="error"&&<Bg color="#ef4444" small>Erro</Bg>}
+        </div>
+      </div>
+      <div style={{fontSize:11,color:"#94a3b8",marginBottom:8}}>
+        Conectado à planilha <strong style={{color:"#e2e8f0"}}>"CONTROLE DE VENDAS / CHURNING"</strong> — sincroniza automaticamente a cada 5 minutos.
+      </div>
+      <div style={{fontSize:10,color:"#64748b",marginBottom:8}}>
+        Se um cliente novo aparecer na planilha → entra no app automaticamente.<br/>
+        Se um cliente mudar para CHURNING na planilha → atualiza no app.<br/>
+        Valores atualizados na planilha → refletem no app.
+      </div>
+      {lastSheetSync&&<div style={{fontSize:10,color:"#64748b",marginBottom:8}}>Última sync: {new Date(lastSheetSync).toLocaleString("pt-BR")}</div>}
+      <div style={{display:"flex",gap:8}}>
+        <Btn small icon={RefreshCw} onClick={syncFromSheet} disabled={sheetSyncStatus==="syncing"}>Sincronizar Agora</Btn>
+        <a href={`https://docs.google.com/spreadsheets/d/${SHEET_ID}/edit`} target="_blank" rel="noopener noreferrer" style={{display:"inline-flex",alignItems:"center",gap:4,padding:"5px 10px",borderRadius:8,fontSize:11,fontWeight:600,color:"#94a3b8",background:"#1e293b",border:"1px solid #334155",textDecoration:"none"}}><ExternalLink size={10}/> Abrir Planilha</a>
+      </div>
+    </div>
+
     <div style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,padding:16,marginBottom:12}}>
       <h3 style={{margin:"0 0 12px",fontSize:13,fontWeight:700,color:"#e2e8f0"}}>Armazenamento Persistente</h3>
       <div style={{fontSize:12,color:"#94a3b8",marginBottom:8}}>Todos os dados são salvos automaticamente e persistem entre sessões.</div>
       <Btn onClick={async()=>{try{localStorage.removeItem("agos-clients");localStorage.removeItem("agos-tasks");localStorage.removeItem("agos-notifs");setClients(DEFAULT_CLIENTS);setTasks(DEFAULT_TASKS);setNotifications([]);}catch(e){}}} variant="danger" small icon={RotateCcw}>Resetar Dados</Btn>
     </div>
+
+    {/* ARCHIVED CLIENTS */}
+    {clients.filter(c=>c.archived).length > 0 && (
+    <div style={{background:"#0f172a",border:"1px solid #f59e0b20",borderRadius:12,padding:16,marginBottom:12}}>
+      <h3 style={{margin:"0 0 12px",fontSize:13,fontWeight:700,color:"#e2e8f0",display:"flex",alignItems:"center",gap:6}}>
+        <Download size={14} color="#f59e0b"/> Clientes Arquivados ({clients.filter(c=>c.archived).length})
+      </h3>
+      <div style={{fontSize:11,color:"#94a3b8",marginBottom:10}}>Clientes que foram arquivados. Clique em "Reativar" para trazer de volta ao Kanban.</div>
+      <div style={{display:"flex",flexDirection:"column",gap:6}}>
+        {clients.filter(c=>c.archived).map(c => {
+          const col = KANBAN_COLUMNS.find(k=>k.id===c.status);
+          return <div key={c.id} style={{display:"flex",alignItems:"center",gap:10,padding:"10px 12px",background:"#020617",border:"1px solid #1e293b",borderRadius:10}}>
+            <Av i={c.company.slice(0,2).toUpperCase()} c="#64748b" s={32}/>
+            <div style={{flex:1,minWidth:0}}>
+              <div style={{fontSize:13,fontWeight:700,color:"#e2e8f0"}}>{c.company}</div>
+              <div style={{fontSize:10,color:"#64748b"}}>{c.service} • R${(c.contractValue||0).toLocaleString("pt-BR")} • {c.churning?"⚠️ Churning":"Arquivado"}</div>
+            </div>
+            <div style={{display:"flex",gap:4}}>
+              <Btn small icon={RefreshCw} onClick={()=>{
+                setClients(p=>p.map(x=>x.id!==c.id?x:{...x,archived:false,status:"venda_fechada",churning:false,timeline:[...x.timeline,{date:new Date().toISOString(),event:"Cliente reativado (removido do arquivo)",user:authUser?.name||"Thomas"}]}));
+                showToast(`🔄 ${c.company} reativado — voltou para Venda Fechada no Kanban`);
+                sendTelegram(`🔄 Cliente reativado: ${c.company} — R$${(c.contractValue||0).toLocaleString("pt-BR")}`);
+              }}>Reativar</Btn>
+              <Btn small variant="secondary" onClick={()=>openClient(c.id)}>Ver</Btn>
+            </div>
+          </div>;
+        })}
+      </div>
+    </div>
+    )}
+
     <div style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,padding:16}}>
       <h3 style={{margin:"0 0 12px",fontSize:13,fontWeight:700,color:"#e2e8f0"}}>SLA e Automações</h3>
       {[{t:"SLA Tráfego Pago",d:"48 horas após pagamento",v:"48h"},{t:"Auto-criar tarefas",d:"Ao confirmar pagamento",v:"Ativo"},{t:"Reuniões recorrentes",d:"Semanal após ativação",v:"Ativo"},{t:"Alertas de atraso",d:"Responsável + gestor",v:"Ativo"}].map(x=>
@@ -2546,6 +2856,7 @@ export default function AgenciaOS() {
           </div>
           <div style={{display:"flex",alignItems:"center",gap:6}}>
             {calSynced&&<Bg color="#22c55e" small><Wifi size={9}/> GCal Live</Bg>}
+            {sheetSyncStatus==="synced"&&<Bg color="#3b82f6" small><Layers size={9}/> Planilha</Bg>}
             <Btn onClick={()=>setShowNewClient(true)} icon={Plus} small>Cliente</Btn>
             <Btn onClick={()=>setShowNewMeeting(true)} icon={CalendarDays} small variant="secondary">Reunião</Btn>
           </div>

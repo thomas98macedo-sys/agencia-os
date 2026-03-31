@@ -107,11 +107,10 @@ const SEED_USERS = [
   { id: "u13", name: "Mateus Bueno", email: "bueno@lince.com", role: "sdr", avatar: "MB", gc: "GC2" },
   { id: "u12", name: "Mateus Paixão", email: "paixao@lince.com", role: "store_creator", avatar: "MP", gc: "GC2" },
   // ═══ VAGAS ABERTAS — preencher quando entrarem ═══
-  { id: "u20", name: "Designer (novo)", email: "designer2@lince.com", role: "designer", avatar: "??", gc: null, pending: true },
-  { id: "u21", name: "Social Media (nova 1)", email: "social1@lince.com", role: "social", avatar: "??", gc: null, pending: true },
-  { id: "u22", name: "Social Media (nova 2)", email: "social2@lince.com", role: "social", avatar: "??", gc: null, pending: true },
-  { id: "u23", name: "Social Media (nova 3)", email: "social3@lince.com", role: "social", avatar: "??", gc: null, pending: true },
-  { id: "u24", name: "Social Media (nova 4)", email: "social4@lince.com", role: "social", avatar: "??", gc: null, pending: true },
+  { id: "u20", name: "Renan", email: "renan@lince.com", role: "designer", avatar: "RE", gc: "GC2" },
+  { id: "u21", name: "Allana", email: "allana@lince.com", role: "social", avatar: "AL", gc: "GC1" },
+  { id: "u22", name: "Beatriz", email: "beatriz@lince.com", role: "social", avatar: "BE", gc: "GC1" },
+  { id: "u23", name: "Isabelle", email: "isabelle@lince.com", role: "social", avatar: "IS", gc: "GC2" },
 ];
 
 const mkChecklist = (items) => items.map((text, i) => ({ id: `ck${i}`, text, done: false }));
@@ -119,6 +118,7 @@ const CS_CK = ["Contato criado","Cobrança gerada","Cobrança enviada","Pagament
 const OB_CK = ["Chamada agendada","Time apresentado","Pré-estratégia apresentada","Objetivos documentados","Referências visuais","Dores registradas","Diferenciais registrados","Ofertas prioritárias","Metas documentadas"];
 const TR_CK = ["Acesso conta anúncios","Acesso página/Instagram","Pagamento validado","Ativos conectados","Estratégia definida","Campanha criada","Campanha publicada","Tráfego ativo"];
 const CR_CK = ["Referências visuais","Estilo comunicação","Paleta analisada","Concorrentes analisados","Tipos criativos","Entregáveis mapeados","Calendário planejado"];
+const SM_BRIEFING = ["Identidade visual definida","Paleta de cores coletada","Tom de voz definido","Público-alvo mapeado","Referências de conteúdo (3+)","Concorrentes analisados (feed)","Bio e destaques revisados","Calendário editorial do mês","Pautas da semana 1 criadas","Formatos definidos (carrossel/reels/stories)","Hashtags pesquisadas","Horários de postagem definidos"];
 
 const now = Date.now();
 const DAY = 86400000;
@@ -159,6 +159,7 @@ const mkClient = (id,company,service,value,status,priority,payDay,payStatus,cont
     onboardingChecklist: mkChecklist(OB_CK).map(i=>({...i,done:!!paid})),
     trafficChecklist: mkChecklist(TR_CK).map(i=>({...i,done:!!paid && !isChurning})),
     creationChecklist: mkChecklist(CR_CK).map((i,idx)=>({...i,done:!!paid && idx<4})),
+    socialBriefing: mkChecklist(SM_BRIEFING),
     timeline: [
       {date:entryDate.toISOString(), event:"Venda fechada", user:"Comercial"},
       ...(paid ? [{date:new Date(entryDate.getTime()+2*DAY).toISOString(), event:"Pagamento confirmado", user:"Sistema"}] : []),
@@ -525,6 +526,10 @@ function AgenciaOSApp() {
     { email: "fabio@lince.com", name: "Fábio", role: "sdr", avatar: "FA", gc: "GC2", status: "invited", invitedAt: new Date().toISOString() },
     { email: "bueno@lince.com", name: "Mateus Bueno", role: "sdr", avatar: "MB", gc: "GC2", status: "invited", invitedAt: new Date().toISOString() },
     { email: "paixao@lince.com", name: "Mateus Paixão", role: "store_creator", avatar: "MP", gc: "GC2", status: "invited", invitedAt: new Date().toISOString() },
+    { email: "allana@lince.com", name: "Allana", role: "social", avatar: "AL", gc: "GC1", status: "invited", invitedAt: new Date().toISOString() },
+    { email: "beatriz@lince.com", name: "Beatriz", role: "social", avatar: "BE", gc: "GC1", status: "invited", invitedAt: new Date().toISOString() },
+    { email: "isabelle@lince.com", name: "Isabelle", role: "social", avatar: "IS", gc: "GC2", status: "invited", invitedAt: new Date().toISOString() },
+    { email: "renan@lince.com", name: "Renan", role: "designer", avatar: "RE", gc: "GC2", status: "invited", invitedAt: new Date().toISOString() },
   ]);
   const [showInviteModal, setShowInviteModal] = useState(false);
   const [showEditUser, setShowEditUser] = useState(false);
@@ -811,7 +816,7 @@ function AgenciaOSApp() {
               payDay: null, contractEnd: null,
               churning: false, encerrado: false, gcTeam: autoGC,
               csChecklist: mkChecklist(CS_CK), onboardingChecklist: mkChecklist(OB_CK),
-              trafficChecklist: mkChecklist(TR_CK), creationChecklist: mkChecklist(CR_CK),
+              trafficChecklist: mkChecklist(TR_CK), creationChecklist: mkChecklist(CR_CK), socialBriefing: mkChecklist(SM_BRIEFING),
               timeline: [{ date: new Date().toISOString(), event: `Importado da planilha — ${sc.service} | R$${sc.value}`, user: "Planilha" }],
               meetings: [], reports: [],
               fromSheet: true,
@@ -1231,7 +1236,7 @@ function AgenciaOSApp() {
       whatsappGroup:"", formStatus:"not_sent", onboardingDate:null, trafficActivationDate:null,
       notes:nC.notes,
       csChecklist:mkChecklist(CS_CK), onboardingChecklist:mkChecklist(OB_CK),
-      trafficChecklist:mkChecklist(TR_CK), creationChecklist:mkChecklist(CR_CK),
+      trafficChecklist:mkChecklist(TR_CK), creationChecklist:mkChecklist(CR_CK), socialBriefing:mkChecklist(SM_BRIEFING),
       timeline:[{date:new Date().toISOString(),event:`Venda fechada — ${serviceDesc} | ${GC_TEAMS[nC.gcTeam]?.name||""}${nC.soldBy ? ` | Vendido por: ${getUser(nC.soldBy)?.name||""}` : ""}`,user:authUser?.name||"Thomas"}],
       meetings:[], reports:[],
     };
@@ -1737,6 +1742,45 @@ function AgenciaOSApp() {
               <input type="text" value={client.driveAprovados||""} onChange={e=>setClients(p=>p.map(x=>x.id!==client.id?x:{...x,driveAprovados:e.target.value}))}
                 placeholder="Cole o link do Drive..." style={{width:"100%",background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"6px 8px",color:"#e2e8f0",fontSize:10,outline:"none",fontFamily:"inherit",boxSizing:"border-box"}}/>
               {client.driveAprovados&&<a href={client.driveAprovados} target="_blank" rel="noopener noreferrer" style={{display:"flex",alignItems:"center",gap:4,marginTop:6,padding:"5px 8px",background:"#22c55e15",border:"1px solid #22c55e30",borderRadius:6,color:"#22c55e",fontSize:10,fontWeight:600,textDecoration:"none"}}><Download size={10}/> Abrir — baixar para campanhas</a>}
+            </div>
+          </div>
+        </div>
+
+        <div style={{background:"#0f172a",border:"1px solid #ec489930",borderRadius:12,padding:14}}>
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
+            <h4 style={{margin:0,fontSize:13,fontWeight:700,color:"#ec4899",display:"flex",alignItems:"center",gap:6}}>
+              <Image size={14}/> Briefing Social Media
+            </h4>
+            {client.socialBriefing&&<span style={{fontSize:10,fontWeight:700,color:pr(client.socialBriefing)===client.socialBriefing.length?"#22c55e":"#f59e0b"}}>
+              {pr(client.socialBriefing||[])}/{(client.socialBriefing||[]).length}
+            </span>}
+          </div>
+          {client.socialBriefing&&<>
+            <PB v={pr(client.socialBriefing)} m={client.socialBriefing.length} c="#ec4899"/>
+            <div style={{marginTop:8}}>{client.socialBriefing.map(i=><CkItem key={i.id} item={i} onToggle={()=>toggleCk(client.id,"socialBriefing",i.id)}/>)}</div>
+          </>}
+          {!client.socialBriefing&&<div style={{fontSize:11,color:"#64748b",padding:8}}>Briefing não disponível — resete os dados para ativar</div>}
+          {/* Campos extras do briefing */}
+          <div style={{marginTop:10,display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}}>
+            <div>
+              <label style={{fontSize:9,color:"#64748b",textTransform:"uppercase",fontWeight:600}}>Tom de voz</label>
+              <input type="text" value={client.tomDeVoz||""} onChange={e=>setClients(p=>p.map(x=>x.id!==client.id?x:{...x,tomDeVoz:e.target.value}))}
+                placeholder="Ex: Profissional, descontraído, técnico..." style={{width:"100%",background:"#020617",border:"1px solid #334155",borderRadius:6,padding:"5px 8px",color:"#e2e8f0",fontSize:10,outline:"none",fontFamily:"inherit",boxSizing:"border-box",marginTop:3}}/>
+            </div>
+            <div>
+              <label style={{fontSize:9,color:"#64748b",textTransform:"uppercase",fontWeight:600}}>Público-alvo</label>
+              <input type="text" value={client.publicoAlvo||""} onChange={e=>setClients(p=>p.map(x=>x.id!==client.id?x:{...x,publicoAlvo:e.target.value}))}
+                placeholder="Ex: Mulheres 25-45 classe B..." style={{width:"100%",background:"#020617",border:"1px solid #334155",borderRadius:6,padding:"5px 8px",color:"#e2e8f0",fontSize:10,outline:"none",fontFamily:"inherit",boxSizing:"border-box",marginTop:3}}/>
+            </div>
+            <div style={{gridColumn:"1/-1"}}>
+              <label style={{fontSize:9,color:"#64748b",textTransform:"uppercase",fontWeight:600}}>Referências de conteúdo (perfis/links)</label>
+              <input type="text" value={client.referencias||""} onChange={e=>setClients(p=>p.map(x=>x.id!==client.id?x:{...x,referencias:e.target.value}))}
+                placeholder="@perfil1, @perfil2, link..." style={{width:"100%",background:"#020617",border:"1px solid #334155",borderRadius:6,padding:"5px 8px",color:"#e2e8f0",fontSize:10,outline:"none",fontFamily:"inherit",boxSizing:"border-box",marginTop:3}}/>
+            </div>
+            <div style={{gridColumn:"1/-1"}}>
+              <label style={{fontSize:9,color:"#64748b",textTransform:"uppercase",fontWeight:600}}>Observações do briefing</label>
+              <textarea value={client.briefingNotes||""} onChange={e=>setClients(p=>p.map(x=>x.id!==client.id?x:{...x,briefingNotes:e.target.value}))}
+                placeholder="Informações importantes para a social media..." style={{width:"100%",background:"#020617",border:"1px solid #334155",borderRadius:6,padding:"5px 8px",color:"#e2e8f0",fontSize:10,outline:"none",fontFamily:"inherit",boxSizing:"border-box",marginTop:3,minHeight:50,resize:"vertical"}}/>
             </div>
           </div>
         </div>

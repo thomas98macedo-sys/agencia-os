@@ -2497,6 +2497,99 @@ function AgenciaOSApp() {
         </div>
       );})}
     </div>
+
+    {/* ═══ DISTRIBUIÇÃO SOCIAL MEDIA — quem cuida de quem ═══ */}
+    <div style={{marginTop:20}}>
+      <h2 style={{fontSize:16,fontWeight:800,color:"#ec4899",margin:"0 0 12px",display:"flex",alignItems:"center",gap:6}}>
+        <Image size={18}/> Distribuição Social Media — Clientes por Pessoa
+      </h2>
+      <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(300px,1fr))",gap:12}}>
+        {SEED_USERS.filter(u=>u.role==="social"&&!u.pending).map(sm => {
+          const smClients = clients.filter(c=>c.socialId===sm.id&&!c.archived&&!c.churning&&!c.encerrado);
+          const briefingDone = smClients.filter(c=>c.socialBriefing&&c.socialBriefing.every(b=>b.done)).length;
+          const gc = GC_TEAMS[sm.gc];
+          return <div key={sm.id} style={{background:"#0f172a",border:"1px solid #ec489930",borderRadius:12,overflow:"hidden"}}>
+            {/* Header */}
+            <div style={{background:"linear-gradient(135deg,#ec489915,#ec489908)",padding:"12px 14px",borderBottom:"1px solid #ec489920",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+              <div style={{display:"flex",alignItems:"center",gap:8}}>
+                <Av i={sm.avatar} c="#ec4899" s={36}/>
+                <div>
+                  <div style={{fontSize:14,fontWeight:700,color:"#f1f5f9"}}>{sm.name}</div>
+                  <div style={{display:"flex",gap:4}}>
+                    <Bg color="#ec4899" small>Social Media</Bg>
+                    {gc&&<Bg color={gc.color} small>{gc.icon} {gc.id}</Bg>}
+                  </div>
+                </div>
+              </div>
+              <div style={{textAlign:"right"}}>
+                <div style={{fontSize:20,fontWeight:800,color:"#ec4899"}}>{smClients.length}</div>
+                <div style={{fontSize:9,color:"#64748b"}}>clientes</div>
+              </div>
+            </div>
+            {/* Progress */}
+            <div style={{padding:"8px 14px",display:"flex",alignItems:"center",gap:8,borderBottom:"1px solid #1e293b"}}>
+              <span style={{fontSize:10,color:"#64748b"}}>Briefings:</span>
+              <div style={{flex:1}}><PB v={briefingDone} m={smClients.length||1} c="#ec4899" h={4}/></div>
+              <span style={{fontSize:10,fontWeight:700,color:briefingDone===smClients.length?"#22c55e":"#f59e0b"}}>{briefingDone}/{smClients.length}</span>
+            </div>
+            {/* Client list */}
+            <div style={{padding:8,maxHeight:300,overflowY:"auto"}}>
+              {smClients.length===0&&<div style={{padding:16,textAlign:"center",color:"#475569",fontSize:11}}>Nenhum cliente atribuído.<br/>Atribua clientes no Kanban (✏️ Editar Equipe).</div>}
+              {smClients.map(c => {
+                const hasBriefing = c.socialBriefing && c.socialBriefing.length > 0;
+                const briefingPct = hasBriefing ? Math.round((c.socialBriefing.filter(b=>b.done).length / c.socialBriefing.length)*100) : 0;
+                return <div key={c.id} onClick={()=>openClient(c.id)} style={{display:"flex",alignItems:"center",gap:8,padding:"6px 8px",borderRadius:8,cursor:"pointer",marginBottom:2,background:"#020617",border:"1px solid #1e293b"}}
+                  onMouseEnter={e=>e.currentTarget.style.borderColor="#ec489950"} onMouseLeave={e=>e.currentTarget.style.borderColor="#1e293b"}>
+                  <Av i={c.company.slice(0,2).toUpperCase()} c={KANBAN_COLUMNS.find(k=>k.id===c.status)?.color||"#64748b"} s={26}/>
+                  <div style={{flex:1,minWidth:0}}>
+                    <div style={{fontSize:11,fontWeight:600,color:"#e2e8f0",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.company}</div>
+                    <div style={{fontSize:9,color:"#64748b"}}>{c.service?.substring(0,30)}</div>
+                  </div>
+                  <div style={{display:"flex",alignItems:"center",gap:4}}>
+                    {hasBriefing&&<div style={{width:30,textAlign:"center"}}>
+                      <div style={{fontSize:9,fontWeight:700,color:briefingPct===100?"#22c55e":briefingPct>50?"#f59e0b":"#ef4444"}}>{briefingPct}%</div>
+                    </div>}
+                    {briefingPct===100&&<CheckCircle2 size={12} color="#22c55e"/>}
+                    {briefingPct>0&&briefingPct<100&&<Circle size={12} color="#f59e0b"/>}
+                    {briefingPct===0&&<AlertCircle size={12} color="#ef4444"/>}
+                  </div>
+                </div>;
+              })}
+            </div>
+          </div>;
+        })}
+
+        {/* Sem social media atribuída */}
+        {(()=>{
+          const unassigned = clients.filter(c=>!c.socialId&&!c.archived&&!c.churning&&!c.encerrado&&(c.service?.toLowerCase().includes("social")||c.service?.toLowerCase().includes("tudo")));
+          if (unassigned.length===0) return null;
+          return <div style={{background:"#0f172a",border:"2px dashed #ef444440",borderRadius:12,overflow:"hidden"}}>
+            <div style={{background:"#ef444410",padding:"12px 14px",borderBottom:"1px solid #ef444420",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+              <div style={{display:"flex",alignItems:"center",gap:8}}>
+                <div style={{width:36,height:36,borderRadius:"50%",background:"#ef4444",display:"flex",alignItems:"center",justifyContent:"center",fontSize:16}}>⚠️</div>
+                <div>
+                  <div style={{fontSize:14,fontWeight:700,color:"#ef4444"}}>Sem Social Media</div>
+                  <div style={{fontSize:10,color:"#fca5a5"}}>Clientes que precisam de atribuição</div>
+                </div>
+              </div>
+              <div style={{fontSize:20,fontWeight:800,color:"#ef4444"}}>{unassigned.length}</div>
+            </div>
+            <div style={{padding:8,maxHeight:300,overflowY:"auto"}}>
+              {unassigned.map(c => (
+                <div key={c.id} onClick={()=>openClient(c.id)} style={{display:"flex",alignItems:"center",gap:8,padding:"6px 8px",borderRadius:8,cursor:"pointer",marginBottom:2,background:"#020617",border:"1px solid #ef444420"}}>
+                  <Av i={c.company.slice(0,2).toUpperCase()} c="#ef4444" s={26}/>
+                  <div style={{flex:1}}>
+                    <div style={{fontSize:11,fontWeight:600,color:"#fca5a5"}}>{c.company}</div>
+                    <div style={{fontSize:9,color:"#64748b"}}>{c.service?.substring(0,30)}</div>
+                  </div>
+                  <Bg color="#ef4444" small>Atribuir →</Bg>
+                </div>
+              ))}
+            </div>
+          </div>;
+        })()}
+      </div>
+    </div>
   </div>;
 
   const SettingsPage = () => <div style={{padding:20,maxWidth:900,margin:"0 auto"}}>

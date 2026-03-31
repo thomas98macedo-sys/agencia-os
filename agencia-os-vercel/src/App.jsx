@@ -1333,6 +1333,7 @@ function AgenciaOSApp() {
     {id:"clients",icon:Building2,label:"Clientes"},
     {id:"tasks",icon:ListTodo,label:"Tarefas"},
     {id:"gc",icon:Zap,label:"Grupos de Combate"},
+    {id:"warday",icon:Target,label:"War Day"},
     {id:"calendar",icon:CalendarDays,label:"Reuniões"},
     {id:"lince",icon:LineChart,label:"Lince"},
     {id:"reports",icon:BarChart3,label:"Relatórios"},
@@ -2251,6 +2252,320 @@ function AgenciaOSApp() {
     );
   };
 
+  // ═══ WAR DAY — painel temático de vendas ═══
+  const WAR_GOAL = 12000;
+  const WAR_CLOSERS = ["u1","u8","u3","u7","u13"]; // Thomas, Leo, Nando, Dantas, Bueno
+  const WAR_SDRS = ["u14","u11"]; // Lucas SDR, Fábio
+  const WAR_ALL = [...WAR_CLOSERS, ...WAR_SDRS];
+
+  const [warDeals, setWarDeals] = useState(() => {
+    try { return JSON.parse(localStorage.getItem("agos-warday")||"null") || []; } catch(e) { return []; }
+  });
+  useEffect(() => { try { localStorage.setItem("agos-warday", JSON.stringify(warDeals)); } catch(e) {} }, [warDeals]);
+
+  // Consultoria pipeline — persists
+  const [consultorias, setConsultorias] = useState(() => {
+    try { return JSON.parse(localStorage.getItem("agos-consultorias")||"null") || []; } catch(e) { return []; }
+  });
+  useEffect(() => { try { localStorage.setItem("agos-consultorias", JSON.stringify(consultorias)); } catch(e) {} }, [consultorias]);
+
+  // Auto-detect "consultoria" events from calendar → register as calls
+  useEffect(() => {
+    if (!calEvents || calEvents.length === 0) return;
+    const consultoriaEvents = calEvents.filter(ev =>
+      ev.summary && ev.summary.toLowerCase().includes("consultoria")
+    );
+    consultoriaEvents.forEach(ev => {
+      const evId = ev.id || ev.summary + ev.start;
+      // Check if already registered
+      if (consultorias.some(c => c.calEventId === evId)) return;
+      if (warDeals.some(d => d.calEventId === evId)) return;
+      const newConsultoria = {
+        id: `cs${uid()}`, calEventId: evId,
+        client: ev.summary.replace(/consultoria/gi,"").replace(/[-–—]/g,"").trim() || ev.summary,
+        date: ev.start, time: ev.start ? new Date(ev.start).toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}) : "",
+        phone: "", briefing: "", proposalValue: "", status: "scheduled", // scheduled | done | proposal | closed | lost
+        closer: "", sdr: "", notes: ev.description || "",
+        createdAt: new Date().toISOString(),
+      };
+      setConsultorias(prev => [...prev, newConsultoria]);
+      // Also add to war day as meeting if war day active
+      setWarDeals(prev => [...prev, {
+        id: `wd${uid()}`, calEventId: evId,
+        client: newConsultoria.client, value: 0, package: "pack1",
+        closer: "", sdr: "", status: "meeting", notes: `Auto: Consultoria da agenda — ${ev.summary}`,
+        time: new Date().toISOString(),
+      }]);
+      showToast(`📞 Consultoria detectada: ${newConsultoria.client}`);
+    });
+  }, [calEvents]);
+
+  const [showWarDeal, setShowWarDeal] = useState(false);
+  const [warDeal, setWarDeal] = useState({client:"",value:"",package:"pack1",closer:"",sdr:"",status:"proposal",notes:""});
+
+  const addWarDeal = () => {
+    if (!warDeal.client) return;
+    const deal = { ...warDeal, id: `wd${uid()}`, value: Number(warDeal.value)||0, time: new Date().toISOString() };
+    setWarDeals(p => [...p, deal]);
+    if (deal.status === "closed") {
+      const msg = `🎯 *WAR DAY — VENDA FECHADA!*\n💰 ${deal.client} — R$${deal.value.toLocaleString("pt-BR")}\n👤 Closer: ${getUser(deal.closer)?.name||"?"}\n📞 SDR: ${getUser(deal.sdr)?.name||"?"}`;
+      sendTelegram(msg);
+      showToast(`🎯 VENDA! ${deal.client} — R$${deal.value.toLocaleString("pt-BR")}`);
+    }
+    setShowWarDeal(false);
+    setWarDeal({client:"",value:"",package:"pack1",closer:"",sdr:"",status:"proposal",notes:""});
+  };
+
+  const warClosed = warDeals.filter(d=>d.status==="closed");
+  const warProposals = warDeals.filter(d=>d.status==="proposal");
+  const warTotal = warClosed.reduce((s,d)=>s+d.value,0);
+  const warProposalTotal = warProposals.reduce((s,d)=>s+d.value,0);
+  const warPct = Math.min((warTotal/WAR_GOAL)*100,100);
+
+  const WarDayPage = () => <div style={{padding:20,maxWidth:1200,margin:"0 auto"}}>
+    {/* HEADER */}
+    <div style={{background:"linear-gradient(135deg,#ef4444,#dc2626)",borderRadius:16,padding:24,marginBottom:16,position:"relative",overflow:"hidden"}}>
+      <div style={{position:"absolute",right:20,top:10,fontSize:80,opacity:.1}}>🎯</div>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+        <div>
+          <h1 style={{margin:0,fontSize:28,fontWeight:900,color:"#fff"}}>WAR DAY</h1>
+          <div style={{fontSize:13,color:"#fca5a5",marginTop:4}}>{new Date().toLocaleDateString("pt-BR",{weekday:"long",day:"2-digit",month:"long",year:"numeric"})}</div>
+        </div>
+        <div style={{textAlign:"right"}}>
+          <div style={{fontSize:14,color:"#fca5a5"}}>META DO DIA</div>
+          <div style={{fontSize:36,fontWeight:900,color:"#fff"}}>R${WAR_GOAL.toLocaleString("pt-BR")}</div>
+        </div>
+      </div>
+      <div style={{marginTop:16}}>
+        <div style={{display:"flex",justifyContent:"space-between",fontSize:12,color:"#fca5a5",marginBottom:4}}>
+          <span>R${warTotal.toLocaleString("pt-BR")} vendidos</span>
+          <span>{Math.round(warPct)}%</span>
+        </div>
+        <div style={{background:"#ffffff30",borderRadius:8,height:12,overflow:"hidden"}}>
+          <div style={{height:"100%",background:warPct>=100?"#22c55e":"#fff",borderRadius:8,transition:"width .5s",width:`${warPct}%`}}/>
+        </div>
+        <div style={{fontSize:11,color:"#fca5a5",marginTop:4}}>Faltam R${Math.max(WAR_GOAL-warTotal,0).toLocaleString("pt-BR")} para bater a meta</div>
+      </div>
+    </div>
+
+    {/* METRICS */}
+    <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:12,marginBottom:16}}>
+      <div style={{background:"#0f172a",border:"1px solid #22c55e30",borderRadius:12,padding:16,textAlign:"center"}}>
+        <div style={{fontSize:28,fontWeight:900,color:"#22c55e"}}>R${warTotal.toLocaleString("pt-BR")}</div>
+        <div style={{fontSize:10,color:"#64748b"}}>Vendas Fechadas</div>
+      </div>
+      <div style={{background:"#0f172a",border:"1px solid #f59e0b30",borderRadius:12,padding:16,textAlign:"center"}}>
+        <div style={{fontSize:28,fontWeight:900,color:"#f59e0b"}}>R${warProposalTotal.toLocaleString("pt-BR")}</div>
+        <div style={{fontSize:10,color:"#64748b"}}>Propostas na Mesa</div>
+      </div>
+      <div style={{background:"#0f172a",border:"1px solid #6366f130",borderRadius:12,padding:16,textAlign:"center"}}>
+        <div style={{fontSize:28,fontWeight:900,color:"#6366f1"}}>{warDeals.filter(d=>d.status==="meeting").length}</div>
+        <div style={{fontSize:10,color:"#64748b"}}>Reuniões Marcadas</div>
+      </div>
+      <div style={{background:"#0f172a",border:"1px solid #ec489930",borderRadius:12,padding:16,textAlign:"center"}}>
+        <div style={{fontSize:28,fontWeight:900,color:"#ec4899"}}>{warClosed.length}</div>
+        <div style={{fontSize:10,color:"#64748b"}}>Contratos Fechados</div>
+      </div>
+    </div>
+
+    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}}>
+      {/* CLOSERS */}
+      <div style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,padding:16}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
+          <h3 style={{margin:0,fontSize:14,fontWeight:700,color:"#ef4444",display:"flex",alignItems:"center",gap:6}}><Target size={16}/> Closers</h3>
+          <Btn small icon={Plus} onClick={()=>setShowWarDeal(true)}>Registrar</Btn>
+        </div>
+        {WAR_CLOSERS.map(uid=>{const u=getUser(uid);if(!u)return null;const deals=warClosed.filter(d=>d.closer===uid);const total=deals.reduce((s,d)=>s+d.value,0);const proposals=warProposals.filter(d=>d.closer===uid);const meetings=warDeals.filter(d=>d.closer===uid&&d.status==="meeting");
+          return <div key={uid} style={{display:"flex",alignItems:"center",gap:10,padding:"10px 0",borderBottom:"1px solid #1e293b20"}}>
+            <Av i={u.avatar} c={ROLES[u.role?.toUpperCase()]?.color||"#6366f1"} s={36}/>
+            <div style={{flex:1}}>
+              <div style={{fontSize:13,fontWeight:700,color:"#e2e8f0"}}>{u.name}</div>
+              <div style={{fontSize:10,color:"#64748b"}}>{ROLES[u.role?.toUpperCase()]?.label}</div>
+            </div>
+            <div style={{display:"flex",gap:8,alignItems:"center"}}>
+              <div style={{textAlign:"center"}}><div style={{fontSize:14,fontWeight:800,color:"#22c55e"}}>R${total.toLocaleString("pt-BR")}</div><div style={{fontSize:8,color:"#64748b"}}>{deals.length} vendas</div></div>
+              <div style={{textAlign:"center"}}><div style={{fontSize:14,fontWeight:700,color:"#f59e0b"}}>{proposals.length}</div><div style={{fontSize:8,color:"#64748b"}}>propostas</div></div>
+              <div style={{textAlign:"center"}}><div style={{fontSize:14,fontWeight:700,color:"#6366f1"}}>{meetings.length}</div><div style={{fontSize:8,color:"#64748b"}}>calls</div></div>
+            </div>
+          </div>;
+        })}
+      </div>
+
+      {/* SDRs */}
+      <div style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,padding:16}}>
+        <h3 style={{margin:"0 0 12px",fontSize:14,fontWeight:700,color:"#14b8a6",display:"flex",alignItems:"center",gap:6}}><Megaphone size={16}/> SDRs — Prospecção</h3>
+        {WAR_SDRS.map(uid=>{const u=getUser(uid);if(!u)return null;const scheduled=warDeals.filter(d=>d.sdr===uid&&d.status==="meeting");const proposals=warDeals.filter(d=>d.sdr===uid&&d.status==="proposal");const closed=warDeals.filter(d=>d.sdr===uid&&d.status==="closed");const total=closed.reduce((s,d)=>s+d.value,0);
+          return <div key={uid} style={{display:"flex",alignItems:"center",gap:10,padding:"10px 0",borderBottom:"1px solid #1e293b20"}}>
+            <Av i={u.avatar} c="#14b8a6" s={36}/>
+            <div style={{flex:1}}>
+              <div style={{fontSize:13,fontWeight:700,color:"#e2e8f0"}}>{u.name}</div>
+              <div style={{fontSize:10,color:"#64748b"}}>SDR</div>
+            </div>
+            <div style={{display:"flex",gap:8,alignItems:"center"}}>
+              <div style={{textAlign:"center"}}><div style={{fontSize:14,fontWeight:700,color:"#6366f1"}}>{scheduled.length}</div><div style={{fontSize:8,color:"#64748b"}}>calls agendadas</div></div>
+              <div style={{textAlign:"center"}}><div style={{fontSize:14,fontWeight:700,color:"#f59e0b"}}>{proposals.length}</div><div style={{fontSize:8,color:"#64748b"}}>propostas</div></div>
+              <div style={{textAlign:"center"}}><div style={{fontSize:14,fontWeight:700,color:"#22c55e"}}>R${total.toLocaleString("pt-BR")}</div><div style={{fontSize:8,color:"#64748b"}}>convertido</div></div>
+            </div>
+          </div>;
+        })}
+      </div>
+    </div>
+
+    {/* DEALS LOG */}
+    <div style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,padding:16,marginTop:16}}>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
+        <h3 style={{margin:0,fontSize:14,fontWeight:700,color:"#e2e8f0"}}>Registro do Dia ({warDeals.length})</h3>
+        <div style={{display:"flex",gap:6}}>
+          <Btn small icon={Plus} onClick={()=>setShowWarDeal(true)}>Nova Entrada</Btn>
+          <Btn small variant="danger" icon={RotateCcw} onClick={()=>{if(confirm("Limpar registros do War Day?")){setWarDeals([]);}}}>Limpar</Btn>
+        </div>
+      </div>
+      {warDeals.length===0&&<div style={{textAlign:"center",padding:24,color:"#475569"}}><Target size={32} color="#334155" style={{marginBottom:8}}/><div style={{fontSize:12}}>Nenhum registro ainda. Clique em "Nova Entrada" para começar.</div></div>}
+      {warDeals.sort((a,b)=>new Date(b.time)-new Date(a.time)).map(d=>{const closer=getUser(d.closer);const sdr=getUser(d.sdr);
+        return <div key={d.id} style={{display:"flex",alignItems:"center",gap:10,padding:"8px 0",borderBottom:"1px solid #1e293b20"}}>
+          <div style={{width:10,height:10,borderRadius:"50%",background:d.status==="closed"?"#22c55e":d.status==="proposal"?"#f59e0b":"#6366f1",flexShrink:0}}/>
+          <div style={{flex:1}}>
+            <div style={{fontSize:12,fontWeight:600,color:"#e2e8f0"}}>{d.client} — <span style={{color:d.status==="closed"?"#22c55e":"#f59e0b"}}>R${(d.value||0).toLocaleString("pt-BR")}</span></div>
+            <div style={{fontSize:10,color:"#64748b"}}>{closer?.name||"?"} (closer) + {sdr?.name||"?"} (SDR) • {d.package==="pack2"?"Pacote R$4k":"Pacote R$2k"}{d.notes?` • ${d.notes}`:""}</div>
+          </div>
+          <div style={{display:"flex",gap:4}}>
+            <Bg color={d.status==="closed"?"#22c55e":d.status==="proposal"?"#f59e0b":"#6366f1"} small>{d.status==="closed"?"Fechado":d.status==="proposal"?"Proposta":"Call"}</Bg>
+            {d.status!=="closed"&&<button onClick={()=>{ setWarDeals(p=>p.map(x=>x.id!==d.id?x:{...x,status:"closed"})); const msg=`🎯 WAR DAY — VENDA FECHADA! ${d.client} R$${(d.value||0).toLocaleString("pt-BR")}`; sendTelegram(msg); showToast(msg); }}
+              style={{background:"#22c55e20",border:"1px solid #22c55e40",borderRadius:6,padding:"2px 8px",fontSize:9,fontWeight:700,color:"#22c55e",cursor:"pointer"}}>Fechar ✓</button>}
+          </div>
+          <span style={{fontSize:9,color:"#475569"}}>{new Date(d.time).toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})}</span>
+        </div>;
+      })}
+    </div>
+
+    {/* ═══ PIPELINE CONSULTORIAS ═══ */}
+    <div style={{background:"#0f172a",border:"1px solid #6366f130",borderRadius:12,padding:16,marginTop:16}}>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
+        <h3 style={{margin:0,fontSize:14,fontWeight:700,color:"#6366f1",display:"flex",alignItems:"center",gap:6}}>
+          <Phone size={16}/> Pipeline de Consultorias
+          <span style={{fontSize:10,color:"#64748b",fontWeight:400}}>— detectadas automaticamente da agenda</span>
+        </h3>
+        <div style={{display:"flex",gap:6}}>
+          <Bg color="#6366f1" small>{consultorias.filter(c=>c.status==="scheduled").length} agendadas</Bg>
+          <Bg color="#f59e0b" small>{consultorias.filter(c=>c.status==="proposal").length} propostas</Bg>
+          <Bg color="#22c55e" small>{consultorias.filter(c=>c.status==="closed").length} fechadas</Bg>
+          <Btn small icon={Plus} onClick={()=>{setConsultorias(prev=>[...prev,{id:`cs${uid()}`,calEventId:null,client:"",date:new Date().toISOString(),time:"",phone:"",briefing:"",proposalValue:"",status:"scheduled",closer:"",sdr:"",notes:"",createdAt:new Date().toISOString()}]);}}>Adicionar Manual</Btn>
+        </div>
+      </div>
+      {consultorias.length===0&&<div style={{textAlign:"center",padding:24,color:"#475569"}}><Phone size={28} color="#334155" style={{marginBottom:6}}/><div style={{fontSize:12}}>Nenhuma consultoria ainda. Crie um evento com "Consultoria" no título da agenda e ela aparece aqui automaticamente.</div></div>}
+      <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(320px,1fr))",gap:10}}>
+        {consultorias.map(c => {
+          const closer = getUser(c.closer);
+          const statusColors = {scheduled:"#6366f1",done:"#3b82f6",proposal:"#f59e0b",closed:"#22c55e",lost:"#ef4444"};
+          const statusLabels = {scheduled:"📞 Agendada",done:"✅ Realizada",proposal:"📋 Proposta",closed:"🎯 Fechada",lost:"❌ Perdida"};
+          return <div key={c.id} style={{background:"#020617",border:`1px solid ${statusColors[c.status]||"#1e293b"}30`,borderRadius:10,padding:12}}>
+            <div style={{display:"flex",justifyContent:"space-between",marginBottom:8}}>
+              <input type="text" value={c.client} onChange={e=>setConsultorias(p=>p.map(x=>x.id!==c.id?x:{...x,client:e.target.value}))}
+                placeholder="Nome do lead..." style={{background:"transparent",border:"none",color:"#e2e8f0",fontSize:14,fontWeight:700,outline:"none",flex:1,fontFamily:"inherit"}}/>
+              <select value={c.status} onChange={e=>{
+                const newSt=e.target.value;
+                setConsultorias(p=>p.map(x=>x.id!==c.id?x:{...x,status:newSt}));
+                if(newSt==="closed"&&c.client){sendTelegram(`🎯 Consultoria FECHADA: ${c.client} — R$${c.proposalValue||"?"}`);showToast(`🎯 Fechou! ${c.client}`);}
+              }} style={{background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"2px 6px",color:statusColors[c.status],fontSize:10,fontWeight:700,fontFamily:"inherit"}}>
+                {Object.entries(statusLabels).map(([k,v])=><option key={k} value={k}>{v}</option>)}
+              </select>
+            </div>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:6,marginBottom:8}}>
+              <div>
+                <label style={{fontSize:8,color:"#475569",textTransform:"uppercase"}}>Telefone</label>
+                <input type="text" value={c.phone||""} onChange={e=>setConsultorias(p=>p.map(x=>x.id!==c.id?x:{...x,phone:e.target.value}))}
+                  placeholder="(11) 99999-9999" style={{width:"100%",background:"#1e293b",border:"1px solid #334155",borderRadius:5,padding:"4px 6px",color:"#e2e8f0",fontSize:10,outline:"none",fontFamily:"inherit",boxSizing:"border-box",marginTop:2}}/>
+              </div>
+              <div>
+                <label style={{fontSize:8,color:"#475569",textTransform:"uppercase"}}>Valor Proposta (R$)</label>
+                <input type="number" value={c.proposalValue||""} onChange={e=>setConsultorias(p=>p.map(x=>x.id!==c.id?x:{...x,proposalValue:e.target.value}))}
+                  placeholder="2000" style={{width:"100%",background:"#1e293b",border:"1px solid #334155",borderRadius:5,padding:"4px 6px",color:"#e2e8f0",fontSize:10,outline:"none",fontFamily:"inherit",boxSizing:"border-box",marginTop:2}}/>
+              </div>
+            </div>
+            <div style={{marginBottom:6}}>
+              <label style={{fontSize:8,color:"#475569",textTransform:"uppercase"}}>Closer</label>
+              <select value={c.closer||""} onChange={e=>setConsultorias(p=>p.map(x=>x.id!==c.id?x:{...x,closer:e.target.value}))}
+                style={{width:"100%",background:"#1e293b",border:"1px solid #334155",borderRadius:5,padding:"4px 6px",color:"#e2e8f0",fontSize:10,fontFamily:"inherit",boxSizing:"border-box",marginTop:2}}>
+                <option value="">Selecione closer</option>
+                {WAR_CLOSERS.map(id=><option key={id} value={id}>{getUser(id)?.name||id}</option>)}
+              </select>
+            </div>
+            <div style={{marginBottom:6}}>
+              <label style={{fontSize:8,color:"#475569",textTransform:"uppercase"}}>Briefing / Observações</label>
+              <textarea value={c.briefing||""} onChange={e=>setConsultorias(p=>p.map(x=>x.id!==c.id?x:{...x,briefing:e.target.value}))}
+                placeholder="Dor do lead, como chegou, interesse..." style={{width:"100%",background:"#1e293b",border:"1px solid #334155",borderRadius:5,padding:"4px 6px",color:"#e2e8f0",fontSize:10,outline:"none",fontFamily:"inherit",boxSizing:"border-box",marginTop:2,minHeight:40,resize:"vertical"}}/>
+            </div>
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+              <span style={{fontSize:9,color:"#475569"}}>{c.date?new Date(c.date).toLocaleDateString("pt-BR"):""}  {c.time||""}</span>
+              <button onClick={()=>{if(confirm("Remover esta consultoria?")){setConsultorias(p=>p.filter(x=>x.id!==c.id));}}}
+                style={{background:"none",border:"none",color:"#ef444480",cursor:"pointer",fontSize:9}}>remover</button>
+            </div>
+          </div>;
+        })}
+      </div>
+    </div>
+
+    {/* ═══ MÉTRICAS MENSAIS POR CLOSER ═══ */}
+    <div style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,padding:16,marginTop:16}}>
+      <h3 style={{margin:"0 0 12px",fontSize:14,fontWeight:700,color:"#e2e8f0",display:"flex",alignItems:"center",gap:6}}>
+        <BarChart3 size={16} color="#f59e0b"/> Métricas Mensais por Closer — {new Date().toLocaleDateString("pt-BR",{month:"long",year:"numeric"})}
+      </h3>
+      <table style={{width:"100%",borderCollapse:"collapse",fontSize:12}}>
+        <thead><tr style={{borderBottom:"2px solid #1e293b"}}>
+          {["Closer","Calls Realizadas","Propostas Enviadas","R$ na Mesa","Vendas Fechadas","R$ Convertido","Taxa Conversão"].map(h=>
+            <th key={h} style={{padding:"8px 10px",textAlign:"left",color:"#64748b",fontWeight:700,fontSize:10,textTransform:"uppercase"}}>{h}</th>
+          )}
+        </tr></thead>
+        <tbody>
+          {WAR_CLOSERS.map(cid=>{const u=getUser(cid);if(!u)return null;
+            const myConsultorias = consultorias.filter(c=>c.closer===cid);
+            const callsDone = myConsultorias.filter(c=>c.status!=="scheduled").length;
+            const proposals = myConsultorias.filter(c=>c.status==="proposal");
+            const proposalValue = proposals.reduce((s,c)=>s+Number(c.proposalValue||0),0);
+            const closed = myConsultorias.filter(c=>c.status==="closed");
+            const closedValue = closed.reduce((s,c)=>s+Number(c.proposalValue||0),0);
+            const convRate = myConsultorias.length > 0 ? Math.round((closed.length / myConsultorias.length)*100) : 0;
+            // Also count from warDeals
+            const warCl = warClosed.filter(d=>d.closer===cid);
+            const warClVal = warCl.reduce((s,d)=>s+d.value,0);
+            const warPr = warProposals.filter(d=>d.closer===cid);
+            const warPrVal = warPr.reduce((s,d)=>s+d.value,0);
+            const totalClosed = closedValue + warClVal;
+            const totalMesa = proposalValue + warPrVal;
+            return <tr key={cid} style={{borderBottom:"1px solid #1e293b30"}}>
+              <td style={{padding:"8px 10px"}}><div style={{display:"flex",alignItems:"center",gap:6}}><Av i={u.avatar} c={ROLES[u.role?.toUpperCase()]?.color||"#6366f1"} s={24}/><span style={{fontWeight:600,color:"#e2e8f0"}}>{u.name}</span></div></td>
+              <td style={{padding:"8px 10px",fontWeight:700,color:"#6366f1"}}>{callsDone + warDeals.filter(d=>d.closer===cid&&d.status==="meeting").length}</td>
+              <td style={{padding:"8px 10px",fontWeight:700,color:"#f59e0b"}}>{proposals.length + warPr.length}</td>
+              <td style={{padding:"8px 10px",fontWeight:700,color:"#f59e0b"}}>R${totalMesa.toLocaleString("pt-BR")}</td>
+              <td style={{padding:"8px 10px",fontWeight:700,color:"#22c55e"}}>{closed.length + warCl.length}</td>
+              <td style={{padding:"8px 10px",fontWeight:800,color:"#22c55e"}}>R${totalClosed.toLocaleString("pt-BR")}</td>
+              <td style={{padding:"8px 10px",fontWeight:700,color:convRate>=50?"#22c55e":convRate>=25?"#f59e0b":"#ef4444"}}>{convRate}%</td>
+            </tr>;
+          })}
+        </tbody>
+      </table>
+    </div>
+  </div>;
+  const WarDayModal = () => <Modal open={showWarDeal} onClose={()=>setShowWarDeal(false)} title="🎯 War Day — Registrar Negócio">
+    <div style={{display:"flex",flexDirection:"column",gap:12}}>
+      <Inp label="Cliente / Lead" value={warDeal.client} onChange={v=>setWarDeal({...warDeal,client:v})} placeholder="Nome do lead ou empresa"/>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
+        <Sel label="Pacote" value={warDeal.package} onChange={v=>setWarDeal({...warDeal,package:v,value:v==="pack1"?"2000":"4000"})} options={[{value:"pack1",label:"Pacote 1 — R$2.000/mês"},{value:"pack2",label:"Pacote 2 — R$4.000/mês"}]}/>
+        <Inp label="Valor (R$)" value={warDeal.value} onChange={v=>setWarDeal({...warDeal,value:v})} type="number" placeholder="2000"/>
+      </div>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
+        <Sel label="Closer (quem fecha)" value={warDeal.closer} onChange={v=>setWarDeal({...warDeal,closer:v})} options={[{value:"",label:"Selecione"},...WAR_CLOSERS.map(id=>({value:id,label:getUser(id)?.name||id}))]}/>
+        <Sel label="SDR (quem prospectou)" value={warDeal.sdr} onChange={v=>setWarDeal({...warDeal,sdr:v})} options={[{value:"",label:"Selecione"},...WAR_SDRS.map(id=>({value:id,label:getUser(id)?.name||id}))]}/>
+      </div>
+      <Sel label="Status" value={warDeal.status} onChange={v=>setWarDeal({...warDeal,status:v})} options={[{value:"meeting",label:"📞 Call agendada"},{value:"proposal",label:"📋 Proposta enviada"},{value:"closed",label:"✅ Venda fechada"}]}/>
+      <Inp label="Observações" value={warDeal.notes} onChange={v=>setWarDeal({...warDeal,notes:v})} placeholder="Lista origem, detalhes..." textarea/>
+    </div>
+    <div style={{display:"flex",justifyContent:"flex-end",gap:8,marginTop:16}}>
+      <Btn variant="secondary" onClick={()=>setShowWarDeal(false)}>Cancelar</Btn>
+      <Btn onClick={addWarDeal} disabled={!warDeal.client} icon={Target}>Registrar</Btn>
+    </div>
+  </Modal>;
+
   const ReportsPage = () => <div style={{padding:20,maxWidth:1400,margin:"0 auto"}}>
     <h1 style={{fontSize:20,fontWeight:800,color:"#f1f5f9",margin:"0 0 16px"}}>Relatórios</h1>
     <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(170px,1fr))",gap:10,marginBottom:20}}>
@@ -2858,6 +3173,7 @@ function AgenciaOSApp() {
       case "tasks": return <TasksPage/>;
       case "calendar": return <CalendarPage/>;
       case "lince": return <LincePage/>;
+      case "warday": return <WarDayPage/>;
       case "reports": return <ReportsPage/>;
       case "gc": return <GCPage/>;
       case "team": return <TeamPage/>;
@@ -3246,6 +3562,9 @@ function AgenciaOSApp() {
           </Btn>
         </div>
       </Modal>
+
+      {/* WAR DAY MODAL */}
+      <WarDayModal/>
 
       {/* EDIT USER MODAL */}
       <Modal open={showEditUser&&editingUser} onClose={()=>{setShowEditUser(false);setEditingUser(null);}} title={`Editar Colaborador — ${editingUser?.name||""}`}>

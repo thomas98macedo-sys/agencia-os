@@ -2460,7 +2460,7 @@ function AgenciaOSApp() {
           const statusLabels = {scheduled:"📞 Agendada",done:"✅ Realizada",proposal:"📋 Proposta",closed:"🎯 Fechada",lost:"❌ Perdida"};
           return <div key={c.id} style={{background:"#020617",border:`1px solid ${statusColors[c.status]||"#1e293b"}30`,borderRadius:10,padding:12}}>
             <div style={{display:"flex",justifyContent:"space-between",marginBottom:8}}>
-              <input type="text" value={c.client} onChange={e=>setConsultorias(p=>p.map(x=>x.id!==c.id?x:{...x,client:e.target.value}))}
+              <input type="text" defaultValue={c.client} onBlur={e=>setConsultorias(p=>p.map(x=>x.id!==c.id?x:{...x,client:e.target.value}))}
                 placeholder="Nome do lead..." style={{background:"transparent",border:"none",color:"#e2e8f0",fontSize:14,fontWeight:700,outline:"none",flex:1,fontFamily:"inherit"}}/>
               <select value={c.status} onChange={e=>{
                 const newSt=e.target.value;
@@ -2473,12 +2473,12 @@ function AgenciaOSApp() {
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:6,marginBottom:8}}>
               <div>
                 <label style={{fontSize:8,color:"#475569",textTransform:"uppercase"}}>Telefone</label>
-                <input type="text" value={c.phone||""} onChange={e=>setConsultorias(p=>p.map(x=>x.id!==c.id?x:{...x,phone:e.target.value}))}
+                <input type="text" defaultValue={c.phone||""} onBlur={e=>setConsultorias(p=>p.map(x=>x.id!==c.id?x:{...x,phone:e.target.value}))}
                   placeholder="(11) 99999-9999" style={{width:"100%",background:"#1e293b",border:"1px solid #334155",borderRadius:5,padding:"4px 6px",color:"#e2e8f0",fontSize:10,outline:"none",fontFamily:"inherit",boxSizing:"border-box",marginTop:2}}/>
               </div>
               <div>
                 <label style={{fontSize:8,color:"#475569",textTransform:"uppercase"}}>Valor Proposta (R$)</label>
-                <input type="number" value={c.proposalValue||""} onChange={e=>setConsultorias(p=>p.map(x=>x.id!==c.id?x:{...x,proposalValue:e.target.value}))}
+                <input type="number" defaultValue={c.proposalValue||""} onBlur={e=>setConsultorias(p=>p.map(x=>x.id!==c.id?x:{...x,proposalValue:e.target.value}))}
                   placeholder="2000" style={{width:"100%",background:"#1e293b",border:"1px solid #334155",borderRadius:5,padding:"4px 6px",color:"#e2e8f0",fontSize:10,outline:"none",fontFamily:"inherit",boxSizing:"border-box",marginTop:2}}/>
               </div>
             </div>
@@ -2492,7 +2492,7 @@ function AgenciaOSApp() {
             </div>
             <div style={{marginBottom:6}}>
               <label style={{fontSize:8,color:"#475569",textTransform:"uppercase"}}>Briefing / Observações</label>
-              <textarea value={c.briefing||""} onChange={e=>setConsultorias(p=>p.map(x=>x.id!==c.id?x:{...x,briefing:e.target.value}))}
+              <textarea defaultValue={c.briefing||""} onBlur={e=>setConsultorias(p=>p.map(x=>x.id!==c.id?x:{...x,briefing:e.target.value}))}
                 placeholder="Dor do lead, como chegou, interesse..." style={{width:"100%",background:"#1e293b",border:"1px solid #334155",borderRadius:5,padding:"4px 6px",color:"#e2e8f0",fontSize:10,outline:"none",fontFamily:"inherit",boxSizing:"border-box",marginTop:2,minHeight:40,resize:"vertical"}}/>
             </div>
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>

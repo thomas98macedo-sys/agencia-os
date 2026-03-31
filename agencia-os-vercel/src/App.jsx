@@ -2498,27 +2498,28 @@ function AgenciaOSApp() {
       );})}
     </div>
 
-    {/* ═══ DISTRIBUIÇÃO SOCIAL MEDIA — quem cuida de quem ═══ */}
+    {/* ═══ DISTRIBUIÇÃO SOCIAL MEDIA — drag & drop + prioridade ═══ */}
     <div style={{marginTop:20}}>
-      <h2 style={{fontSize:16,fontWeight:800,color:"#ec4899",margin:"0 0 12px",display:"flex",alignItems:"center",gap:6}}>
+      <h2 style={{fontSize:16,fontWeight:800,color:"#ec4899",margin:"0 0 4px",display:"flex",alignItems:"center",gap:6}}>
         <Image size={18}/> Distribuição Social Media — Clientes por Pessoa
       </h2>
+      <div style={{fontSize:11,color:"#64748b",marginBottom:12}}>Arraste os clientes entre os cards para redistribuir. Clique na bolinha de prioridade para alterar.</div>
       <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(300px,1fr))",gap:12}}>
         {SEED_USERS.filter(u=>u.role==="social"&&!u.pending).map(sm => {
           const smClients = clients.filter(c=>c.socialId===sm.id&&!c.archived&&!c.churning&&!c.encerrado);
           const briefingDone = smClients.filter(c=>c.socialBriefing&&c.socialBriefing.every(b=>b.done)).length;
           const gc = GC_TEAMS[sm.gc];
-          return <div key={sm.id} style={{background:"#0f172a",border:"1px solid #ec489930",borderRadius:12,overflow:"hidden"}}>
-            {/* Header */}
+          return <div key={sm.id}
+            onDragOver={e=>{e.preventDefault();e.currentTarget.style.borderColor="#ec4899";}}
+            onDragLeave={e=>{e.currentTarget.style.borderColor="#ec489930";}}
+            onDrop={e=>{e.preventDefault();e.currentTarget.style.borderColor="#ec489930";if(draggedId){setClients(p=>p.map(c=>c.id!==draggedId?c:{...c,socialId:sm.id,timeline:[...c.timeline,{date:new Date().toISOString(),event:`Social Media alterada → ${sm.name}`,user:authUser?.name||"Thomas"}]}));showToast(`📱 ${clients.find(c=>c.id===draggedId)?.company} → ${sm.name}`);sendTelegram(`📱 Redistribuição SM: ${clients.find(c=>c.id===draggedId)?.company} → ${sm.name}`);setDraggedId(null);}}}
+            style={{background:"#0f172a",border:"2px solid #ec489930",borderRadius:12,overflow:"hidden",transition:"border-color .2s"}}>
             <div style={{background:"linear-gradient(135deg,#ec489915,#ec489908)",padding:"12px 14px",borderBottom:"1px solid #ec489920",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
               <div style={{display:"flex",alignItems:"center",gap:8}}>
                 <Av i={sm.avatar} c="#ec4899" s={36}/>
                 <div>
                   <div style={{fontSize:14,fontWeight:700,color:"#f1f5f9"}}>{sm.name}</div>
-                  <div style={{display:"flex",gap:4}}>
-                    <Bg color="#ec4899" small>Social Media</Bg>
-                    {gc&&<Bg color={gc.color} small>{gc.icon} {gc.id}</Bg>}
-                  </div>
+                  <div style={{display:"flex",gap:4}}><Bg color="#ec4899" small>Social Media</Bg>{gc&&<Bg color={gc.color} small>{gc.icon} {gc.id}</Bg>}</div>
                 </div>
               </div>
               <div style={{textAlign:"right"}}>
@@ -2526,32 +2527,40 @@ function AgenciaOSApp() {
                 <div style={{fontSize:9,color:"#64748b"}}>clientes</div>
               </div>
             </div>
-            {/* Progress */}
             <div style={{padding:"8px 14px",display:"flex",alignItems:"center",gap:8,borderBottom:"1px solid #1e293b"}}>
               <span style={{fontSize:10,color:"#64748b"}}>Briefings:</span>
               <div style={{flex:1}}><PB v={briefingDone} m={smClients.length||1} c="#ec4899" h={4}/></div>
-              <span style={{fontSize:10,fontWeight:700,color:briefingDone===smClients.length?"#22c55e":"#f59e0b"}}>{briefingDone}/{smClients.length}</span>
+              <span style={{fontSize:10,fontWeight:700,color:briefingDone===smClients.length&&smClients.length>0?"#22c55e":"#f59e0b"}}>{briefingDone}/{smClients.length}</span>
             </div>
-            {/* Client list */}
-            <div style={{padding:8,maxHeight:300,overflowY:"auto"}}>
-              {smClients.length===0&&<div style={{padding:16,textAlign:"center",color:"#475569",fontSize:11}}>Nenhum cliente atribuído.<br/>Atribua clientes no Kanban (✏️ Editar Equipe).</div>}
+            <div style={{padding:8,minHeight:60,maxHeight:350,overflowY:"auto"}}>
+              {smClients.length===0&&<div style={{padding:20,textAlign:"center",color:"#475569",fontSize:11,border:"2px dashed #334155",borderRadius:8}}>Solte clientes aqui para atribuir a {sm.name}</div>}
               {smClients.map(c => {
                 const hasBriefing = c.socialBriefing && c.socialBriefing.length > 0;
                 const briefingPct = hasBriefing ? Math.round((c.socialBriefing.filter(b=>b.done).length / c.socialBriefing.length)*100) : 0;
-                return <div key={c.id} onClick={()=>openClient(c.id)} style={{display:"flex",alignItems:"center",gap:8,padding:"6px 8px",borderRadius:8,cursor:"pointer",marginBottom:2,background:"#020617",border:"1px solid #1e293b"}}
-                  onMouseEnter={e=>e.currentTarget.style.borderColor="#ec489950"} onMouseLeave={e=>e.currentTarget.style.borderColor="#1e293b"}>
-                  <Av i={c.company.slice(0,2).toUpperCase()} c={KANBAN_COLUMNS.find(k=>k.id===c.status)?.color||"#64748b"} s={26}/>
-                  <div style={{flex:1,minWidth:0}}>
-                    <div style={{fontSize:11,fontWeight:600,color:"#e2e8f0",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.company}</div>
-                    <div style={{fontSize:9,color:"#64748b"}}>{c.service?.substring(0,30)}</div>
+                const prio = PRIORITIES[c.priority];
+                const prioOrder = ["low","medium","high","urgent"];
+                const cyclePrio = () => {
+                  const idx = prioOrder.indexOf(c.priority||"medium");
+                  const next = prioOrder[(idx+1)%prioOrder.length];
+                  setClients(p=>p.map(x=>x.id!==c.id?x:{...x,priority:next}));
+                };
+                return <div key={c.id} draggable
+                  onDragStart={e=>{setDraggedId(c.id);e.dataTransfer.effectAllowed="move";}}
+                  onDragEnd={()=>setDraggedId(null)}
+                  style={{display:"flex",alignItems:"center",gap:6,padding:"6px 8px",borderRadius:8,marginBottom:3,background:draggedId===c.id?"#1e293b":"#020617",border:`1px solid ${draggedId===c.id?"#ec4899":"#1e293b"}`,cursor:"grab",opacity:draggedId===c.id?.5:1,transition:"opacity .2s"}}>
+                  {/* Priority dot — click to cycle */}
+                  <button onClick={e=>{e.stopPropagation();cyclePrio();}} title={`Prioridade: ${prio?.label||"Média"} — clique para alterar`}
+                    style={{width:14,height:14,borderRadius:"50%",background:prio?.color||"#eab308",border:"2px solid "+((prio?.color||"#eab308")+"80"),cursor:"pointer",flexShrink:0,padding:0}}/>
+                  <Av i={c.company.slice(0,2).toUpperCase()} c={KANBAN_COLUMNS.find(k=>k.id===c.status)?.color||"#64748b"} s={24}/>
+                  <div style={{flex:1,minWidth:0}} onClick={()=>openClient(c.id)}>
+                    <div style={{fontSize:11,fontWeight:600,color:"#e2e8f0",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer"}}>{c.company}</div>
+                    <div style={{fontSize:8,color:"#64748b"}}>{c.service?.substring(0,35)}</div>
                   </div>
-                  <div style={{display:"flex",alignItems:"center",gap:4}}>
-                    {hasBriefing&&<div style={{width:30,textAlign:"center"}}>
-                      <div style={{fontSize:9,fontWeight:700,color:briefingPct===100?"#22c55e":briefingPct>50?"#f59e0b":"#ef4444"}}>{briefingPct}%</div>
-                    </div>}
-                    {briefingPct===100&&<CheckCircle2 size={12} color="#22c55e"/>}
-                    {briefingPct>0&&briefingPct<100&&<Circle size={12} color="#f59e0b"/>}
-                    {briefingPct===0&&<AlertCircle size={12} color="#ef4444"/>}
+                  <div style={{display:"flex",alignItems:"center",gap:3}}>
+                    <Bg color={prio?.color||"#eab308"} small>{prio?.label||"Média"}</Bg>
+                    {briefingPct===100&&<CheckCircle2 size={11} color="#22c55e"/>}
+                    {briefingPct>0&&briefingPct<100&&<span style={{fontSize:8,fontWeight:700,color:"#f59e0b"}}>{briefingPct}%</span>}
+                    {briefingPct===0&&hasBriefing&&<AlertCircle size={11} color="#ef4444"/>}
                   </div>
                 </div>;
               })}
@@ -2559,32 +2568,42 @@ function AgenciaOSApp() {
           </div>;
         })}
 
-        {/* Sem social media atribuída */}
+        {/* Sem social media atribuída — also a drop target */}
         {(()=>{
-          const unassigned = clients.filter(c=>!c.socialId&&!c.archived&&!c.churning&&!c.encerrado&&(c.service?.toLowerCase().includes("social")||c.service?.toLowerCase().includes("tudo")));
-          if (unassigned.length===0) return null;
-          return <div style={{background:"#0f172a",border:"2px dashed #ef444440",borderRadius:12,overflow:"hidden"}}>
+          const unassigned = clients.filter(c=>!c.socialId&&!c.archived&&!c.churning&&!c.encerrado&&(c.service?.toLowerCase().includes("social")||c.service?.toLowerCase().includes("tudo")||c.service?.toLowerCase().includes("naming")));
+          return <div
+            onDragOver={e=>{e.preventDefault();e.currentTarget.style.borderColor="#ef4444";}}
+            onDragLeave={e=>{e.currentTarget.style.borderColor="#ef444440";}}
+            onDrop={e=>{e.preventDefault();e.currentTarget.style.borderColor="#ef444440";if(draggedId){setClients(p=>p.map(c=>c.id!==draggedId?c:{...c,socialId:null}));setDraggedId(null);}}}
+            style={{background:"#0f172a",border:"2px dashed #ef444440",borderRadius:12,overflow:"hidden",transition:"border-color .2s"}}>
             <div style={{background:"#ef444410",padding:"12px 14px",borderBottom:"1px solid #ef444420",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
               <div style={{display:"flex",alignItems:"center",gap:8}}>
                 <div style={{width:36,height:36,borderRadius:"50%",background:"#ef4444",display:"flex",alignItems:"center",justifyContent:"center",fontSize:16}}>⚠️</div>
                 <div>
                   <div style={{fontSize:14,fontWeight:700,color:"#ef4444"}}>Sem Social Media</div>
-                  <div style={{fontSize:10,color:"#fca5a5"}}>Clientes que precisam de atribuição</div>
+                  <div style={{fontSize:10,color:"#fca5a5"}}>Arraste para cá para desatribuir</div>
                 </div>
               </div>
               <div style={{fontSize:20,fontWeight:800,color:"#ef4444"}}>{unassigned.length}</div>
             </div>
-            <div style={{padding:8,maxHeight:300,overflowY:"auto"}}>
-              {unassigned.map(c => (
-                <div key={c.id} onClick={()=>openClient(c.id)} style={{display:"flex",alignItems:"center",gap:8,padding:"6px 8px",borderRadius:8,cursor:"pointer",marginBottom:2,background:"#020617",border:"1px solid #ef444420"}}>
-                  <Av i={c.company.slice(0,2).toUpperCase()} c="#ef4444" s={26}/>
-                  <div style={{flex:1}}>
-                    <div style={{fontSize:11,fontWeight:600,color:"#fca5a5"}}>{c.company}</div>
-                    <div style={{fontSize:9,color:"#64748b"}}>{c.service?.substring(0,30)}</div>
+            <div style={{padding:8,minHeight:60,maxHeight:350,overflowY:"auto"}}>
+              {unassigned.length===0&&<div style={{padding:20,textAlign:"center",color:"#475569",fontSize:11,border:"2px dashed #334155",borderRadius:8}}>Todos atribuídos ✅</div>}
+              {unassigned.map(c => {
+                const prio = PRIORITIES[c.priority];
+                return <div key={c.id} draggable
+                  onDragStart={e=>{setDraggedId(c.id);e.dataTransfer.effectAllowed="move";}}
+                  onDragEnd={()=>setDraggedId(null)}
+                  style={{display:"flex",alignItems:"center",gap:6,padding:"6px 8px",borderRadius:8,marginBottom:3,background:"#020617",border:"1px solid #ef444420",cursor:"grab",opacity:draggedId===c.id?.5:1}}>
+                  <button onClick={e=>{e.stopPropagation();const o=["low","medium","high","urgent"];const i=o.indexOf(c.priority||"medium");setClients(p=>p.map(x=>x.id!==c.id?x:{...x,priority:o[(i+1)%o.length]}));}}
+                    style={{width:14,height:14,borderRadius:"50%",background:prio?.color||"#eab308",border:"2px solid "+((prio?.color||"#eab308")+"80"),cursor:"pointer",flexShrink:0,padding:0}}/>
+                  <Av i={c.company.slice(0,2).toUpperCase()} c="#ef4444" s={24}/>
+                  <div style={{flex:1}} onClick={()=>openClient(c.id)}>
+                    <div style={{fontSize:11,fontWeight:600,color:"#fca5a5",cursor:"pointer"}}>{c.company}</div>
+                    <div style={{fontSize:8,color:"#64748b"}}>{c.service?.substring(0,35)}</div>
                   </div>
-                  <Bg color="#ef4444" small>Atribuir →</Bg>
-                </div>
-              ))}
+                  <Bg color={prio?.color||"#eab308"} small>{prio?.label||"Média"}</Bg>
+                </div>;
+              })}
             </div>
           </div>;
         })()}

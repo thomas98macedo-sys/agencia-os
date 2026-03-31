@@ -692,6 +692,31 @@ function AgenciaOSApp() {
   const [sheetSyncStatus, setSheetSyncStatus] = useState("idle"); // idle | syncing | synced | error
   const [lastSheetSync, setLastSheetSync] = useState(null);
 
+  // ═══ TOAST POPUP SYSTEM (must be before syncFromSheet) ═══
+  const showToast = useCallback((msg, type="info") => {
+    const id = `toast_${uid()}`;
+    setToasts(prev => [...prev, { id, message: msg, type, time: Date.now() }]);
+    setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 6000);
+    if (typeof Notification !== "undefined" && Notification.permission === "granted") {
+      new Notification("AgênciaOS", { body: msg.replace(/[🔄✅🚀📋⏰👥🆕⛔💣🚨]/g, "").trim(), icon: "/icon.svg" });
+    }
+  }, []);
+
+  // ═══ TELEGRAM BOT (must be before syncFromSheet) ═══
+  const sendTelegram = useCallback(async (msg) => {
+    if (!telegramConfig.enabled || !telegramConfig.botToken || !telegramConfig.chatId) return;
+    try {
+      const text = msg.replace(/[<>]/g, "");
+      await fetch(`https://api.telegram.org/bot${telegramConfig.botToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chat_id: telegramConfig.chatId, text: `📊 *AgênciaOS*\n\n${text}`, parse_mode: "Markdown", disable_web_page_preview: true }),
+      });
+    } catch (e) { console.warn("Telegram send failed:", e); }
+  }, [telegramConfig]);
+
+  useEffect(() => { try { localStorage.setItem("agos-telegram", JSON.stringify(telegramConfig)); } catch(e) {} }, [telegramConfig]);
+
   const syncFromSheet = useCallback(async () => {
     if (!loaded) return; // don't sync before app loads
     setSheetSyncStatus("syncing");
@@ -906,41 +931,6 @@ function AgenciaOSApp() {
   const unread = notifications.filter(n => !n.read).length;
 
   const toggleCk = (cid,key,iid) => setClients(p=>p.map(c=>c.id!==cid?c:{...c,[key]:c[key].map(i=>i.id===iid?{...i,done:!i.done}:i)}));
-
-  // ═══ TOAST POPUP SYSTEM ═══
-  const showToast = useCallback((msg, type="info") => {
-    const id = `toast_${uid()}`;
-    setToasts(prev => [...prev, { id, message: msg, type, time: Date.now() }]);
-    // Auto-remove after 6 seconds
-    setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 6000);
-    // Browser notification
-    if (typeof Notification !== "undefined" && Notification.permission === "granted") {
-      new Notification("AgênciaOS", { body: msg.replace(/[🔄✅🚀📋⏰👥🆕⛔💣🚨]/g, "").trim(), icon: "/icon.svg" });
-    }
-  }, []);
-
-  // ═══ TELEGRAM BOT INTEGRATION ═══
-  const sendTelegram = useCallback(async (msg) => {
-    if (!telegramConfig.enabled || !telegramConfig.botToken || !telegramConfig.chatId) return;
-    try {
-      const text = msg.replace(/[<>]/g, "");
-      await fetch(`https://api.telegram.org/bot${telegramConfig.botToken}/sendMessage`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: telegramConfig.chatId,
-          text: `📊 *AgênciaOS*\n\n${text}`,
-          parse_mode: "Markdown",
-          disable_web_page_preview: true,
-        }),
-      });
-    } catch (e) { console.warn("Telegram send failed:", e); }
-  }, [telegramConfig]);
-
-  // Save telegram config
-  useEffect(() => {
-    try { localStorage.setItem("agos-telegram", JSON.stringify(telegramConfig)); } catch(e) {}
-  }, [telegramConfig]);
 
   // ═══ DAILY SUMMARY — resumo automático no Telegram ═══
   const sendDailySummary = useCallback(() => {

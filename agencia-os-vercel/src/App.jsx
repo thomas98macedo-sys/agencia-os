@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef, useMemo } from "react";
+import React, { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import {
   LayoutDashboard, Users, Kanban, ListTodo, Calendar, BarChart3, Settings, Bell,
   Search, Plus, ChevronDown, ChevronRight, ChevronLeft, X, Check, Clock, AlertTriangle,
@@ -360,9 +360,30 @@ const Inp = ({label,value,onChange,type="text",placeholder,textarea}) => <div st
 const Sel = ({label,value,onChange,options}) => <div style={{display:"flex",flexDirection:"column",gap:4}}>{label&&<label style={{fontSize:11,fontWeight:600,color:"#94a3b8",textTransform:"uppercase",letterSpacing:".04em"}}>{label}</label>}<select value={value} onChange={e=>onChange(e.target.value)} style={{background:"#1e293b",border:"1px solid #334155",borderRadius:8,padding:"8px 12px",color:"#e2e8f0",fontSize:13,outline:"none",fontFamily:"inherit"}}>{options.map(o=><option key={o.value} value={o.value}>{o.label}</option>)}</select></div>;
 
 // ═══════════════════════════════════════════
+// ERROR BOUNDARY — prevents white screen crashes
+// ═══════════════════════════════════════════
+class ErrorBoundary extends React.Component {
+  constructor(props) { super(props); this.state = { hasError: false, error: null }; }
+  static getDerivedStateFromError(error) { return { hasError: true, error }; }
+  componentDidCatch(error, info) { console.error("AgênciaOS Error:", error, info); }
+  render() {
+    if (this.state.hasError) {
+      return React.createElement("div", {style:{background:"#0f172a",color:"#e2e8f0",height:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",fontFamily:"system-ui",padding:40}},
+        React.createElement("h1", {style:{fontSize:24,fontWeight:800,marginBottom:12,color:"#ef4444"}}, "⚠️ AgênciaOS — Erro"),
+        React.createElement("p", {style:{color:"#94a3b8",marginBottom:8,textAlign:"center"}}, "Algo deu errado. Clique no botão abaixo para resetar os dados e recarregar."),
+        React.createElement("p", {style:{color:"#64748b",fontSize:12,marginBottom:20,maxWidth:500,textAlign:"center"}}, String(this.state.error?.message || this.state.error || "")),
+        React.createElement("button", {onClick:()=>{try{Object.keys(localStorage).filter(k=>k.startsWith("agos")).forEach(k=>localStorage.removeItem(k));}catch(e){}window.location.reload();},style:{background:"#6366f1",color:"#fff",border:"none",borderRadius:10,padding:"12px 24px",fontSize:14,fontWeight:700,cursor:"pointer"}}, "🔄 Resetar e Recarregar"),
+        React.createElement("p", {style:{color:"#475569",fontSize:10,marginTop:16}}, "Se o erro persistir, limpe os dados do navegador (Config → Resetar Dados)")
+      );
+    }
+    return this.props.children;
+  }
+}
+
+// ═══════════════════════════════════════════
 // MAIN APP
 // ═══════════════════════════════════════════
-export default function AgenciaOS() {
+function AgenciaOSApp() {
   const [page, setPage] = useState("dashboard");
   const [clients, setClients] = useState(DEFAULT_CLIENTS);
   const [tasks, setTasks] = useState(DEFAULT_TASKS);
@@ -672,14 +693,17 @@ export default function AgenciaOS() {
   const [lastSheetSync, setLastSheetSync] = useState(null);
 
   const syncFromSheet = useCallback(async () => {
+    if (!loaded) return; // don't sync before app loads
     setSheetSyncStatus("syncing");
     try {
       const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=BASE_2026`;
-      const resp = await fetch(url);
-      const text = await resp.text();
+      const resp = await fetch(url).catch(() => null);
+      if (!resp || !resp.ok) { setSheetSyncStatus("error"); return; }
+      const text = await resp.text().catch(() => "");
+      if (!text) { setSheetSyncStatus("error"); return; }
       // gviz returns JSONP-like: google.visualization.Query.setResponse({...})
       const jsonStr = text.match(/\{.*\}/s)?.[0];
-      if (!jsonStr) throw new Error("Formato inválido");
+      if (!jsonStr) { setSheetSyncStatus("error"); return; }
       const data = JSON.parse(jsonStr);
       const rows = data.table?.rows || [];
       const cols = data.table?.cols || [];
@@ -790,24 +814,28 @@ export default function AgenciaOS() {
       setSheetSyncStatus("error");
       showToast("❌ Erro ao sincronizar planilha: " + e.message);
     }
-  }, [showToast, sendTelegram]);
+  }, [loaded, showToast, sendTelegram]);
 
-  // Auto-sync every 5 minutes
+  // Auto-sync every 5 minutes (NOT on initial load — use button in Config)
   useEffect(() => {
-    syncFromSheet(); // sync on load
-    const interval = setInterval(syncFromSheet, 5 * 60 * 1000);
+    if (!loaded) return; // wait for app to fully load first
+    const interval = setInterval(() => {
+      try { syncFromSheet(); } catch(e) { console.warn("Sheet sync error:", e); }
+    }, 5 * 60 * 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [loaded]);
 
   // Load persistent data
   useEffect(() => {
     (async () => {
-      const c = await loadData("agos-clients", null);
-      const t = await loadData("agos-tasks", null);
-      const n = await loadData("agos-notifs", null);
-      if(c) setClients(c);
-      if(t) setTasks(t);
-      if(n) setNotifications(n);
+      try {
+        const c = await loadData("agos-clients", null);
+        const t = await loadData("agos-tasks", null);
+        const n = await loadData("agos-notifs", null);
+        if(c && Array.isArray(c)) setClients(c);
+        if(t && Array.isArray(t)) setTasks(t);
+        if(n && Array.isArray(n)) setNotifications(n);
+      } catch(e) { console.warn("Load data error:", e); }
       setLoaded(true);
     })();
   }, []);
@@ -3247,4 +3275,9 @@ export default function AgenciaOS() {
       <style>{`@keyframes slideInRight{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}`}</style>
     </div>
   );
+}
+
+// ═══ WRAP WITH ERROR BOUNDARY ═══
+export default function AgenciaOS() {
+  return React.createElement(ErrorBoundary, null, React.createElement(AgenciaOSApp));
 }

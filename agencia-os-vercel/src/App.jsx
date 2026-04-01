@@ -40,7 +40,7 @@ const KANBAN_COLUMNS = [
   { id: "onboarding_agendado", label: "Onboarding Agendado", color: "#8b5cf6", icon: "📅", responsible: "cs", responsibleLabel: "CS" },
   { id: "onboarding_concluido", label: "Onboarding Concluído", color: "#3b82f6", icon: "🎯", responsible: "cs", responsibleLabel: "CS", slaNextDays: 3, slaNextLabel: "3 dias úteis para Setup Tráfego" },
   { id: "alinhamento_visual", label: "Alinhamento Visual", color: "#ec4899", icon: "🎨", responsible: "creation_lead", responsibleLabel: "Líder Criação (Henrique)" },
-  { id: "setup_trafego", label: "Setup Tráfego", color: "#f97316", icon: "⚡", responsible: "traffic", responsibleLabel: "Gestores de Tráfego", slaHours: 24, slaLabel: "24h para ativar tráfego" },
+  { id: "setup_trafego", label: "Setup Tráfego", color: "#f97316", icon: "⚡", responsible: "traffic", responsibleLabel: "Gestores de Tráfego", slaHours: 72, slaLabel: "3 dias para setup geral" },
   { id: "trafego_ativo", label: "Tráfego Ativo", color: "#22c55e", icon: "🚀", responsible: "traffic", responsibleLabel: "Gestores de Tráfego" },
   { id: "producao_andamento", label: "Produção", color: "#14b8a6", icon: "🔄", responsible: "creation_lead", responsibleLabel: "Líder Criação + Equipe Criação do GC" },
   { id: "buscando_aprovacao", label: "Buscando Aprovação do Cliente", color: "#64748b", icon: "📤", responsible: "cs", responsibleLabel: "CS" },
@@ -78,6 +78,8 @@ const STORE_PLATFORMS = [
   {id:"ml_store", label:"Mercado Livre"},
   {id:"shopee_store", label:"Shopee"},
   {id:"tiktok_store", label:"TikTok Shop"},
+  {id:"lp_lovable", label:"LP Lovable"},
+  {id:"site_lovable", label:"Site Institucional Lovable"},
 ];
 
 // ═══ GC SYSTEM (Grupos de Combate) ═══
@@ -388,6 +390,8 @@ function AgenciaOSApp() {
   const [page, setPage] = useState("dashboard");
   const [clients, setClients] = useState(DEFAULT_CLIENTS);
   const [tasks, setTasks] = useState(DEFAULT_TASKS);
+  const kanbanRef = useRef(null);
+  const [kanbanFilter, setKanbanFilter] = useState("all"); // "all" or a user id
   const [notifications, setNotifications] = useState([
     {id:"n1",type:"alert",message:"SLA em risco: Chinalink — Setup tráfego urgente (R$15.000)",time:new Date(now-2*3600000).toISOString(),read:false,clientId:"c30"},
     {id:"n2",type:"info",message:"Novo cliente: Josivaldo — R$4.000 (Tráfego+Site+Social)",time:new Date(now-6*3600000).toISOString(),read:false,clientId:"c34"},
@@ -1443,23 +1447,52 @@ function AgenciaOSApp() {
     </div>
   );
 
-  const KanbanPage = () => (
+  const KanbanPage = () => {
+    // Filter clients by collaborator
+    const kanbanClients = kanbanFilter === "all" ? filtered : filtered.filter(c =>
+      [c.csId, c.trafficId, c.socialId, c.designerId, c.filmmakerId, c.commercialId].includes(kanbanFilter)
+    );
+    // Split concluido into churn and project done
+    const DISPLAY_COLUMNS = [...KANBAN_COLUMNS.filter(k=>k.id!=="concluido"),
+      {id:"concluido_churn",label:"Churn ⚠️",icon:"⚠️",color:"#ef4444"},
+      {id:"concluido_ok",label:"Projeto Concluído ✅",icon:"✅",color:"#22c55e"},
+    ];
+    const getDisplayStatus = (c) => {
+      if (c.status === "concluido") return c.churning ? "concluido_churn" : "concluido_ok";
+      return c.status;
+    };
+    return (
     <div style={{padding:"16px 0 16px 16px",height:"calc(100vh - 56px)",display:"flex",flexDirection:"column"}}>
-      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12,paddingRight:16}}>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12,paddingRight:16,gap:8}}>
         <h1 style={{fontSize:20,fontWeight:800,color:"#f1f5f9",margin:0}}>Kanban</h1>
-        <Btn onClick={()=>setShowNewClient(true)} icon={Plus} small>Novo Cliente</Btn>
+        <div style={{display:"flex",gap:6,alignItems:"center"}}>
+          <select value={kanbanFilter} onChange={e=>setKanbanFilter(e.target.value)}
+            style={{background:"#1e293b",border:"1px solid #334155",borderRadius:8,padding:"5px 10px",color:"#e2e8f0",fontSize:11,fontFamily:"inherit"}}>
+            <option value="all">👥 Todos</option>
+            {SEED_USERS.filter(u=>!u.pending).map(u=><option key={u.id} value={u.id}>👤 {u.name}</option>)}
+          </select>
+          <Btn onClick={()=>setShowNewClient(true)} icon={Plus} small>Novo Cliente</Btn>
+        </div>
       </div>
-      <div style={{flex:1,display:"flex",gap:10,overflowX:"auto",overflowY:"hidden",paddingBottom:8,paddingRight:16}}>
-        {KANBAN_COLUMNS.map(col=>{
-          const cc=filtered.filter(c=>c.status===col.id);
-          return <div key={col.id} onDragOver={e=>e.preventDefault()} onDrop={()=>{if(draggedId){moveClient(draggedId,col.id);setDraggedId(null);}}}
-            style={{minWidth:270,width:270,background:"#0f172a",borderRadius:12,border:"1px solid #1e293b",display:"flex",flexDirection:"column",flexShrink:0,maxHeight:"100%"}}>
+      <div ref={kanbanRef} style={{flex:1,display:"flex",gap:10,overflowX:"auto",overflowY:"hidden",paddingBottom:8,paddingRight:16}}>
+        {DISPLAY_COLUMNS.map(col=>{
+          const colId = col.id;
+          const cc = colId === "concluido_churn" ? kanbanClients.filter(c=>c.status==="concluido"&&c.churning)
+                   : colId === "concluido_ok" ? kanbanClients.filter(c=>c.status==="concluido"&&!c.churning)
+                   : kanbanClients.filter(c=>c.status===colId);
+          const colValue = cc.reduce((s,c)=>s+(c.contractValue||0),0);
+          const dropTarget = colId.startsWith("concluido_") ? "concluido" : colId;
+          return <div key={colId} onDragOver={e=>e.preventDefault()} onDrop={()=>{if(draggedId){
+            if(colId==="concluido_churn"){setClients(p=>p.map(c=>c.id!==draggedId?c:{...c,churning:true}));}
+            moveClient(draggedId,dropTarget);setDraggedId(null);}}}
+            style={{minWidth:270,width:270,background:"#0f172a",borderRadius:12,border:`1px solid ${colId==="concluido_churn"?"#ef444430":"#1e293b"}`,display:"flex",flexDirection:"column",flexShrink:0,maxHeight:"100%"}}>
             <div style={{padding:"10px 12px",borderBottom:"1px solid #1e293b"}}>
               <div style={{display:"flex",alignItems:"center",gap:6}}>
                 <span style={{fontSize:13}}>{col.icon}</span>
                 <span style={{fontSize:11,fontWeight:700,color:"#e2e8f0",flex:1}}>{col.label}</span>
                 <span style={{fontSize:10,fontWeight:700,color:col.color,background:`${col.color}20`,padding:"1px 7px",borderRadius:10}}>{cc.length}</span>
               </div>
+              {colValue>0&&<div style={{fontSize:9,fontWeight:700,color:"#22c55e",marginTop:3}}>R${colValue.toLocaleString("pt-BR")}</div>}
               {col.responsibleLabel&&<div style={{fontSize:9,color:"#64748b",marginTop:3,display:"flex",alignItems:"center",gap:3}}>
                 <Users size={8}/> {col.responsibleLabel}
               </div>}
@@ -1477,10 +1510,10 @@ function AgenciaOSApp() {
               {cc.map(c=>{const sla=getSLA(c.paymentDate,c.trafficActivationDate);return(
                 <div key={c.id} draggable onDragStart={()=>setDraggedId(c.id)} onDragEnd={()=>setDraggedId(null)} onClick={()=>openClient(c.id)}
                   style={{background:"#020617",border:`1px solid ${draggedId===c.id?col.color:"#1e293b"}`,borderRadius:10,padding:10,cursor:"grab",opacity:draggedId===c.id?.5:1,position:"relative"}}>
-                  {/* ═══ TIME BUBBLE — tempo na coluna (produção/aprovação) ═══ */}
+                  {/* ═══ TIME BUBBLE + SLA RISK SIREN ═══ */}
                   {(()=>{
-                    const trackCols = ["producao_andamento","buscando_aprovacao","aprovacao_concluida"];
-                    if (!trackCols.includes(col.id)) return null;
+                    const trackCols = ["alinhamento_visual","setup_trafego","producao_andamento","buscando_aprovacao","aprovacao_concluida","onboarding_agendado","onboarding_concluido"];
+                    if (!trackCols.includes(colId)) return null;
                     const changedAt = c.statusChangedAt || c.closedDate;
                     if (!changedAt) return null;
                     const hoursInCol = (Date.now() - new Date(changedAt).getTime()) / 3600000;
@@ -1490,9 +1523,15 @@ function AgenciaOSApp() {
                     const isCritical = daysInCol >= 5;
                     const bgColor = isCritical ? "#ef4444" : isWarning ? "#f59e0b" : "#334155";
                     const icon = isCritical ? "💣" : isWarning ? "🚨" : "⏱️";
-                    return <div style={{position:"absolute",top:-8,right:-4,display:"flex",alignItems:"center",gap:2,background:bgColor,padding:"2px 7px",borderRadius:10,fontSize:10,fontWeight:700,color:"#fff",boxShadow:"0 2px 8px rgba(0,0,0,.4)",zIndex:2,animation:isCritical?"pulse 1s infinite":isWarning?"pulse 2s infinite":"none"}}>
-                      <span>{icon}</span> {timeLabel}
-                    </div>;
+                    return <>
+                      <div style={{position:"absolute",top:-8,right:-4,display:"flex",alignItems:"center",gap:2,background:bgColor,padding:"2px 7px",borderRadius:10,fontSize:10,fontWeight:700,color:"#fff",boxShadow:"0 2px 8px rgba(0,0,0,.4)",zIndex:2}}>
+                        <span>{icon}</span> {timeLabel}
+                      </div>
+                      {isCritical&&<div style={{background:"linear-gradient(90deg,#ef4444,#dc2626)",borderRadius:6,padding:"4px 8px",marginBottom:6,display:"flex",alignItems:"center",gap:4,animation:"pulse 1.5s infinite"}}>
+                        <span style={{fontSize:12}}>🚨</span>
+                        <span style={{fontSize:9,fontWeight:800,color:"#fff",letterSpacing:".5px"}}>EM RISCO — {Math.floor(daysInCol)} DIAS PARADO</span>
+                      </div>}
+                    </>;
                   })()}
                   <div style={{display:"flex",justifyContent:"space-between",marginBottom:6}}>
                     <div style={{fontSize:12,fontWeight:700,color:"#f1f5f9"}}>{c.company}</div>
@@ -1501,7 +1540,7 @@ function AgenciaOSApp() {
                   <div style={{fontSize:10,color:"#94a3b8",marginBottom:6}}>{c.contact} • {c.service}</div>
                   {sla&&sla.status!=="done"&&<div style={{marginBottom:6}}><SLABg sla={sla}/>{sla.pct!==undefined&&<div style={{marginTop:3}}><PB v={sla.pct} m={100} c={sla.color} h={3}/></div>}</div>}
                   {/* ═══ DRIVE LINKS — 3 categorias no card ═══ */}
-                  {(col.id==="producao_andamento"||col.id==="buscando_aprovacao"||col.id==="aprovacao_concluida") && (
+                  {(colId==="producao_andamento"||colId==="buscando_aprovacao"||colId==="aprovacao_concluida") && (
                     <div style={{marginBottom:6,background:"#1e293b",borderRadius:8,padding:6}} onClick={e=>e.stopPropagation()}>
                       <div style={{fontSize:9,fontWeight:700,color:"#94a3b8",marginBottom:4,display:"flex",alignItems:"center",gap:3}}>
                         <ExternalLink size={9}/> Drive do Projeto
@@ -1587,7 +1626,7 @@ function AgenciaOSApp() {
         </div>
       </div>
     </div>
-  );
+  );};
 
   const ClientDetail = () => {
     if(!client) return null;
@@ -3737,7 +3776,7 @@ function AgenciaOSApp() {
           </div>
         ))}
       </div>
-      <style>{`@keyframes slideInRight{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}`}</style>
+      <style>{`@keyframes slideInRight{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}`}</style>
     </div>
   );
 }

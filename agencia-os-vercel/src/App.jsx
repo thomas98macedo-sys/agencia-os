@@ -1383,7 +1383,7 @@ function AgenciaOSApp() {
           </div>
           {clients.slice(0,5).map(c=>{const col=KANBAN_COLUMNS.find(k=>k.id===c.status);const sla=getSLA(c.paymentDate,c.trafficActivationDate);return(
             <div key={c.id} onClick={()=>openClient(c.id)} style={{display:"flex",alignItems:"center",gap:10,padding:"8px 0",borderBottom:"1px solid #1e293b30",cursor:"pointer"}}>
-              <Av i={c.company.slice(0,2).toUpperCase()} c={col?.color} s={32}/>
+              <Av i={(c.company||"??").slice(0,2).toUpperCase()} c={col?.color} s={32}/>
               <div style={{flex:1,minWidth:0}}><div style={{fontSize:12,fontWeight:600,color:"#e2e8f0",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.company}</div><div style={{fontSize:10,color:"#64748b"}}>{c.service}</div></div>
               <Bg color={col?.color} small>{col?.icon}</Bg>
               <SLABg sla={sla}/>
@@ -1480,7 +1480,7 @@ function AgenciaOSApp() {
           const cc = colId === "concluido_churn" ? kanbanClients.filter(c=>c.status==="concluido"&&c.churning)
                    : colId === "concluido_ok" ? kanbanClients.filter(c=>c.status==="concluido"&&!c.churning)
                    : kanbanClients.filter(c=>c.status===colId);
-          const colValue = cc.reduce((s,c)=>s+(c.contractValue||0),0);
+          const colValue = cc.reduce((s,c)=>s+(Number(c.contractValue)||0),0);
           const dropTarget = colId.startsWith("concluido_") ? "concluido" : colId;
           return <div key={colId} onDragOver={e=>e.preventDefault()} onDrop={()=>{if(draggedId){
             if(colId==="concluido_churn"){setClients(p=>p.map(c=>c.id!==draggedId?c:{...c,churning:true}));}
@@ -1609,15 +1609,15 @@ function AgenciaOSApp() {
               {["Empresa","Contato","Serviço","Valor","Status","CS","SLA","Prio"].map(h=><th key={h} style={{padding:"8px 12px",textAlign:"left",color:"#64748b",fontWeight:600,fontSize:10,textTransform:"uppercase",whiteSpace:"nowrap"}}>{h}</th>)}
             </tr></thead>
             <tbody>
-              {filtered.map(c=>{const col=KANBAN_COLUMNS.find(k=>k.id===c.status);const sla=getSLA(c.paymentDate,c.trafficActivationDate);const cs=getUser(c.csId);return(
+              {filtered.map(c=>{if(!c||!c.company)return null;const col=KANBAN_COLUMNS.find(k=>k.id===c.status);const sla=getSLA(c.paymentDate,c.trafficActivationDate);const cs=getUser(c.csId);return(
                 <tr key={c.id} onClick={()=>openClient(c.id)} style={{borderBottom:"1px solid #1e293b30",cursor:"pointer"}} onMouseEnter={e=>e.currentTarget.style.background="#1e293b30"} onMouseLeave={e=>e.currentTarget.style.background="transparent"}>
-                  <td style={{padding:"8px 12px"}}><div style={{display:"flex",alignItems:"center",gap:8}}><Av i={c.company.slice(0,2).toUpperCase()} c={col?.color} s={28}/><span style={{fontWeight:600,color:"#f1f5f9"}}>{c.company}</span></div></td>
-                  <td style={{padding:"8px 12px",color:"#94a3b8"}}>{c.contact}</td>
-                  <td style={{padding:"8px 12px",color:"#94a3b8"}}>{c.service}</td>
-                  <td style={{padding:"8px 12px",color:"#e2e8f0",fontWeight:600}}>R${c.contractValue?.toLocaleString("pt-BR")}</td>
-                  <td style={{padding:"8px 12px"}}><Bg color={col?.color} small>{col?.icon} {col?.label}</Bg></td>
-                  <td style={{padding:"8px 12px"}}>{cs&&<Av i={cs.avatar} c={ROLES.CS.color} s={22}/>}</td>
-                  <td style={{padding:"8px 12px"}}><SLABg sla={sla}/></td>
+                  <td style={{padding:"8px 12px"}}><div style={{display:"flex",alignItems:"center",gap:8}}><Av i={(c.company||"??").slice(0,2).toUpperCase()} c={col?.color||"#64748b"} s={28}/><span style={{fontWeight:600,color:"#f1f5f9"}}>{c.company}</span></div></td>
+                  <td style={{padding:"8px 12px",color:"#94a3b8"}}>{c.contact||""}</td>
+                  <td style={{padding:"8px 12px",color:"#94a3b8"}}>{c.service||""}</td>
+                  <td style={{padding:"8px 12px",color:"#e2e8f0",fontWeight:600}}>R${(Number(c.contractValue)||0).toLocaleString("pt-BR")}</td>
+                  <td style={{padding:"8px 12px"}}><Bg color={col?.color||"#64748b"} small>{col?.icon||""} {col?.label||c.status}</Bg></td>
+                  <td style={{padding:"8px 12px"}}>{cs&&<Av i={cs.avatar} c={ROLES?.CS?.color||"#06b6d4"} s={22}/>}</td>
+                  <td style={{padding:"8px 12px"}}>{sla&&<SLABg sla={sla}/>}</td>
                   <td style={{padding:"8px 12px"}}><Bg color={PRIORITIES[c.priority]?.color||"#64748b"} small>{PRIORITIES[c.priority]?.label||""}</Bg></td>
                 </tr>
               );})}
@@ -2905,7 +2905,7 @@ function AgenciaOSApp() {
                   {/* Priority dot — click to cycle */}
                   <button onClick={e=>{e.stopPropagation();cyclePrio();}} title={`Prioridade: ${prio?.label||"Média"} — clique para alterar`}
                     style={{width:14,height:14,borderRadius:"50%",background:prio?.color||"#eab308",border:"2px solid "+((prio?.color||"#eab308")+"80"),cursor:"pointer",flexShrink:0,padding:0}}/>
-                  <Av i={c.company.slice(0,2).toUpperCase()} c={KANBAN_COLUMNS.find(k=>k.id===c.status)?.color||"#64748b"} s={24}/>
+                  <Av i={(c.company||"??").slice(0,2).toUpperCase()} c={KANBAN_COLUMNS.find(k=>k.id===c.status)?.color||"#64748b"} s={24}/>
                   <div style={{flex:1,minWidth:0}} onClick={()=>openClient(c.id)}>
                     <div style={{fontSize:11,fontWeight:600,color:"#e2e8f0",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",cursor:"pointer"}}>{c.company}</div>
                     <div style={{fontSize:8,color:"#64748b"}}>{c.service?.substring(0,35)}</div>
@@ -2950,7 +2950,7 @@ function AgenciaOSApp() {
                   style={{display:"flex",alignItems:"center",gap:6,padding:"6px 8px",borderRadius:8,marginBottom:3,background:"#020617",border:"1px solid #ef444420",cursor:"grab",opacity:draggedId===c.id?.5:1}}>
                   <button onClick={e=>{e.stopPropagation();const o=["low","medium","high","urgent"];const i=o.indexOf(c.priority||"medium");setClients(p=>p.map(x=>x.id!==c.id?x:{...x,priority:o[(i+1)%o.length]}));}}
                     style={{width:14,height:14,borderRadius:"50%",background:prio?.color||"#eab308",border:"2px solid "+((prio?.color||"#eab308")+"80"),cursor:"pointer",flexShrink:0,padding:0}}/>
-                  <Av i={c.company.slice(0,2).toUpperCase()} c="#ef4444" s={24}/>
+                  <Av i={(c.company||"??").slice(0,2).toUpperCase()} c="#ef4444" s={24}/>
                   <div style={{flex:1}} onClick={()=>openClient(c.id)}>
                     <div style={{fontSize:11,fontWeight:600,color:"#fca5a5",cursor:"pointer"}}>{c.company}</div>
                     <div style={{fontSize:8,color:"#64748b"}}>{c.service?.substring(0,35)}</div>
@@ -3140,7 +3140,7 @@ function AgenciaOSApp() {
         {clients.filter(c=>c.archived).map(c => {
           const col = KANBAN_COLUMNS.find(k=>k.id===c.status);
           return <div key={c.id} style={{display:"flex",alignItems:"center",gap:10,padding:"10px 12px",background:"#020617",border:"1px solid #1e293b",borderRadius:10}}>
-            <Av i={c.company.slice(0,2).toUpperCase()} c="#64748b" s={32}/>
+            <Av i={(c.company||"??").slice(0,2).toUpperCase()} c="#64748b" s={32}/>
             <div style={{flex:1,minWidth:0}}>
               <div style={{fontSize:13,fontWeight:700,color:"#e2e8f0"}}>{c.company}</div>
               <div style={{fontSize:10,color:"#64748b"}}>{c.service} • R${(c.contractValue||0).toLocaleString("pt-BR")} • {c.churning?"⚠️ Churning":"Arquivado"}</div>

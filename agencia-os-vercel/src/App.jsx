@@ -1594,7 +1594,7 @@ function AgenciaOSApp() {
         })}
       </div>
     </div>
-  );
+  );};
 
   const ClientsPage = () => (
     <div style={{padding:20,maxWidth:1400,margin:"0 auto"}}>
@@ -1626,7 +1626,7 @@ function AgenciaOSApp() {
         </div>
       </div>
     </div>
-  );};
+  );
 
   const ClientDetail = () => {
     if(!client) return null;

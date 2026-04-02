@@ -391,7 +391,22 @@ function AgenciaOSApp() {
   const [clients, setClients] = useState(DEFAULT_CLIENTS);
   const [tasks, setTasks] = useState(DEFAULT_TASKS);
   const kanbanRef = useRef(null);
+  const kanbanScrollPos = useRef(0);
   const [kanbanFilter, setKanbanFilter] = useState("all"); // "all" or a user id
+
+  // Preserve kanban scroll position across re-renders
+  useEffect(() => {
+    const el = kanbanRef.current;
+    if (!el) return;
+    const saveScroll = () => { kanbanScrollPos.current = el.scrollLeft; };
+    el.addEventListener("scroll", saveScroll);
+    return () => el.removeEventListener("scroll", saveScroll);
+  }, [page]);
+  useEffect(() => {
+    if (page === "kanban" && kanbanRef.current && kanbanScrollPos.current > 0) {
+      kanbanRef.current.scrollLeft = kanbanScrollPos.current;
+    }
+  });
   const [notifications, setNotifications] = useState([
     {id:"n1",type:"alert",message:"SLA em risco: Chinalink — Setup tráfego urgente (R$15.000)",time:new Date(now-2*3600000).toISOString(),read:false,clientId:"c30"},
     {id:"n2",type:"info",message:"Novo cliente: Josivaldo — R$4.000 (Tráfego+Site+Social)",time:new Date(now-6*3600000).toISOString(),read:false,clientId:"c34"},
@@ -830,7 +845,7 @@ function AgenciaOSApp() {
           }
         });
 
-        return updated_list;
+        return (added > 0 || churned > 0 || updated > 0) ? updated_list : prev;
       });
 
       setSheetSyncStatus("synced");

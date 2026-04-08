@@ -40,6 +40,7 @@ const KANBAN_COLUMNS = [
   { id: "onboarding_agendado", label: "Onboarding Agendado", color: "#8b5cf6", icon: "📅", responsible: "cs", responsibleLabel: "CS" },
   { id: "onboarding_concluido", label: "Onboarding Concluído", color: "#3b82f6", icon: "🎯", responsible: "cs", responsibleLabel: "CS", slaNextDays: 3, slaNextLabel: "3 dias úteis para Setup Tráfego" },
   { id: "alinhamento_visual", label: "Alinhamento Visual", color: "#ec4899", icon: "🎨", responsible: "creation_lead", responsibleLabel: "Líder Criação (Henrique)" },
+  { id: "servico_avulso", label: "Serviço Avulso / Sem Tráfego", color: "#d946ef", icon: "🎯", responsible: "creation_lead", responsibleLabel: "Líder Criação + Equipe" },
   { id: "setup_trafego", label: "Setup Tráfego", color: "#f97316", icon: "⚡", responsible: "traffic", responsibleLabel: "Gestores de Tráfego", slaHours: 72, slaLabel: "3 dias para setup geral" },
   { id: "trafego_ativo", label: "Tráfego Ativo", color: "#22c55e", icon: "🚀", responsible: "traffic", responsibleLabel: "Gestores de Tráfego" },
   { id: "producao_andamento", label: "Produção", color: "#14b8a6", icon: "🔄", responsible: "creation_lead", responsibleLabel: "Líder Criação + Equipe Criação do GC" },
@@ -1405,6 +1406,14 @@ function AgenciaOSApp() {
 
   const createTask = () => {
     setTasks(p=>[{id:`t${uid()}`,...nT,status:"pending",subtasks:[],createdAt:new Date().toISOString(),requestedByName:getUser(nT.requestedBy)?.name||nT.requestedBy||authUser?.name||"Thomas"},...p]);
+    // Auto-move: se o cliente está em tráfego_ativo e criou tarefa de criação/social/designer/filmmaker → mover pra Produção
+    if(nT.clientId){
+      const cl=clients.find(c=>c.id===nT.clientId);
+      if(cl&&cl.status==="trafego_ativo"&&["designer","social","filmmaker","creation_lead"].includes(nT.sector)){
+        moveClient(nT.clientId,"producao_andamento");
+        showToast(`🔄 ${cl.company} movido para Produção automaticamente`);
+      }
+    }
     setShowNewTask(false);
     setNT({title:"",clientId:"",assigneeId:"",sector:"cs",priority:"medium",dueDate:"",description:"",requestedBy:""});
   };
@@ -1443,7 +1452,7 @@ function AgenciaOSApp() {
     {id:"lince",icon:LineChart,label:"Lince"},
     {id:"reports",icon:BarChart3,label:"Relatórios"},
     {id:"team",icon:Users,label:"Equipe"},
-    {id:"settings",icon:Settings,label:"Config"},
+    ...((authUser?.role==="director"||authUser?.role==="admin")?[{id:"settings",icon:Settings,label:"Config"}]:[]),
   ];
 
   // ═══════════════════════════════════════════
@@ -1576,7 +1585,6 @@ function AgenciaOSApp() {
             const isActive = kanbanFilter===u.id;
             const role = ROLES[u.role?.toUpperCase()];
             const clientCount = filtered.filter(c=>[c.csId,c.trafficId,c.socialId,c.designerId,c.filmmakerId,c.commercialId].includes(u.id)).length;
-            if(clientCount===0) return null;
             return <button key={u.id} onClick={()=>setKanbanFilter(isActive?"all":u.id)} title={`${u.name} — ${role?.label||u.role} (${clientCount} clientes)`}
               style={{display:"flex",alignItems:"center",gap:4,padding:"3px 8px",borderRadius:8,cursor:"pointer",border:isActive?`2px solid ${role?.color||"#6366f1"}`:"2px solid transparent",background:isActive?`${role?.color||"#6366f1"}20`:"#1e293b",transition:"all .2s",flexShrink:0}}>
               <Av i={u.avatar} c={isActive?role?.color:"#475569"} s={20}/>
@@ -2973,25 +2981,41 @@ function AgenciaOSApp() {
       </table>
     </div>
   </div>;
-  const WarDayModal = () => <Modal open={showWarDeal} onClose={()=>setShowWarDeal(false)} title="🎯 War Day — Registrar Negócio">
+  const WarDayModal = () => {
+    const wdRefs = useRef({});
+    const collectWarDeal = () => {
+      const r = wdRefs.current;
+      return {...warDeal, client:r.client?.value||warDeal.client, value:r.value?.value||warDeal.value, notes:r.notes?.value||warDeal.notes};
+    };
+    return <Modal open={showWarDeal} onClose={()=>setShowWarDeal(false)} title="🎯 War Day — Registrar Negócio">
     <div style={{display:"flex",flexDirection:"column",gap:12}}>
-      <Inp label="Cliente / Lead" value={warDeal.client} onChange={v=>setWarDeal({...warDeal,client:v})} placeholder="Nome do lead ou empresa"/>
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
-        <Sel label="Pacote" value={warDeal.package} onChange={v=>setWarDeal({...warDeal,package:v,value:v==="pack1"?"2000":"4000"})} options={[{value:"pack1",label:"Pacote 1 — R$2.000/mês"},{value:"pack2",label:"Pacote 2 — R$4.000/mês"}]}/>
-        <Inp label="Valor (R$)" value={warDeal.value} onChange={v=>setWarDeal({...warDeal,value:v})} type="number" placeholder="2000"/>
+      <div style={{display:"flex",flexDirection:"column",gap:4}}>
+        <label style={{fontSize:11,fontWeight:600,color:"#94a3b8",textTransform:"uppercase",letterSpacing:".04em"}}>Cliente / Lead</label>
+        <input ref={el=>wdRefs.current.client=el} type="text" defaultValue={warDeal.client} onBlur={e=>setWarDeal(p=>({...p,client:e.target.value}))} placeholder="Nome do lead ou empresa" style={{background:"#1e293b",border:"1px solid #334155",borderRadius:8,padding:"8px 12px",color:"#e2e8f0",fontSize:13,outline:"none",fontFamily:"inherit"}}/>
       </div>
       <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
-        <Sel label="Closer (quem fecha)" value={warDeal.closer} onChange={v=>setWarDeal({...warDeal,closer:v})} options={[{value:"",label:"Selecione"},...WAR_CLOSERS.map(id=>({value:id,label:getUser(id)?.name||id}))]}/>
-        <Sel label="SDR (quem prospectou)" value={warDeal.sdr} onChange={v=>setWarDeal({...warDeal,sdr:v})} options={[{value:"",label:"Selecione"},...WAR_SDRS.map(id=>({value:id,label:getUser(id)?.name||id}))]}/>
+        <Sel label="Pacote" value={warDeal.package} onChange={v=>setWarDeal(p=>({...p,package:v,value:v==="pack1"?"2000":"4000"}))} options={[{value:"pack1",label:"Pacote 1 — R$2.000/mês"},{value:"pack2",label:"Pacote 2 — R$4.000/mês"}]}/>
+        <div style={{display:"flex",flexDirection:"column",gap:4}}>
+          <label style={{fontSize:11,fontWeight:600,color:"#94a3b8",textTransform:"uppercase",letterSpacing:".04em"}}>Valor (R$)</label>
+          <input ref={el=>wdRefs.current.value=el} type="number" defaultValue={warDeal.value} onBlur={e=>setWarDeal(p=>({...p,value:e.target.value}))} placeholder="2000" style={{background:"#1e293b",border:"1px solid #334155",borderRadius:8,padding:"8px 12px",color:"#e2e8f0",fontSize:13,outline:"none",fontFamily:"inherit"}}/>
+        </div>
       </div>
-      <Sel label="Status" value={warDeal.status} onChange={v=>setWarDeal({...warDeal,status:v})} options={[{value:"meeting",label:"📞 Call agendada"},{value:"proposal",label:"📋 Proposta enviada"},{value:"closed",label:"✅ Venda fechada"}]}/>
-      <Inp label="Observações" value={warDeal.notes} onChange={v=>setWarDeal({...warDeal,notes:v})} placeholder="Lista origem, detalhes..." textarea/>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
+        <Sel label="Closer (quem fecha)" value={warDeal.closer} onChange={v=>setWarDeal(p=>({...p,closer:v}))} options={[{value:"",label:"Selecione"},...WAR_CLOSERS.map(id=>({value:id,label:getUser(id)?.name||id}))]}/>
+        <Sel label="SDR (quem prospectou)" value={warDeal.sdr} onChange={v=>setWarDeal(p=>({...p,sdr:v}))} options={[{value:"",label:"Selecione"},...WAR_SDRS.map(id=>({value:id,label:getUser(id)?.name||id}))]}/>
+      </div>
+      <Sel label="Status" value={warDeal.status} onChange={v=>setWarDeal(p=>({...p,status:v}))} options={[{value:"meeting",label:"📞 Call agendada"},{value:"proposal",label:"📋 Proposta enviada"},{value:"closed",label:"✅ Venda fechada"}]}/>
+      <div style={{display:"flex",flexDirection:"column",gap:4}}>
+        <label style={{fontSize:11,fontWeight:600,color:"#94a3b8",textTransform:"uppercase",letterSpacing:".04em"}}>Observações</label>
+        <textarea ref={el=>wdRefs.current.notes=el} defaultValue={warDeal.notes} onBlur={e=>setWarDeal(p=>({...p,notes:e.target.value}))} placeholder="Lista origem, detalhes..." style={{background:"#1e293b",border:"1px solid #334155",borderRadius:8,padding:"8px 12px",color:"#e2e8f0",fontSize:13,resize:"vertical",minHeight:70,outline:"none",fontFamily:"inherit"}}/>
+      </div>
     </div>
     <div style={{display:"flex",justifyContent:"flex-end",gap:8,marginTop:16}}>
       <Btn variant="secondary" onClick={()=>setShowWarDeal(false)}>Cancelar</Btn>
-      <Btn onClick={addWarDeal} disabled={!warDeal.client} icon={Target}>Registrar</Btn>
+      <Btn onClick={()=>{const collected=collectWarDeal();setWarDeal(collected);setTimeout(addWarDeal,50);}} disabled={false} icon={Target}>Registrar</Btn>
     </div>
   </Modal>;
+  };
 
   // Schedule Call Modal — creates in app + Google Calendar
   const scheduleCall = () => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef, useMemo } from "react";
+import React, { useState, useEffect, useLayoutEffect, useCallback, useRef, useMemo } from "react";
 import {
   LayoutDashboard, Users, Kanban, ListTodo, Calendar, BarChart3, Settings, Bell,
   Search, Plus, ChevronDown, ChevronRight, ChevronLeft, X, Check, Clock, AlertTriangle,
@@ -392,18 +392,17 @@ function AgenciaOSApp() {
   const [tasks, setTasks] = useState(DEFAULT_TASKS);
   const kanbanRef = useRef(null);
   const kanbanScrollPos = useRef(0);
-  const [kanbanFilter, setKanbanFilter] = useState("all"); // "all" or a user id
+  const [kanbanFilter, setKanbanFilter] = useState("all");
 
-  // Preserve kanban scroll position across re-renders
+  // Save scroll on every scroll event
   useEffect(() => {
+    const handler = () => { if (kanbanRef.current) kanbanScrollPos.current = kanbanRef.current.scrollLeft; };
     const el = kanbanRef.current;
-    if (!el) return;
-    const saveScroll = () => { kanbanScrollPos.current = el.scrollLeft; };
-    el.addEventListener("scroll", saveScroll);
-    return () => el.removeEventListener("scroll", saveScroll);
-  }, [page]);
-  useEffect(() => {
-    if (page === "kanban" && kanbanRef.current && kanbanScrollPos.current > 0) {
+    if (el) { el.addEventListener("scroll", handler, { passive: true }); return () => el.removeEventListener("scroll", handler); }
+  });
+  // Restore scroll BEFORE paint using useLayoutEffect
+  useLayoutEffect(() => {
+    if (kanbanRef.current && kanbanScrollPos.current > 0) {
       kanbanRef.current.scrollLeft = kanbanScrollPos.current;
     }
   });
@@ -689,7 +688,8 @@ function AgenciaOSApp() {
     trafficPlatforms:[],creativeOption:"",socialOption:"social_none",storePlatforms:[],gcTeam:"GC1",
     pickCs:"",pickTraffic:"",pickSocial:"",pickDesigner:"",pickFilmmaker:"",pickCommercial:"",soldBy:""};
   const [nC, setNC] = useState({...emptyNC});
-  const [nT, setNT] = useState({title:"",clientId:"",assigneeId:"",sector:"cs",priority:"medium",dueDate:""});
+  const [nT, setNT] = useState({title:"",clientId:"",assigneeId:"",sector:"cs",priority:"medium",dueDate:"",description:"",requestedBy:""});
+  const [expandedTask, setExpandedTask] = useState(null);
   const [nM, setNM] = useState({clientId:"",title:"",date:"",time:"10:00",duration:"60",notes:""});
   const [showEditTeam, setShowEditTeam] = useState(false);
   const [editTeamData, setEditTeamData] = useState({csId:"",trafficId:"",socialId:"",designerId:"",filmmakerId:"",commercialId:""});
@@ -1332,9 +1332,9 @@ function AgenciaOSApp() {
   };
 
   const createTask = () => {
-    setTasks(p=>[{id:`t${uid()}`,...nT,status:"pending",subtasks:[]},...p]);
+    setTasks(p=>[{id:`t${uid()}`,...nT,status:"pending",subtasks:[],createdAt:new Date().toISOString(),requestedByName:getUser(nT.requestedBy)?.name||nT.requestedBy||authUser?.name||"Thomas"},...p]);
     setShowNewTask(false);
-    setNT({title:"",clientId:"",assigneeId:"",sector:"cs",priority:"medium",dueDate:""});
+    setNT({title:"",clientId:"",assigneeId:"",sector:"cs",priority:"medium",dueDate:"",description:"",requestedBy:""});
   };
 
   // Derived
@@ -1352,7 +1352,7 @@ function AgenciaOSApp() {
     {id:"clients",icon:Building2,label:"Clientes"},
     {id:"tasks",icon:ListTodo,label:"Tarefas"},
     {id:"gc",icon:Zap,label:"Grupos de Combate"},
-    {id:"warday",icon:Target,label:"War Day"},
+    {id:"warday",icon:Target,label:"War Day / Vendas"},
     {id:"calendar",icon:CalendarDays,label:"Reuniões"},
     {id:"lince",icon:LineChart,label:"Lince"},
     {id:"reports",icon:BarChart3,label:"Relatórios"},
@@ -1480,14 +1480,25 @@ function AgenciaOSApp() {
     <div style={{padding:"16px 0 16px 16px",height:"calc(100vh - 56px)",display:"flex",flexDirection:"column"}}>
       <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12,paddingRight:16,gap:8}}>
         <h1 style={{fontSize:20,fontWeight:800,color:"#f1f5f9",margin:0}}>Kanban</h1>
-        <div style={{display:"flex",gap:6,alignItems:"center"}}>
-          <select value={kanbanFilter} onChange={e=>setKanbanFilter(e.target.value)}
-            style={{background:"#1e293b",border:"1px solid #334155",borderRadius:8,padding:"5px 10px",color:"#e2e8f0",fontSize:11,fontFamily:"inherit"}}>
-            <option value="all">👥 Todos</option>
-            {SEED_USERS.filter(u=>!u.pending).map(u=><option key={u.id} value={u.id}>👤 {u.name}</option>)}
-          </select>
-          <Btn onClick={()=>setShowNewClient(true)} icon={Plus} small>Novo Cliente</Btn>
+        <div style={{display:"flex",gap:4,alignItems:"center",flex:1,justifyContent:"center",overflowX:"auto",paddingBottom:2}}>
+          <button onClick={()=>setKanbanFilter("all")}
+            style={{padding:"4px 10px",borderRadius:8,fontSize:10,fontWeight:700,cursor:"pointer",border:kanbanFilter==="all"?"2px solid #6366f1":"2px solid transparent",background:kanbanFilter==="all"?"#6366f120":"#1e293b",color:kanbanFilter==="all"?"#6366f1":"#94a3b8",whiteSpace:"nowrap"}}>
+            👥 Todos
+          </button>
+          {SEED_USERS.filter(u=>!u.pending).map(u=>{
+            const isActive = kanbanFilter===u.id;
+            const role = ROLES[u.role?.toUpperCase()];
+            const clientCount = filtered.filter(c=>[c.csId,c.trafficId,c.socialId,c.designerId,c.filmmakerId,c.commercialId].includes(u.id)).length;
+            if(clientCount===0) return null;
+            return <button key={u.id} onClick={()=>setKanbanFilter(isActive?"all":u.id)} title={`${u.name} — ${role?.label||u.role} (${clientCount} clientes)`}
+              style={{display:"flex",alignItems:"center",gap:4,padding:"3px 8px",borderRadius:8,cursor:"pointer",border:isActive?`2px solid ${role?.color||"#6366f1"}`:"2px solid transparent",background:isActive?`${role?.color||"#6366f1"}20`:"#1e293b",transition:"all .2s",flexShrink:0}}>
+              <Av i={u.avatar} c={isActive?role?.color:"#475569"} s={20}/>
+              <span style={{fontSize:10,fontWeight:600,color:isActive?"#e2e8f0":"#64748b",whiteSpace:"nowrap"}}>{u.name.split(" ")[0]}</span>
+              <span style={{fontSize:9,fontWeight:700,color:role?.color||"#64748b",background:`${role?.color||"#64748b"}20`,padding:"0 4px",borderRadius:6}}>{clientCount}</span>
+            </button>;
+          })}
         </div>
+        <Btn onClick={()=>setShowNewClient(true)} icon={Plus} small>Novo Cliente</Btn>
       </div>
       <div ref={kanbanRef} style={{flex:1,display:"flex",gap:10,overflowX:"auto",overflowY:"hidden",paddingBottom:8,paddingRight:16}}>
         {DISPLAY_COLUMNS.map(col=>{
@@ -1900,14 +1911,71 @@ function AgenciaOSApp() {
       </div>
       <div style={{display:"flex",gap:4,marginBottom:12}}>{sectors.map(s=><Tab key={s} active={taskFilter===s} onClick={()=>setTaskFilter(s)}>{sLabels[s]}</Tab>)}</div>
       <div style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12}}>
-        {f.map(t=>{const cl=clients.find(c=>c.id===t.clientId);const u=getUser(t.assigneeId);const ov=t.status!=="done"&&t.dueDate&&new Date(t.dueDate)<new Date();return(
-          <div key={t.id} style={{display:"flex",alignItems:"center",gap:10,padding:"10px 14px",borderBottom:"1px solid #1e293b30"}}>
-            <button onClick={()=>setTasks(p=>p.map(x=>x.id===t.id?{...x,status:x.status==="done"?"pending":"done"}:x))} style={{background:"none",border:"none",cursor:"pointer",padding:0,flexShrink:0}}>{t.status==="done"?<CheckCircle2 size={18} color="#22c55e"/>:t.status==="in_progress"?<PlayCircle size={18} color="#6366f1"/>:<Circle size={18} color="#475569"/>}</button>
-            <div style={{width:3,height:28,borderRadius:3,background:PRIORITIES[t.priority]?.color,flexShrink:0}}/>
-            <div style={{flex:1}}><div style={{fontSize:12,fontWeight:600,color:t.status==="done"?"#64748b":"#e2e8f0",textDecoration:t.status==="done"?"line-through":"none"}}>{t.title}</div><div style={{fontSize:10,color:"#64748b"}}>{cl?.company}{t.subtasks?.length>0&&` • ${t.subtasks.filter(s=>s.done).length}/${t.subtasks.length}`}</div></div>
-            {u&&<Av i={u.avatar} c={ROLES[u.role.toUpperCase()]?.color} s={24}/>}
-            <Bg color={PRIORITIES[t.priority]?.color} small>{PRIORITIES[t.priority]?.label}</Bg>
-            {t.dueDate&&<span style={{fontSize:10,color:ov?"#ef4444":"#64748b",fontWeight:ov?700:400}}>{fmt(t.dueDate)}</span>}
+        {f.map(t=>{const cl=clients.find(c=>c.id===t.clientId);const u=getUser(t.assigneeId);const requester=getUser(t.requestedBy)||null;const ov=t.status!=="done"&&t.dueDate&&new Date(t.dueDate)<new Date();
+          const isExpanded = expandedTask === t.id;
+          const createdAgo = t.createdAt ? Math.floor((Date.now()-new Date(t.createdAt).getTime())/86400000) : null;
+          return(
+          <div key={t.id} style={{borderBottom:"1px solid #1e293b30"}}>
+            <div style={{display:"flex",alignItems:"center",gap:10,padding:"10px 14px",cursor:"pointer"}} onClick={()=>setExpandedTask(isExpanded?null:t.id)}>
+              <button onClick={e=>{e.stopPropagation();setTasks(p=>p.map(x=>x.id===t.id?{...x,status:x.status==="done"?"pending":"done"}:x));}} style={{background:"none",border:"none",cursor:"pointer",padding:0,flexShrink:0}}>{t.status==="done"?<CheckCircle2 size={18} color="#22c55e"/>:t.status==="in_progress"?<PlayCircle size={18} color="#6366f1"/>:<Circle size={18} color="#475569"/>}</button>
+              <div style={{width:3,height:28,borderRadius:3,background:PRIORITIES[t.priority]?.color||"#64748b",flexShrink:0}}/>
+              <div style={{flex:1}}>
+                <div style={{fontSize:12,fontWeight:600,color:t.status==="done"?"#64748b":"#e2e8f0",textDecoration:t.status==="done"?"line-through":"none"}}>{t.title}</div>
+                <div style={{fontSize:10,color:"#64748b"}}>{cl?.company}{t.subtasks?.length>0&&` • ${t.subtasks.filter(s=>s.done).length}/${t.subtasks.length}`}{t.description?" • 📝":""}</div>
+              </div>
+              {createdAgo!==null&&<span style={{fontSize:9,padding:"2px 6px",borderRadius:6,background:createdAgo>=5?"#ef444420":createdAgo>=3?"#f59e0b20":"#1e293b",color:createdAgo>=5?"#ef4444":createdAgo>=3?"#f59e0b":"#64748b",fontWeight:600}}>{createdAgo}d</span>}
+              {u&&<Av i={u.avatar} c={ROLES[u.role?.toUpperCase()]?.color||"#64748b"} s={24}/>}
+              <Bg color={PRIORITIES[t.priority]?.color||"#64748b"} small>{PRIORITIES[t.priority]?.label||""}</Bg>
+              {t.dueDate&&<span style={{fontSize:10,color:ov?"#ef4444":"#64748b",fontWeight:ov?700:400}}>{fmt(t.dueDate)}</span>}
+              <ChevronRight size={14} color="#475569" style={{transform:isExpanded?"rotate(90deg)":"none",transition:"transform .2s"}}/>
+            </div>
+            {/* EXPANDED DETAILS */}
+            {isExpanded&&<div style={{padding:"0 14px 14px 48px",display:"flex",flexDirection:"column",gap:10}}>
+              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8}}>
+                <div style={{background:"#020617",borderRadius:8,padding:8}}>
+                  <div style={{fontSize:9,color:"#64748b",textTransform:"uppercase",fontWeight:600,marginBottom:2}}>Solicitado por</div>
+                  <div style={{fontSize:12,color:"#e2e8f0",fontWeight:600}}>{t.requestedByName||requester?.name||"—"}</div>
+                </div>
+                <div style={{background:"#020617",borderRadius:8,padding:8}}>
+                  <div style={{fontSize:9,color:"#64748b",textTransform:"uppercase",fontWeight:600,marginBottom:2}}>Responsável</div>
+                  <div style={{display:"flex",alignItems:"center",gap:4}}>
+                    {u&&<Av i={u.avatar} c={ROLES[u.role?.toUpperCase()]?.color||"#64748b"} s={18}/>}
+                    <span style={{fontSize:12,color:"#e2e8f0",fontWeight:600}}>{u?.name||"—"}</span>
+                  </div>
+                </div>
+                <div style={{background:"#020617",borderRadius:8,padding:8}}>
+                  <div style={{fontSize:9,color:"#64748b",textTransform:"uppercase",fontWeight:600,marginBottom:2}}>Tempo na tarefa</div>
+                  <div style={{fontSize:12,fontWeight:700,color:createdAgo>=5?"#ef4444":createdAgo>=3?"#f59e0b":"#22c55e"}}>{createdAgo!==null?`${createdAgo} dia${createdAgo!==1?"s":""}`:t.createdAt?formatDuration(Date.now()-new Date(t.createdAt).getTime()):"—"}</div>
+                </div>
+              </div>
+              {/* Description block */}
+              <div>
+                <label style={{fontSize:9,color:"#64748b",textTransform:"uppercase",fontWeight:600}}>Descrição / Briefing da demanda</label>
+                <textarea defaultValue={t.description||""} onBlur={e=>setTasks(p=>p.map(x=>x.id!==t.id?x:{...x,description:e.target.value}))}
+                  placeholder="Descreva o que precisa ser criado, referências, formato, cores, textos... Quanto mais detalhes, melhor para o designer/criador."
+                  style={{width:"100%",background:"#020617",border:"1px solid #334155",borderRadius:8,padding:"8px 10px",color:"#e2e8f0",fontSize:11,lineHeight:1.5,outline:"none",fontFamily:"inherit",boxSizing:"border-box",marginTop:4,minHeight:80,resize:"vertical"}}/>
+              </div>
+              {/* Quick actions */}
+              <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
+                <select value={t.status} onChange={e=>setTasks(p=>p.map(x=>x.id!==t.id?x:{...x,status:e.target.value}))}
+                  style={{background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"4px 8px",color:"#e2e8f0",fontSize:10,fontFamily:"inherit"}}>
+                  <option value="pending">⏳ Pendente</option>
+                  <option value="in_progress">▶️ Em andamento</option>
+                  <option value="done">✅ Concluída</option>
+                </select>
+                <select value={t.assigneeId||""} onChange={e=>setTasks(p=>p.map(x=>x.id!==t.id?x:{...x,assigneeId:e.target.value}))}
+                  style={{background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"4px 8px",color:"#e2e8f0",fontSize:10,fontFamily:"inherit"}}>
+                  <option value="">Atribuir para...</option>
+                  {SEED_USERS.filter(u=>!u.pending).map(u=><option key={u.id} value={u.id}>{u.name} ({ROLES[u.role?.toUpperCase()]?.label||u.role})</option>)}
+                </select>
+                <select value={t.priority||"medium"} onChange={e=>setTasks(p=>p.map(x=>x.id!==t.id?x:{...x,priority:e.target.value}))}
+                  style={{background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"4px 8px",color:PRIORITIES[t.priority]?.color||"#e2e8f0",fontSize:10,fontWeight:700,fontFamily:"inherit"}}>
+                  {Object.entries(PRIORITIES).map(([k,v])=><option key={k} value={k}>{v.label}</option>)}
+                </select>
+                <button onClick={()=>{if(confirm("Excluir tarefa?")){setTasks(p=>p.filter(x=>x.id!==t.id));setExpandedTask(null);}}}
+                  style={{background:"#ef444420",border:"1px solid #ef444440",borderRadius:6,padding:"4px 8px",color:"#ef4444",fontSize:10,fontWeight:600,cursor:"pointer"}}>Excluir</button>
+              </div>
+            </div>}
           </div>
         );})}
       </div>
@@ -2308,6 +2376,7 @@ function AgenciaOSApp() {
 
   // ═══ WAR DAY — painel temático de vendas ═══
   const WAR_GOAL = 12000;
+  const SDR_CALL_GOAL = 70;
   const WAR_CLOSERS = ["u1","u8","u3","u7","u13"]; // Thomas, Leo, Nando, Dantas, Bueno
   const WAR_SDRS = ["u14","u11"]; // Lucas SDR, Fábio
   const WAR_ALL = [...WAR_CLOSERS, ...WAR_SDRS];
@@ -2356,6 +2425,8 @@ function AgenciaOSApp() {
 
   const [showWarDeal, setShowWarDeal] = useState(false);
   const [warDeal, setWarDeal] = useState({client:"",value:"",package:"pack1",closer:"",sdr:"",status:"proposal",notes:""});
+  const [showScheduleCall, setShowScheduleCall] = useState(false);
+  const [newCall, setNewCall] = useState({client:"",phone:"",date:"",time:"10:00",duration:"60",closer:"",sdr:"",briefing:"",proposalValue:"",source:""});
 
   const addWarDeal = () => {
     if (!warDeal.client) return;
@@ -2445,49 +2516,134 @@ function AgenciaOSApp() {
         })}
       </div>
 
-      {/* SDRs */}
-      <div style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,padding:16}}>
-        <h3 style={{margin:"0 0 12px",fontSize:14,fontWeight:700,color:"#14b8a6",display:"flex",alignItems:"center",gap:6}}><Megaphone size={16}/> SDRs — Prospecção</h3>
-        {WAR_SDRS.map(uid=>{const u=getUser(uid);if(!u)return null;const scheduled=warDeals.filter(d=>d.sdr===uid&&d.status==="meeting");const proposals=warDeals.filter(d=>d.sdr===uid&&d.status==="proposal");const closed=warDeals.filter(d=>d.sdr===uid&&d.status==="closed");const total=closed.reduce((s,d)=>s+d.value,0);
-          return <div key={uid} style={{display:"flex",alignItems:"center",gap:10,padding:"10px 0",borderBottom:"1px solid #1e293b20"}}>
-            <Av i={u.avatar} c="#14b8a6" s={36}/>
-            <div style={{flex:1}}>
-              <div style={{fontSize:13,fontWeight:700,color:"#e2e8f0"}}>{u.name}</div>
-              <div style={{fontSize:10,color:"#64748b"}}>SDR</div>
+      {/* SDRs with neon progress */}
+      <div style={{background:"#0f172a",border:"1px solid #14b8a630",borderRadius:12,padding:16}}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
+          <h3 style={{margin:0,fontSize:14,fontWeight:700,color:"#14b8a6",display:"flex",alignItems:"center",gap:6}}><Megaphone size={16}/> SDRs — Meta {SDR_CALL_GOAL} Calls/mês</h3>
+          <Btn small icon={Phone} onClick={()=>setShowScheduleCall(true)}>Agendar Call</Btn>
+        </div>
+        {WAR_SDRS.map(uid=>{const u=getUser(uid);if(!u)return null;
+          const allCalls = warDeals.filter(d=>d.sdr===uid&&d.status==="meeting").length + consultorias.filter(c=>c.sdr===uid).length;
+          const proposals = warDeals.filter(d=>d.sdr===uid&&d.status==="proposal").length + consultorias.filter(c=>c.sdr===uid&&c.status==="proposal").length;
+          const closed = warDeals.filter(d=>d.sdr===uid&&d.status==="closed");
+          const total = closed.reduce((s,d)=>s+d.value,0);
+          const pct = Math.min((allCalls/SDR_CALL_GOAL)*100,100);
+          return <div key={uid} style={{padding:"12px 0",borderBottom:"1px solid #1e293b20"}}>
+            <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:8}}>
+              <Av i={u.avatar} c="#14b8a6" s={36}/>
+              <div style={{flex:1}}>
+                <div style={{fontSize:13,fontWeight:700,color:"#e2e8f0"}}>{u.name}</div>
+                <div style={{fontSize:10,color:"#64748b"}}>SDR</div>
+              </div>
+              <div style={{display:"flex",gap:6,alignItems:"center"}}>
+                <div style={{textAlign:"center",minWidth:50}}><div style={{fontSize:16,fontWeight:800,color:"#39ff14"}}>{allCalls}</div><div style={{fontSize:8,color:"#64748b"}}>calls</div></div>
+                <div style={{textAlign:"center",minWidth:50}}><div style={{fontSize:14,fontWeight:700,color:"#f59e0b"}}>{proposals}</div><div style={{fontSize:8,color:"#64748b"}}>propostas</div></div>
+                <div style={{textAlign:"center",minWidth:60}}><div style={{fontSize:14,fontWeight:700,color:"#22c55e"}}>R${total.toLocaleString("pt-BR")}</div><div style={{fontSize:8,color:"#64748b"}}>convertido</div></div>
+                <button onClick={()=>{
+                  const deal = {id:`wd${uid()}`,client:`Call #${allCalls+1}`,value:0,package:"pack1",closer:"",sdr:uid,status:"meeting",notes:"Call registrada via botão rápido",time:new Date().toISOString(),calEventId:null};
+                  setWarDeals(p=>[...p,deal]);
+                  showToast(`📞 +1 Call para ${u.name} (${allCalls+1}/${SDR_CALL_GOAL})`);
+                }} style={{background:"#39ff1420",border:"2px solid #39ff14",borderRadius:10,padding:"6px 12px",color:"#39ff14",fontWeight:800,fontSize:13,cursor:"pointer",boxShadow:"0 0 12px #39ff1440",display:"flex",alignItems:"center",gap:4}}>
+                  <Phone size={13}/> +1
+                </button>
+              </div>
             </div>
-            <div style={{display:"flex",gap:8,alignItems:"center"}}>
-              <div style={{textAlign:"center"}}><div style={{fontSize:14,fontWeight:700,color:"#6366f1"}}>{scheduled.length}</div><div style={{fontSize:8,color:"#64748b"}}>calls agendadas</div></div>
-              <div style={{textAlign:"center"}}><div style={{fontSize:14,fontWeight:700,color:"#f59e0b"}}>{proposals.length}</div><div style={{fontSize:8,color:"#64748b"}}>propostas</div></div>
-              <div style={{textAlign:"center"}}><div style={{fontSize:14,fontWeight:700,color:"#22c55e"}}>R${total.toLocaleString("pt-BR")}</div><div style={{fontSize:8,color:"#64748b"}}>convertido</div></div>
+            {/* Neon progress bar */}
+            <div style={{display:"flex",alignItems:"center",gap:8}}>
+              <div style={{flex:1,background:"#0a1a0a",borderRadius:8,height:14,overflow:"hidden",border:"1px solid #39ff1430",position:"relative"}}>
+                <div style={{height:"100%",background:"linear-gradient(90deg,#14b8a6,#39ff14)",borderRadius:8,transition:"width .5s ease",width:`${pct}%`,boxShadow:"0 0 12px #39ff14, 0 0 4px #39ff14 inset"}}/>
+              </div>
+              <span style={{fontSize:11,fontWeight:800,color:pct>=100?"#39ff14":"#14b8a6",minWidth:50,textAlign:"right"}}>{allCalls}/{SDR_CALL_GOAL}</span>
             </div>
           </div>;
         })}
       </div>
     </div>
 
-    {/* DEALS LOG */}
+    {/* DEALS LOG — registro com fluxo de fechamento */}
     <div style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,padding:16,marginTop:16}}>
       <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
         <h3 style={{margin:0,fontSize:14,fontWeight:700,color:"#e2e8f0"}}>Registro do Dia ({warDeals.length})</h3>
         <div style={{display:"flex",gap:6}}>
+          <Btn small icon={Phone} onClick={()=>setShowScheduleCall(true)}>Agendar Call</Btn>
           <Btn small icon={Plus} onClick={()=>setShowWarDeal(true)}>Nova Entrada</Btn>
           <Btn small variant="danger" icon={RotateCcw} onClick={()=>{if(confirm("Limpar registros do War Day?")){setWarDeals([]);}}}>Limpar</Btn>
         </div>
       </div>
-      {warDeals.length===0&&<div style={{textAlign:"center",padding:24,color:"#475569"}}><Target size={32} color="#334155" style={{marginBottom:8}}/><div style={{fontSize:12}}>Nenhum registro ainda. Clique em "Nova Entrada" para começar.</div></div>}
-      {warDeals.sort((a,b)=>new Date(b.time)-new Date(a.time)).map(d=>{const closer=getUser(d.closer);const sdr=getUser(d.sdr);
-        return <div key={d.id} style={{display:"flex",alignItems:"center",gap:10,padding:"8px 0",borderBottom:"1px solid #1e293b20"}}>
-          <div style={{width:10,height:10,borderRadius:"50%",background:d.status==="closed"?"#22c55e":d.status==="proposal"?"#f59e0b":"#6366f1",flexShrink:0}}/>
-          <div style={{flex:1}}>
-            <div style={{fontSize:12,fontWeight:600,color:"#e2e8f0"}}>{d.client} — <span style={{color:d.status==="closed"?"#22c55e":"#f59e0b"}}>R${(d.value||0).toLocaleString("pt-BR")}</span></div>
-            <div style={{fontSize:10,color:"#64748b"}}>{closer?.name||"?"} (closer) + {sdr?.name||"?"} (SDR) • {d.package==="pack2"?"Pacote R$4k":"Pacote R$2k"}{d.notes?` • ${d.notes}`:""}</div>
+      {warDeals.length===0&&<div style={{textAlign:"center",padding:24,color:"#475569"}}><Target size={32} color="#334155" style={{marginBottom:8}}/><div style={{fontSize:12}}>Nenhum registro ainda. Agende uma call ou crie uma entrada.</div></div>}
+      {[...warDeals].sort((a,b)=>new Date(b.time)-new Date(a.time)).map(d=>{const closer=getUser(d.closer);const sdr=getUser(d.sdr);const isExp=expandedTask===d.id;
+        return <div key={d.id} style={{background:d.status==="closed"?"#22c55e08":"#020617",border:`1px solid ${d.status==="closed"?"#22c55e20":d.status==="proposal"?"#f59e0b20":"#1e293b"}`,borderRadius:10,padding:10,marginBottom:6}}>
+          <div style={{display:"flex",alignItems:"center",gap:8,cursor:"pointer"}} onClick={()=>setExpandedTask(isExp?null:d.id)}>
+            <div style={{width:10,height:10,borderRadius:"50%",background:d.status==="closed"?"#22c55e":d.status==="proposal"?"#f59e0b":"#6366f1",flexShrink:0}}/>
+            <div style={{flex:1}}>
+              <div style={{fontSize:12,fontWeight:700,color:"#e2e8f0"}}>{d.client||"Lead sem nome"} {d.value>0&&<span style={{color:d.status==="closed"?"#22c55e":"#f59e0b"}}>— R${(d.value||0).toLocaleString("pt-BR")}</span>}</div>
+              <div style={{fontSize:10,color:"#64748b"}}>{closer?.name||"sem closer"} + {sdr?.name||"sem SDR"} • {d.package==="pack2"?"R$4k":"R$2k"}</div>
+            </div>
+            <Bg color={d.status==="closed"?"#22c55e":d.status==="proposal"?"#f59e0b":"#6366f1"} small>{d.status==="closed"?"✅ Fechado":d.status==="proposal"?"📋 Proposta":"📞 Call"}</Bg>
+            {d.status!=="closed"&&<button onClick={e=>{e.stopPropagation();setExpandedTask(d.id);}} style={{background:"#22c55e20",border:"1px solid #22c55e40",borderRadius:6,padding:"3px 10px",fontSize:10,fontWeight:800,color:"#22c55e",cursor:"pointer"}}>Fechar ✓</button>}
+            <span style={{fontSize:9,color:"#475569"}}>{new Date(d.time).toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})}</span>
+            <ChevronRight size={12} color="#475569" style={{transform:isExp?"rotate(90deg)":"none",transition:"transform .2s"}}/>
           </div>
-          <div style={{display:"flex",gap:4}}>
-            <Bg color={d.status==="closed"?"#22c55e":d.status==="proposal"?"#f59e0b":"#6366f1"} small>{d.status==="closed"?"Fechado":d.status==="proposal"?"Proposta":"Call"}</Bg>
-            {d.status!=="closed"&&<button onClick={()=>{ setWarDeals(p=>p.map(x=>x.id!==d.id?x:{...x,status:"closed"})); const msg=`🎯 WAR DAY — VENDA FECHADA! ${d.client} R$${(d.value||0).toLocaleString("pt-BR")}`; sendTelegram(msg); showToast(msg); }}
-              style={{background:"#22c55e20",border:"1px solid #22c55e40",borderRadius:6,padding:"2px 8px",fontSize:9,fontWeight:700,color:"#22c55e",cursor:"pointer"}}>Fechar ✓</button>}
-          </div>
-          <span style={{fontSize:9,color:"#475569"}}>{new Date(d.time).toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})}</span>
+          {/* EXPANDED — editar dados e fechar venda */}
+          {isExp&&<div style={{marginTop:10,paddingTop:10,borderTop:"1px solid #1e293b",display:"flex",flexDirection:"column",gap:8}}>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8}}>
+              <div><label style={{fontSize:9,color:"#475569",textTransform:"uppercase",fontWeight:600}}>Lead / Empresa</label>
+                <input type="text" defaultValue={d.client||""} onBlur={e=>setWarDeals(p=>p.map(x=>x.id!==d.id?x:{...x,client:e.target.value}))} style={{width:"100%",background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"5px 8px",color:"#e2e8f0",fontSize:11,outline:"none",fontFamily:"inherit",boxSizing:"border-box",marginTop:2}}/></div>
+              <div><label style={{fontSize:9,color:"#475569",textTransform:"uppercase",fontWeight:600}}>Closer</label>
+                <select value={d.closer||""} onChange={e=>setWarDeals(p=>p.map(x=>x.id!==d.id?x:{...x,closer:e.target.value}))} style={{width:"100%",background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"5px 8px",color:"#e2e8f0",fontSize:11,fontFamily:"inherit",boxSizing:"border-box",marginTop:2}}>
+                  <option value="">Selecione</option>{WAR_CLOSERS.map(id=><option key={id} value={id}>{getUser(id)?.name}</option>)}
+                </select></div>
+              <div><label style={{fontSize:9,color:"#475569",textTransform:"uppercase",fontWeight:600}}>SDR</label>
+                <select value={d.sdr||""} onChange={e=>setWarDeals(p=>p.map(x=>x.id!==d.id?x:{...x,sdr:e.target.value}))} style={{width:"100%",background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"5px 8px",color:"#e2e8f0",fontSize:11,fontFamily:"inherit",boxSizing:"border-box",marginTop:2}}>
+                  <option value="">Selecione</option>{WAR_SDRS.map(id=><option key={id} value={id}>{getUser(id)?.name}</option>)}
+                </select></div>
+            </div>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}}>
+              <div><label style={{fontSize:9,color:"#475569",textTransform:"uppercase",fontWeight:600}}>Pacote</label>
+                <select value={d.package||"pack1"} onChange={e=>setWarDeals(p=>p.map(x=>x.id!==d.id?x:{...x,package:e.target.value,value:e.target.value==="pack2"?4000:2000}))} style={{width:"100%",background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"5px 8px",color:"#e2e8f0",fontSize:11,fontFamily:"inherit",boxSizing:"border-box",marginTop:2}}>
+                  <option value="pack1">Pacote 1 — R$2.000/mês</option><option value="pack2">Pacote 2 — R$4.000/mês</option>
+                </select></div>
+              <div><label style={{fontSize:9,color:"#475569",textTransform:"uppercase",fontWeight:600}}>Status</label>
+                <select value={d.status||"meeting"} onChange={e=>setWarDeals(p=>p.map(x=>x.id!==d.id?x:{...x,status:e.target.value}))} style={{width:"100%",background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"5px 8px",color:"#e2e8f0",fontSize:11,fontFamily:"inherit",boxSizing:"border-box",marginTop:2}}>
+                  <option value="meeting">📞 Call agendada</option><option value="proposal">📋 Proposta enviada</option><option value="closed">✅ Venda fechada</option><option value="lost">❌ Não fechou</option>
+                </select></div>
+            </div>
+            <div><label style={{fontSize:9,color:"#475569",textTransform:"uppercase",fontWeight:600}}>Briefing / Notas da call</label>
+              <textarea defaultValue={d.notes||""} onBlur={e=>setWarDeals(p=>p.map(x=>x.id!==d.id?x:{...x,notes:e.target.value}))} placeholder="Dor do lead, serviços que precisa, objeções, próximos passos..." style={{width:"100%",background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"6px 8px",color:"#e2e8f0",fontSize:11,outline:"none",fontFamily:"inherit",boxSizing:"border-box",marginTop:2,minHeight:50,resize:"vertical"}}/></div>
+            {/* FECHAR VENDA — cria cliente no Kanban */}
+            {d.status!=="closed"&&<button onClick={()=>{
+              if(!d.client){showToast("Preencha o nome do lead primeiro");return;}
+              // Mark as closed
+              setWarDeals(p=>p.map(x=>x.id!==d.id?x:{...x,status:"closed"}));
+              // Auto-create client in Kanban
+              const newClient = {
+                id:`cs${uid()}`, company:d.client, contact:"", phone:"", email:"", segment:"",
+                service:d.package==="pack2"?"Pacote R$4k":"Pacote R$2k",
+                contractValue:d.value||2000,
+                closedDate:new Date().toISOString(), paymentDate:null, status:"venda_fechada",
+                priority:"high", csId:"u2", trafficId:d.closer||"u3", socialId:null, designerId:"u20",
+                filmmakerId:null, commercialId:d.closer||"u7", soldBy:d.closer||"",
+                whatsappGroup:"", formStatus:"not_sent",
+                onboardingDate:null, trafficActivationDate:null,
+                notes:`War Day | SDR: ${getUser(d.sdr)?.name||"?"} | Closer: ${getUser(d.closer)?.name||"?"}\n${d.notes||""}`.trim(),
+                payDay:null, contractEnd:null,
+                churning:false, encerrado:false, gcTeam:WAR_SDRS.indexOf(d.sdr)===0?"GC1":"GC2",
+                csChecklist:mkChecklist(CS_CK), onboardingChecklist:mkChecklist(OB_CK),
+                trafficChecklist:mkChecklist(TR_CK), creationChecklist:mkChecklist(CR_CK), socialBriefing:mkChecklist(SM_BRIEFING),
+                timeline:[{date:new Date().toISOString(),event:`Venda fechada no War Day — R$${(d.value||0).toLocaleString("pt-BR")} — Closer: ${getUser(d.closer)?.name||"?"} | SDR: ${getUser(d.sdr)?.name||"?"}`,user:"War Day"}],
+                meetings:[], reports:[], fromSheet:false,
+              };
+              setClients(p=>[...p,newClient]);
+              const msg = `🎯 *WAR DAY — VENDA FECHADA!*\n💰 ${d.client} — R$${(d.value||0).toLocaleString("pt-BR")}\n👤 Closer: ${getUser(d.closer)?.name||"?"}\n📞 SDR: ${getUser(d.sdr)?.name||"?"}\n✅ Cliente criado no Kanban automaticamente`;
+              sendTelegram(msg);
+              showToast(`🎯 VENDA! ${d.client} — R$${(d.value||0).toLocaleString("pt-BR")} — Cliente criado no Kanban!`);
+              setExpandedTask(null);
+            }} style={{background:"linear-gradient(135deg,#22c55e,#16a34a)",border:"none",borderRadius:10,padding:"10px 20px",color:"#fff",fontWeight:800,fontSize:13,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",gap:6,boxShadow:"0 4px 16px #22c55e40"}}>
+              <CheckCircle2 size={16}/> FECHAR VENDA — Criar cliente no Kanban
+            </button>}
+            {d.status==="closed"&&<div style={{background:"#22c55e15",border:"1px solid #22c55e30",borderRadius:8,padding:8,textAlign:"center",fontSize:11,color:"#22c55e",fontWeight:700}}>✅ Venda fechada — cliente adicionado ao Kanban</div>}
+            <button onClick={()=>{if(confirm("Remover este registro?")){setWarDeals(p=>p.filter(x=>x.id!==d.id));setExpandedTask(null);}}} style={{background:"none",border:"none",color:"#ef444460",cursor:"pointer",fontSize:9,textAlign:"right"}}>remover registro</button>
+          </div>}
         </div>;
       })}
     </div>
@@ -2551,8 +2707,19 @@ function AgenciaOSApp() {
             </div>
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
               <span style={{fontSize:9,color:"#475569"}}>{c.date?new Date(c.date).toLocaleDateString("pt-BR"):""}  {c.time||""}</span>
-              <button onClick={()=>{if(confirm("Remover esta consultoria?")){setConsultorias(p=>p.filter(x=>x.id!==c.id));}}}
-                style={{background:"none",border:"none",color:"#ef444480",cursor:"pointer",fontSize:9}}>remover</button>
+              <div style={{display:"flex",gap:4}}>
+                {c.client&&<button onClick={()=>{
+                  const dt = c.date ? new Date(c.date) : new Date();
+                  const dateStr = dt.toISOString().split("T")[0];
+                  const timeStr = c.time || "10:00";
+                  const calUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Consultoria - ${encodeURIComponent(c.client)}&dates=${dateStr.replace(/-/g,"")}T${timeStr.replace(":","")}00/${dateStr.replace(/-/g,"")}T${String(Number(timeStr.split(":")[0])+1).padStart(2,"0")}${timeStr.split(":")[1]}00&details=${encodeURIComponent(`Tel: ${c.phone||""}\nBriefing: ${c.briefing||""}\nProposta: R$${c.proposalValue||"?"}\nCloser: ${getUser(c.closer)?.name||"?"}`)}`;
+                  window.open(calUrl,"_blank");
+                }} style={{background:"#3b82f620",border:"1px solid #3b82f640",borderRadius:5,padding:"2px 6px",fontSize:8,fontWeight:700,color:"#3b82f6",cursor:"pointer",display:"flex",alignItems:"center",gap:2}}>
+                  <CalendarDays size={8}/> Criar na Agenda
+                </button>}
+                <button onClick={()=>{if(confirm("Remover esta consultoria?")){setConsultorias(p=>p.filter(x=>x.id!==c.id));}}}
+                  style={{background:"none",border:"none",color:"#ef444480",cursor:"pointer",fontSize:9}}>remover</button>
+              </div>
             </div>
           </div>;
         })}
@@ -2617,6 +2784,64 @@ function AgenciaOSApp() {
     <div style={{display:"flex",justifyContent:"flex-end",gap:8,marginTop:16}}>
       <Btn variant="secondary" onClick={()=>setShowWarDeal(false)}>Cancelar</Btn>
       <Btn onClick={addWarDeal} disabled={!warDeal.client} icon={Target}>Registrar</Btn>
+    </div>
+  </Modal>;
+
+  // Schedule Call Modal — creates in app + Google Calendar
+  const scheduleCall = () => {
+    if (!newCall.client) return;
+    // Save to consultorias
+    const consultoria = {
+      id: `cs${uid()}`, calEventId: null,
+      client: newCall.client, date: newCall.date ? new Date(newCall.date+"T"+newCall.time).toISOString() : new Date().toISOString(),
+      time: newCall.time, phone: newCall.phone, briefing: newCall.briefing,
+      proposalValue: newCall.proposalValue, status: "scheduled",
+      closer: newCall.closer, sdr: newCall.sdr, notes: `Origem: ${newCall.source||"War Day"}`,
+      createdAt: new Date().toISOString(),
+    };
+    setConsultorias(p => [...p, consultoria]);
+    // Save to war deals
+    setWarDeals(p => [...p, {
+      id: `wd${uid()}`, calEventId: null,
+      client: newCall.client, value: Number(newCall.proposalValue)||0, package: "pack1",
+      closer: newCall.closer, sdr: newCall.sdr, status: "meeting",
+      notes: `📞 ${newCall.phone||""} | ${newCall.briefing||""} | Origem: ${newCall.source||""}`,
+      time: new Date().toISOString(),
+    }]);
+    // Notify
+    const closerName = getUser(newCall.closer)?.name||"?";
+    const sdrName = getUser(newCall.sdr)?.name||"?";
+    showToast(`📞 Call agendada: ${newCall.client} — ${closerName} + ${sdrName}`);
+    sendTelegram(`📞 *Call agendada*\n${newCall.client}\n📱 ${newCall.phone||"sem tel"}\n👤 Closer: ${closerName} | SDR: ${sdrName}\n📅 ${newCall.date||"hoje"} ${newCall.time}\n📋 ${newCall.briefing||"sem briefing"}`);
+    setShowScheduleCall(false);
+    setNewCall({client:"",phone:"",date:"",time:"10:00",duration:"60",closer:"",sdr:"",briefing:"",proposalValue:"",source:""});
+  };
+
+  const ScheduleCallModal = () => <Modal open={showScheduleCall} onClose={()=>setShowScheduleCall(false)} title="📞 Agendar Call — War Day / Vendas" wide>
+    <div style={{display:"flex",flexDirection:"column",gap:12}}>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
+        <Inp label="Nome do Lead / Empresa" value={newCall.client} onChange={v=>setNewCall({...newCall,client:v})} placeholder="Ex: João da Silva — Empresa XYZ"/>
+        <Inp label="Telefone" value={newCall.phone} onChange={v=>setNewCall({...newCall,phone:v})} placeholder="(11) 99999-9999"/>
+      </div>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10}}>
+        <Inp label="Data" value={newCall.date} onChange={v=>setNewCall({...newCall,date:v})} type="date"/>
+        <Inp label="Horário" value={newCall.time} onChange={v=>setNewCall({...newCall,time:v})} type="time"/>
+        <Inp label="Duração (min)" value={newCall.duration} onChange={v=>setNewCall({...newCall,duration:v})} type="number"/>
+      </div>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
+        <Sel label="Closer (quem fecha)" value={newCall.closer} onChange={v=>setNewCall({...newCall,closer:v})} options={[{value:"",label:"Selecione"},...WAR_CLOSERS.map(id=>({value:id,label:getUser(id)?.name||id}))]}/>
+        <Sel label="SDR (quem prospectou)" value={newCall.sdr} onChange={v=>setNewCall({...newCall,sdr:v})} options={[{value:"",label:"Selecione"},...WAR_SDRS.map(id=>({value:id,label:getUser(id)?.name||id}))]}/>
+      </div>
+      <Inp label="Valor estimado da proposta (R$)" value={newCall.proposalValue} onChange={v=>setNewCall({...newCall,proposalValue:v})} type="number" placeholder="2000"/>
+      <Sel label="Origem do lead" value={newCall.source} onChange={v=>setNewCall({...newCall,source:v})} options={[{value:"",label:"Selecione"},{value:"chinalink_cuiaba",label:"Evento Chinalink Cuiabá"},{value:"followup",label:"Follow-up pendente"},{value:"chinalink_leads",label:"Leads Chinalink recentes"},{value:"indicacao",label:"Indicação"},{value:"inbound",label:"Inbound (site/redes)"},{value:"outro",label:"Outro"}]}/>
+      <Inp label="Briefing da call (dor do lead, interesse, observações)" value={newCall.briefing} onChange={v=>setNewCall({...newCall,briefing:v})} textarea placeholder="Ex: Dono de e-commerce, fatura R$50k/mês, quer escalar com tráfego pago..."/>
+    </div>
+    <div style={{background:"#14b8a610",border:"1px solid #14b8a630",borderRadius:8,padding:10,marginTop:12,fontSize:11,color:"#14b8a6"}}>
+      💡 Ao agendar, a call será registrada no app (Pipeline de Consultorias + War Day) e você pode criar o evento na agenda clicando em "Criar na Agenda" depois.
+    </div>
+    <div style={{display:"flex",justifyContent:"flex-end",gap:8,marginTop:16}}>
+      <Btn variant="secondary" onClick={()=>setShowScheduleCall(false)}>Cancelar</Btn>
+      <Btn onClick={scheduleCall} disabled={!newCall.client} icon={Phone}>Agendar Call</Btn>
     </div>
   </Modal>;
 
@@ -3579,17 +3804,28 @@ function AgenciaOSApp() {
       </Modal>
 
       {/* NEW TASK */}
-      <Modal open={showNewTask} onClose={()=>setShowNewTask(false)} title="Nova Tarefa">
+      <Modal open={showNewTask} onClose={()=>setShowNewTask(false)} title="Nova Tarefa" wide>
         <div style={{display:"flex",flexDirection:"column",gap:12}}>
-          <Inp label="Título" value={nT.title} onChange={v=>setNT({...nT,title:v})}/>
-          <Sel label="Cliente" value={nT.clientId} onChange={v=>setNT({...nT,clientId:v})} options={[{value:"",label:"Selecione"},...clients.map(c=>({value:c.id,label:c.company}))]}/>
-          <Sel label="Responsável" value={nT.assigneeId} onChange={v=>setNT({...nT,assigneeId:v})} options={[{value:"",label:"Selecione"},...SEED_USERS.map(u=>({value:u.id,label:u.name}))]}/>
-          <Sel label="Prioridade" value={nT.priority} onChange={v=>setNT({...nT,priority:v})} options={Object.entries(PRIORITIES).map(([k,v])=>({value:k,label:v.label}))}/>
-          <Inp label="Prazo" value={nT.dueDate} onChange={v=>setNT({...nT,dueDate:v})} type="date"/>
+          <Inp label="Título da tarefa" value={nT.title} onChange={v=>setNT({...nT,title:v})} placeholder="Ex: Criar carrossel para Instagram — Chinalink"/>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
+            <Sel label="Cliente" value={nT.clientId} onChange={v=>setNT({...nT,clientId:v})} options={[{value:"",label:"Selecione"},...clients.filter(c=>!c.archived).map(c=>({value:c.id,label:c.company}))]}/>
+            <Sel label="Responsável (quem faz)" value={nT.assigneeId} onChange={v=>setNT({...nT,assigneeId:v})} options={[{value:"",label:"Selecione"},...SEED_USERS.filter(u=>!u.pending).map(u=>({value:u.id,label:`${u.name} (${ROLES[u.role?.toUpperCase()]?.label||u.role})`}))]}/>
+          </div>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10}}>
+            <Sel label="Solicitado por" value={nT.requestedBy} onChange={v=>setNT({...nT,requestedBy:v})} options={[{value:"",label:"Selecione"},...SEED_USERS.filter(u=>!u.pending).map(u=>({value:u.id,label:u.name}))]}/>
+            <Sel label="Prioridade" value={nT.priority} onChange={v=>setNT({...nT,priority:v})} options={Object.entries(PRIORITIES).map(([k,v])=>({value:k,label:v.label}))}/>
+            <Inp label="Prazo" value={nT.dueDate} onChange={v=>setNT({...nT,dueDate:v})} type="date"/>
+          </div>
+          <div>
+            <label style={{fontSize:11,fontWeight:600,color:"#94a3b8",textTransform:"uppercase",letterSpacing:".04em"}}>Descrição / Briefing da demanda</label>
+            <textarea value={nT.description} onChange={e=>setNT({...nT,description:e.target.value})}
+              placeholder="Descreva o que precisa ser criado:&#10;- Formato (carrossel, reels, stories, post estático)&#10;- Textos e copys&#10;- Referências visuais&#10;- Cores e identidade&#10;- Prazo de aprovação&#10;- Observações para o designer/criador"
+              style={{width:"100%",background:"#1e293b",border:"1px solid #334155",borderRadius:8,padding:"10px 12px",color:"#e2e8f0",fontSize:12,lineHeight:1.5,outline:"none",fontFamily:"inherit",boxSizing:"border-box",marginTop:4,minHeight:120,resize:"vertical"}}/>
+          </div>
         </div>
         <div style={{display:"flex",justifyContent:"flex-end",gap:8,marginTop:16}}>
           <Btn variant="secondary" onClick={()=>setShowNewTask(false)}>Cancelar</Btn>
-          <Btn onClick={createTask} disabled={!nT.title} icon={Check}>Criar</Btn>
+          <Btn onClick={createTask} disabled={!nT.title} icon={Check}>Criar Tarefa</Btn>
         </div>
       </Modal>
 
@@ -3619,6 +3855,7 @@ function AgenciaOSApp() {
 
       {/* WAR DAY MODAL */}
       <WarDayModal/>
+      <ScheduleCallModal/>
 
       {/* EDIT USER MODAL */}
       <Modal open={showEditUser&&editingUser} onClose={()=>{setShowEditUser(false);setEditingUser(null);}} title={`Editar Colaborador — ${editingUser?.name||""}`}>

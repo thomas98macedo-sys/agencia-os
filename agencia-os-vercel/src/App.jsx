@@ -106,13 +106,14 @@ const SEED_USERS = [
   { id: "u9", name: "Gabriel", email: "gfreire@linceperformance.com", role: "traffic", avatar: "GB", gc: "GC2" },
   { id: "u10", name: "Allan", email: "avieira@linceperformance.com", role: "traffic", avatar: "AL", gc: "GC2" },
   { id: "u11", name: "Fábio", email: "fcorrea@linceperformance.com", role: "sdr", avatar: "FA", gc: "GC2" },
-  { id: "u13", name: "Mateus Bueno", email: "mbueno@linceperformance.com", role: "sdr", avatar: "MB", gc: "GC2" },
+  { id: "u13", name: "Mateus Bueno", email: "matheusbuenobsb@gmail.com", role: "sdr", avatar: "MB", gc: "GC2" },
   { id: "u12", name: "Mateus Paixão", email: "mpaixao@linceperformance.com", role: "store_creator", avatar: "MP", gc: "GC2" },
   // ═══ VAGAS ABERTAS — preencher quando entrarem ═══
   { id: "u20", name: "Renan", email: "renan.andrade02@outlook.com", role: "designer", avatar: "RE", gc: "BOTH" },
   { id: "u21", name: "Allana", email: "alannabela@gmail.com", role: "social", avatar: "AL", gc: "GC1" },
   { id: "u22", name: "Beatriz", email: "beatrizmarques1224@gmail.com", role: "social", avatar: "BE", gc: "GC1" },
   { id: "u23", name: "Isabelle", email: "isabelle.cds11@gmail.com", role: "social", avatar: "IS", gc: "GC2" },
+  { id: "u24", name: "Luiza", email: "lguimaraes@linceperformance.com", role: "social", avatar: "LG", gc: "BOTH" },
 ];
 
 const mkChecklist = (items) => items.map((text, i) => ({ id: `ck${i}`, text, done: false }));
@@ -212,6 +213,8 @@ const DEFAULT_CLIENTS = [
   mkClient("c32","Amerinexa","Tráfego Pago",1000,"ATIVO","low","","PAGO","","Entrada Março","MARÇO"),
   mkClient("c33","Wallace","Tráfego Pago",2000,"ATIVO","medium","","PAGO","","Entrada Março","MARÇO"),
   mkClient("c34","Josivaldo","Tráfego, Site, Social Media",4000,"ATIVO","high","","PAGO","","Entrada Março","MARÇO"),
+  {...mkClient("c35","LINCE PERFORMANCE","Social Media — Perfil Institucional",0,"ATIVO","high","","","","Perfil da agência — Luiza responsável","ABRIL"), socialId:"u24", gcTeam:"BOTH", status:"trafego_ativo"},
+  {...mkClient("c36","THOMAS MACEDO","Social Media — Perfil Pessoal",0,"ATIVO","high","","","","Perfil pessoal Thomas — Luiza responsável","ABRIL"), socialId:"u24", gcTeam:"BOTH", status:"trafego_ativo"},
   // ══════════════════════════════════════════════════════════
   // CHURNING (15) — Clientes que cancelaram
   // ══════════════════════════════════════════════════════════
@@ -542,11 +545,12 @@ function AgenciaOSApp() {
     { email: "gfreire@linceperformance.com", name: "Gabriel", role: "traffic", avatar: "GB", gc: "GC2", status: "invited", invitedAt: new Date().toISOString() },
     { email: "avieira@linceperformance.com", name: "Allan", role: "traffic", avatar: "AL", gc: "GC2", status: "invited", invitedAt: new Date().toISOString() },
     { email: "fcorrea@linceperformance.com", name: "Fábio", role: "sdr", avatar: "FA", gc: "GC2", status: "invited", invitedAt: new Date().toISOString() },
-    { email: "mbueno@linceperformance.com", name: "Mateus Bueno", role: "sdr", avatar: "MB", gc: "GC2", status: "invited", invitedAt: new Date().toISOString() },
+    { email: "matheusbuenobsb@gmail.com", name: "Mateus Bueno", role: "sdr", avatar: "MB", gc: "GC2", status: "invited", invitedAt: new Date().toISOString() },
     { email: "mpaixao@linceperformance.com", name: "Mateus Paixão", role: "store_creator", avatar: "MP", gc: "GC2", status: "invited", invitedAt: new Date().toISOString() },
     { email: "alannabela@gmail.com", name: "Allana", role: "social", avatar: "AL", gc: "GC1", status: "invited", invitedAt: new Date().toISOString() },
     { email: "beatrizmarques1224@gmail.com", name: "Beatriz", role: "social", avatar: "BE", gc: "GC1", status: "invited", invitedAt: new Date().toISOString() },
     { email: "isabelle.cds11@gmail.com", name: "Isabelle", role: "social", avatar: "IS", gc: "GC2", status: "invited", invitedAt: new Date().toISOString() },
+    { email: "lguimaraes@linceperformance.com", name: "Luiza", role: "social", avatar: "LG", gc: "BOTH", status: "invited", invitedAt: new Date().toISOString() },
     { email: "renan.andrade02@outlook.com", name: "Renan", role: "designer", avatar: "RE", gc: "GC2", status: "invited", invitedAt: new Date().toISOString() },
   ]);
   const [showInviteModal, setShowInviteModal] = useState(false);
@@ -1344,7 +1348,21 @@ function AgenciaOSApp() {
   const trafficOn = clients.filter(c=>c.trafficActivationDate);
   const overdueC = clients.filter(c=>{ const s=getSLA(c.paymentDate,c.trafficActivationDate); return s&&s.status==="critical"; });
   const overdueT = tasks.filter(t=>t.status!=="done"&&t.dueDate&&new Date(t.dueDate)<new Date());
-  const filtered = search ? clients.filter(c=>!c.archived&&(c.company.toLowerCase().includes(search.toLowerCase())||c.contact.toLowerCase().includes(search.toLowerCase()))) : clients.filter(c=>!c.archived);
+  const filtered = search ? clients.filter(c=>{
+    if(c.archived) return false;
+    const s = search.toLowerCase();
+    // Search by client name/contact
+    if((c.company||"").toLowerCase().includes(s)) return true;
+    if((c.contact||"").toLowerCase().includes(s)) return true;
+    if((c.service||"").toLowerCase().includes(s)) return true;
+    // Search by assigned team member names
+    const teamIds = [c.csId,c.trafficId,c.socialId,c.designerId,c.filmmakerId,c.commercialId].filter(Boolean);
+    for(const tid of teamIds){
+      const u = getUser(tid);
+      if(u && u.name.toLowerCase().includes(s)) return true;
+    }
+    return false;
+  }) : clients.filter(c=>!c.archived);
 
   const navItems = [
     {id:"dashboard",icon:LayoutDashboard,label:"Dashboard"},
@@ -1900,24 +1918,123 @@ function AgenciaOSApp() {
     </div>;
   };
 
+  const [taskView, setTaskView] = useState("list"); // list | weekly
+
   const TasksPage = () => {
-    const sectors=["all","cs","traffic","social","designer","filmmaker"];
-    const sLabels={all:"Todos",cs:"CS",traffic:"Tráfego",social:"Social",designer:"Design",filmmaker:"Vídeo"};
+    const sectors=["all","cs","traffic","social","designer","filmmaker","store_creator"];
+    const sLabels={all:"Todos",cs:"CS",traffic:"Tráfego",social:"Social",designer:"Design",filmmaker:"Vídeo",store_creator:"Sites/Lojas"};
     const f=taskFilter==="all"?tasks:tasks.filter(t=>t.sector===taskFilter);
+
+    // Weekly grouping
+    const getWeekKey = (dateStr) => {
+      if(!dateStr) return "sem_data";
+      const d = new Date(dateStr);
+      const start = new Date(d); start.setDate(start.getDate() - start.getDay());
+      return start.toISOString().split("T")[0];
+    };
+    const getWeekLabel = (key) => {
+      if(key==="sem_data") return "Sem data";
+      const start = new Date(key+"T12:00:00");
+      const end = new Date(start); end.setDate(end.getDate()+6);
+      const fmt2 = d => d.toLocaleDateString("pt-BR",{day:"2-digit",month:"2-digit"});
+      const now = new Date();
+      const thisWeekStart = new Date(now); thisWeekStart.setDate(thisWeekStart.getDate()-thisWeekStart.getDay());
+      if(start.toDateString()===thisWeekStart.toDateString()) return `Esta Semana (${fmt2(start)} — ${fmt2(end)})`;
+      return `${fmt2(start)} — ${fmt2(end)}`;
+    };
+    const weeks = {};
+    f.forEach(t => { const wk = getWeekKey(t.dueDate); if(!weeks[wk]) weeks[wk]=[]; weeks[wk].push(t); });
+    const sortedWeeks = Object.keys(weeks).sort((a,b) => a==="sem_data"?1:b==="sem_data"?-1:a.localeCompare(b));
+
+    const TASK_STATUSES = [
+      {id:"pending",label:"A Criar",icon:"📝",color:"#64748b"},
+      {id:"in_progress",label:"Criando",icon:"🎨",color:"#6366f1"},
+      {id:"review",label:"Em Aprovação",icon:"👀",color:"#f59e0b"},
+      {id:"approved",label:"Aprovado",icon:"✅",color:"#22c55e"},
+      {id:"done",label:"Entregue/Postado",icon:"🚀",color:"#14b8a6"},
+    ];
+
     return <div style={{padding:20,maxWidth:1200,margin:"0 auto"}}>
       <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:16}}>
         <h1 style={{fontSize:20,fontWeight:800,color:"#f1f5f9",margin:0}}>Tarefas</h1>
-        <Btn onClick={()=>setShowNewTask(true)} icon={Plus} small>Nova</Btn>
+        <div style={{display:"flex",gap:6}}>
+          <div style={{display:"flex",background:"#1e293b",borderRadius:8,overflow:"hidden",border:"1px solid #334155"}}>
+            <button onClick={()=>setTaskView("list")} style={{padding:"5px 10px",fontSize:10,fontWeight:700,cursor:"pointer",border:"none",background:taskView==="list"?"#6366f1":"transparent",color:taskView==="list"?"#fff":"#94a3b8"}}>Lista</button>
+            <button onClick={()=>setTaskView("weekly")} style={{padding:"5px 10px",fontSize:10,fontWeight:700,cursor:"pointer",border:"none",background:taskView==="weekly"?"#6366f1":"transparent",color:taskView==="weekly"?"#fff":"#94a3b8"}}>Semanal</button>
+          </div>
+          <Btn onClick={()=>setShowNewTask(true)} icon={Plus} small>Nova</Btn>
+        </div>
       </div>
       <div style={{display:"flex",gap:4,marginBottom:12}}>{sectors.map(s=><Tab key={s} active={taskFilter===s} onClick={()=>setTaskFilter(s)}>{sLabels[s]}</Tab>)}</div>
-      <div style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12}}>
+
+      {/* ═══ WEEKLY CARD VIEW ═══ */}
+      {taskView==="weekly"&&<div style={{display:"flex",flexDirection:"column",gap:16}}>
+        {sortedWeeks.map(wk => {
+          const weekTasks = weeks[wk];
+          const byStatus = {};
+          TASK_STATUSES.forEach(s=>{byStatus[s.id]=weekTasks.filter(t=>t.status===s.id);});
+          return <div key={wk} style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,overflow:"hidden"}}>
+            <div style={{padding:"10px 14px",borderBottom:"1px solid #1e293b",display:"flex",justifyContent:"space-between",alignItems:"center",background:"#0f172a"}}>
+              <div style={{fontSize:13,fontWeight:800,color:"#e2e8f0"}}>📅 {getWeekLabel(wk)}</div>
+              <span style={{fontSize:10,color:"#64748b"}}>{weekTasks.length} demandas</span>
+            </div>
+            <div style={{display:"grid",gridTemplateColumns:`repeat(${TASK_STATUSES.length},1fr)`,gap:0}}>
+              {TASK_STATUSES.map(st => {
+                const stTasks = byStatus[st.id]||[];
+                return <div key={st.id} style={{borderRight:"1px solid #1e293b20",padding:8,minHeight:100}}>
+                  <div style={{display:"flex",alignItems:"center",gap:4,marginBottom:8,paddingBottom:6,borderBottom:`2px solid ${st.color}`}}>
+                    <span style={{fontSize:11}}>{st.icon}</span>
+                    <span style={{fontSize:10,fontWeight:700,color:st.color}}>{st.label}</span>
+                    <span style={{fontSize:9,color:"#475569",marginLeft:"auto"}}>{stTasks.length}</span>
+                  </div>
+                  {stTasks.map(t => {
+                    const cl = clients.find(c=>c.id===t.clientId);
+                    const u = getUser(t.assigneeId);
+                    const req = getUser(t.requestedBy);
+                    const createdAgo = t.createdAt ? Math.floor((Date.now()-new Date(t.createdAt).getTime())/86400000) : null;
+                    return <div key={t.id} onClick={()=>setExpandedTask(expandedTask===t.id?null:t.id)}
+                      style={{background:"#020617",border:`1px solid ${expandedTask===t.id?st.color+"60":"#1e293b"}`,borderRadius:8,padding:8,marginBottom:6,cursor:"pointer",transition:"border-color .2s"}}>
+                      <div style={{fontSize:11,fontWeight:700,color:"#e2e8f0",marginBottom:3}}>{t.title}</div>
+                      <div style={{fontSize:9,color:"#64748b",marginBottom:4}}>{cl?.company||""}</div>
+                      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                        <div style={{display:"flex",gap:3,alignItems:"center"}}>
+                          {u&&<Av i={u.avatar} c={ROLES[u.role?.toUpperCase()]?.color||"#64748b"} s={16}/>}
+                          <span style={{fontSize:8,color:"#64748b"}}>{u?.name?.split(" ")[0]||""}</span>
+                        </div>
+                        {createdAgo!==null&&<span style={{fontSize:8,padding:"1px 4px",borderRadius:4,background:createdAgo>=5?"#ef444420":createdAgo>=3?"#f59e0b20":"#1e293b",color:createdAgo>=5?"#ef4444":createdAgo>=3?"#f59e0b":"#64748b",fontWeight:600}}>{createdAgo}d</span>}
+                      </div>
+                      {/* Expanded inline */}
+                      {expandedTask===t.id&&<div style={{marginTop:6,paddingTop:6,borderTop:"1px solid #1e293b"}} onClick={e=>e.stopPropagation()}>
+                        {req&&<div style={{fontSize:8,color:"#94a3b8",marginBottom:4}}>Solicitado por: <strong>{req.name}</strong></div>}
+                        {t.description&&<div style={{fontSize:9,color:"#94a3b8",background:"#1e293b",borderRadius:4,padding:4,marginBottom:4,lineHeight:1.4}}>{t.description}</div>}
+                        {t.dueDate&&<div style={{fontSize:8,color:"#64748b"}}>Prazo: {new Date(t.dueDate).toLocaleDateString("pt-BR")}</div>}
+                        <div style={{display:"flex",gap:3,marginTop:4,flexWrap:"wrap"}}>
+                          {TASK_STATUSES.filter(s2=>s2.id!==t.status).map(s2=>
+                            <button key={s2.id} onClick={()=>setTasks(p=>p.map(x=>x.id!==t.id?x:{...x,status:s2.id}))}
+                              style={{background:`${s2.color}15`,border:`1px solid ${s2.color}40`,borderRadius:4,padding:"2px 6px",fontSize:8,fontWeight:700,color:s2.color,cursor:"pointer"}}>{s2.icon} {s2.label}</button>
+                          )}
+                        </div>
+                      </div>}
+                    </div>;
+                  })}
+                  {stTasks.length===0&&<div style={{textAlign:"center",padding:12,color:"#334155",fontSize:9}}>—</div>}
+                </div>;
+              })}
+            </div>
+          </div>;
+        })}
+        {sortedWeeks.length===0&&<div style={{textAlign:"center",padding:40,color:"#475569"}}><div style={{fontSize:14}}>Nenhuma tarefa encontrada</div></div>}
+      </div>}
+
+      {/* ═══ LIST VIEW ═══ */}
+      {taskView==="list"&&<div style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12}}>
         {f.map(t=>{const cl=clients.find(c=>c.id===t.clientId);const u=getUser(t.assigneeId);const requester=getUser(t.requestedBy)||null;const ov=t.status!=="done"&&t.dueDate&&new Date(t.dueDate)<new Date();
           const isExpanded = expandedTask === t.id;
           const createdAgo = t.createdAt ? Math.floor((Date.now()-new Date(t.createdAt).getTime())/86400000) : null;
           return(
           <div key={t.id} style={{borderBottom:"1px solid #1e293b30"}}>
             <div style={{display:"flex",alignItems:"center",gap:10,padding:"10px 14px",cursor:"pointer"}} onClick={()=>setExpandedTask(isExpanded?null:t.id)}>
-              <button onClick={e=>{e.stopPropagation();setTasks(p=>p.map(x=>x.id===t.id?{...x,status:x.status==="done"?"pending":"done"}:x));}} style={{background:"none",border:"none",cursor:"pointer",padding:0,flexShrink:0}}>{t.status==="done"?<CheckCircle2 size={18} color="#22c55e"/>:t.status==="in_progress"?<PlayCircle size={18} color="#6366f1"/>:<Circle size={18} color="#475569"/>}</button>
+              <button onClick={e=>{e.stopPropagation();const order=["pending","in_progress","review","approved","done"];const idx=order.indexOf(t.status||"pending");setTasks(p=>p.map(x=>x.id===t.id?{...x,status:order[(idx+1)%order.length]}:x));}} style={{background:"none",border:"none",cursor:"pointer",padding:0,flexShrink:0}}>{t.status==="done"?<CheckCircle2 size={18} color="#14b8a6"/>:t.status==="approved"?<CheckCircle2 size={18} color="#22c55e"/>:t.status==="review"?<Eye size={18} color="#f59e0b"/>:t.status==="in_progress"?<PlayCircle size={18} color="#6366f1"/>:<Circle size={18} color="#475569"/>}</button>
               <div style={{width:3,height:28,borderRadius:3,background:PRIORITIES[t.priority]?.color||"#64748b",flexShrink:0}}/>
               <div style={{flex:1}}>
                 <div style={{fontSize:12,fontWeight:600,color:t.status==="done"?"#64748b":"#e2e8f0",textDecoration:t.status==="done"?"line-through":"none"}}>{t.title}</div>
@@ -1959,9 +2076,11 @@ function AgenciaOSApp() {
               <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
                 <select value={t.status} onChange={e=>setTasks(p=>p.map(x=>x.id!==t.id?x:{...x,status:e.target.value}))}
                   style={{background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"4px 8px",color:"#e2e8f0",fontSize:10,fontFamily:"inherit"}}>
-                  <option value="pending">⏳ Pendente</option>
-                  <option value="in_progress">▶️ Em andamento</option>
-                  <option value="done">✅ Concluída</option>
+                  <option value="pending">📝 A Criar</option>
+                  <option value="in_progress">🎨 Criando</option>
+                  <option value="review">👀 Em Aprovação</option>
+                  <option value="approved">✅ Aprovado</option>
+                  <option value="done">🚀 Entregue/Postado</option>
                 </select>
                 <select value={t.assigneeId||""} onChange={e=>setTasks(p=>p.map(x=>x.id!==t.id?x:{...x,assigneeId:e.target.value}))}
                   style={{background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"4px 8px",color:"#e2e8f0",fontSize:10,fontFamily:"inherit"}}>
@@ -1978,7 +2097,7 @@ function AgenciaOSApp() {
             </div>}
           </div>
         );})}
-      </div>
+      </div>}
     </div>;
   };
 

@@ -333,16 +333,57 @@ const REAL_AGENCY_EVENTS = [
 const ALL_GCAL_EVENTS = [...REAL_PERSONAL_EVENTS, ...REAL_AGENCY_EVENTS].sort((a,b) => new Date(a.start) - new Date(b.start));
 
 // ═══════════════════════════════════════════
-// STORAGE HELPERS (localStorage for web deploy)
+// FIREBASE REALTIME DATABASE — REST API + SSE (real-time)
 // ═══════════════════════════════════════════
-async function loadData(key, fallback) {
+const FIREBASE_URL = "https://agencia-os-default-rtdb.firebaseio.com";
+
+async function firebasePut(path, data) {
   try {
-    const raw = localStorage.getItem(key);
-    return raw ? JSON.parse(raw) : fallback;
-  } catch { return fallback; }
+    const res = await fetch(`${FIREBASE_URL}/${path}.json`, {
+      method: "PUT", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) throw new Error(`Firebase PUT ${path}: ${res.status}`);
+    return true;
+  } catch (e) { console.error("Firebase write error:", e); return false; }
+}
+
+async function firebaseGet(path) {
+  try {
+    const res = await fetch(`${FIREBASE_URL}/${path}.json`);
+    if (!res.ok) throw new Error(`Firebase GET ${path}: ${res.status}`);
+    return await res.json();
+  } catch (e) { console.error("Firebase read error:", e); return null; }
+}
+
+function firebaseListen(path, callback) {
+  const evtSource = new EventSource(`${FIREBASE_URL}/${path}.json`);
+  evtSource.addEventListener("put", (event) => {
+    try {
+      const parsed = JSON.parse(event.data);
+      if (parsed.path === "/") { callback(parsed.data); }
+      else { firebaseGet(path).then(d => { if (d !== null) callback(d); }); }
+    } catch (e) { console.warn("SSE parse error:", e); }
+  });
+  evtSource.addEventListener("patch", () => {
+    firebaseGet(path).then(d => { if (d !== null) callback(d); });
+  });
+  evtSource.onerror = () => { console.warn(`Firebase SSE reconnecting ${path}`); };
+  return evtSource;
+}
+
+const _fbTimers = {};
+function firebasePutDebounced(path, data, delay = 800) {
+  clearTimeout(_fbTimers[path]);
+  _fbTimers[path] = setTimeout(() => firebasePut(path, data), delay);
+  try { localStorage.setItem(`agos-${path}`, JSON.stringify(data)); } catch(e) {}
+}
+
+async function loadData(key, fallback) {
+  try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; } catch { return fallback; }
 }
 async function saveData(key, data) {
-  try { localStorage.setItem(key, JSON.stringify(data)); } catch(e) { console.error("Save error:", e); }
+  try { localStorage.setItem(key, JSON.stringify(data)); } catch(e) {}
 }
 
 // ═══════════════════════════════════════════
@@ -574,9 +615,12 @@ function AgenciaOSApp() {
     })();
   }, []);
 
-  // Save authorized users when changed
+  // Save authorized users (Firebase + localStorage)
   useEffect(() => {
-    if (!authLoading) saveData("agos-authorized-users", authorizedUsers);
+    if (!authLoading) {
+      saveData("agos-authorized-users", authorizedUsers);
+      firebasePutDebounced("authorizedUsers", authorizedUsers, 1500);
+    }
   }, [authorizedUsers, authLoading]);
 
   // Google Sign-In handler — OAuth2 implicit flow with Calendar scope
@@ -878,8 +922,12 @@ function AgenciaOSApp() {
     return () => clearInterval(interval);
   }, [loaded]);
 
-  // Load persistent data
+  // ═══ FIREBASE REAL-TIME SYNC — todos os 18 usuários veem mudanças na hora ═══
+  const firebaseListeners = useRef([]);
+  const [firebaseConnected, setFirebaseConnected] = useState(false);
+
   useEffect(() => {
+    const toArr = (d) => { if (!d) return null; if (Array.isArray(d)) return d; return Object.values(d); };
     (async () => {
       try {
         const c = await loadData("agos-clients", null);
@@ -890,13 +938,33 @@ function AgenciaOSApp() {
         if(n && Array.isArray(n)) setNotifications(n);
       } catch(e) { console.warn("Load data error:", e); }
       setLoaded(true);
+
+      try {
+        const [fbC,fbT,fbN] = await Promise.all([
+          firebaseGet("clients"), firebaseGet("tasks"), firebaseGet("notifications"),
+        ]);
+        const fc=toArr(fbC),ft=toArr(fbT),fn=toArr(fbN);
+        if(fc&&fc.length>0) setClients(fc);
+        if(ft&&ft.length>0) setTasks(ft);
+        if(fn&&fn.length>0) setNotifications(fn);
+        setFirebaseConnected(true);
+      } catch(e) { console.warn("Firebase load failed:", e); }
+
+      try {
+        const l1=firebaseListen("clients",(d)=>{const a=toArr(d);if(a&&a.length>0)setClients(a);});
+        const l2=firebaseListen("tasks",(d)=>{const a=toArr(d);if(a&&a.length>0)setTasks(a);});
+        const l3=firebaseListen("notifications",(d)=>{const a=toArr(d);if(a)setNotifications(a);});
+        firebaseListeners.current=[l1,l2,l3];
+        setFirebaseConnected(true);
+        console.log("✅ Firebase SSE active");
+      } catch(e) { console.warn("SSE failed:", e); }
     })();
+    return()=>{firebaseListeners.current.forEach(l=>{try{l.close();}catch(e){}});};
   }, []);
 
-  // Save on changes
-  useEffect(() => { if(loaded) saveData("agos-clients", clients); }, [clients, loaded]);
-  useEffect(() => { if(loaded) saveData("agos-tasks", tasks); }, [tasks, loaded]);
-  useEffect(() => { if(loaded) saveData("agos-notifs", notifications); }, [notifications, loaded]);
+  useEffect(()=>{if(!loaded)return;saveData("agos-clients",clients);firebasePutDebounced("clients",clients,1000);},[clients,loaded]);
+  useEffect(()=>{if(!loaded)return;saveData("agos-tasks",tasks);firebasePutDebounced("tasks",tasks,1000);},[tasks,loaded]);
+  useEffect(()=>{if(!loaded)return;saveData("agos-notifs",notifications);firebasePutDebounced("notifications",notifications,1500);},[notifications,loaded]);
 
   // ═══ NOTIFICATION TIMER — 10 min before each event ═══
   useEffect(() => {
@@ -1387,6 +1455,7 @@ function AgenciaOSApp() {
       <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:20}}>
         <div><h1 style={{fontSize:22,fontWeight:800,color:"#f1f5f9",margin:0}}>Dashboard</h1><p style={{color:"#64748b",fontSize:12,margin:"2px 0 0"}}>Visão geral • Google Calendar sincronizado</p></div>
         <div style={{display:"flex",gap:8,alignItems:"center"}}>
+          {firebaseConnected?<Bg color="#22c55e" small><Wifi size={9}/> Firebase Live</Bg>:<Bg color="#f59e0b" small><WifiOff size={9}/> Offline</Bg>}
           <Btn icon={CheckCircle2} small variant="success" disabled>
             Google Calendar Conectado
           </Btn>
@@ -2503,13 +2572,31 @@ function AgenciaOSApp() {
   const [warDeals, setWarDeals] = useState(() => {
     try { return JSON.parse(localStorage.getItem("agos-warday")||"null") || []; } catch(e) { return []; }
   });
-  useEffect(() => { try { localStorage.setItem("agos-warday", JSON.stringify(warDeals)); } catch(e) {} }, [warDeals]);
+  useEffect(() => {
+    try { localStorage.setItem("agos-warday", JSON.stringify(warDeals)); } catch(e) {}
+    if(loaded) firebasePutDebounced("warDeals",warDeals,1000);
+  }, [warDeals,loaded]);
+  useEffect(() => {
+    const toArr=(d)=>{if(!d)return null;if(Array.isArray(d))return d;return Object.values(d);};
+    firebaseGet("warDeals").then(d=>{const a=toArr(d);if(a&&a.length>0)setWarDeals(a);}).catch(()=>{});
+    const listener=firebaseListen("warDeals",(d)=>{const a=toArr(d);if(a)setWarDeals(a);});
+    return()=>{try{listener.close();}catch(e){}};
+  }, []);
 
-  // Consultoria pipeline — persists
+  // Consultoria pipeline — Firebase synced
   const [consultorias, setConsultorias] = useState(() => {
     try { return JSON.parse(localStorage.getItem("agos-consultorias")||"null") || []; } catch(e) { return []; }
   });
-  useEffect(() => { try { localStorage.setItem("agos-consultorias", JSON.stringify(consultorias)); } catch(e) {} }, [consultorias]);
+  useEffect(() => {
+    try { localStorage.setItem("agos-consultorias", JSON.stringify(consultorias)); } catch(e) {}
+    if(loaded) firebasePutDebounced("consultorias",consultorias,1000);
+  }, [consultorias,loaded]);
+  useEffect(() => {
+    const toArr=(d)=>{if(!d)return null;if(Array.isArray(d))return d;return Object.values(d);};
+    firebaseGet("consultorias").then(d=>{const a=toArr(d);if(a&&a.length>0)setConsultorias(a);}).catch(()=>{});
+    const listener=firebaseListen("consultorias",(d)=>{const a=toArr(d);if(a)setConsultorias(a);});
+    return()=>{try{listener.close();}catch(e){}};
+  }, []);
 
   // Auto-detect "consultoria" events from calendar → register as calls
   useEffect(() => {
@@ -3482,10 +3569,33 @@ function AgenciaOSApp() {
       </div>
     </div>
 
+    {/* FIREBASE REALTIME DATABASE */}
+    <div style={{background:"#0f172a",border:`1px solid ${firebaseConnected?"#22c55e30":"#ef444430"}`,borderRadius:12,padding:16,marginBottom:12}}>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
+        <h3 style={{margin:0,fontSize:13,fontWeight:700,color:"#e2e8f0",display:"flex",alignItems:"center",gap:6}}>
+          {firebaseConnected?<Wifi size={14} color="#22c55e"/>:<WifiOff size={14} color="#ef4444"/>}
+          Firebase — {firebaseConnected?"Conectado":"Desconectado"}
+        </h3>
+        <Bg color={firebaseConnected?"#22c55e":"#ef4444"} small>{firebaseConnected?"Live ✓":"Offline"}</Bg>
+      </div>
+      <div style={{fontSize:12,color:"#94a3b8",marginBottom:8}}>
+        <strong style={{color:"#e2e8f0"}}>URL:</strong> {FIREBASE_URL}<br/>
+        <strong style={{color:"#e2e8f0"}}>Dados:</strong> clients, tasks, notifications, warDeals, consultorias
+      </div>
+      {firebaseConnected&&<div style={{fontSize:11,color:"#22c55e",marginBottom:8}}>✅ Sync ativo — mudanças aparecem para todos em tempo real.</div>}
+      <div style={{display:"flex",gap:8}}>
+        <Btn small icon={RefreshCw} onClick={()=>{firebaseGet("clients").then(d=>{if(d){setFirebaseConnected(true);showToast("✅ Firebase OK");}}).catch(()=>showToast("❌ Offline"));}}>Testar</Btn>
+        <Btn small variant="secondary" icon={Upload} onClick={()=>{if(confirm("Enviar dados para Firebase?")){Promise.all([firebasePut("clients",clients),firebasePut("tasks",tasks),firebasePut("notifications",notifications),firebasePut("warDeals",warDeals),firebasePut("consultorias",consultorias),firebasePut("authorizedUsers",authorizedUsers)]).then(()=>{showToast("✅ Upload OK");setFirebaseConnected(true);}).catch(e=>showToast("❌ "+e.message));}}}>Upload para Firebase</Btn>
+      </div>
+    </div>
+
     <div style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,padding:16,marginBottom:12}}>
-      <h3 style={{margin:"0 0 12px",fontSize:13,fontWeight:700,color:"#e2e8f0"}}>Armazenamento Persistente</h3>
-      <div style={{fontSize:12,color:"#94a3b8",marginBottom:8}}>Todos os dados são salvos automaticamente e persistem entre sessões.</div>
-      <Btn onClick={async()=>{try{localStorage.removeItem("agos-clients");localStorage.removeItem("agos-tasks");localStorage.removeItem("agos-notifs");setClients(DEFAULT_CLIENTS);setTasks(DEFAULT_TASKS);setNotifications([]);}catch(e){}}} variant="danger" small icon={RotateCcw}>Resetar Dados</Btn>
+      <h3 style={{margin:"0 0 12px",fontSize:13,fontWeight:700,color:"#e2e8f0"}}>Armazenamento</h3>
+      <div style={{fontSize:12,color:"#94a3b8",marginBottom:8}}>Firebase (compartilhado) + localStorage (cache).</div>
+      <div style={{display:"flex",gap:8}}>
+        <Btn onClick={async()=>{if(confirm("Resetar TUDO? Afeta todos os usuários.")){try{["agos-clients","agos-tasks","agos-notifs","agos-warday","agos-consultorias"].forEach(k=>localStorage.removeItem(k));setClients(DEFAULT_CLIENTS);setTasks(DEFAULT_TASKS);setNotifications([]);setWarDeals([]);setConsultorias([]);await firebasePut("clients",DEFAULT_CLIENTS);await firebasePut("tasks",DEFAULT_TASKS);await firebasePut("notifications",[]);await firebasePut("warDeals",[]);await firebasePut("consultorias",[]);showToast("🔄 Resetado");}catch(e){}}}} variant="danger" small icon={RotateCcw}>Resetar Tudo</Btn>
+        <Btn onClick={()=>{["agos-clients","agos-tasks","agos-notifs"].forEach(k=>localStorage.removeItem(k));setClients(DEFAULT_CLIENTS);setTasks(DEFAULT_TASKS);setNotifications([]);}} variant="secondary" small icon={RotateCcw}>Só Local</Btn>
+      </div>
     </div>
 
     {/* ARCHIVED CLIENTS */}
@@ -3718,7 +3828,7 @@ function AgenciaOSApp() {
         <div style={{padding:sidebarOpen?"14px 16px":"14px 10px",borderBottom:"1px solid #1e293b",display:"flex",alignItems:"center",gap:8,minHeight:52}}>
           {sidebarOpen?<>
             <div style={{width:28,height:28,borderRadius:7,background:"linear-gradient(135deg,#6366f1,#a855f7)",display:"flex",alignItems:"center",justifyContent:"center"}}><Zap size={15} color="#fff"/></div>
-            <div style={{flex:1}}><div style={{fontSize:14,fontWeight:800,color:"#f1f5f9"}}>AgênciaOS</div><div style={{fontSize:9,color:"#6366f1",fontWeight:600,letterSpacing:".08em",textTransform:"uppercase"}}>Live • Google Auth</div></div>
+            <div style={{flex:1}}><div style={{fontSize:14,fontWeight:800,color:"#f1f5f9"}}>AgênciaOS</div><div style={{fontSize:9,color:firebaseConnected?"#22c55e":"#6366f1",fontWeight:600,letterSpacing:".08em",textTransform:"uppercase"}}>{firebaseConnected?"Firebase Live ✓":"Offline Mode"}</div></div>
           </>:null}
           <button onClick={()=>setSidebarOpen(!sidebarOpen)} style={{background:"none",border:"none",color:"#64748b",cursor:"pointer",padding:4}}>{sidebarOpen?<ChevronLeft size={16}/>:<ChevronRight size={16}/>}</button>
         </div>

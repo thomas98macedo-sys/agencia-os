@@ -934,7 +934,7 @@ function AgenciaOSApp() {
         const c = await loadData("agos-clients", null);
         const t = await loadData("agos-tasks", null);
         const n = await loadData("agos-notifs", null);
-        if(c && Array.isArray(c)) { setClients(c); }
+        if(c && Array.isArray(c)) setClients(c);
         if(t && Array.isArray(t)) setTasks(t);
         if(n && Array.isArray(n)) setNotifications(n);
       } catch(e) { console.warn("Load data error:", e); }
@@ -4304,8 +4304,6 @@ function AgenciaOSApp() {
 }
 
 // ═══ WRAP WITH ERROR BOUNDARY ═══
-)
-
 export default function AgenciaOS() {
   return React.createElement(ErrorBoundary, null, React.createElement(AgenciaOSApp));
 }

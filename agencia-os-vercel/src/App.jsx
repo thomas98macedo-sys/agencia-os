@@ -1452,6 +1452,7 @@ function AgenciaOSApp() {
     {id:"lince",icon:LineChart,label:"Lince"},
     {id:"reports",icon:BarChart3,label:"Relatórios"},
     {id:"team",icon:Users,label:"Equipe"},
+    {id:"multiverso",icon:Target,label:"Multiverso"},
     ...((authUser?.role==="director"||authUser?.role==="admin")?[{id:"settings",icon:Settings,label:"Config"}]:[]),
   ];
 
@@ -3696,6 +3697,207 @@ function AgenciaOSApp() {
     </div>
   );
 
+  // ═══════════════════════════════════════════════════════════════
+  // KANBAN MULTIVERSO — O Vilarejo de Lince
+  // ═══════════════════════════════════════════════════════════════
+  const CHAR_CLASSES_MV = {
+    director:{title:"Lorde Supremo",icon:"\u{1F451}",color:"#6366f1"},
+    cs:{title:"Comandante",icon:"\u2694\uFE0F",color:"#06b6d4"},
+    head_traffic:{title:"Arquimago",icon:"\u{1F9D9}",color:"#f97316"},
+    traffic:{title:"Mago de Batalha",icon:"\u26A1",color:"#f59e0b"},
+    social:{title:"Bardo",icon:"\u{1F3B5}",color:"#ec4899"},
+    designer:{title:"Art\u00EDfice",icon:"\u{1F3A8}",color:"#8b5cf6"},
+    filmmaker:{title:"Ilusionista",icon:"\u{1F3AD}",color:"#ef4444"},
+    creation_lead:{title:"Mestre Artes\u00E3o",icon:"\u{1F528}",color:"#f97316"},
+    closer:{title:"Ca\u00E7ador",icon:"\u{1F3F9}",color:"#0ea5e9"},
+    sdr:{title:"Batedor",icon:"\u{1F5E1}\uFE0F",color:"#14b8a6"},
+    commercial:{title:"Mercador",icon:"\u{1F48E}",color:"#10b981"},
+    store_creator:{title:"Construtor",icon:"\u{1F3D7}\uFE0F",color:"#d946ef"},
+  };
+  const MV_STAGES = [
+    {id:"venda_fechada",name:"Taverna",icon:"\u{1F3F0}",quest:"Nova Miss\u00E3o",desc:"Um viajante chegou com um pedido de ajuda!",npc:"Mensageiro",bg:"#6B4226"},
+    {id:"cs_inicial",name:"Quartel General",icon:"\u2694\uFE0F",quest:"Reunir o Grupo",desc:"Reunir o time e preparar suprimentos.",npc:"Cmd Amanda",bg:"#808080"},
+    {id:"cobranca_enviada",name:"Casa de C\u00E2mbio",icon:"\u{1F4B0}",quest:"Cobrar Tributo",desc:"Entregar a fatura ao mercador.",npc:"Mercador",bg:"#B8956A"},
+    {id:"pagamento_confirmado",name:"Mercado Geral",icon:"\u{1F3EA}",quest:"Ouro Recebido",desc:"Confirmar recebimento na tenda.",npc:"Banqueiro",bg:"#CD7F32"},
+    {id:"onboarding_agendado",name:"Pra\u00E7a Central",icon:"\u{1F4DC}",quest:"Fixar Edital",desc:"Pregar pergaminho na placa.",npc:"Arauto",bg:"#AB8B6A"},
+    {id:"onboarding_concluido",name:"Sala Treinamento",icon:"\u{1F3CB}\uFE0F",quest:"Treinamento OK",desc:"Conselho realizado, objetivos documentados.",npc:"Mestre de Armas",bg:"#4AA5C0"},
+    {id:"alinhamento_visual",name:"Tenda Artes\u00E3o",icon:"\u{1F3A8}",quest:"Vis\u00E3o do Artes\u00E3o",desc:"Definir estilo visual e identidade.",npc:"Artes\u00E3o",bg:"#D4B882"},
+    {id:"servico_avulso",name:"Cabana Ca\u00E7ador",icon:"\u{1F3AF}",quest:"Miss\u00E3o Especial",desc:"Servi\u00E7o avulso sem tr\u00E1fego.",npc:"Ca\u00E7ador Solo",bg:"#2E5B3E"},
+    {id:"setup_trafego",name:"Torre do Mago",icon:"\u26A1",quest:"Conjurar Tr\u00E1fego",desc:"Conjurar feiti\u00E7os de alcance! SLA: 3 dias.",npc:"Mago",bg:"#4A6B9B"},
+    {id:"trafego_ativo",name:"Campo Batalha",icon:"\u{1F680}",quest:"Batalha Ativa",desc:"Feiti\u00E7os ativos! Monitorar resultados.",npc:"General",bg:"#4A7A2E"},
+    {id:"producao_andamento",name:"Oficina",icon:"\u{1F528}",quest:"Forjar Armas",desc:"Criar pe\u00E7as, v\u00EDdeos e conte\u00FAdo.",npc:"Art\u00EDfice",bg:"#6B4226"},
+    {id:"buscando_aprovacao",name:"Correio Real",icon:"\u{1F4E4}",quest:"Enviar ao Rei",desc:"Enviar pelo Correio Real para aprova\u00E7\u00E3o.",npc:"Carteiro",bg:"#AB8B6A"},
+    {id:"aprovacao_concluida",name:"Trono do Rei",icon:"\u{1F451}",quest:"Decreto Real",desc:"O Rei aprovou!",npc:"Rei Cliente",bg:"#DAA520"},
+    {id:"concluido",name:"Monumento",icon:"\u{1F3C6}",quest:"Miss\u00E3o Completa!",desc:"Nome gravado no Monumento da Vit\u00F3ria!",npc:"Escriba",bg:"#C0C0C0"},
+  ];
+
+  const MultiversoPage = () => {
+    const [mvStage, setMvStage] = useState(null);
+    const [mvChar, setMvChar] = useState(authUser?.email ? SEED_USERS.find(u=>u.email===(authUser?.email||""))?.id||"u1" : "u1");
+    const [mvNotif, setMvNotif] = useState(null);
+    const [heroXP, setHeroXP] = useState(() => {
+      try { return JSON.parse(localStorage.getItem("agos-hero-xp")||"{}") || {}; } catch(e) { return {}; }
+    });
+    useEffect(() => { try{localStorage.setItem("agos-hero-xp",JSON.stringify(heroXP));}catch(e){} }, [heroXP]);
+
+    const getHL = (uid) => Math.floor((heroXP[uid]||0) / 250) + 1;
+    const grantXP = (uid, amt) => { if(uid) setHeroXP(p => {const n={...p};n[uid]=(n[uid]||0)+amt;return n;}); };
+
+    const activeSt = MV_STAGES.find(s=>s.id===mvStage);
+    const stClients = clients.filter(c=>c.status===mvStage&&!c.archived);
+    const selU = SEED_USERS.find(u=>u.id===mvChar);
+    const selC = selU ? CHAR_CLASSES_MV[selU.role] : null;
+    const doneCount = clients.filter(c=>c.status==="concluido"&&!c.archived).length;
+    const actCount = clients.filter(c=>c.status!=="concluido"&&!c.archived).length;
+    const tXP = Object.values(heroXP).reduce((s,x)=>s+x,0);
+
+    const advQ = (cid) => {
+      const cl = clients.find(c=>c.id===cid);
+      if(!cl) return;
+      const idx = MV_STAGES.findIndex(s=>s.id===cl.status);
+      if(idx<0||idx>=MV_STAGES.length-1) return;
+      const nx = MV_STAGES[idx+1];
+      moveClient(cid, nx.id);
+      grantXP(cl.csId, 100);
+      grantXP(cl.trafficId, 80);
+      grantXP(cl.socialId, 60);
+      grantXP(cl.designerId, 60);
+      setMvNotif(cl.company+" \u2192 "+nx.icon+" "+nx.name+" +100 XP");
+      setTimeout(()=>setMvNotif(null),4000);
+    };
+
+    const PF = "'Press Start 2P',monospace";
+    const mvCSS = "@keyframes mvF{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}@keyframes mvP{0%,100%{opacity:1}50%{opacity:.6}}@keyframes mvS{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}";
+
+    return React.createElement("div", {style:{height:"calc(100vh - 56px)",display:"flex",flexDirection:"column",background:"#0a0a0a",overflow:"hidden"}},
+      React.createElement("link", {href:"https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap",rel:"stylesheet"}),
+      React.createElement("style", null, mvCSS),
+
+      mvNotif && React.createElement("div", {style:{position:"fixed",top:56,left:0,right:0,zIndex:100,background:"linear-gradient(90deg,#1a0f00,#2a1a08,#1a0f00)",borderBottom:"2px solid #DAA520",padding:"8px 16px",fontSize:8,fontFamily:PF,color:"#DAA520",textAlign:"center",animation:"mvS .3s ease"}}, "\u2694\uFE0F "+mvNotif),
+
+      React.createElement("div", {style:{background:"linear-gradient(180deg,#2a1a08,#1a0f00)",borderBottom:"3px solid #6B4226",padding:"8px 16px",display:"flex",alignItems:"center",gap:12,flexShrink:0}},
+        React.createElement("div", {style:{fontSize:10,fontFamily:PF,color:"#DAA520"}}, "\u2694\uFE0F KANBAN MULTIVERSO"),
+        React.createElement("div", {style:{fontSize:7,fontFamily:PF,color:"#AB8B6A"}}, "Vilarejo de Lince"),
+        React.createElement("div", {style:{flex:1}}),
+        React.createElement("div", {style:{display:"flex",gap:16,alignItems:"center"}},
+          React.createElement("div", {style:{textAlign:"center"}}, React.createElement("div",{style:{fontSize:5,fontFamily:PF,color:"#64748b"}},"GUILDA"), React.createElement("div",{style:{fontSize:12,fontFamily:PF,color:"#DAA520"}},"Lv"+String(Math.floor(tXP/1000)+1))),
+          React.createElement("div", {style:{textAlign:"center"}}, React.createElement("div",{style:{fontSize:5,fontFamily:PF,color:"#64748b"}},"XP"), React.createElement("div",{style:{fontSize:8,fontFamily:PF,color:"#22c55e"}},String(tXP))),
+          React.createElement("div", {style:{textAlign:"center"}}, React.createElement("div",{style:{fontSize:5,fontFamily:PF,color:"#64748b"}},"ATIVAS"), React.createElement("div",{style:{fontSize:8,fontFamily:PF,color:"#f59e0b"}},String(actCount))),
+          React.createElement("div", {style:{textAlign:"center"}}, React.createElement("div",{style:{fontSize:5,fontFamily:PF,color:"#64748b"}},"COMPLETAS"), React.createElement("div",{style:{fontSize:8,fontFamily:PF,color:"#22c55e"}},String(doneCount)))
+        )
+      ),
+
+      React.createElement("div", {style:{flex:1,display:"flex",overflow:"hidden"}},
+        React.createElement("div", {style:{width:160,background:"linear-gradient(180deg,#1a0f00,#0a0500)",borderRight:"3px solid #6B4226",padding:8,overflowY:"auto",flexShrink:0}},
+          selU && selC && React.createElement("div", {style:{background:"#2a1a0830",border:"2px solid "+selC.color,borderRadius:6,padding:8,marginBottom:8}},
+            React.createElement("div", {style:{display:"flex",alignItems:"center",gap:6,marginBottom:4}},
+              React.createElement("span", {style:{fontSize:20}}, selC.icon),
+              React.createElement("div", null,
+                React.createElement("div", {style:{fontSize:7,fontFamily:PF,color:"#DAA520"}}, selU.name),
+                React.createElement("div", {style:{fontSize:5,fontFamily:PF,color:selC.color}}, selC.title)
+              )
+            ),
+            React.createElement("div", {style:{fontSize:5,fontFamily:PF,color:"#AB8B6A"}}, "Lv "+getHL(selU.id)+" | "+(heroXP[selU.id]||0)+" XP"),
+            React.createElement("div", {style:{width:"100%",height:4,background:"#1a0f00",borderRadius:2,overflow:"hidden",marginTop:3}},
+              React.createElement("div", {style:{width:String(((heroXP[selU.id]||0)%250)/250*100)+"%",height:"100%",background:selC.color,borderRadius:2}})
+            )
+          ),
+          React.createElement("div", {style:{fontSize:6,fontFamily:PF,color:"#DAA520",margin:"4px 0"}}, "HEROIS"),
+          React.createElement("div", {style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:3}},
+            ...SEED_USERS.filter(function(u){return !u.pending;}).map(function(u){var c=CHAR_CLASSES_MV[u.role]||CHAR_CLASSES_MV.cs;var isSel=mvChar===u.id;return React.createElement("div",{key:u.id,onClick:function(){setMvChar(u.id);},style:{display:"flex",flexDirection:"column",alignItems:"center",gap:1,cursor:"pointer",opacity:isSel?1:.45,padding:2,borderRadius:4,border:isSel?"1px solid "+c.color:"1px solid transparent"}},
+              React.createElement("span",{style:{fontSize:14}},c.icon),
+              React.createElement("div",{style:{fontSize:5,fontFamily:PF,color:"#e2e8f0",textAlign:"center",maxWidth:55,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},u.name.split(" ")[0]),
+              React.createElement("div",{style:{fontSize:4,fontFamily:PF,color:c.color}},"Lv"+getHL(u.id))
+            );})
+          ),
+          React.createElement("div", {style:{fontSize:5,fontFamily:PF,color:"#DAA520",margin:"8px 0 4px"}}, "RANKING"),
+          ...[...SEED_USERS].filter(function(u){return !u.pending;}).sort(function(a,b){return (heroXP[b.id]||0)-(heroXP[a.id]||0);}).slice(0,6).map(function(u,i){var c=CHAR_CLASSES_MV[u.role]||CHAR_CLASSES_MV.cs;return React.createElement("div",{key:u.id+"r",style:{display:"flex",alignItems:"center",gap:3,padding:"1px 0",fontSize:5,fontFamily:PF,color:i<3?"#DAA520":"#AB8B6A"}},
+            React.createElement("span",{style:{width:10,textAlign:"right"}},i===0?"\u{1F451}":i===1?"\u{1F948}":i===2?"\u{1F949}":String(i+1)+"."),
+            React.createElement("span",null,c.icon),
+            React.createElement("span",{style:{flex:1}},u.name.split(" ")[0]),
+            React.createElement("span",{style:{color:"#22c55e"}},String(heroXP[u.id]||0))
+          );})
+        ),
+
+        React.createElement("div", {style:{flex:1,display:"flex",flexDirection:"column",overflow:"hidden"}},
+          React.createElement("div", {style:{flex:1,overflowX:"auto",overflowY:"hidden",background:"linear-gradient(180deg,#87CEEB 0%,#87CEEB 28%,#4A7A2E 28%,#3A6A1E 100%)",position:"relative",padding:"12px 20px 0"}},
+            React.createElement("div",{style:{position:"absolute",top:8,left:40,fontSize:16,opacity:.3}},"\u2601\uFE0F"),
+            React.createElement("div",{style:{position:"absolute",top:5,right:50,fontSize:20,opacity:.5,animation:"mvP 4s infinite"}},"\u2600\uFE0F"),
+            React.createElement("div",{style:{position:"absolute",bottom:0,left:0,right:0,height:50,background:"repeating-linear-gradient(90deg,#8B7355 0px,#8B7355 20px,#7B6345 20px,#7B6345 40px)",borderTop:"3px solid #6B5B3D"}}),
+            React.createElement("div", {style:{display:"flex",gap:6,alignItems:"flex-end",paddingBottom:54,minWidth:"max-content"}},
+              ...MV_STAGES.map(function(stage){
+                var qc=clients.filter(function(c2){return c2.status===stage.id&&!c2.archived;}).length;
+                var isAct=mvStage===stage.id;
+                var colObj=KANBAN_COLUMNS.find(function(k){return k.id===stage.id;});
+                var stC=colObj?colObj.color:"#6B4226";
+                return React.createElement("div",{key:stage.id,style:{display:"flex",flexDirection:"column",alignItems:"center",gap:2,animation:isAct?"mvF 2s ease-in-out infinite":"none"}},
+                  qc>0&&React.createElement("div",{style:{fontSize:6,fontFamily:PF,color:"#DAA520",background:"#1a0f00e0",border:"1px solid #6B4226",borderRadius:3,padding:"1px 5px"}},String(qc)),
+                  React.createElement("div",{onClick:function(){setMvStage(isAct?null:stage.id);},style:{width:88,height:62,borderRadius:4,background:"linear-gradient(180deg,"+stage.bg+","+stage.bg+"cc)",border:isAct?"2px solid #DAA520":"2px solid #4A2E1880",cursor:"pointer",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",transition:"all .2s",boxShadow:isAct?"0 0 16px "+stC+"60":"none",position:"relative"}},
+                    React.createElement("span",{style:{fontSize:22}},stage.icon),
+                    qc>0&&React.createElement("div",{style:{position:"absolute",top:-5,right:-5,width:16,height:16,borderRadius:"50%",background:"#ef4444",border:"2px solid #fff",display:"flex",alignItems:"center",justifyContent:"center",fontSize:8,fontWeight:800,color:"#fff"}},String(qc))
+                  ),
+                  React.createElement("div",{style:{fontSize:4,fontFamily:PF,color:isAct?"#DAA520":"#AB8B6A",textAlign:"center",maxWidth:88,lineHeight:"1.4"}},stage.name),
+                  React.createElement("div",{style:{fontSize:3,fontFamily:PF,color:"#64748b"}},stage.npc)
+                );
+              })
+            )
+          ),
+
+          React.createElement("div", {style:{height:mvStage?240:40,background:"linear-gradient(180deg,#1a0f00,#0a0500)",borderTop:"3px solid #6B4226",transition:"height .3s",overflow:"hidden",flexShrink:0}},
+            !mvStage && React.createElement("div",{style:{padding:10,textAlign:"center",fontSize:6,fontFamily:PF,color:"#6B4226"}},"Clique em um predio para ver as missoes"),
+            mvStage && activeSt && React.createElement("div",{style:{padding:10,height:"100%",display:"flex",flexDirection:"column"}},
+              React.createElement("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:6}},
+                React.createElement("div",null,
+                  React.createElement("div",{style:{fontSize:8,fontFamily:PF,color:(KANBAN_COLUMNS.find(function(k){return k.id===mvStage;})||{}).color||"#DAA520"}},activeSt.icon+" "+activeSt.name),
+                  React.createElement("div",{style:{fontSize:6,fontFamily:PF,color:"#DAA520"}},activeSt.quest)
+                ),
+                React.createElement("div",{style:{display:"flex",gap:4}},
+                  React.createElement("span",{style:{fontSize:6,fontFamily:PF,color:"#AB8B6A",background:"#2a1a08",border:"1px solid #6B4226",borderRadius:4,padding:"2px 6px"}},String(stClients.length)+" missoes"),
+                  React.createElement("button",{onClick:function(){setMvStage(null);},style:{background:"#4A2E18",border:"1px solid #6B4226",borderRadius:3,color:"#AB8B6A",fontSize:10,cursor:"pointer",padding:"2px 8px"}},"X")
+                )
+              ),
+              React.createElement("div",{style:{fontSize:5,fontFamily:PF,color:"#8B7355",marginBottom:6}},activeSt.desc),
+              React.createElement("div",{style:{flex:1,overflowY:"auto",display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(210px,1fr))",gap:6,alignContent:"start"}},
+                stClients.length===0 && React.createElement("div",{style:{fontSize:6,fontFamily:PF,color:"#4A2E18",textAlign:"center",padding:14}},"Nenhuma missao ativa aqui."),
+                ...stClients.map(function(c2){
+                  var col2=KANBAN_COLUMNS.find(function(k){return k.id===c2.status;});
+                  var pri2=PRIORITIES[c2.priority];
+                  var csU=getUser(c2.csId);
+                  var csC2=csU?CHAR_CLASSES_MV[csU.role]:null;
+                  var stI=MV_STAGES.findIndex(function(s){return s.id===c2.status;});
+                  var nxS=MV_STAGES[stI+1];
+                  var chAt=c2.statusChangedAt||c2.closedDate;
+                  var dIn=chAt?Math.floor((Date.now()-new Date(chAt).getTime())/86400000):0;
+                  return React.createElement("div",{key:c2.id,style:{background:"linear-gradient(135deg,#1a0f00,#2a1a08)",border:"1px solid "+(pri2?pri2.color:"#eab308")+"40",borderRadius:4,padding:"8px 10px",borderLeft:"3px solid "+(pri2?pri2.color:"#eab308")}},
+                    React.createElement("div",{style:{display:"flex",justifyContent:"space-between",marginBottom:4}},
+                      React.createElement("div",{style:{fontSize:7,fontFamily:PF,color:"#DAA520"}},c2.company),
+                      React.createElement("div",{style:{fontSize:5,fontFamily:PF,color:pri2?pri2.color:"#eab308"}},c2.priority==="urgent"?"URGENTE":c2.priority==="high"?"ALTA":"MEDIA")
+                    ),
+                    React.createElement("div",{style:{display:"flex",alignItems:"center",gap:4,marginBottom:3}},
+                      csC2&&React.createElement("span",{style:{fontSize:10}},csC2.icon),
+                      React.createElement("span",{style:{fontSize:5,fontFamily:PF,color:"#AB8B6A"}},csU?csU.name:"?"),
+                      React.createElement("span",{style:{fontSize:5,fontFamily:PF,color:"#22c55e",marginLeft:"auto"}},"R$"+(c2.contractValue||0).toLocaleString("pt-BR"))
+                    ),
+                    dIn>0&&React.createElement("div",{style:{fontSize:4,fontFamily:PF,color:dIn>=5?"#ef4444":dIn>=3?"#f59e0b":"#64748b",marginBottom:3}},String(dIn)+"d nesta fase"+(dIn>=5?" EM RISCO!":"")),
+                    nxS&&c2.status!=="concluido"&&React.createElement("button",{onClick:function(){advQ(c2.id);},style:{width:"100%",background:(col2?col2.color:"#6366f1")+"20",border:"1px solid "+(col2?col2.color:"#6366f1")+"60",borderRadius:3,padding:"3px 6px",fontSize:5,fontFamily:PF,color:col2?col2.color:"#6366f1",cursor:"pointer"}},"Avancar p/ "+nxS.icon+" "+nxS.name),
+                    c2.status==="concluido"&&React.createElement("div",{style:{fontSize:5,fontFamily:PF,color:"#22c55e",textAlign:"center"}},"MISSAO COMPLETA!")
+                  );
+                })
+              )
+            )
+          )
+        )
+      ),
+
+      React.createElement("div", {style:{background:"linear-gradient(180deg,#2a1a08,#1a0f00)",borderTop:"3px solid #6B4226",padding:"6px 16px",display:"flex",alignItems:"center",flexShrink:0}},
+        React.createElement("div",{style:{fontSize:5,fontFamily:PF,color:"#22c55e"}},"[Sistema] Bem-vindo ao Vilarejo de Lince, "+(selU?selU.name:"Aventureiro")+"!"),
+        React.createElement("div",{style:{flex:1}}),
+        React.createElement("div",{style:{fontSize:4,fontFamily:PF,color:"#6B4226"}},"RuneTek LINCE v1.0")
+      )
+    );
+  };
+
+
   const renderPage = () => {
     switch(page) {
       case "dashboard": return <Dashboard/>;
@@ -3709,6 +3911,7 @@ function AgenciaOSApp() {
       case "reports": return <ReportsPage/>;
       case "gc": return <GCPage/>;
       case "team": return <TeamPage/>;
+      case "multiverso": return <MultiversoPage/>;
       case "settings": return <SettingsPage/>;
       default: return <Dashboard/>;
     }

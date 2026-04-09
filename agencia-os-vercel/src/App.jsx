@@ -935,19 +935,17 @@ function AgenciaOSApp() {
         const t = await loadData("agos-tasks", null);
         const n = await loadData("agos-notifs", null);
         if(c && Array.isArray(c)) {
-          // MERGE SEGURO: NUNCA volta status pra trás
-          setClients(prev => {
+          setClients(function(prev) {
             if(!prev || !Array.isArray(prev) || prev.length === 0) return c;
-            return c.map(incoming => {
-              const local = prev.find(p => p.id === incoming.id);
+            return c.map(function(incoming) {
+              var local = prev.find(function(p) { return p.id === incoming.id; });
               if(!local) return incoming;
-              const KO = typeof KANBAN_ORDER_MAP !== 'undefined' ? KANBAN_ORDER_MAP : {};
-              const localOrder = KO[local.status] ?? -1;
-              const incomingOrder = KO[incoming.status] ?? -1;
-              // Se incoming tenta VOLTAR status, mantém o local
+              var KO = (typeof KANBAN_ORDER_MAP !== 'undefined') ? KANBAN_ORDER_MAP : {};
+              var localOrder = KO[local.status] !== undefined ? KO[local.status] : -1;
+              var incomingOrder = KO[incoming.status] !== undefined ? KO[incoming.status] : -1;
               if(incomingOrder < localOrder && localOrder >= 0) {
-                console.warn('[KANBAN-PROTECT] Bloqueado retrocesso:', incoming.company, incoming.status, '->', local.status);
-                return { ...incoming, status: local.status, statusChangedAt: local.statusChangedAt || incoming.statusChangedAt };
+                console.warn('[KANBAN-PROTECT]', incoming.co, incoming.status, '->', local.status);
+                return Object.assign({}, incoming, { status: local.status, statusChangedAt: local.statusChangedAt || incoming.statusChangedAt });
               }
               return incoming;
             });

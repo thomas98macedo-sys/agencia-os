@@ -4304,6 +4304,8 @@ function AgenciaOSApp() {
 }
 
 // ═══ WRAP WITH ERROR BOUNDARY ═══
+)
+
 export default function AgenciaOS() {
   return React.createElement(ErrorBoundary, null, React.createElement(AgenciaOSApp));
 }

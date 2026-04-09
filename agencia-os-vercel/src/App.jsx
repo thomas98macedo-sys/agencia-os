@@ -934,7 +934,25 @@ function AgenciaOSApp() {
         const c = await loadData("agos-clients", null);
         const t = await loadData("agos-tasks", null);
         const n = await loadData("agos-notifs", null);
-        if(c && Array.isArray(c)) setClients(c);
+        if(c && Array.isArray(c)) {
+          // MERGE SEGURO: NUNCA volta status pra trás
+          setClients(prev => {
+            if(!prev || !Array.isArray(prev) || prev.length === 0) return c;
+            return c.map(incoming => {
+              const local = prev.find(p => p.id === incoming.id);
+              if(!local) return incoming;
+              const KO = typeof KANBAN_ORDER_MAP !== 'undefined' ? KANBAN_ORDER_MAP : {};
+              const localOrder = KO[local.status] ?? -1;
+              const incomingOrder = KO[incoming.status] ?? -1;
+              // Se incoming tenta VOLTAR status, mantém o local
+              if(incomingOrder < localOrder && localOrder >= 0) {
+                console.warn('[KANBAN-PROTECT] Bloqueado retrocesso:', incoming.company, incoming.status, '->', local.status);
+                return { ...incoming, status: local.status, statusChangedAt: local.statusChangedAt || incoming.statusChangedAt };
+              }
+              return incoming;
+            });
+          });
+        }
         if(t && Array.isArray(t)) setTasks(t);
         if(n && Array.isArray(n)) setNotifications(n);
       } catch(e) { console.warn("Load data error:", e); }

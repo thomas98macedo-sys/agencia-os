@@ -4302,6 +4302,7 @@ function AgenciaOSApp() {
     </div>
   );
 }
+);
 
 // ═══ WRAP WITH ERROR BOUNDARY ═══
 export default function AgenciaOS() {

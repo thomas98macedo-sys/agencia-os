@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head><title>Teste Imagens Multiverso</title>
+<style>
+body{background:#0a0500;color:#DAA520;font-family:monospace;padding:20px}
+.img-test{margin:10px 0;padding:10px;border:1px solid #6B4226;border-radius:4px}
+.img-test img{max-width:300px;max-height:150px;border:2px solid #DAA520}
+.ok{color:#22c55e} .fail{color:#ef4444}
+</style>
+</head>
+<body>
+<h2>Teste de Imagens - Multiverso</h2>
+<div id="results"></div>
+<script>
+var images = {
+  'hub': '/mv/ChatGPT%20Image%209%20de%20abr.%20de%202026%2C%2000_20_55.png',
+  'taverna': '/mv/ChatGPT%20Image%209%20de%20abr.%20de%202026%2C%2000_21_17.png',
+  'quartel': '/mv/ChatGPT%20Image%209%20de%20abr.%20de%202026%2C%2000_22_30.png',
+  'cambio': '/mv/ChatGPT%20Image%209%20de%20abr.%20de%202026%2C%2000_21_37.png',
+  'mercado': '/mv/ChatGPT%20Image%209%20de%20abr.%20de%202026%2C%2000_21_42.png'
+};
+var r = document.getElementById('results');
+Object.keys(images).forEach(function(name) {
+  var div = document.createElement('div');
+  div.className = 'img-test';
+  div.innerHTML = '<b>' + name + '</b>: Carregando...';
+  r.appendChild(div);
+  var img = new Image();
+  img.onload = function() {
+    div.innerHTML = '<b>' + name + '</b>: <span class="ok">OK ' + this.width + 'x' + this.height + '</span><br>' +
+      '<img src="' + images[name] + '">';
+  };
+  img.onerror = function() {
+    div.innerHTML = '<b>' + name + '</b>: <span class="fail">FALHOU!</span> URL: ' + images[name];
+    // Try alternative URL
+    var alt = new Image();
+    var altUrl = '/mv/' + encodeURIComponent('ChatGPT Image 9 de abr. de 2026, ' + images[name].split('%20').pop());
+    alt.onload = function() {
+      div.innerHTML += '<br><span class="ok">Alternativa funcionou: ' + altUrl + '</span>';
+    };
+    alt.onerror = function() {
+      div.innerHTML += '<br><span class="fail">Alternativa também falhou</span>';
+    };
+    alt.src = altUrl;
+  };
+  img.src = images[name];
+});
+</script>
+</body>
+</html>

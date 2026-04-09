@@ -934,23 +934,7 @@ function AgenciaOSApp() {
         const c = await loadData("agos-clients", null);
         const t = await loadData("agos-tasks", null);
         const n = await loadData("agos-notifs", null);
-        if(c && Array.isArray(c)) {
-          setClients(function(prev) {
-            if(!prev || !Array.isArray(prev) || prev.length === 0) return c;
-            return c.map(function(incoming) {
-              var local = prev.find(function(p) { return p.id === incoming.id; });
-              if(!local) return incoming;
-              var KO = (typeof KANBAN_ORDER_MAP !== 'undefined') ? KANBAN_ORDER_MAP : {};
-              var localOrder = KO[local.status] !== undefined ? KO[local.status] : -1;
-              var incomingOrder = KO[incoming.status] !== undefined ? KO[incoming.status] : -1;
-              if(incomingOrder < localOrder && localOrder >= 0) {
-                console.warn('[KANBAN-PROTECT]', incoming.co, incoming.status, '->', local.status);
-                return Object.assign({}, incoming, { status: local.status, statusChangedAt: local.statusChangedAt || incoming.statusChangedAt });
-              }
-              return incoming;
-            });
-          });
-        }
+        if(c && Array.isArray(c)) { setClients(c); }
         if(t && Array.isArray(t)) setTasks(t);
         if(n && Array.isArray(n)) setNotifications(n);
       } catch(e) { console.warn("Load data error:", e); }

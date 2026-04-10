@@ -963,7 +963,7 @@ function AgenciaOSApp() {
     return()=>{firebaseListeners.current.forEach(l=>{try{l.close();}catch(e){}});};
   }, []);
 
-  useEffect(()=>{if(!loaded)return;saveData("agos-clients",clients);firebasePut("clients",clients); // IMMEDIATE — prevents race condition/card revert},[clients,loaded]);
+  useEffect(()=>{if(!loaded)return;saveData("agos-clients",clients);firebasePutDebounced("clients",clients,1000);},[clients,loaded]);
   useEffect(()=>{if(!loaded)return;saveData("agos-tasks",tasks);firebasePutDebounced("tasks",tasks,1000);},[tasks,loaded]);
   useEffect(()=>{if(!loaded)return;saveData("agos-notifs",notifications);firebasePutDebounced("notifications",notifications,1500);},[notifications,loaded]);
 
@@ -1142,19 +1142,8 @@ function AgenciaOSApp() {
     return remHrs > 0 ? `${days}d ${remHrs}h` : `${days}d`;
   };
 
-  // KANBAN ORDER — prevents backward movement
-  const KANBAN_ORDER_MAP = {};
-  KANBAN_COLUMNS.forEach((col, i) => { KANBAN_ORDER_MAP[col.id] = i; });
-
   const moveClient = (cid,newSt) => {
-    // IMMEDIATE save flag
-    window.__moveClientPending = true;
     setClients(p => p.map(c => {
-      if(c.id !== cid) return c;
-      // BLOCK backward movement (unless user explicitly moved it)
-      const oldI = KANBAN_ORDER_MAP[c.status] || 0;
-      const newI = KANBAN_ORDER_MAP[newSt] || 0;
-      if(newI < oldI) { console.warn("BLOCKED backward: "+c.company+" "+c.status+"->"+newSt); }
       if(c.id!==cid) return c;
 
       // ═══ DUAL APPROVAL BLOCK — can't move to Concluído unless both done ═══
@@ -4302,7 +4291,6 @@ function AgenciaOSApp() {
     </div>
   );
 }
-);
 
 // ═══ WRAP WITH ERROR BOUNDARY ═══
 export default function AgenciaOS() {

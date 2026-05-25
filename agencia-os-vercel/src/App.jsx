@@ -2224,6 +2224,7 @@ function AgenciaOSApp() {
   const [taskView, setTaskView] = useState("board"); // board | list | weekly | done | novos
   const [myTasksOnly, setMyTasksOnly] = useState(false);
   const [draggedTaskId, setDraggedTaskId] = useState(null);
+  const [taskSearch, setTaskSearch] = useState("");
 
   const TasksPage = () => {
     const sectors=["all","cs","traffic","social","designer","filmmaker","store_creator"];
@@ -2232,6 +2233,15 @@ function AgenciaOSApp() {
     let f = tasks;
     if (myTasksOnly && authUser) f = f.filter(t => t.assigneeId === authUser.id);
     if (taskFilter !== "all") f = f.filter(t => t.sector === taskFilter);
+    if (taskSearch.trim()) {
+      const q = taskSearch.trim().toLowerCase();
+      f = f.filter(t => {
+        const cl = clients.find(c => c.id === t.clientId);
+        return (t.title||"").toLowerCase().includes(q)
+          || (cl?.company||"").toLowerCase().includes(q)
+          || (t.description||"").toLowerCase().includes(q);
+      });
+    }
     // The board hides "done" (those live in the Entregues tab)
     const fActive = f.filter(t => t.status !== "done");
     const fDone = f.filter(t => t.status === "done");
@@ -2286,6 +2296,15 @@ function AgenciaOSApp() {
           </button>
           <Btn onClick={()=>setShowNewTask(true)} icon={Plus} small>Nova Tarefa</Btn>
         </div>
+      </div>
+
+      {/* SEARCH BAR */}
+      <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:10,background:"#0f172a",border:"1px solid #1e293b",borderRadius:10,padding:"6px 10px"}}>
+        <Search size={14} color="#64748b"/>
+        <input type="text" value={taskSearch} onChange={e=>setTaskSearch(e.target.value)}
+          placeholder="Buscar por título, cliente ou descrição…"
+          style={{flex:1,background:"transparent",border:"none",color:"#e2e8f0",fontSize:12,outline:"none",fontFamily:"inherit"}}/>
+        {taskSearch&&<button onClick={()=>setTaskSearch("")} style={{background:"none",border:"none",cursor:"pointer",color:"#64748b",padding:0,display:"flex"}}><X size={14}/></button>}
       </div>
 
       {/* VIEW SELECTOR */}
@@ -2357,12 +2376,26 @@ function AgenciaOSApp() {
                       <Bg color={PRIORITIES[t.priority]?.color||"#64748b"} small>{PRIORITIES[t.priority]?.label||""}</Bg>
                     </div>
                     {/* Quick status buttons */}
-                    <div style={{display:"flex",gap:3,marginTop:8,paddingTop:6,borderTop:"1px solid #1e293b",flexWrap:"wrap"}}>
+                    <div style={{display:"flex",gap:3,marginTop:8,paddingTop:6,borderTop:"1px solid #1e293b",flexWrap:"wrap",alignItems:"center"}}>
                       {TASK_STATUSES.filter(s2=>s2.id!==t.status).map(s2=>
                         <button key={s2.id} onClick={e=>{e.stopPropagation();setTasks(p=>p.map(x=>x.id!==t.id?x:{...x,status:s2.id,statusChangedAt:new Date().toISOString()}));}}
                           style={{background:`${s2.color}15`,border:`1px solid ${s2.color}50`,borderRadius:6,padding:"3px 6px",fontSize:9,fontWeight:700,color:s2.color,cursor:"pointer",whiteSpace:"nowrap"}}
                           title={`Mover para ${s2.label}`}>{s2.icon}</button>
                       )}
+                      <button onClick={e=>{
+                        e.stopPropagation();
+                        const nextDue = new Date(); nextDue.setDate(nextDue.getDate()+7);
+                        const nowIso = new Date().toISOString();
+                        const clone = {...t, id:`t${uid()}`, status:"pending", statusChangedAt:nowIso, createdAt:nowIso,
+                          dueDate: nextDue.toISOString().split("T")[0],
+                          title: t.title.replace(/\s*\(semana\s+\d+\)\s*$/i,"") + " (próxima semana)",
+                          requestedByName: (t.requestedByName||"") + " · duplicada",
+                          duplicatedFrom: t.id,
+                        };
+                        setTasks(p=>[clone, ...p]);
+                        showToast(`🔁 Tarefa duplicada para semana seguinte: ${clone.title.slice(0,40)}…`);
+                      }} style={{background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"3px 6px",fontSize:9,fontWeight:700,color:"#94a3b8",cursor:"pointer",whiteSpace:"nowrap"}}
+                        title="Duplicar para a próxima semana (cria nova task com prazo +7d, status A Resolver)">🔁</button>
                       {req&&<span style={{fontSize:8,color:"#64748b",alignSelf:"center",marginLeft:"auto"}}>por {req.name.split(" ")[0]}</span>}
                     </div>
                   </div>

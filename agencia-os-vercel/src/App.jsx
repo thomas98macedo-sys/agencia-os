@@ -1925,18 +1925,149 @@ function AgenciaOSApp() {
       </div>}
 
       {/* Onboarding */}
-      {clientTab==="onboarding"&&<div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
-        <div style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,padding:14}}>
-          <h4 style={{margin:"0 0 8px",fontSize:13,fontWeight:700,color:"#e2e8f0"}}>CS / Entrada</h4>
-          <PB v={pr(client.csChecklist)} m={client.csChecklist.length} c={ROLES.CS.color}/>
-          <div style={{marginTop:8}}>{client.csChecklist.map(i=><CkItem key={i.id} item={i} onToggle={()=>toggleCk(client.id,"csChecklist",i.id)}/>)}</div>
-        </div>
-        <div style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,padding:14}}>
-          <h4 style={{margin:"0 0 8px",fontSize:13,fontWeight:700,color:"#e2e8f0"}}>Onboarding</h4>
-          <PB v={pr(client.onboardingChecklist)} m={client.onboardingChecklist.length} c="#8b5cf6"/>
-          <div style={{marginTop:8}}>{client.onboardingChecklist.map(i=><CkItem key={i.id} item={i} onToggle={()=>toggleCk(client.id,"onboardingChecklist",i.id)}/>)}</div>
-        </div>
-      </div>}
+      {clientTab==="onboarding"&&(()=>{
+        const ob = client.onboarding || {};
+        const participants = ob.participants || [];
+        const attendees = ob.attendees || [];
+        const updateOb = (patch, timelineEvent) => setClients(p=>p.map(c=>{
+          if(c.id!==client.id) return c;
+          const newOb = {...(c.onboarding||{}), ...patch};
+          const tl = timelineEvent ? [...c.timeline, {date:new Date().toISOString(), event:timelineEvent, user:authUser?.name||"Thomas"}] : c.timeline;
+          return {...c, onboarding:newOb, timeline:tl};
+        }));
+        const toggleParticipant = (uid) => {
+          const next = participants.includes(uid) ? participants.filter(x=>x!==uid) : [...participants, uid];
+          updateOb({participants: next});
+        };
+        const toggleAttendee = (uid) => {
+          const next = attendees.includes(uid) ? attendees.filter(x=>x!==uid) : [...attendees, uid];
+          updateOb({attendees: next});
+        };
+        const driveLinks = [
+          {key:"formBriefing",   label:"Briefing geral",          color:"#6366f1", placeholder:"Link do formulário de briefing"},
+          {key:"formObjetivos",  label:"Objetivos do cliente",    color:"#22c55e", placeholder:"Link de objetivos / KPIs"},
+          {key:"formReferencias",label:"Referências visuais",     color:"#ec4899", placeholder:"Link de referências (Pinterest, Drive)"},
+          {key:"formDores",      label:"Dores e diferenciais",    color:"#f59e0b", placeholder:"Link do formulário de dores"},
+          {key:"formMetas",      label:"Metas e KPIs",             color:"#14b8a6", placeholder:"Link de metas e métricas"},
+        ];
+        return <div style={{display:"flex",flexDirection:"column",gap:12}}>
+
+          {/* Existing checklists side-by-side */}
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
+            <div style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,padding:14}}>
+              <h4 style={{margin:"0 0 8px",fontSize:13,fontWeight:700,color:"#e2e8f0"}}>CS / Entrada</h4>
+              <PB v={pr(client.csChecklist)} m={client.csChecklist.length} c={ROLES.CS.color}/>
+              <div style={{marginTop:8}}>{client.csChecklist.map(i=><CkItem key={i.id} item={i} onToggle={()=>toggleCk(client.id,"csChecklist",i.id)}/>)}</div>
+            </div>
+            <div style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,padding:14}}>
+              <h4 style={{margin:"0 0 8px",fontSize:13,fontWeight:700,color:"#e2e8f0"}}>Checklist Onboarding</h4>
+              <PB v={pr(client.onboardingChecklist)} m={client.onboardingChecklist.length} c="#8b5cf6"/>
+              <div style={{marginTop:8}}>{client.onboardingChecklist.map(i=><CkItem key={i.id} item={i} onToggle={()=>toggleCk(client.id,"onboardingChecklist",i.id)}/>)}</div>
+            </div>
+          </div>
+
+          {/* Call status + date */}
+          <div style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,padding:14}}>
+            <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:10}}>
+              <CalendarDays size={14} color="#8b5cf6"/>
+              <h4 style={{margin:0,fontSize:13,fontWeight:700,color:"#e2e8f0"}}>Chamada de Onboarding</h4>
+              <span style={{fontSize:10,color:"#64748b",marginLeft:"auto"}}>Todos os envolvidos devem participar</span>
+            </div>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 2fr",gap:10,alignItems:"end"}}>
+              <div>
+                <label style={{fontSize:10,fontWeight:600,color:"#94a3b8",textTransform:"uppercase",letterSpacing:".04em"}}>Data da chamada</label>
+                <input type="datetime-local" value={ob.callDate ? ob.callDate.slice(0,16) : ""}
+                  onChange={e=>updateOb({callDate: e.target.value ? new Date(e.target.value).toISOString() : null})}
+                  style={{width:"100%",background:"#1e293b",border:"1px solid #334155",borderRadius:8,padding:"7px 10px",color:"#e2e8f0",fontSize:12,outline:"none",fontFamily:"inherit",marginTop:4}}/>
+              </div>
+              <div>
+                <label style={{fontSize:10,fontWeight:600,color:"#94a3b8",textTransform:"uppercase",letterSpacing:".04em"}}>Status</label>
+                <select value={ob.callStatus||"scheduled"}
+                  onChange={e=>{
+                    const newStatus = e.target.value;
+                    const labelMap = {scheduled:"Onboarding agendado", done:"Onboarding realizado", missed:"Onboarding remarcado/não realizado"};
+                    updateOb({callStatus: newStatus}, labelMap[newStatus]);
+                  }}
+                  style={{width:"100%",background:"#1e293b",border:"1px solid #334155",borderRadius:8,padding:"7px 10px",color:"#e2e8f0",fontSize:12,outline:"none",fontFamily:"inherit",marginTop:4}}>
+                  <option value="scheduled">📅 Agendado</option>
+                  <option value="done">✅ Realizado</option>
+                  <option value="missed">⚠️ Não realizado / remarcado</option>
+                </select>
+              </div>
+              <div>
+                <label style={{fontSize:10,fontWeight:600,color:"#94a3b8",textTransform:"uppercase",letterSpacing:".04em"}}>Notas da chamada</label>
+                <input type="text" value={ob.notes||""} onChange={e=>updateOb({notes: e.target.value})}
+                  placeholder="Pontos-chave do que foi alinhado…"
+                  style={{width:"100%",background:"#1e293b",border:"1px solid #334155",borderRadius:8,padding:"7px 10px",color:"#e2e8f0",fontSize:12,outline:"none",fontFamily:"inherit",marginTop:4,boxSizing:"border-box"}}/>
+              </div>
+            </div>
+          </div>
+
+          {/* Participants (must attend) + Attendees (who showed up) */}
+          <div style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,padding:14}}>
+            <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:8}}>
+              <Users size={14} color="#6366f1"/>
+              <h4 style={{margin:0,fontSize:13,fontWeight:700,color:"#e2e8f0"}}>Participantes do projeto</h4>
+              <span style={{fontSize:10,color:"#64748b",marginLeft:"auto"}}>Selecione todos os envolvidos · Marque presença na chamada</span>
+            </div>
+            <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(200px,1fr))",gap:6}}>
+              {SEED_USERS.filter(u=>!u.pending).map(u=>{
+                const isParticipant = participants.includes(u.id);
+                const isAttendee = attendees.includes(u.id);
+                const roleColor = ROLES[u.role?.toUpperCase()]?.color || "#64748b";
+                return <div key={u.id} style={{display:"flex",alignItems:"center",gap:6,padding:"6px 8px",borderRadius:8,
+                  background:isParticipant?`${roleColor}10`:"#020617",
+                  border:`1px solid ${isParticipant?roleColor+"40":"#1e293b"}`}}>
+                  <button onClick={()=>toggleParticipant(u.id)} title="Envolvido no projeto"
+                    style={{background:"none",border:"none",cursor:"pointer",padding:0,flexShrink:0}}>
+                    {isParticipant?<CheckSquare size={14} color={roleColor}/>:<Square size={14} color="#475569"/>}
+                  </button>
+                  <Av i={u.avatar} c={roleColor} s={20}/>
+                  <div style={{flex:1,minWidth:0}}>
+                    <div style={{fontSize:11,fontWeight:600,color:"#e2e8f0",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{u.name.split(" ")[0]}</div>
+                    <div style={{fontSize:9,color:"#64748b"}}>{ROLES[u.role?.toUpperCase()]?.label || u.role}</div>
+                  </div>
+                  {isParticipant&&<button onClick={()=>toggleAttendee(u.id)} title="Presente na chamada"
+                    style={{background:isAttendee?"#22c55e20":"#1e293b",border:`1px solid ${isAttendee?"#22c55e60":"#334155"}`,borderRadius:6,padding:"2px 6px",fontSize:9,fontWeight:700,color:isAttendee?"#22c55e":"#64748b",cursor:"pointer",whiteSpace:"nowrap"}}>
+                    {isAttendee?"✓ Veio":"Ausente"}
+                  </button>}
+                </div>;
+              })}
+            </div>
+            {participants.length===0&&<div style={{marginTop:8,fontSize:11,color:"#64748b",fontStyle:"italic"}}>Nenhum participante selecionado ainda. Marque ao menos os envolvidos no projeto.</div>}
+            {participants.length>0&&<div style={{marginTop:10,paddingTop:10,borderTop:"1px solid #1e293b",display:"flex",gap:14,fontSize:11}}>
+              <div><span style={{color:"#64748b"}}>Envolvidos:</span> <strong style={{color:"#e2e8f0"}}>{participants.length}</strong></div>
+              <div><span style={{color:"#64748b"}}>Presentes:</span> <strong style={{color:"#22c55e"}}>{attendees.length}</strong></div>
+              <div><span style={{color:"#64748b"}}>Ausentes:</span> <strong style={{color: attendees.length<participants.length ? "#ef4444" : "#64748b"}}>{participants.length - attendees.length}</strong></div>
+            </div>}
+          </div>
+
+          {/* Drive forms */}
+          <div style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,padding:14}}>
+            <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:10}}>
+              <FileText size={14} color="#22c55e"/>
+              <h4 style={{margin:0,fontSize:13,fontWeight:700,color:"#e2e8f0"}}>Formulários do Drive</h4>
+              <span style={{fontSize:10,color:"#64748b",marginLeft:"auto"}}>Cole os links dos formulários preenchidos no onboarding</span>
+            </div>
+            <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))",gap:10}}>
+              {driveLinks.map(d=>{
+                const val = ob[d.key]||"";
+                return <div key={d.key} style={{background:"#020617",border:`1px solid ${d.color}25`,borderRadius:10,padding:10}}>
+                  <div style={{display:"flex",alignItems:"center",gap:5,marginBottom:6}}>
+                    <div style={{width:8,height:8,borderRadius:"50%",background:d.color}}/>
+                    <span style={{fontSize:11,fontWeight:700,color:d.color}}>{d.label}</span>
+                  </div>
+                  <input type="text" value={val} onChange={e=>updateOb({[d.key]: e.target.value})}
+                    placeholder={d.placeholder}
+                    style={{width:"100%",background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"6px 8px",color:"#e2e8f0",fontSize:10,outline:"none",fontFamily:"inherit",boxSizing:"border-box"}}/>
+                  {val&&<a href={val} target="_blank" rel="noopener noreferrer" style={{display:"inline-flex",alignItems:"center",gap:4,marginTop:6,padding:"4px 8px",background:`${d.color}15`,border:`1px solid ${d.color}30`,borderRadius:6,color:d.color,fontSize:10,fontWeight:600,textDecoration:"none"}}><ExternalLink size={10}/> Abrir</a>}
+                </div>;
+              })}
+            </div>
+          </div>
+
+        </div>;
+      })()}
 
       {/* Traffic */}
       {clientTab==="traffic"&&<div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>

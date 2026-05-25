@@ -1362,6 +1362,58 @@ function AgenciaOSApp() {
       meetings:[], reports:[],
     };
     setClients(p=>[c,...p]);
+
+    // ═══ AUTO-CREATE TASKS for the new client based on contracted services ═══
+    const nowIso = new Date().toISOString();
+    const dueIn = (days) => { const d = new Date(); d.setDate(d.getDate()+days); return d.toISOString().split("T")[0]; };
+    const mkAutoTask = (title, sector, assigneeId, dueDays, description, priority="high") => ({
+      id:`t${uid()}`, title, clientId:c.id, assigneeId: assigneeId||null, sector,
+      priority, dueDate: dueIn(dueDays), description,
+      requestedBy: authUser?.id || "u1", requestedByName: "Auto (entrada do cliente)",
+      status:"pending", subtasks:[], createdAt: nowIso, statusChangedAt: nowIso, autoCreated: true,
+    });
+    const autoTasks = [];
+    // Sempre: Onboarding (CS)
+    autoTasks.push(mkAutoTask(`Onboarding inicial — ${c.company}`, "cs", c.csId, 3,
+      "Marcar chamada de vídeo com TODOS os envolvidos no projeto. Apresentar time, alinhar expectativas, preencher formulários do Drive (briefing/objetivos/referências/dores/metas)."));
+    autoTasks.push(mkAutoTask(`Coletar acessos — ${c.company}`, "cs", c.csId, 2,
+      "Conta de anúncios, página/Instagram, Drive de referências, contato técnico do site (se houver)."));
+    // Tráfego (1 task por plataforma)
+    if(hasTraffic && c.trafficId) {
+      nC.trafficPlatforms.forEach(plat=>{
+        const platLabel = TRAFFIC_PLATFORMS.find(p=>p.id===plat)?.label||plat;
+        autoTasks.push(mkAutoTask(`Setup + 1ª campanha ${platLabel} — ${c.company}`, "traffic", c.trafficId, 5,
+          `Validar acesso, estruturar conta de anúncios, criar e publicar a primeira campanha em ${platLabel}. SLA de 72h após onboarding.`));
+      });
+    }
+    // Criativos
+    if(hasCreative && c.designerId) {
+      const qty = nC.creativeOption==="16criativos" ? 16 : 8;
+      autoTasks.push(mkAutoTask(`Lote 1: ${qty} criativos — ${c.company}`, "designer", c.designerId, 7,
+        `Produzir o primeiro lote de ${qty} criativos para anúncios. Validar referências e estilo no onboarding antes de começar.`));
+    }
+    if(hasCreative && c.filmmakerId) {
+      autoTasks.push(mkAutoTask(`Roteirizar 2 vídeos — ${c.company}`, "filmmaker", c.filmmakerId, 7,
+        "Criar roteiros para os primeiros 2 vídeos de anúncio. Validar oferta + dores no onboarding."));
+    }
+    // Social Media
+    if(hasSocial && c.socialId) {
+      autoTasks.push(mkAutoTask(`Briefing + 1ª semana de postagens — ${c.company}`, "social", c.socialId, 5,
+        "Definir tom de voz, paleta, pilares de conteúdo e hashtags. Produzir e agendar postagens da semana 1."));
+    }
+    // Sites/Lojas (1 task por plataforma)
+    if(hasStore) {
+      const storeUser = c.designerId || SEED_USERS.find(u=>u.role==="store_creator")?.id || null;
+      nC.storePlatforms.forEach(plat=>{
+        const platLabel = STORE_PLATFORMS.find(p=>p.id===plat)?.label||plat;
+        autoTasks.push(mkAutoTask(`Criar ${platLabel} — ${c.company}`, "designer", storeUser, 10,
+          `Construir ${platLabel} do cliente: estrutura, identidade visual, integração de pagamento, publicação.`));
+      });
+    }
+    if(autoTasks.length>0) {
+      setTasks(p=>[...autoTasks, ...p]);
+    }
+
     // Notify all collaborators
     const prodSummary = [
       hasTraffic ? `Tráfego (${nC.trafficPlatforms.length} plataforma${nC.trafficPlatforms.length>1?"s":""})` : "",
@@ -1370,7 +1422,7 @@ function AgenciaOSApp() {
       hasStore ? `Loja (${nC.storePlatforms.length})` : "",
     ].filter(Boolean).join(", ");
     const sellerName = nC.soldBy ? getUser(nC.soldBy)?.name : null;
-    const newClientMsg = `🆕 Nova venda: ${c.company} — R$${c.contractValue?.toLocaleString("pt-BR")} | ${prodSummary} | ${GC_TEAMS[nC.gcTeam]?.icon} ${GC_TEAMS[nC.gcTeam]?.name}${sellerName ? ` | Vendido por: ${sellerName}` : ""}`;
+    const newClientMsg = `🆕 Nova venda: ${c.company} — R$${c.contractValue?.toLocaleString("pt-BR")} | ${prodSummary} | ${GC_TEAMS[nC.gcTeam]?.icon} ${GC_TEAMS[nC.gcTeam]?.name}${sellerName ? ` | Vendido por: ${sellerName}` : ""}${autoTasks.length>0?` | 📋 ${autoTasks.length} tarefas auto-criadas`:""}`;
     setNotifications(p=>[{id:`n${uid()}`,type:"info",message:newClientMsg,time:new Date().toISOString(),read:false,clientId:c.id},...p]);
     sendTelegram(newClientMsg);
     showToast(newClientMsg);
@@ -2038,12 +2090,20 @@ function AgenciaOSApp() {
     </div>;
   };
 
-  const [taskView, setTaskView] = useState("list"); // list | weekly
+  const [taskView, setTaskView] = useState("board"); // board | list | weekly | done | novos
+  const [myTasksOnly, setMyTasksOnly] = useState(false);
+  const [draggedTaskId, setDraggedTaskId] = useState(null);
 
   const TasksPage = () => {
     const sectors=["all","cs","traffic","social","designer","filmmaker","store_creator"];
     const sLabels={all:"Todos",cs:"CS",traffic:"Tráfego",social:"Social",designer:"Design",filmmaker:"Vídeo",store_creator:"Sites/Lojas"};
-    const f=taskFilter==="all"?tasks:tasks.filter(t=>t.sector===taskFilter);
+    // Multi-stage filter pipeline
+    let f = tasks;
+    if (myTasksOnly && authUser) f = f.filter(t => t.assigneeId === authUser.id);
+    if (taskFilter !== "all") f = f.filter(t => t.sector === taskFilter);
+    // The board hides "done" (those live in the Entregues tab)
+    const fActive = f.filter(t => t.status !== "done");
+    const fDone = f.filter(t => t.status === "done");
 
     // Weekly grouping
     const getWeekKey = (dateStr) => {
@@ -2067,25 +2127,121 @@ function AgenciaOSApp() {
     const sortedWeeks = Object.keys(weeks).sort((a,b) => a==="sem_data"?1:b==="sem_data"?-1:a.localeCompare(b));
 
     const TASK_STATUSES = [
-      {id:"pending",label:"A Criar",icon:"📝",color:"#64748b"},
-      {id:"in_progress",label:"Criando",icon:"🎨",color:"#6366f1"},
-      {id:"review",label:"Em Aprovação",icon:"👀",color:"#f59e0b"},
+      {id:"pending",label:"A Resolver",icon:"📝",color:"#64748b"},
+      {id:"in_progress",label:"Em Progresso",icon:"🎨",color:"#6366f1"},
+      {id:"review",label:"Aguardando Aprovação",icon:"👀",color:"#f59e0b"},
       {id:"approved",label:"Aprovado",icon:"✅",color:"#22c55e"},
-      {id:"done",label:"Entregue/Postado",icon:"🚀",color:"#14b8a6"},
+      {id:"done",label:"Resolvido e Entregue",icon:"🚀",color:"#14b8a6"},
     ];
 
-    return <div style={{padding:20,maxWidth:1200,margin:"0 auto"}}>
-      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:16}}>
+    const VIEWS = [
+      {id:"board", label:"Quadro", icon:"🧱"},
+      {id:"list", label:"Lista", icon:"≡"},
+      {id:"weekly", label:"Semanal", icon:"📅"},
+      {id:"novos", label:"Novos Clientes", icon:"🆕"},
+      {id:"done", label:`Entregues (${fDone.length})`, icon:"✅"},
+    ];
+
+    return <div style={{padding:20,maxWidth:1400,margin:"0 auto"}}>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14,flexWrap:"wrap",gap:8}}>
         <h1 style={{fontSize:20,fontWeight:800,color:"#f1f5f9",margin:0}}>Tarefas</h1>
-        <div style={{display:"flex",gap:6}}>
-          <div style={{display:"flex",background:"#1e293b",borderRadius:8,overflow:"hidden",border:"1px solid #334155"}}>
-            <button onClick={()=>setTaskView("list")} style={{padding:"5px 10px",fontSize:10,fontWeight:700,cursor:"pointer",border:"none",background:taskView==="list"?"#6366f1":"transparent",color:taskView==="list"?"#fff":"#94a3b8"}}>Lista</button>
-            <button onClick={()=>setTaskView("weekly")} style={{padding:"5px 10px",fontSize:10,fontWeight:700,cursor:"pointer",border:"none",background:taskView==="weekly"?"#6366f1":"transparent",color:taskView==="weekly"?"#fff":"#94a3b8"}}>Semanal</button>
-          </div>
-          <Btn onClick={()=>setShowNewTask(true)} icon={Plus} small>Nova</Btn>
+        <div style={{display:"flex",gap:6,alignItems:"center"}}>
+          <button onClick={()=>setMyTasksOnly(v=>!v)} title="Mostrar somente minhas tarefas"
+            style={{padding:"5px 12px",borderRadius:8,fontSize:11,fontWeight:700,cursor:"pointer",
+              border:myTasksOnly?"2px solid #22c55e":"2px solid #334155",
+              background:myTasksOnly?"#22c55e20":"#1e293b",color:myTasksOnly?"#22c55e":"#94a3b8",
+              display:"inline-flex",alignItems:"center",gap:5}}>
+            {myTasksOnly?"✓":""} 🧑 Minhas
+          </button>
+          <Btn onClick={()=>setShowNewTask(true)} icon={Plus} small>Nova Tarefa</Btn>
         </div>
       </div>
-      <div style={{display:"flex",gap:4,marginBottom:12}}>{sectors.map(s=><Tab key={s} active={taskFilter===s} onClick={()=>setTaskFilter(s)}>{sLabels[s]}</Tab>)}</div>
+
+      {/* VIEW SELECTOR */}
+      <div style={{display:"flex",gap:4,marginBottom:10,flexWrap:"wrap"}}>
+        {VIEWS.map(v=>(
+          <button key={v.id} onClick={()=>setTaskView(v.id)}
+            style={{padding:"6px 12px",borderRadius:8,fontSize:11,fontWeight:700,cursor:"pointer",
+              border:taskView===v.id?"2px solid #6366f1":"2px solid transparent",
+              background:taskView===v.id?"#6366f120":"#1e293b",
+              color:taskView===v.id?"#e2e8f0":"#94a3b8",display:"inline-flex",alignItems:"center",gap:4}}>
+            <span style={{fontSize:13}}>{v.icon}</span> {v.label}
+          </button>
+        ))}
+      </div>
+
+      {/* SECTOR FILTER (only relevant for board/list/weekly/done) */}
+      {taskView!=="novos"&&<div style={{display:"flex",gap:4,marginBottom:12}}>{sectors.map(s=><Tab key={s} active={taskFilter===s} onClick={()=>setTaskFilter(s)}>{sLabels[s]}</Tab>)}</div>}
+
+      {/* ═══ BOARD VIEW (ClickUp-style kanban by status) ═══ */}
+      {taskView==="board"&&<div style={{display:"flex",gap:10,overflowX:"auto",paddingBottom:8,minHeight:"calc(100vh - 220px)"}}>
+        {TASK_STATUSES.filter(st=>st.id!=="done").map(st=>{
+          const colTasks = fActive.filter(t=>t.status===st.id);
+          return <div key={st.id}
+            onDragOver={e=>e.preventDefault()}
+            onDrop={()=>{ if(draggedTaskId){ setTasks(p=>p.map(x=>x.id!==draggedTaskId?x:{...x,status:st.id,statusChangedAt:new Date().toISOString()})); setDraggedTaskId(null); } }}
+            style={{minWidth:280,width:280,background:"#0f172a",borderRadius:12,border:`1px solid ${st.color}30`,display:"flex",flexDirection:"column",flexShrink:0,maxHeight:"calc(100vh - 220px)"}}>
+            <div style={{padding:"10px 12px",borderBottom:`2px solid ${st.color}`}}>
+              <div style={{display:"flex",alignItems:"center",gap:6}}>
+                <span style={{fontSize:14}}>{st.icon}</span>
+                <span style={{fontSize:12,fontWeight:800,color:"#e2e8f0",flex:1}}>{st.label}</span>
+                <span style={{fontSize:10,fontWeight:700,color:st.color,background:`${st.color}20`,padding:"2px 8px",borderRadius:10}}>{colTasks.length}</span>
+              </div>
+            </div>
+            <div style={{flex:1,overflowY:"auto",padding:8,display:"flex",flexDirection:"column",gap:6}}>
+              {colTasks.map(t=>{
+                const cl = clients.find(c=>c.id===t.clientId);
+                const u = getUser(t.assigneeId);
+                const req = getUser(t.requestedBy);
+                const createdAgo = t.createdAt ? Math.floor((Date.now()-new Date(t.createdAt).getTime())/86400000) : null;
+                const hoursAgo = t.createdAt ? Math.floor((Date.now()-new Date(t.createdAt).getTime())/3600000) : null;
+                const ageLabel = createdAgo!==null ? (createdAgo>=1 ? `${createdAgo}d` : `${hoursAgo}h`) : null;
+                const ageColor = createdAgo>=5 ? "#ef4444" : createdAgo>=3 ? "#f59e0b" : "#64748b";
+                const overdue = t.dueDate && new Date(t.dueDate) < new Date();
+                return <div key={t.id}
+                  draggable
+                  onDragStart={()=>setDraggedTaskId(t.id)}
+                  onDragEnd={()=>setDraggedTaskId(null)}
+                  onClick={()=>{ if(cl){ openClient(cl.id); setClientTab("overview"); } }}
+                  style={{background:"#020617",border:`1px solid ${draggedTaskId===t.id?st.color:"#1e293b"}`,borderRadius:10,padding:10,cursor:"grab",opacity:draggedTaskId===t.id?.5:1,position:"relative"}}>
+                  {/* Priority side bar */}
+                  <div style={{position:"absolute",left:0,top:0,bottom:0,width:3,borderRadius:"10px 0 0 10px",background:PRIORITIES[t.priority]?.color||"#64748b"}}/>
+                  <div style={{paddingLeft:6}}>
+                    <div style={{display:"flex",justifyContent:"space-between",gap:6,marginBottom:4}}>
+                      <div style={{fontSize:12,fontWeight:700,color:"#f1f5f9",lineHeight:1.3}}>{t.title}</div>
+                      {ageLabel&&<span style={{fontSize:9,padding:"2px 6px",borderRadius:6,background:`${ageColor}20`,color:ageColor,fontWeight:700,flexShrink:0,whiteSpace:"nowrap"}}>{ageLabel}</span>}
+                    </div>
+                    {cl&&<div style={{fontSize:10,color:"#94a3b8",marginBottom:6,display:"flex",alignItems:"center",gap:4}}>
+                      <Building2 size={10}/> {cl.company}
+                    </div>}
+                    {t.description&&<div style={{fontSize:10,color:"#64748b",marginBottom:6,lineHeight:1.4,maxHeight:28,overflow:"hidden",textOverflow:"ellipsis"}}>{t.description.slice(0,80)}{t.description.length>80?"…":""}</div>}
+                    {t.dueDate&&<div style={{fontSize:9,color:overdue?"#ef4444":"#64748b",fontWeight:overdue?700:500,marginBottom:6,display:"flex",alignItems:"center",gap:3}}>
+                      <Clock size={9}/> Prazo: {fmt(t.dueDate)} {overdue?"⚠️ ATRASADA":""}
+                    </div>}
+                    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:6}}>
+                      <div style={{display:"flex",alignItems:"center",gap:4}}>
+                        {u?<><Av i={u.avatar} c={ROLES[u.role?.toUpperCase()]?.color||"#64748b"} s={20}/><span style={{fontSize:10,color:"#94a3b8",fontWeight:600}}>{u.name.split(" ")[0]}</span></>
+                          :<span style={{fontSize:10,color:"#64748b",fontStyle:"italic"}}>Sem responsável</span>}
+                      </div>
+                      <Bg color={PRIORITIES[t.priority]?.color||"#64748b"} small>{PRIORITIES[t.priority]?.label||""}</Bg>
+                    </div>
+                    {/* Quick status buttons */}
+                    <div style={{display:"flex",gap:3,marginTop:8,paddingTop:6,borderTop:"1px solid #1e293b",flexWrap:"wrap"}}>
+                      {TASK_STATUSES.filter(s2=>s2.id!==t.status).map(s2=>
+                        <button key={s2.id} onClick={e=>{e.stopPropagation();setTasks(p=>p.map(x=>x.id!==t.id?x:{...x,status:s2.id,statusChangedAt:new Date().toISOString()}));}}
+                          style={{background:`${s2.color}15`,border:`1px solid ${s2.color}50`,borderRadius:6,padding:"3px 6px",fontSize:9,fontWeight:700,color:s2.color,cursor:"pointer",whiteSpace:"nowrap"}}
+                          title={`Mover para ${s2.label}`}>{s2.icon}</button>
+                      )}
+                      {req&&<span style={{fontSize:8,color:"#64748b",alignSelf:"center",marginLeft:"auto"}}>por {req.name.split(" ")[0]}</span>}
+                    </div>
+                  </div>
+                </div>;
+              })}
+              {colTasks.length===0&&<div style={{padding:18,textAlign:"center",color:"#334155",fontSize:11}}>Vazio</div>}
+            </div>
+          </div>;
+        })}
+      </div>}
 
       {/* ═══ WEEKLY CARD VIEW ═══ */}
       {taskView==="weekly"&&<div style={{display:"flex",flexDirection:"column",gap:16}}>
@@ -2196,11 +2352,11 @@ function AgenciaOSApp() {
               <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
                 <select value={t.status} onChange={e=>setTasks(p=>p.map(x=>x.id!==t.id?x:{...x,status:e.target.value}))}
                   style={{background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"4px 8px",color:"#e2e8f0",fontSize:10,fontFamily:"inherit"}}>
-                  <option value="pending">📝 A Criar</option>
-                  <option value="in_progress">🎨 Criando</option>
-                  <option value="review">👀 Em Aprovação</option>
+                  <option value="pending">📝 A Resolver</option>
+                  <option value="in_progress">🎨 Em Progresso</option>
+                  <option value="review">👀 Aguardando Aprovação</option>
                   <option value="approved">✅ Aprovado</option>
-                  <option value="done">🚀 Entregue/Postado</option>
+                  <option value="done">🚀 Resolvido e Entregue</option>
                 </select>
                 <select value={t.assigneeId||""} onChange={e=>setTasks(p=>p.map(x=>x.id!==t.id?x:{...x,assigneeId:e.target.value}))}
                   style={{background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"4px 8px",color:"#e2e8f0",fontSize:10,fontFamily:"inherit"}}>
@@ -2218,6 +2374,110 @@ function AgenciaOSApp() {
           </div>
         );})}
       </div>}
+
+      {/* ═══ ENTREGUES (status=done) ═══ */}
+      {taskView==="done"&&<div style={{background:"#0f172a",border:"1px solid #14b8a630",borderRadius:12,padding:14}}>
+        <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12,paddingBottom:10,borderBottom:"1px solid #1e293b"}}>
+          <span style={{fontSize:16}}>🚀</span>
+          <h2 style={{margin:0,fontSize:14,fontWeight:800,color:"#14b8a6"}}>Resolvidas e Entregues</h2>
+          <span style={{fontSize:11,color:"#64748b"}}>{fDone.length} tarefa{fDone.length!==1?"s":""} concluída{fDone.length!==1?"s":""}</span>
+        </div>
+        {fDone.length===0&&<div style={{padding:30,textAlign:"center",color:"#475569",fontSize:12}}>Ainda não há tarefas entregues. Conclua tarefas no quadro pra vê-las aqui.</div>}
+        {fDone.length>0&&<div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(260px,1fr))",gap:10}}>
+          {fDone.sort((a,b)=>new Date(b.statusChangedAt||b.createdAt||0)-new Date(a.statusChangedAt||a.createdAt||0)).map(t=>{
+            const cl = clients.find(c=>c.id===t.clientId);
+            const u = getUser(t.assigneeId);
+            const ageHours = t.createdAt && t.statusChangedAt ? Math.floor((new Date(t.statusChangedAt).getTime()-new Date(t.createdAt).getTime())/3600000) : null;
+            const durLabel = ageHours!==null ? (ageHours>=24 ? `${Math.floor(ageHours/24)}d` : `${ageHours}h`) : null;
+            return <div key={t.id} onClick={()=>cl&&openClient(cl.id)}
+              style={{background:"#020617",border:"1px solid #14b8a625",borderRadius:10,padding:10,cursor:"pointer"}}>
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",gap:6,marginBottom:4}}>
+                <div style={{fontSize:12,fontWeight:700,color:"#e2e8f0",lineHeight:1.3,textDecoration:"line-through",opacity:.85}}>{t.title}</div>
+                <span style={{fontSize:14,flexShrink:0}}>🚀</span>
+              </div>
+              {cl&&<div style={{fontSize:10,color:"#94a3b8",marginBottom:6}}>{cl.company}</div>}
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",fontSize:10,color:"#64748b"}}>
+                <div style={{display:"flex",alignItems:"center",gap:4}}>
+                  {u&&<Av i={u.avatar} c={ROLES[u.role?.toUpperCase()]?.color||"#64748b"} s={18}/>}
+                  <span>{u?.name?.split(" ")[0]||"—"}</span>
+                </div>
+                {durLabel&&<span title="Tempo total da abertura à entrega">⏱ {durLabel}</span>}
+              </div>
+              <button onClick={e=>{e.stopPropagation();setTasks(p=>p.map(x=>x.id!==t.id?x:{...x,status:"pending",statusChangedAt:new Date().toISOString()}));}}
+                style={{width:"100%",marginTop:8,background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"4px 8px",fontSize:10,color:"#94a3b8",cursor:"pointer",fontWeight:600}}>↩ Reabrir</button>
+            </div>;
+          })}
+        </div>}
+      </div>}
+
+      {/* ═══ NOVOS CLIENTES (pre-onboarding/pre-delivery) ═══ */}
+      {taskView==="novos"&&(()=>{
+        const earlyStatuses = ["venda_fechada","cs_inicial","cobranca_enviada","pagamento_confirmado","onboarding_agendado","onboarding_concluido"];
+        const earlyClients = clients.filter(c=>earlyStatuses.includes(c.status)&&!c.archived);
+        if(earlyClients.length===0) return <div style={{background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,padding:30,textAlign:"center",color:"#475569"}}>
+          <div style={{fontSize:36,marginBottom:8}}>🏖️</div>
+          <div style={{fontSize:13,color:"#94a3b8",fontWeight:600}}>Nenhum cliente novo aguardando</div>
+          <div style={{fontSize:11,color:"#475569",marginTop:4}}>Todos os clientes já estão em entrega ativa.</div>
+        </div>;
+        return <div style={{display:"flex",flexDirection:"column",gap:12}}>
+          <div style={{background:"#0f172a",border:"1px solid #6366f130",borderRadius:12,padding:12}}>
+            <div style={{display:"flex",alignItems:"center",gap:6}}>
+              <span style={{fontSize:16}}>🆕</span>
+              <span style={{fontSize:12,fontWeight:700,color:"#e2e8f0",flex:1}}>Clientes que ainda não fizeram onboarding ou primeira entrega</span>
+              <span style={{fontSize:10,fontWeight:700,color:"#6366f1",background:"#6366f120",padding:"2px 8px",borderRadius:10}}>{earlyClients.length} cliente{earlyClients.length!==1?"s":""}</span>
+            </div>
+          </div>
+          {earlyClients.map(c=>{
+            const col = KANBAN_COLUMNS.find(k=>k.id===c.status);
+            const cTasks = tasks.filter(t=>t.clientId===c.id&&t.status!=="done");
+            const cTasksByStatus = {};
+            TASK_STATUSES.forEach(s=>{cTasksByStatus[s.id]=cTasks.filter(t=>t.status===s.id);});
+            const daysSinceClosed = c.closedDate ? Math.floor((Date.now()-new Date(c.closedDate).getTime())/86400000) : null;
+            return <div key={c.id} style={{background:"#0f172a",border:`1px solid ${col?.color||"#1e293b"}30`,borderRadius:12,overflow:"hidden"}}>
+              <div style={{padding:"10px 14px",borderBottom:"1px solid #1e293b",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:8}}>
+                <div style={{display:"flex",alignItems:"center",gap:8}}>
+                  <Av i={c.company.slice(0,2).toUpperCase()} c={col?.color} s={32}/>
+                  <div>
+                    <div style={{fontSize:13,fontWeight:800,color:"#f1f5f9"}}>{c.company}</div>
+                    <div style={{fontSize:10,color:"#94a3b8",marginTop:2}}>{c.service} · R$ {c.contractValue?.toLocaleString("pt-BR")}</div>
+                  </div>
+                </div>
+                <div style={{display:"flex",gap:6,alignItems:"center",flexWrap:"wrap"}}>
+                  <Bg color={col?.color}>{col?.icon} {col?.label}</Bg>
+                  {daysSinceClosed!==null&&<Bg color={daysSinceClosed>=7?"#ef4444":daysSinceClosed>=3?"#f59e0b":"#64748b"} small><Clock size={9}/> {daysSinceClosed}d desde a venda</Bg>}
+                  <Btn small variant="secondary" onClick={()=>openClient(c.id)}>Abrir cliente</Btn>
+                </div>
+              </div>
+              {cTasks.length===0?
+                <div style={{padding:14,textAlign:"center",color:"#475569",fontSize:11}}>Sem tarefas abertas. <button onClick={()=>{setNT({...nT,clientId:c.id});setShowNewTask(true);}} style={{background:"none",border:"none",color:"#6366f1",cursor:"pointer",fontWeight:600,textDecoration:"underline"}}>Criar tarefa</button></div>
+                :<div style={{display:"grid",gridTemplateColumns:`repeat(${TASK_STATUSES.filter(s=>s.id!=="done").length},1fr)`,gap:0}}>
+                  {TASK_STATUSES.filter(s=>s.id!=="done").map(st=>{
+                    const stT = cTasksByStatus[st.id]||[];
+                    return <div key={st.id} style={{borderRight:"1px solid #1e293b40",padding:8,minHeight:60}}>
+                      <div style={{display:"flex",alignItems:"center",gap:4,marginBottom:6,paddingBottom:4,borderBottom:`2px solid ${st.color}`}}>
+                        <span style={{fontSize:10}}>{st.icon}</span>
+                        <span style={{fontSize:9,fontWeight:700,color:st.color}}>{st.label}</span>
+                        <span style={{fontSize:8,color:"#475569",marginLeft:"auto"}}>{stT.length}</span>
+                      </div>
+                      {stT.map(t=>{
+                        const u = getUser(t.assigneeId);
+                        const createdAgo = t.createdAt ? Math.floor((Date.now()-new Date(t.createdAt).getTime())/86400000) : null;
+                        return <div key={t.id} onClick={()=>openClient(c.id)} style={{background:"#020617",border:"1px solid #1e293b",borderRadius:6,padding:6,marginBottom:4,cursor:"pointer"}}>
+                          <div style={{fontSize:10,fontWeight:600,color:"#e2e8f0",marginBottom:2,lineHeight:1.3}}>{t.title}</div>
+                          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",fontSize:8}}>
+                            {u?<div style={{display:"flex",alignItems:"center",gap:3}}><Av i={u.avatar} c={ROLES[u.role?.toUpperCase()]?.color||"#64748b"} s={14}/><span style={{color:"#94a3b8"}}>{u.name.split(" ")[0]}</span></div>:<span style={{color:"#475569"}}>—</span>}
+                            {createdAgo!==null&&<span style={{color:createdAgo>=5?"#ef4444":createdAgo>=3?"#f59e0b":"#64748b",fontWeight:700}}>{createdAgo}d</span>}
+                          </div>
+                        </div>;
+                      })}
+                      {stT.length===0&&<div style={{fontSize:9,color:"#334155",textAlign:"center",padding:4}}>—</div>}
+                    </div>;
+                  })}
+                </div>}
+            </div>;
+          })}
+        </div>;
+      })()}
     </div>;
   };
 

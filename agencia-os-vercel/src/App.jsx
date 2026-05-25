@@ -769,7 +769,8 @@ function AgenciaOSApp() {
   const SHEET_ID = "1AGjF134s4YRFJUg5FHBkdV8trLQPHVco5aVXjgNEXA0"; // Controle Financeiro Lince
   // Old BASE_2026 sheet (deprecated): "1PMZF4UMeW41GELJmlopr3ok14xO8_-21wBRqaD6yuIY"
   const MONTH_NAMES_PT = ["JANEIRO","FEVEREIRO","MARÇO","ABRIL","MAIO","JUNHO","JULHO","AGOSTO","SETEMBRO","OUTUBRO","NOVEMBRO","DEZEMBRO"];
-  const monthSheetName = (d=new Date()) => `${MONTH_NAMES_PT[d.getMonth()]} ${d.getFullYear()}`;
+  // Lince naming convention: MES/YY (e.g. "MAIO/26", "DEZEMBRO/25")
+  const monthSheetName = (d=new Date()) => `${MONTH_NAMES_PT[d.getMonth()]}/${String(d.getFullYear()).slice(-2)}`;
   const monthIndexFromName = (name) => {
     if (!name) return new Date().getMonth();
     const idx = MONTH_NAMES_PT.findIndex(m => name.toUpperCase().includes(m));

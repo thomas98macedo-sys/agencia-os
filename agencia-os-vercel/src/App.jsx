@@ -765,10 +765,19 @@ function AgenciaOSApp() {
     return parts.join(" + ") || "A definir";
   };
 
-  // ═══ GOOGLE SHEETS SYNC — planilha em tempo real ═══
-  const SHEET_ID = "1PMZF4UMeW41GELJmlopr3ok14xO8_-21wBRqaD6yuIY";
+  // ═══ GOOGLE SHEETS SYNC — planilha financeira oficial Lince ═══
+  const SHEET_ID = "1AGjF134s4YRFJUg5FHBkdV8trLQPHVco5aVXjgNEXA0"; // Controle Financeiro Lince
+  // Old BASE_2026 sheet (deprecated): "1PMZF4UMeW41GELJmlopr3ok14xO8_-21wBRqaD6yuIY"
+  const MONTH_NAMES_PT = ["JANEIRO","FEVEREIRO","MARÇO","ABRIL","MAIO","JUNHO","JULHO","AGOSTO","SETEMBRO","OUTUBRO","NOVEMBRO","DEZEMBRO"];
+  const monthSheetName = (d=new Date()) => `${MONTH_NAMES_PT[d.getMonth()]} ${d.getFullYear()}`;
+  const monthIndexFromName = (name) => {
+    if (!name) return new Date().getMonth();
+    const idx = MONTH_NAMES_PT.findIndex(m => name.toUpperCase().includes(m));
+    return idx >= 0 ? idx : new Date().getMonth();
+  };
   const [sheetSyncStatus, setSheetSyncStatus] = useState("idle"); // idle | syncing | synced | error
   const [lastSheetSync, setLastSheetSync] = useState(null);
+  const [activeSheetName, setActiveSheetName] = useState(monthSheetName());
 
   // ═══ TOAST POPUP SYSTEM (must be before syncFromSheet) ═══
   const showToast = useCallback((msg, type="info") => {
@@ -795,43 +804,73 @@ function AgenciaOSApp() {
 
   useEffect(() => { try { localStorage.setItem("agos-telegram", JSON.stringify(telegramConfig)); } catch(e) {} }, [telegramConfig]);
 
+  // Try to fetch a sheet by name. Returns parsed gviz data or null on error.
+  const fetchSheetByName = async (sheetName) => {
+    try {
+      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
+      const resp = await fetch(url);
+      if (!resp || !resp.ok) return null;
+      const text = await resp.text();
+      const jsonStr = text.match(/\{.*\}/s)?.[0];
+      if (!jsonStr) return null;
+      const data = JSON.parse(jsonStr);
+      if (data.status !== "ok") return null; // gviz error (e.g. sheet not found)
+      return data;
+    } catch (e) { console.warn("fetchSheetByName failed:", sheetName, e); return null; }
+  };
+
   const syncFromSheet = useCallback(async () => {
     if (!loaded) return; // don't sync before app loads
     setSheetSyncStatus("syncing");
     try {
-      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=BASE_2026`;
-      const resp = await fetch(url).catch(() => null);
-      if (!resp || !resp.ok) { setSheetSyncStatus("error"); return; }
-      const text = await resp.text().catch(() => "");
-      if (!text) { setSheetSyncStatus("error"); return; }
-      // gviz returns JSONP-like: google.visualization.Query.setResponse({...})
-      const jsonStr = text.match(/\{.*\}/s)?.[0];
-      if (!jsonStr) { setSheetSyncStatus("error"); return; }
-      const data = JSON.parse(jsonStr);
+      // Try current month first; fall back to previous month if not yet created
+      let targetSheet = activeSheetName;
+      let data = await fetchSheetByName(targetSheet);
+      if (!data) {
+        // Auto-fallback: try previous month
+        const d = new Date(); d.setMonth(d.getMonth() - 1);
+        const prevSheet = monthSheetName(d);
+        const prevData = await fetchSheetByName(prevSheet);
+        if (prevData) { targetSheet = prevSheet; data = prevData; }
+      }
+      if (!data) {
+        setSheetSyncStatus("error");
+        showToast(`❌ Planilha: aba "${activeSheetName}" não encontrada. Verifique o nome da aba.`);
+        return;
+      }
+      setActiveSheetName(targetSheet);
       const rows = data.table?.rows || [];
-      const cols = data.table?.cols || [];
+      const sheetMonthIdx = monthIndexFromName(targetSheet);
 
-      // Parse rows (skip header row if present)
+      // Parse rows. Column layout in financial sheet:
+      // A=Cliente  B=Serviço  C=Valor  D=Pagamento  E=Status  F=Data pgto  G=Encerramento  H=Obs
       const sheetClients = [];
-      rows.forEach((row, idx) => {
+      rows.forEach((row) => {
         const cells = row.c || [];
         const name = cells[0]?.v?.toString().trim();
         const service = cells[1]?.v?.toString().trim() || "";
         const valueRaw = cells[2]?.v;
         const value = typeof valueRaw === "number" ? valueRaw : parseFloat(String(valueRaw||"0").replace(/[R$\s.]/g,"").replace(",",".")) || 0;
-        const status = cells[3]?.v?.toString().trim().toUpperCase() || "";
-        const month = cells[4]?.v?.toString().trim().toUpperCase() || "";
-        const obs = cells[5]?.v?.toString().trim() || "";
+        const payment = cells[3]?.v?.toString().trim().toUpperCase() || "";
+        const status = cells[4]?.v?.toString().trim().toUpperCase() || "";
+        const encerramento = cells[6]?.v?.toString().trim() || "";
+        const obs = cells[7]?.v?.toString().trim() || "";
 
-        if (!name || name === "CLIENTE") return; // skip header
+        // Skip header / aggregate / empty rows
+        if (!name) return;
+        const nameUpper = name.toUpperCase();
+        if (nameUpper.includes("CONTROLE FINANCEIRO") || nameUpper === "CLIENTE" || nameUpper === "CLIENTES") return;
+        // Skip aggregate-row leftovers (no service AND no value)
+        if (!service && !value) return;
 
-        const isChurning = status.includes("CHURN");
+        const isChurning = status.includes("CHURN") || status.includes("ENCERRAD");
         const isActive = status.includes("NOVO") || status.includes("ATIVO");
+        const isPaid = payment.includes("PAGO");
 
         sheetClients.push({
           sheetName: name,
           nameNorm: name.toLowerCase().replace(/[^a-záàâãéêíóôõúüç0-9\s]/gi,"").trim(),
-          service, value, isChurning, isActive, month, obs,
+          service, value, isChurning, isActive, isPaid, encerramento, obs,
         });
       });
 
@@ -854,8 +893,8 @@ function AgenciaOSApp() {
             // Update status if changed (e.g. client churned in sheet)
             if (sc.isChurning && !existing.churning) {
               updatedClient = {...updatedClient, churning: true, status: "concluido",
-                notes: `${existing.notes} ⚠️ CHURNING (sync planilha)`.trim(),
-                timeline: [...existing.timeline, { date: new Date().toISOString(), event: "Cliente marcado como CHURNING (sync planilha)", user: "Planilha" }]
+                notes: `${existing.notes||""} ⚠️ CHURNING (sync planilha ${targetSheet})`.trim(),
+                timeline: [...(existing.timeline||[]), { date: new Date().toISOString(), event: `Cliente marcado como CHURNING (sync ${targetSheet})`, user: "Planilha" }]
               };
               churned++;
               changed = true;
@@ -866,31 +905,36 @@ function AgenciaOSApp() {
               updated++;
               changed = true;
             }
+            // Update payment status if newly PAID
+            if (sc.isPaid && !existing.paymentDate) {
+              updatedClient = {...updatedClient, paymentDate: new Date().toISOString()};
+              updated++;
+              changed = true;
+            }
             if (changed) updated_list[existingIdx] = updatedClient;
           } else if (sc.isActive) {
-            // New client from sheet — add to app
-            const monthMap = {DEZEMBRO:11,JANEIRO:0,FEVEREIRO:1,"MARÇO":2,ABRIL:3,MAIO:4,JUNHO:5};
-            const mIdx = monthMap[sc.month] ?? 2;
+            // New client from sheet — add to app, dated to the sheet month
             const num = updated_list.length;
             const autoGC = num % 2 === 0 ? "GC1" : "GC2";
+            const closedDate = new Date(new Date().getFullYear(), sheetMonthIdx, 15).toISOString();
             const newClient = {
               id: `cs${uid()}`,
               company: sc.sheetName,
               contact: "", phone: "", email: "", segment: "",
               service: sc.service,
               contractValue: sc.value,
-              closedDate: new Date(2026, mIdx, 15).toISOString(),
-              paymentDate: null, status: "venda_fechada",
+              closedDate, paymentDate: sc.isPaid ? new Date().toISOString() : null,
+              status: sc.isPaid ? "pagamento_confirmado" : "venda_fechada",
               priority: sc.value >= 3000 ? "high" : "medium",
               csId: "u2", trafficId: "u3", socialId: null, designerId: "u20", filmmakerId: null, commercialId: "u7", soldBy: null,
               whatsappGroup: "", formStatus: "not_sent",
               onboardingDate: null, trafficActivationDate: null,
-              notes: `${sc.obs} Importado da planilha | Mês: ${sc.month}`.trim(),
-              payDay: null, contractEnd: null,
+              notes: `${sc.obs||""} Importado da planilha ${targetSheet}${sc.encerramento?` | Encerramento: ${sc.encerramento}`:""}`.trim(),
+              payDay: null, contractEnd: sc.encerramento || null,
               churning: false, encerrado: false, gcTeam: autoGC,
               csChecklist: mkChecklist(CS_CK), onboardingChecklist: mkChecklist(OB_CK),
               trafficChecklist: mkChecklist(TR_CK), creationChecklist: mkChecklist(CR_CK), socialBriefing: mkChecklist(SM_BRIEFING),
-              timeline: [{ date: new Date().toISOString(), event: `Importado da planilha — ${sc.service} | R$${sc.value}`, user: "Planilha" }],
+              timeline: [{ date: new Date().toISOString(), event: `Importado da planilha (${targetSheet}) — ${sc.service} | R$${sc.value}`, user: "Planilha" }],
               meetings: [], reports: [],
               fromSheet: true,
             };
@@ -905,19 +949,19 @@ function AgenciaOSApp() {
       setSheetSyncStatus("synced");
       setLastSheetSync(new Date().toISOString());
       if (added > 0 || churned > 0) {
-        const msg = `📊 Sync Planilha: ${added} novos clientes, ${churned} churns detectados, ${updated} valores atualizados`;
+        const msg = `📊 Sync Planilha (${targetSheet}): ${added} novos clientes, ${churned} churns, ${updated} atualizações`;
         showToast(msg);
         sendTelegram(msg);
         setNotifications(prev => [{ id: `n${uid()}`, type: "info", message: msg, time: new Date().toISOString(), read: false }, ...prev]);
       } else {
-        showToast("✅ Planilha sincronizada — sem alterações");
+        showToast(`✅ Planilha sincronizada (${targetSheet}) — sem alterações`);
       }
     } catch (e) {
       console.error("Sheet sync error:", e);
       setSheetSyncStatus("error");
       showToast("❌ Erro ao sincronizar planilha: " + e.message);
     }
-  }, [loaded, showToast, sendTelegram]);
+  }, [loaded, showToast, sendTelegram, activeSheetName]);
 
   // Auto-sync every 5 minutes (NOT on initial load — use button in Config)
   useEffect(() => {
@@ -4046,12 +4090,30 @@ function AgenciaOSApp() {
         </div>
       </div>
       <div style={{fontSize:11,color:"#94a3b8",marginBottom:8}}>
-        Conectado à planilha <strong style={{color:"#e2e8f0"}}>"CONTROLE DE VENDAS / CHURNING"</strong> — sincroniza automaticamente a cada 5 minutos.
+        Conectado à planilha <strong style={{color:"#e2e8f0"}}>Controle Financeiro Lince</strong> — sincroniza automaticamente a cada 5 minutos.
       </div>
       <div style={{fontSize:10,color:"#64748b",marginBottom:8}}>
-        Se um cliente novo aparecer na planilha → entra no app automaticamente.<br/>
-        Se um cliente mudar para CHURNING na planilha → atualiza no app.<br/>
-        Valores atualizados na planilha → refletem no app.
+        Se um cliente novo aparecer na aba do mês → entra no app automaticamente.<br/>
+        Se um cliente mudar para CHURNING/ENCERRADO → atualiza no app.<br/>
+        Valor ou pagamento atualizado na planilha → reflete no app.
+      </div>
+      <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:8,padding:8,background:"#020617",border:"1px solid #1e293b",borderRadius:8}}>
+        <span style={{fontSize:10,color:"#64748b",fontWeight:600,textTransform:"uppercase"}}>Aba ativa:</span>
+        <select value={activeSheetName} onChange={e=>setActiveSheetName(e.target.value)}
+          style={{background:"#1e293b",border:"1px solid #334155",borderRadius:6,padding:"4px 8px",color:"#22c55e",fontSize:11,fontWeight:700,outline:"none",fontFamily:"inherit"}}>
+          {(() => {
+            const now = new Date();
+            const opts = [];
+            for (let i = 2; i >= -1; i--) {
+              const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+              opts.push(monthSheetName(d));
+            }
+            // Ensure current selection is in the list
+            if (!opts.includes(activeSheetName)) opts.unshift(activeSheetName);
+            return opts.map(o => <option key={o} value={o}>{o}</option>);
+          })()}
+        </select>
+        <span style={{fontSize:10,color:"#64748b",marginLeft:"auto"}}>(detectado automaticamente do mês atual)</span>
       </div>
       {lastSheetSync&&<div style={{fontSize:10,color:"#64748b",marginBottom:8}}>Última sync: {new Date(lastSheetSync).toLocaleString("pt-BR")}</div>}
       <div style={{display:"flex",gap:8}}>

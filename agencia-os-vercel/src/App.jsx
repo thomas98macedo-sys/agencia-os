@@ -736,7 +736,11 @@ function AgenciaOSApp() {
   // New forms
   const emptyNC = {company:"",contact:"",phone:"",email:"",segment:"",contractValue:"",priority:"high",notes:"",
     trafficPlatforms:[],creativeOption:"",socialOption:"social_none",storePlatforms:[],gcTeam:"GC1",
-    pickCs:"",pickTraffic:"",pickSocial:"",pickDesigner:"",pickFilmmaker:"",pickCommercial:"",soldBy:""};
+    pickCs:"",pickTraffic:"",pickSocial:"",pickDesigner:"",pickFilmmaker:"",pickCommercial:"",soldBy:"",
+    // Contract fields
+    razaoSocial:"",cnpj:"",inscricaoEstadual:"",
+    cep:"",endereco:"",numero:"",complemento:"",bairro:"",cidade:"",estado:"",
+    legalRep:"",legalRepCpf:""};
   const [nC, setNC] = useState({...emptyNC});
   const [nT, setNT] = useState({title:"",clientId:"",assigneeId:"",sector:"cs",priority:"medium",dueDate:"",description:"",requestedBy:""});
   const [expandedTask, setExpandedTask] = useState(null);
@@ -1343,6 +1347,13 @@ function AgenciaOSApp() {
         storePlatforms: nC.storePlatforms,
       },
       gcTeam: nC.gcTeam,
+      // Contract data
+      contract: {
+        razaoSocial: nC.razaoSocial, cnpj: nC.cnpj, inscricaoEstadual: nC.inscricaoEstadual,
+        cep: nC.cep, endereco: nC.endereco, numero: nC.numero, complemento: nC.complemento,
+        bairro: nC.bairro, cidade: nC.cidade, estado: nC.estado,
+        legalRep: nC.legalRep, legalRepCpf: nC.legalRepCpf,
+      },
       whatsappGroup:"", formStatus:"not_sent", onboardingDate:null, trafficActivationDate:null,
       notes:nC.notes,
       csChecklist:mkChecklist(CS_CK), onboardingChecklist:mkChecklist(OB_CK),
@@ -1836,6 +1847,19 @@ function AgenciaOSApp() {
         {sla&&<div style={{gridColumn:"1/-1",background:`${sla.color}08`,border:`1px solid ${sla.color}30`,borderRadius:12,padding:14}}>
           <div style={{display:"flex",alignItems:"center",gap:8}}><Timer size={18} color={sla.color}/><div style={{flex:1}}><div style={{fontSize:13,fontWeight:700,color:"#e2e8f0"}}>SLA Tráfego — 48h</div><div style={{fontSize:11,color:"#94a3b8"}}>Pgto: {fmtTime(client.paymentDate)} • Ativação: {client.trafficActivationDate?fmtTime(client.trafficActivationDate):"Pendente"}</div></div><SLABg sla={sla}/></div>
           {sla.pct!==undefined&&<div style={{marginTop:8}}><PB v={sla.pct} m={100} c={sla.color} h={6}/></div>}
+        </div>}
+        {client.contract&&Object.values(client.contract).some(v=>v)&&<div style={{gridColumn:"1/-1",background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,padding:14}}>
+          <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:10}}>
+            <FileText size={14} color="#6366f1"/>
+            <h4 style={{margin:0,fontSize:13,fontWeight:700,color:"#e2e8f0"}}>Dados Contratuais</h4>
+          </div>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(180px,1fr))",gap:10,fontSize:11}}>
+            {client.contract.razaoSocial&&<div><span style={{fontSize:10,color:"#64748b",textTransform:"uppercase"}}>Razão Social</span><div style={{color:"#e2e8f0",marginTop:2}}>{client.contract.razaoSocial}</div></div>}
+            {client.contract.cnpj&&<div><span style={{fontSize:10,color:"#64748b",textTransform:"uppercase"}}>CNPJ</span><div style={{color:"#e2e8f0",marginTop:2}}>{client.contract.cnpj}</div></div>}
+            {client.contract.inscricaoEstadual&&<div><span style={{fontSize:10,color:"#64748b",textTransform:"uppercase"}}>Inscrição Estadual</span><div style={{color:"#e2e8f0",marginTop:2}}>{client.contract.inscricaoEstadual}</div></div>}
+            {(client.contract.endereco||client.contract.cidade)&&<div style={{gridColumn:"1/-1"}}><span style={{fontSize:10,color:"#64748b",textTransform:"uppercase"}}>Endereço</span><div style={{color:"#e2e8f0",marginTop:2}}>{[client.contract.endereco,client.contract.numero,client.contract.complemento,client.contract.bairro].filter(Boolean).join(", ")}{(client.contract.cidade||client.contract.estado)&&<span> — {[client.contract.cidade,client.contract.estado].filter(Boolean).join("/")}</span>}{client.contract.cep&&<span style={{color:"#94a3b8"}}> · CEP {client.contract.cep}</span>}</div></div>}
+            {client.contract.legalRep&&<div><span style={{fontSize:10,color:"#64748b",textTransform:"uppercase"}}>Representante Legal</span><div style={{color:"#e2e8f0",marginTop:2}}>{client.contract.legalRep}{client.contract.legalRepCpf&&<span style={{color:"#94a3b8"}}> — CPF {client.contract.legalRepCpf}</span>}</div></div>}
+          </div>
         </div>}
         <div style={{gridColumn:"1/-1",background:"#0f172a",border:"1px solid #1e293b",borderRadius:12,padding:14}}>
           <h4 style={{margin:"0 0 10px",fontSize:13,fontWeight:700,color:"#e2e8f0"}}>Tarefas ({cTasks.length})</h4>
@@ -3953,6 +3977,35 @@ function AgenciaOSApp() {
                 </button>
               ))}
             </div>
+          </div>
+        </div>
+
+        {/* ═══ DADOS CONTRATUAIS ═══ */}
+        <div style={{marginTop:16,background:"#020617",border:"1px solid #1e293b",borderRadius:12,padding:14}}>
+          <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:12}}>
+            <FileText size={16} color="#6366f1"/>
+            <span style={{fontSize:13,fontWeight:700,color:"#e2e8f0"}}>Dados Contratuais</span>
+            <span style={{fontSize:10,color:"#64748b"}}>(necessários para emissão do contrato)</span>
+          </div>
+          <div style={{display:"grid",gridTemplateColumns:"2fr 1fr 1fr",gap:10,marginBottom:10}}>
+            <Inp label="Razão Social" value={nC.razaoSocial} onChange={v=>setNC({...nC,razaoSocial:v})} placeholder="Razão social completa"/>
+            <Inp label="CNPJ" value={nC.cnpj} onChange={v=>setNC({...nC,cnpj:v})} placeholder="00.000.000/0000-00"/>
+            <Inp label="Inscrição Estadual" value={nC.inscricaoEstadual} onChange={v=>setNC({...nC,inscricaoEstadual:v})} placeholder="Opcional / Isento"/>
+          </div>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 3fr 1fr 1fr",gap:10,marginBottom:10}}>
+            <Inp label="CEP" value={nC.cep} onChange={v=>setNC({...nC,cep:v})} placeholder="00000-000"/>
+            <Inp label="Endereço" value={nC.endereco} onChange={v=>setNC({...nC,endereco:v})} placeholder="Rua / Avenida"/>
+            <Inp label="Número" value={nC.numero} onChange={v=>setNC({...nC,numero:v})} placeholder="123"/>
+            <Inp label="Complemento" value={nC.complemento} onChange={v=>setNC({...nC,complemento:v})} placeholder="Sala / Bloco"/>
+          </div>
+          <div style={{display:"grid",gridTemplateColumns:"2fr 2fr 1fr",gap:10,marginBottom:10}}>
+            <Inp label="Bairro" value={nC.bairro} onChange={v=>setNC({...nC,bairro:v})} placeholder="Bairro"/>
+            <Inp label="Cidade" value={nC.cidade} onChange={v=>setNC({...nC,cidade:v})} placeholder="Cidade"/>
+            <Inp label="UF" value={nC.estado} onChange={v=>setNC({...nC,estado:v})} placeholder="Ex: SP"/>
+          </div>
+          <div style={{display:"grid",gridTemplateColumns:"2fr 1fr",gap:10}}>
+            <Inp label="Representante Legal" value={nC.legalRep} onChange={v=>setNC({...nC,legalRep:v})} placeholder="Nome completo do representante"/>
+            <Inp label="CPF do Representante" value={nC.legalRepCpf} onChange={v=>setNC({...nC,legalRepCpf:v})} placeholder="000.000.000-00"/>
           </div>
         </div>
 

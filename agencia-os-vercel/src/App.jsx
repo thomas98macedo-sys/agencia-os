@@ -45,6 +45,7 @@ const KANBAN_COLUMNS = [
   { id: "trafego_ativo", label: "Tráfego Ativo", color: "#22c55e", icon: "🚀", responsible: "traffic", responsibleLabel: "Gestores de Tráfego" },
   { id: "producao_andamento", label: "Produção", color: "#14b8a6", icon: "🔄", responsible: "creation_lead", responsibleLabel: "Líder Criação + Equipe Criação do GC" },
   { id: "buscando_aprovacao", label: "Buscando Aprovação do Cliente", color: "#64748b", icon: "📤", responsible: "cs", responsibleLabel: "CS" },
+  { id: "em_alteracao", label: "Em Alteração", color: "#f59e0b", icon: "✏️", responsible: "creation_lead", responsibleLabel: "Líder Criação + Equipe", slaHours: 48, slaLabel: "48h para devolver alteração" },
   { id: "aprovacao_concluida", label: "Aprovação Concluída", color: "#eab308", icon: "✅", responsible: "traffic", responsibleLabel: "Tráfego + Social Media", dualApproval: true, dualRoles: ["traffic", "social"], dualLabels: ["Gestores subir campanhas", "Social Media agendar postagem"] },
   { id: "concluido", label: "Concluído", color: "#059669", icon: "🏆" },
 ];
@@ -952,7 +953,24 @@ function AgenciaOSApp() {
       } catch(e) { console.warn("Firebase load failed:", e); }
 
       try {
-        const l1=firebaseListen("clients",(d)=>{const a=toArr(d);if(a&&a.length>0)setClients(a);});
+        const l1=firebaseListen("clients",(d)=>{
+          const a=toArr(d);
+          if(!a||a.length===0) return;
+          setClients(prev=>{
+            if(!prev||prev.length===0) return a;
+            return a.map(incoming=>{
+              const local=prev.find(p=>p.id===incoming.id);
+              if(!local) return incoming;
+              const localIdx=KANBAN_COLUMNS.findIndex(k=>k.id===local.status);
+              const incomingIdx=KANBAN_COLUMNS.findIndex(k=>k.id===incoming.status);
+              // Never let the server pull a card backward in the pipeline
+              if(localIdx>=0 && incomingIdx>=0 && incomingIdx<localIdx) {
+                return {...incoming, status:local.status, statusChangedAt:local.statusChangedAt};
+              }
+              return incoming;
+            });
+          });
+        });
         const l2=firebaseListen("tasks",(d)=>{const a=toArr(d);if(a&&a.length>0)setTasks(a);});
         const l3=firebaseListen("notifications",(d)=>{const a=toArr(d);if(a)setNotifications(a);});
         firebaseListeners.current=[l1,l2,l3];
@@ -1634,7 +1652,7 @@ function AgenciaOSApp() {
                   style={{background:"#020617",border:`1px solid ${draggedId===c.id?col.color:"#1e293b"}`,borderRadius:10,padding:10,cursor:"grab",opacity:draggedId===c.id?.5:1,position:"relative"}}>
                   {/* ═══ TIME BUBBLE + SLA RISK SIREN ═══ */}
                   {(()=>{
-                    const trackCols = ["alinhamento_visual","setup_trafego","producao_andamento","buscando_aprovacao","aprovacao_concluida","onboarding_agendado","onboarding_concluido"];
+                    const trackCols = ["alinhamento_visual","setup_trafego","producao_andamento","buscando_aprovacao","em_alteracao","aprovacao_concluida","onboarding_agendado","onboarding_concluido"];
                     if (!trackCols.includes(colId)) return null;
                     const changedAt = c.statusChangedAt || c.closedDate;
                     if (!changedAt) return null;
@@ -3704,7 +3722,7 @@ function AgenciaOSApp() {
   const renderPage = () => {
     switch(page) {
       case "dashboard": return <Dashboard/>;
-      case "kanban": return <KanbanPage/>;
+      case "kanban": return KanbanPage();
       case "clients": return <ClientsPage/>;
       case "client_detail": return <ClientDetail/>;
       case "tasks": return <TasksPage/>;

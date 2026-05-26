@@ -875,22 +875,35 @@ function AgenciaOSApp() {
         });
       });
 
-      // Compare with existing clients
+      // Compare with existing clients (supports multiple contracts per company, e.g. DERMA HOUSE)
       let added = 0, updated = 0, churned = 0;
+      const normCo = (s) => (s||"").toString().toLowerCase().replace(/[^a-záàâãéêíóôõúüç0-9\s]/gi,"").trim();
+      const normSvc = (s) => normCo(s).slice(0, 30);
       setClients(prev => {
         let updated_list = [...prev];
+        const claimed = new Set();
 
         sheetClients.forEach(sc => {
-          // Find matching client by name similarity
-          const existingIdx = updated_list.findIndex(c => {
-            const cNorm = c.company.toLowerCase().replace(/[^a-záàâãéêíóôõúüç0-9\s]/gi,"").trim();
-            return cNorm === sc.nameNorm || cNorm.includes(sc.nameNorm) || sc.nameNorm.includes(cNorm);
-          });
+          const scKey = `${sc.nameNorm}__${normSvc(sc.service)}`;
+
+          // 1) Exact composite-key match (tagged by a previous sync)
+          let existingIdx = updated_list.findIndex((c, i) => !claimed.has(i) && c.sheetRowKey === scKey);
+
+          // 2) Legacy fallback: name-only match on an unclaimed client that has NOT been tagged yet
+          if (existingIdx < 0) {
+            existingIdx = updated_list.findIndex((c, i) => {
+              if (claimed.has(i) || c.sheetRowKey) return false;
+              const cNorm = normCo(c.company);
+              return cNorm === sc.nameNorm || cNorm.includes(sc.nameNorm) || sc.nameNorm.includes(cNorm);
+            });
+          }
 
           if (existingIdx >= 0) {
+            claimed.add(existingIdx);
             const existing = updated_list[existingIdx];
             let changed = false;
-            let updatedClient = {...existing};
+            let updatedClient = {...existing, sheetRowKey: scKey};
+            if (!existing.sheetRowKey) changed = true; // tagging counts as a change
             // Update status if changed (e.g. client churned in sheet)
             if (sc.isChurning && !existing.churning) {
               updatedClient = {...updatedClient, churning: true, status: "concluido",
@@ -914,13 +927,16 @@ function AgenciaOSApp() {
             }
             if (changed) updated_list[existingIdx] = updatedClient;
           } else if (sc.isActive) {
-            // New client from sheet — add to app, dated to the sheet month
+            // New client/contract from sheet — add to app, dated to the sheet month
+            // Disambiguate name when another card already exists for the same base company
+            const baseTaken = updated_list.some(c => normCo(c.company).startsWith(sc.nameNorm));
+            const finalName = baseTaken ? `${sc.sheetName} — ${sc.service.slice(0,40)}` : sc.sheetName;
             const num = updated_list.length;
             const autoGC = num % 2 === 0 ? "GC1" : "GC2";
             const closedDate = new Date(new Date().getFullYear(), sheetMonthIdx, 15).toISOString();
             const newClient = {
               id: `cs${uid()}`,
-              company: sc.sheetName,
+              company: finalName,
               contact: "", phone: "", email: "", segment: "",
               service: sc.service,
               contractValue: sc.value,
@@ -930,7 +946,7 @@ function AgenciaOSApp() {
               csId: "u2", trafficId: "u3", socialId: null, designerId: "u20", filmmakerId: null, commercialId: "u7", soldBy: null,
               whatsappGroup: "", formStatus: "not_sent",
               onboardingDate: null, trafficActivationDate: null,
-              notes: `${sc.obs||""} Importado da planilha ${targetSheet}${sc.encerramento?` | Encerramento: ${sc.encerramento}`:""}`.trim(),
+              notes: `${sc.obs||""} Importado da planilha ${targetSheet}${sc.encerramento?` | Encerramento: ${sc.encerramento}`:""}${baseTaken?" | Contrato adicional":""}`.trim(),
               payDay: null, contractEnd: sc.encerramento || null,
               churning: false, encerrado: false, gcTeam: autoGC,
               csChecklist: mkChecklist(CS_CK), onboardingChecklist: mkChecklist(OB_CK),
@@ -938,7 +954,9 @@ function AgenciaOSApp() {
               timeline: [{ date: new Date().toISOString(), event: `Importado da planilha (${targetSheet}) — ${sc.service} | R$${sc.value}`, user: "Planilha" }],
               meetings: [], reports: [],
               fromSheet: true,
+              sheetRowKey: scKey,
             };
+            claimed.add(updated_list.length);
             updated_list.push(newClient);
             added++;
           }

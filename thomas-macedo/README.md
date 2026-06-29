@@ -22,19 +22,21 @@ Por que HTML estático e não React? Para SEO de marca pessoal, HTML estático c
 - **FAQ** (formato que IAs adoram citar)
 - `robots.txt` liberando GPTBot, ClaudeBot, PerplexityBot, Google-Extended etc.
 
-## ✏️ O QUE VOCÊ PRECISA EDITAR (importante!)
+## ✅ Já preenchido com seus dados reais
 
-Abra o `index.html` e substitua:
+- **Posicionamento**: tráfego pago, e-commerce, criação de marcas com UGC/influencers e IA (recuperação de vendas, atendimento no WhatsApp, automação de processos)
+- **Região**: Santos e Baixada Santista (São Vicente, Guarujá, Praia Grande, Cubatão...) + online no Brasil
+- **WhatsApp**: (13) 99150-1840 (`wa.me/5513991501840`)
+- **Instagram**: [@thomasmacedo.ads](https://www.instagram.com/thomasmacedo.ads)
+- **Fotos reais**: hero + galeria de palestras (otimizadas para web na pasta `img/`)
 
-1. **Domínio** — troque todas as ocorrências de `https://www.thomasmacedo.com.br/` pelo seu domínio real.
-2. **WhatsApp** — em `wa.me/55SEUNUMERO`, coloque seu número (ex.: `5511999998888`).
-3. **Redes sociais** — substitua `SEU_USUARIO` nos links de Instagram, LinkedIn e YouTube (no corpo e no bloco JSON-LD `sameAs`).
-4. **Região** — troque "Brasil" / "sua região" pela sua cidade e estado reais (melhora muito o SEO local). Ajuste também `geo.placename` e `geo.region`.
-5. **Foto** — adicione sua foto. Substitua o bloco `.avatar` por `<img src="/sua-foto.jpg" alt="Thomas Macedo">` e crie uma imagem `og-image.jpg` (1200×630px) para os previews.
-6. **Números/stats** — ajuste os números da seção de estatísticas para dados verdadeiros.
-7. **Bio e serviços** — revise os textos de "Sobre" e "Serviços" com sua história real.
+## ✏️ FALTA VOCÊ ME PASSAR / EDITAR
 
-> ⚠️ Mantenha tudo verdadeiro: dados reais constroem autoridade (E-E-A-T) e evitam que o Google/IAs descartem a página.
+1. **Domínio** — quando definir, troque todas as ocorrências de `https://www.thomasmacedo.com.br/` no `index.html`, `robots.txt` e `sitemap.xml`.
+2. **LinkedIn** — substitua `SEU_USUARIO_LINKEDIN` (no corpo e no JSON-LD `sameAs`) pela URL do seu perfil.
+3. (Opcional) **Stats** — os blocos de números no hero estão genéricos; se quiser, troque por métricas reais (ex.: "+R$ X em vendas geradas").
+
+> ⚠️ Mantenha tudo verdadeiro: dados reais constroem autoridade (E-E-A-T) e ajudam Google/IAs a confiarem na página.
 
 ## 🚀 Deploy (Vercel — grátis)
 

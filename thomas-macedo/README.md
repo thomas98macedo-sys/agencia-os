@@ -44,7 +44,7 @@ Por que HTML estático e não React? Para SEO de marca pessoal, HTML estático c
 
 ## ✏️ FALTA VOCÊ ME PASSAR / EDITAR
 
-1. **Domínio** — quando definir, troque todas as ocorrências de `https://www.thomasmacedo.com.br/` em `index.html`, `marcas.html`, `robots.txt` e `sitemap.xml`.
+1. **Domínio** — quando definir, troque todas as ocorrências de `https://www.thomas-macedo.com/` em `index.html`, `marcas.html`, `robots.txt` e `sitemap.xml`.
 2. **LinkedIn** — substitua `SEU_USUARIO_LINKEDIN` (no JSON-LD `sameAs` das duas páginas) pela URL do seu perfil.
 
 > ⚠️ Mantenha tudo verdadeiro: dados reais constroem autoridade (E-E-A-T) e ajudam Google/IAs a confiarem na página.
@@ -60,7 +60,7 @@ A forma mais simples:
 
 Ou arraste a pasta `thomas-macedo` em [vercel.com/new](https://vercel.com/new) (drag & drop).
 
-Depois aponte seu domínio (ex.: `thomasmacedo.com.br`) nas configurações do Vercel.
+Depois aponte seu domínio (ex.: `thomas-macedo.com`) nas configurações do Vercel.
 
 ## 📈 Pós-deploy (para ranquear de verdade)
 

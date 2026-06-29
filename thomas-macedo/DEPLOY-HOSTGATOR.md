@@ -3,7 +3,7 @@
 O site é **HTML estático**, então roda direto na HostGator — sem servidor Node, sem build. Leva ~10 minutos.
 
 ## Antes de começar
-- Domínio: **thomasmacedo.com.br** (com `www`). Se o seu for diferente (ex.: `.com` ou sem `www`), me avise que eu ajusto as URLs canônicas e o `.htaccess`.
+- Domínio: **thomas-macedo.com** (com `www`). Se o seu for diferente (ex.: `.com` ou sem `www`), me avise que eu ajusto as URLs canônicas e o `.htaccess`.
 - Tenha em mãos o login do **cPanel** da HostGator.
 
 ---
@@ -21,7 +21,7 @@ O site é **HTML estático**, então roda direto na HostGator — sem servidor N
 7. Confirme que os arquivos ficaram **na raiz** da pasta (o `index.html` precisa estar direto em `public_html`, e não dentro de uma subpasta). Depois pode apagar o `.zip`.
 8. Ative o **"Show Hidden Files"** (Configurações → mostrar arquivos ocultos) para confirmar que o **`.htaccess`** foi extraído. Ele cuida do HTTPS, do `www` e do cache.
 
-Pronto. Acesse **https://www.thomasmacedo.com.br** para conferir.
+Pronto. Acesse **https://www.thomas-macedo.com** para conferir.
 
 ---
 
@@ -40,7 +40,7 @@ A HostGator oferece **SSL grátis (Let's Encrypt)**. Em geral já vem ativo. Se 
 ---
 
 ## Depois de publicar (para ranquear)
-1. **Google Search Console** (search.google.com/search-console): adicione o domínio e envie o sitemap `https://www.thomasmacedo.com.br/sitemap.xml`.
+1. **Google Search Console** (search.google.com/search-console): adicione o domínio e envie o sitemap `https://www.thomas-macedo.com/sitemap.xml`.
 2. **Perfil da Empresa no Google** (Google Business Profile): crie/atualize com Santos/Baixada — fundamental para SEO local.
 3. Coloque o link do site na **bio do Instagram** e no **LinkedIn** (reforça o `sameAs`).
 4. Valide os dados estruturados no **Rich Results Test** (search.google.com/test/rich-results).

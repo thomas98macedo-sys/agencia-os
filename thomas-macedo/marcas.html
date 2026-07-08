@@ -11,6 +11,7 @@
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
   <link rel="canonical" href="https://www.thomas-macedo.com/marcas.html" />
   <meta name="theme-color" content="#FAF8F3" />
+  <meta name="view-transition" content="same-origin" />
   <meta name="geo.region" content="BR-SP" />
   <meta name="geo.placename" content="Santos, Baixada Santista, São Paulo" />
 
@@ -27,10 +28,12 @@
   <meta name="twitter:image" content="https://www.thomas-macedo.com/og-image.jpg" />
 
   <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+  <link rel="preload" as="image" href="/img/thomas-macedo-conteudo-escala.jpeg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
+  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}</style></noscript>
 
   <script type="application/ld+json">
   {
@@ -60,6 +63,10 @@
 </head>
 <body>
 
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
   <header>
     <div class="wrap">
       <nav>
@@ -68,7 +75,7 @@
           <a href="/" class="hide-mob">Tráfego Pago</a>
           <a href="/marcas.html" class="active hide-mob">Marcas &amp; E-commerce</a>
           <a href="/artigos/" class="hide-mob">Artigos</a>
-          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20quero%20criar%2Fescalar%20minha%20marca" class="nav-cta" target="_blank" rel="noopener">Falar comigo</a>
+          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20quero%20criar%2Fescalar%20minha%20marca" class="nav-cta magnetic" target="_blank" rel="noopener">Falar comigo</a>
         </div>
       </nav>
     </div>
@@ -80,22 +87,19 @@
       <div class="hero-grid">
         <div>
           <span class="eyebrow reveal">Marca · Marca Própria · E-commerce</span>
-          <h1 class="display mt-m reveal d1">Marcas que as<br>pessoas <em>querem</em><br>fazer parte.</h1>
-          <p class="lead mt-m reveal d2">Criação de marcas e escala no e-commerce — do posicionamento à marca própria, crescendo com conteúdo UGC e influenciadores que geram desejo, prova social e vendas.</p>
+          <h1 class="display mt-m" data-split>Marcas que as pessoas <em>querem</em> fazer parte.</h1>
+          <p class="lead mt-m reveal d2" style="max-width:44ch">Marca própria, UGC e influenciadores — e-commerce que escala com desejo, não com desconto.</p>
           <div class="hero-actions reveal d3">
-            <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20quero%20criar%2Fescalar%20minha%20marca" class="btn" target="_blank" rel="noopener">Quero construir minha marca <span class="arrow">→</span></a>
+            <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20quero%20criar%2Fescalar%20minha%20marca" class="btn magnetic" target="_blank" rel="noopener">Quero construir minha marca <span class="arrow">→</span></a>
             <a href="/apresentacao.html" class="link-underline">Ver a apresentação <span class="arrow">→</span></a>
           </div>
-          <div class="hero-meta reveal d4">
-            <span>Branding</span>
-            <span>Marca própria</span>
-            <span>UGC &amp; Influenciadores</span>
-          </div>
+          <span class="scroll-hint reveal d4">Desça</span>
         </div>
-        <figure class="hero-photo reveal d2">
-          <span class="badge"><i></i> Conteúdo · UGC · Escala</span>
+        <figure class="hero-photo img-reveal" data-tilt="4">
+          <span class="chip" style="top:16px;left:-14px;animation-delay:.3s"><i></i> Cases: APX · TUYO</span>
+          <span class="chip" style="top:44%;right:-12px;animation-delay:1.2s"><i></i> UGC &amp; Influencers</span>
+          <span class="chip" style="bottom:26px;left:18px;animation-delay:2.1s"><i></i> E-commerce &amp; Shopify</span>
           <img src="/img/thomas-macedo-conteudo-escala.jpeg" alt="Thomas Macedo apresentando estratégia de conteúdo, UGC e escala de marca" width="1100" height="1955" />
-          <figcaption>Conteúdo &amp; Escala</figcaption>
         </figure>
       </div>
     </div>
@@ -109,85 +113,79 @@
     </div>
   </div>
 
+  <!-- NÚMEROS -->
+  <section class="band">
+    <div class="wrap">
+      <div class="band-grid">
+        <div class="reveal"><div class="num"><span data-count="2">2</span></div><p class="lbl">Marcas construídas do zero: APX e TUYO</p></div>
+        <div class="reveal d1"><div class="num"><span data-count="4">4</span></div><p class="lbl">Pilares: marca, estrutura, tráfego e UGC</p></div>
+        <div class="reveal d2"><div class="num"><span data-count="100">100</span>%</div><p class="lbl">Foco em marca própria, margem e desejo</p></div>
+        <div class="reveal d3"><div class="num"><span data-count="24">24</span>/7</div><p class="lbl">E-commerce vendendo enquanto você dorme</p></div>
+      </div>
+    </div>
+  </section>
+
   <!-- MANIFESTO -->
   <section>
     <div class="wrap">
       <div class="sec-head" style="margin-bottom:0">
-        <p class="manifesto reveal">Produto qualquer um vende. Marca é o que fica.</p>
+        <p class="manifesto" data-split>Produto qualquer um vende. Marca é o que fica.</p>
         <div class="reveal d1">
-          <p class="manifesto-body dropcap">A diferença entre um e-commerce que disputa preço e uma marca que dita preço está na percepção. Construímos identidade, narrativa e uma máquina de conteúdo — feita por pessoas reais (UGC) e amplificada por influenciadores — que transforma sua marca própria em algo desejado. Aí a escala vira consequência.</p>
+          <p class="manifesto-body dropcap">E-commerce que disputa preço morre na planilha. Construímos identidade, narrativa e uma máquina de conteúdo com pessoas reais — e a escala vira consequência.</p>
           <a href="/artigos/como-criar-marca-propria-ecommerce.html" class="link-underline" style="margin-top:28px">Como criar uma marca própria <span class="arrow">→</span></a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- DIFERENCIAIS -->
-  <section style="padding-top:0">
-    <div class="wrap">
-      <div class="pillars reveal">
-        <div class="pillar">
-          <span class="p-num">01</span>
-          <h3>Posicionamento</h3>
-          <p>Essência, identidade e narrativa que fazem sua marca ser lembrada e escolhida.</p>
-        </div>
-        <div class="pillar">
-          <span class="p-num">02</span>
-          <h3>Marca própria</h3>
-          <p>Venda em nome próprio, com margem e diferenciação — não revenda commodity.</p>
-        </div>
-        <div class="pillar">
-          <span class="p-num">03</span>
-          <h3>UGC &amp; Influencers</h3>
-          <p>Esteira de conteúdo autêntico e escalável que gera desejo e prova social.</p>
-        </div>
-        <div class="pillar">
-          <span class="p-num">04</span>
-          <h3>Escala</h3>
-          <p>Tráfego e conversão para transformar a marca em faturamento previsível.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <hr class="divider" />
 
-  <!-- PROCESSO -->
+  <!-- PROCESSO (sticky) -->
   <section id="processo">
     <div class="wrap">
-      <div class="sec-head">
-        <div class="reveal">
-          <span class="eyebrow eyebrow-ink">Método</span>
-          <h2 class="title mt-s">Da marca à escala</h2>
+      <div class="flow">
+        <div class="flow-sticky">
+          <span class="eyebrow eyebrow-ink reveal">Método</span>
+          <h2 class="title mt-s" data-split>Da marca à escala.</h2>
+          <p class="lead mt-m reveal d2" style="max-width:34ch">Quatro pilares que transformam produto em marca desejada.</p>
+          <div class="reveal d3" style="margin-top:34px">
+            <a href="/apresentacao.html" class="btn magnetic">Ver o método completo <span class="arrow">→</span></a>
+          </div>
         </div>
-        <p class="lead reveal d1">Construímos a marca e a operação de conteúdo que sustenta o crescimento no e-commerce.</p>
-      </div>
-      <div class="process">
-        <div class="process-row reveal">
-          <span class="process-num">01</span>
-          <h3>Marca &amp; Posicionamento</h3>
-          <p>Definição de essência, identidade visual, tom de voz e proposta de valor. A base que faz sua marca ser lembrada e escolhida.</p>
-        </div>
-        <div class="process-row reveal">
-          <span class="process-num">02</span>
-          <h3>Marca própria &amp; Produto</h3>
-          <p>Estruturação de marca própria e linha de produtos para você vender em nome próprio — com margem, diferenciação e recorrência.</p>
-        </div>
-        <div class="process-row reveal">
-          <span class="process-num">03</span>
-          <h3>Conteúdo UGC &amp; Influenciadores</h3>
-          <p>Seleção, scripts e kits para criadores. Uma esteira de conteúdo autêntico e escalável que abastece anúncios e redes com prova social.</p>
-        </div>
-        <div class="process-row reveal">
-          <span class="process-num">04</span>
-          <h3>Escala no E-commerce</h3>
-          <p>Tráfego pago, otimização de conversão e gestão de criativos para transformar a marca em faturamento previsível e crescente.</p>
+        <div>
+          <div class="step"><span class="sn">01</span><div><h3>Marca &amp; Posicionamento</h3><p>Nome, identidade, tom de voz e a promessa que faz escolherem você.</p></div></div>
+          <div class="step"><span class="sn">02</span><div><h3>Marca própria &amp; Produto</h3><p>Venda em nome próprio — com margem, diferenciação e recorrência.</p></div></div>
+          <div class="step"><span class="sn">03</span><div><h3>UGC &amp; Influenciadores</h3><p>Esteira de conteúdo autêntico que gera desejo e prova social.</p></div></div>
+          <div class="step"><span class="sn">04</span><div><h3>Escala no E-commerce</h3><p>Tráfego, conversão e criativos virando faturamento previsível.</p></div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <hr class="divider" />
+  <!-- APRESENTAÇÃO (reel de slides) -->
+  <section class="about" style="background:var(--paper-2)">
+    <div class="wrap">
+      <div class="sec-head" style="margin-bottom:34px">
+        <div class="reveal">
+          <span class="eyebrow">Método &amp; Apresentação</span>
+          <h2 class="title mt-s">Do produto à marca, em 12 slides</h2>
+        </div>
+        <p class="lead reveal d1">A apresentação da minha operação — a LINCE Performance — com o método completo e cases reais.</p>
+      </div>
+      <p class="reel-hint reveal">Arraste para explorar</p>
+      <div class="reel reveal">
+        <figure class="slide-card"><img src="/img/apresentacao/slide-02.jpg" alt="Transformamos produtos em marcas de sucesso — cases APX e TUYO" loading="lazy" /><figcaption>Produtos em marcas de sucesso</figcaption></figure>
+        <figure class="slide-card"><img src="/img/apresentacao/slide-03.jpg" alt="Criação e posicionamento de marca" loading="lazy" /><figcaption>Criação &amp; posicionamento</figcaption></figure>
+        <figure class="slide-card"><img src="/img/apresentacao/slide-04.jpg" alt="Loja Shopify e tracking de dados" loading="lazy" /><figcaption>Loja &amp; dados</figcaption></figure>
+        <figure class="slide-card"><img src="/img/apresentacao/slide-07.jpg" alt="Criação de criativos e UGC" loading="lazy" /><figcaption>Criativos &amp; UGC</figcaption></figure>
+        <figure class="slide-card"><img src="/img/apresentacao/slide-09.jpg" alt="Relatórios e transparência" loading="lazy" /><figcaption>Relatórios &amp; transparência</figcaption></figure>
+        <figure class="slide-card"><img src="/img/apresentacao/slide-12.jpg" alt="LINCE Performance — máquina de ROI escalável" loading="lazy" /><figcaption>LINCE Performance</figcaption></figure>
+      </div>
+      <div class="reveal" style="margin-top:26px">
+        <a href="/apresentacao.html" class="link-underline">Ver a apresentação completa e o método <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </section>
 
   <!-- DESTAQUE UGC -->
   <section>
@@ -195,39 +193,26 @@
       <div class="feature reveal">
         <div class="f-text">
           <span class="eyebrow">Em destaque</span>
-          <h2 class="title mt-s" style="font-size:clamp(1.8rem,3.2vw,2.6rem)">Conteúdo de gente<br>real vende mais<br>que propaganda.</h2>
-          <p class="muted mt-m">As pessoas confiam em pessoas. Por isso o UGC e os influenciadores são o coração da nossa estratégia de escala: conteúdo autêntico, em volume, que gera identificação, desejo e conversão — e ainda vira o melhor criativo para os seus anúncios.</p>
+          <h2 class="title mt-s" style="font-size:clamp(1.8rem,3.2vw,2.6rem)">Conteúdo de gente real vende mais que propaganda.</h2>
+          <p class="muted mt-m">UGC e influenciadores no coração da estratégia: identificação, desejo e conversão — e o melhor criativo para os seus anúncios.</p>
           <a href="/artigos/ugc-conteudo-gerado-pelo-usuario.html" class="link-underline" style="margin-top:28px">Entenda o poder do UGC <span class="arrow">→</span></a>
         </div>
-        <div class="f-img">
-          <img src="/img/thomas-macedo-palestra-2.jpeg" alt="Thomas Macedo palestrando sobre criação de marca e conteúdo" loading="lazy" width="650" height="975" />
+        <div class="f-img img-reveal">
+          <img src="/img/thomas-macedo-palestra-2.jpeg" alt="Thomas Macedo palestrando sobre criação de marca e conteúdo" loading="lazy" width="650" height="975" data-parallax="0.06" />
         </div>
       </div>
     </div>
   </section>
 
-  <hr class="divider" />
+  <!-- KINETIC -->
+  <div class="kinetic" aria-hidden="true">
+    <span class="k-line">Marca<span class="fill">Marca</span></span>
+    <span class="k-line">Desejo<span class="fill">Desejo</span></span>
+    <span class="k-line">Escala<span class="fill">Escala</span></span>
+    <p class="k-cap">— nesta ordem —</p>
+  </div>
 
-  <!-- APRESENTAÇÃO / MÉTODO -->
-  <section>
-    <div class="wrap">
-      <div class="feature reveal">
-        <div class="f-img" style="order:-1">
-          <img src="/img/apresentacao/slide-02.jpg" alt="Apresentação: transformamos produtos em marcas de sucesso" loading="lazy" />
-        </div>
-        <div class="f-text">
-          <span class="eyebrow">Método &amp; Apresentação</span>
-          <h2 class="title mt-s" style="font-size:clamp(1.8rem,3.2vw,2.6rem)">Do produto à marca:<br>como escalo vendas<br>de produtos físicos.</h2>
-          <p class="muted mt-m">Um conteúdo completo sobre transformar produto em marca e escalar vendas online com tráfego pago, loja, tracking e UGC — com o método e a apresentação da minha operação, a LINCE Performance, e cases reais.</p>
-          <a href="/apresentacao.html" class="link-underline" style="margin-top:28px">Ver o método e a apresentação <span class="arrow">→</span></a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <hr class="divider" />
-
-  <!-- ARTIGOS EM DESTAQUE -->
+  <!-- ARTIGOS -->
   <section id="conteudos">
     <div class="wrap">
       <div class="sec-head">
@@ -235,25 +220,22 @@
           <span class="eyebrow">Conteúdos</span>
           <h2 class="title mt-s">Aprenda comigo</h2>
         </div>
-        <p class="lead reveal d1">Guias práticos sobre marca, UGC e e-commerce — para você construir algo desejado e escalável.</p>
+        <p class="lead reveal d1">Guias para construir algo desejado e escalável.</p>
       </div>
       <div class="feat-articles reveal">
         <a href="/artigos/como-criar-marca-propria-ecommerce.html">
           <span class="fa-cat">Marcas &amp; E-commerce</span>
           <h3>Como criar uma marca própria e escalar no e-commerce</h3>
-          <p>Do posicionamento ao produto e à escala.</p>
           <span class="fa-read">Ler →</span>
         </a>
         <a href="/artigos/ugc-conteudo-gerado-pelo-usuario.html">
           <span class="fa-cat">UGC &amp; Conteúdo</span>
           <h3>UGC: por que converte mais e como montar uma esteira</h3>
-          <p>Conteúdo de pessoas reais que gera confiança.</p>
           <span class="fa-read">Ler →</span>
         </a>
         <a href="/artigos/criativos-de-alta-estetica.html">
           <span class="fa-cat">Criativos</span>
           <h3>Por que o criativo é o que mais vende</h3>
-          <p>Estética que vira desejo e conversão.</p>
           <span class="fa-read">Ler →</span>
         </a>
       </div>
@@ -267,10 +249,9 @@
   <section class="cta" id="contato">
     <div class="wrap">
       <span class="eyebrow reveal">Vamos conversar</span>
-      <h2 class="display mt-m reveal d1" style="font-size:clamp(2.2rem,5vw,4rem)">Sua marca merece<br>ser desejada.</h2>
-      <p class="lead mt-m reveal d2" style="color:rgba(244,241,234,.8);max-width:48ch">Vamos construir (ou escalar) sua marca com posicionamento, UGC e e-commerce. Chame para um diagnóstico.</p>
-      <div class="contact-row reveal d3">
-        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="btn" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
+      <h2 class="display mt-m" data-split style="font-size:clamp(2.2rem,5vw,4rem)">Sua marca merece ser desejada.</h2>
+      <div class="contact-row reveal d2">
+        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="btn magnetic" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
         <a href="https://www.instagram.com/thomasmacedo.ads" class="link-underline" target="_blank" rel="noopener" style="color:var(--paper)">Instagram @thomasmacedo.ads</a>
       </div>
     </div>

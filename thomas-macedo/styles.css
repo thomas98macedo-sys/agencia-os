@@ -252,7 +252,7 @@ body > header.hidden{transform:translateY(-100%)}
 .reel::-webkit-scrollbar-track{background:var(--line)}
 .reel.drag{cursor:grabbing;scroll-snap-type:none}
 .reel figure{position:relative;flex:0 0 min(500px,80vw);scroll-snap-align:start;border-radius:3px;overflow:hidden;margin:0;background:var(--paper-2)}
-.reel img{width:100%;display:block;aspect-ratio:16/10;object-fit:cover;filter:grayscale(.08);transition:transform .7s ease,filter .7s;pointer-events:none}
+.reel img{width:100%;display:block;aspect-ratio:16/10;object-fit:cover;object-position:center 25%;filter:grayscale(.08);transition:transform .7s ease,filter .7s;pointer-events:none}
 .reel figure:hover img{transform:scale(1.05);filter:grayscale(0)}
 .reel figcaption{position:absolute;left:0;right:0;bottom:0;padding:34px 18px 14px;font-size:.78rem;color:var(--paper);background:linear-gradient(transparent,rgba(17,17,16,.8))}
 .reel figure.slide-card img{aspect-ratio:16/9}

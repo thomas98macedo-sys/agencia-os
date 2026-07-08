@@ -431,6 +431,17 @@ body > header.hidden{transform:translateY(-100%)}
 .car-progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s linear}
 @media(prefers-reduced-motion:reduce){.car-progress{display:none}}
 
+/* ---------- Mosaico Na Estrada (parallax) ---------- */
+.mosaic{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start}
+.mosaic .m-col{display:grid;gap:18px}
+.mosaic .m-col:nth-child(2){margin-top:64px}
+.mosaic .m-col:nth-child(3){margin-top:28px}
+.mosaic figure{position:relative;overflow:hidden;border-radius:3px;margin:0;background:var(--paper-2)}
+.mosaic img{width:100%;display:block;filter:grayscale(.1);transition:transform .7s ease,filter .7s}
+.mosaic figure:hover img{transform:scale(1.05);filter:grayscale(0)}
+.mosaic figcaption{position:absolute;left:0;right:0;bottom:0;padding:30px 16px 12px;font-size:.75rem;color:var(--paper);background:linear-gradient(transparent,rgba(17,17,16,.8))}
+@media(max-width:760px){.mosaic{grid-template-columns:1fr 1fr}.mosaic .m-col{display:contents}}
+
 /* ---------- Instagram band (disruptiva) ---------- */
 a.ig-band{display:block;background:var(--ink);color:var(--paper);padding:110px 0;overflow:hidden;position:relative;cursor:pointer}
 .ig-bg{position:absolute;top:50%;left:0;right:0;transform:translateY(-50%);opacity:.06;pointer-events:none;overflow:hidden;white-space:nowrap}

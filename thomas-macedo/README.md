@@ -45,7 +45,7 @@ Por que HTML estático e não React? Para SEO de marca pessoal, HTML estático c
 ## ✏️ FALTA VOCÊ ME PASSAR / EDITAR
 
 1. **Domínio** — quando definir, troque todas as ocorrências de `https://www.thomas-macedo.com/` em `index.html`, `marcas.html`, `robots.txt` e `sitemap.xml`.
-2. **LinkedIn** — substitua `SEU_USUARIO_LINKEDIN` (no JSON-LD `sameAs` das duas páginas) pela URL do seu perfil.
+2. **LinkedIn** — me envie a URL do seu perfil para eu adicionar ao `sameAs` do JSON-LD (removido o placeholder para não publicar URL falsa).
 
 > ⚠️ Mantenha tudo verdadeiro: dados reais constroem autoridade (E-E-A-T) e ajudam Google/IAs a confiarem na página.
 

@@ -4,6 +4,7 @@
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var fine = window.matchMedia('(pointer: fine)').matches;
+  function $$(sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); }
 
   /* ---------- 1. Split text (palavra a palavra) ---------- */
   function splitEl(el) {
@@ -29,14 +30,18 @@
       });
     })(el);
   }
-  var splits = document.querySelectorAll('[data-split]');
-  if (!reduced) splits.forEach(splitEl);
-  else splits.forEach(function (el) { el.classList.add('in'); });
+  var splits = $$('[data-split]');
+  if (!reduced) {
+    splits.forEach(function (el) {
+      el.setAttribute('aria-label', el.textContent.replace(/\s+/g, ' ').trim());
+      splitEl(el);
+    });
+  } else {
+    splits.forEach(function (el) { el.classList.add('in'); });
+  }
 
   /* ---------- 2. Entrada em cena (à prova de falhas) ---------- */
-  var pending = Array.prototype.slice.call(
-    document.querySelectorAll('.reveal, [data-split], .img-reveal, .step')
-  );
+  var pending = $$('.reveal, [data-split], .img-reveal, .step');
   function sweep() {
     if (!pending.length) return;
     var vh = window.innerHeight;
@@ -62,7 +67,7 @@
     }
     requestAnimationFrame(tick);
   }
-  var nums = Array.prototype.slice.call(document.querySelectorAll('[data-count]'));
+  var nums = $$('[data-count]');
   function sweepNums() {
     if (!nums.length || reduced) return;
     var vh = window.innerHeight;
@@ -79,9 +84,9 @@
   var bar = document.querySelector('.scroll-progress i');
   var header = document.querySelector('header');
   var wa = document.querySelector('.wa-float');
-  var pallax = reduced ? [] : Array.prototype.slice.call(document.querySelectorAll('[data-parallax]'));
-  var kinetics = reduced ? [] : Array.prototype.slice.call(document.querySelectorAll('.kinetic'));
-  kinetics.forEach(function (k) { k._lines = k.querySelectorAll('.k-line'); });
+  var pallax = reduced ? [] : $$('[data-parallax]');
+  var kinetics = reduced ? [] : $$('.kinetic');
+  kinetics.forEach(function (k) { k._lines = $$('.k-line', k); });
 
   var lastY = 0, ticking = false;
   function onScroll() {
@@ -129,7 +134,7 @@
 
   /* ---------- 5. Botões magnéticos ---------- */
   if (fine && !reduced) {
-    document.querySelectorAll('.magnetic').forEach(function (btn) {
+    $$('.magnetic').forEach(function (btn) {
       btn.addEventListener('mousemove', function (e) {
         var r = btn.getBoundingClientRect();
         var x = e.clientX - r.left - r.width / 2;
@@ -142,7 +147,7 @@
 
   /* ---------- 6. Tilt 3D sutil ---------- */
   if (fine && !reduced) {
-    document.querySelectorAll('[data-tilt]').forEach(function (el) {
+    $$('[data-tilt]').forEach(function (el) {
       var max = parseFloat(el.getAttribute('data-tilt')) || 4;
       el.style.transition = 'transform .5s cubic-bezier(.19,1,.22,1)';
       el.addEventListener('mousemove', function (e) {
@@ -178,18 +183,21 @@
   }
 
   /* ---------- 8. Reel: arrastar para navegar ---------- */
-  document.querySelectorAll('.reel').forEach(function (reel) {
+  $$('.reel').forEach(function (reel) {
     var down = false, startX = 0, sl = 0;
+    function release() { down = false; reel.classList.remove('drag'); }
     reel.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'mouse') e.preventDefault();
       down = true; startX = e.clientX; sl = reel.scrollLeft;
       reel.classList.add('drag');
+      if (reel.setPointerCapture) { try { reel.setPointerCapture(e.pointerId); } catch (_) {} }
     });
-    window.addEventListener('pointermove', function (e) {
+    reel.addEventListener('pointermove', function (e) {
       if (!down) return;
       reel.scrollLeft = sl - (e.clientX - startX);
     }, { passive: true });
-    window.addEventListener('pointerup', function () {
-      down = false; reel.classList.remove('drag');
-    });
+    reel.addEventListener('pointerup', release);
+    reel.addEventListener('pointercancel', release);
+    reel.addEventListener('lostpointercapture', release);
   });
 })();

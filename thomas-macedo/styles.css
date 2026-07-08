@@ -76,7 +76,7 @@ p{max-width:62ch}
 .btn:hover .arrow,.link-underline:hover .arrow{transform:translateX(4px)}
 
 /* ---------- Header ---------- */
-header{position:sticky;top:0;z-index:60;background:rgba(244,241,234,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+body > header{position:sticky;top:0;z-index:60;background:rgba(244,241,234,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 nav{display:flex;align-items:center;justify-content:space-between;height:74px}
 .wordmark{font-family:var(--serif);font-size:1.25rem;font-weight:400;letter-spacing:.01em}
 .wordmark span{font-style:italic}
@@ -184,8 +184,8 @@ footer{padding:60px 0;border-top:1px solid var(--line);font-size:.86rem;color:va
 .scroll-progress i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-bright));transform-origin:0 50%;transform:scaleX(0)}
 
 /* header esconde ao rolar para baixo */
-header{transition:transform .5s cubic-bezier(.19,1,.22,1)}
-header.hidden{transform:translateY(-100%)}
+body > header{transition:transform .5s cubic-bezier(.19,1,.22,1)}
+body > header.hidden{transform:translateY(-100%)}
 
 /* cursor customizado (só desktop) */
 .cursor-dot,.cursor-ring{display:none}
@@ -246,7 +246,7 @@ header.hidden{transform:translateY(-100%)}
 .magnetic{transition:transform .4s cubic-bezier(.19,1,.22,1)}
 
 /* reel horizontal (arraste) */
-.reel{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x proximity;padding:6px 0 26px;cursor:grab;-webkit-overflow-scrolling:touch;scrollbar-color:var(--accent) transparent;scrollbar-width:thin}
+.reel{user-select:none;-webkit-user-select:none;display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x proximity;padding:6px 0 26px;cursor:grab;-webkit-overflow-scrolling:touch;scrollbar-color:var(--accent) transparent;scrollbar-width:thin}
 .reel::-webkit-scrollbar{height:5px}
 .reel::-webkit-scrollbar-thumb{background:var(--accent);border-radius:10px}
 .reel::-webkit-scrollbar-track{background:var(--line)}
@@ -338,8 +338,8 @@ header.hidden{transform:translateY(-100%)}
 @media(max-width:860px){.feat-articles{grid-template-columns:1fr}.feat-articles a{border-right:none;border-bottom:1px solid var(--line);padding:28px 0}.feat-articles a:hover{padding-left:10px;padding-right:0}}
 
 /* botão flutuante de WhatsApp */
-.wa-float{position:fixed;right:22px;bottom:22px;z-index:80;display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);padding:14px 20px;border-radius:40px;font-size:.9rem;font-weight:600;letter-spacing:.02em;box-shadow:0 14px 30px -10px rgba(0,0,0,.4);transition:transform .3s,background .3s;opacity:0;transform:translateY(14px);pointer-events:none}
-.wa-float.show{opacity:1;transform:none;pointer-events:auto}
+.wa-float{position:fixed;right:22px;bottom:22px;z-index:80;display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);padding:14px 20px;border-radius:40px;font-size:.9rem;font-weight:600;letter-spacing:.02em;box-shadow:0 14px 30px -10px rgba(0,0,0,.4);transition:transform .3s,background .3s,opacity .3s,visibility .3s;opacity:0;transform:translateY(14px);pointer-events:none;visibility:hidden}
+.wa-float.show{opacity:1;transform:none;pointer-events:auto;visibility:visible}
 .wa-float:hover{transform:translateY(-2px)}
 .wa-float svg{width:18px;height:18px;fill:#25D366}
 @media(max-width:560px){.wa-float span{display:none}.wa-float{padding:15px;border-radius:50%}}
@@ -417,3 +417,7 @@ header.hidden{transform:translateY(-100%)}
 .related h3{font-size:1.3rem;font-weight:400;margin-top:10px;line-height:1.16}
 .related a:hover h3{color:var(--accent)}
 @media(max-width:600px){.related-grid{grid-template-columns:1fr}.related a,.related a:nth-child(odd),.related a:nth-child(even){padding:26px 0;border-right:none}}
+
+/* ---------- correções pós-revisão ---------- */
+article > .article-head,article > .prose,article > .author-box{padding-left:24px;padding-right:24px}
+.related .wrap-narrow{padding-left:24px !important;padding-right:24px !important}

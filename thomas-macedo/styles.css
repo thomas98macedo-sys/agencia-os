@@ -418,6 +418,29 @@ body > header.hidden{transform:translateY(-100%)}
 .related a:hover h3{color:var(--accent)}
 @media(max-width:600px){.related-grid{grid-template-columns:1fr}.related a,.related a:nth-child(odd),.related a:nth-child(even){padding:26px 0;border-right:none}}
 
+/* ---------- Instagram band (disruptiva) ---------- */
+a.ig-band{display:block;background:var(--ink);color:var(--paper);padding:110px 0;overflow:hidden;position:relative;cursor:pointer}
+.ig-bg{position:absolute;top:50%;left:0;right:0;transform:translateY(-50%);opacity:.06;pointer-events:none;overflow:hidden;white-space:nowrap}
+.ig-bg-track{display:inline-flex;width:max-content;animation:scrollx 26s linear infinite}
+.ig-bg-track span{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(6rem,16vw,12rem);line-height:1;color:var(--paper);padding-right:70px}
+.ig-grid{display:grid;grid-template-columns:auto 1fr;gap:64px;align-items:center;position:relative}
+.ig-badge{position:relative;width:190px;height:190px;flex-shrink:0}
+.ig-badge .spin{position:absolute;inset:0;width:100%;height:100%;animation:spin 16s linear infinite}
+.ig-badge .spin text{fill:var(--accent-bright);font-family:var(--sans);font-size:12.5px;letter-spacing:.3em;text-transform:uppercase;font-weight:600}
+.ig-badge .glyph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--paper)}
+.ig-badge .glyph svg{width:54px;height:54px;stroke:currentColor;fill:none;stroke-width:1.4}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ig-handle{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(1.9rem,5.6vw,4.6rem);letter-spacing:-.02em;line-height:1.05;color:var(--paper);display:inline-block;transition:color .35s}
+a.ig-band:hover .ig-handle{color:var(--accent-bright)}
+.ig-sub{margin-top:16px;color:rgba(250,248,243,.65);font-size:1rem;max-width:46ch}
+.ig-actions{margin-top:30px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+a.ig-band .btn{background:var(--accent-bright);border-color:var(--accent-bright);color:#141310}
+a.ig-band:hover .btn{background:transparent;color:var(--accent-bright)}
+a.ig-band .btn .arrow{transform:translateX(0)}
+a.ig-band:hover .btn .arrow{transform:translateX(4px)}
+@media(max-width:760px){.ig-grid{grid-template-columns:1fr;gap:40px}.ig-badge{width:150px;height:150px}a.ig-band{padding:80px 0}}
+@media(prefers-reduced-motion:reduce){.ig-badge .spin{animation:none}.ig-bg-track{animation:none}}
+
 /* ---------- correções pós-revisão ---------- */
 article > .article-head,article > .prose,article > .author-box{padding-left:24px;padding-right:24px}
 .related .wrap-narrow{padding-left:24px !important;padding-right:24px !important}

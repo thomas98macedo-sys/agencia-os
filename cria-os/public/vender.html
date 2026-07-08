@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CRIA·OS — Pare de queimar dinheiro com criativo ruim</title>
+<meta name="description" content="O sistema operacional de criativos e UGC para e-commerce: saiba o que escalar, o que pausar, gerencie creators, briefs, direitos de uso e pagamentos em um só lugar." />
+<link rel="icon" type="image/svg+xml" href="/icon.svg" />
+<style>
+:root{--bg:#0a0a10;--bg2:#101018;--panel:#12121a;--border:#23232f;--text:#ecedf2;--text2:#a5a7b8;--text3:#6d6f82;--accent:#a78bfa;--pink:#f472b6;--green:#34d399;--red:#f87171;--grad:linear-gradient(135deg,#a78bfa,#f472b6)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+header{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px}
+.logo-mark{width:36px;height:36px;border-radius:10px;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#0a0a10;font-size:16px}
+.logo span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:11px;font-weight:700;font-size:15px;text-decoration:none;transition:all .15s;border:1px solid var(--border);color:var(--text)}
+.btn.primary{background:var(--grad);color:#0b0b11;border:none}
+.btn.primary:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.btn.sm{padding:9px 18px;font-size:13.5px}
+.hero{text-align:center;padding:72px 0 60px}
+.pill{display:inline-block;padding:6px 16px;border-radius:99px;border:1px solid rgba(167,139,250,.35);color:var(--accent);font-size:13px;font-weight:600;margin-bottom:26px;background:rgba(167,139,250,.08)}
+h1{font-size:clamp(32px,5.5vw,54px);font-weight:800;letter-spacing:-.03em;line-height:1.12;max-width:820px;margin:0 auto 22px}
+h1 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{font-size:clamp(16px,2vw,19px);color:var(--text2);max-width:640px;margin:0 auto 36px}
+.hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.micro{font-size:13px;color:var(--text3);margin-top:16px}
+section{padding:64px 0}
+.kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:12px}
+h2{font-size:clamp(26px,3.6vw,38px);font-weight:800;letter-spacing:-.02em;line-height:1.15;margin-bottom:16px}
+.lead{color:var(--text2);font-size:17px;max-width:680px}
+.pain{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.pain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:36px}
+.pain-card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:22px}
+.pain-card .x{color:var(--red);font-weight:800;font-size:15px}
+.pain-card h3{font-size:16px;margin:8px 0 6px}
+.pain-card p{color:var(--text2);font-size:14px}
+.mods{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:40px}
+.mod{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:24px;transition:border .15s}
+.mod:hover{border-color:rgba(167,139,250,.4)}
+.mod .emoji{font-size:26px}
+.mod h3{font-size:17px;margin:12px 0 8px;letter-spacing:-.01em}
+.mod p{color:var(--text2);font-size:14px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:40px}
+.step{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:24px;position:relative}
+.step .n{width:34px;height:34px;border-radius:50%;background:var(--grad);color:#0b0b11;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.step h3{font-size:16px;margin-bottom:6px}
+.step p{color:var(--text2);font-size:13.5px}
+.price-box{background:linear-gradient(160deg,rgba(167,139,250,.12),var(--panel) 60%);border:1px solid rgba(167,139,250,.4);border-radius:20px;padding:44px;max-width:520px;margin:40px auto 0;text-align:center}
+.price{font-size:52px;font-weight:800;letter-spacing:-.03em}
+.price small{font-size:17px;color:var(--text2);font-weight:600}
+.price-note{color:var(--text2);font-size:14px;margin:10px 0 26px}
+.check-list{text-align:left;max-width:360px;margin:0 auto 30px;display:grid;gap:10px}
+.check-list div{display:flex;gap:10px;font-size:14.5px;color:var(--text2)}
+.check-list b{color:var(--text)}
+.check{color:var(--green);font-weight:800;flex-shrink:0}
+.quote{border-left:3px solid var(--accent);padding:6px 0 6px 22px;max-width:720px;margin:44px auto 0;font-size:19px;color:var(--text2);font-style:italic}
+footer{border-top:1px solid var(--border);padding:34px 0;text-align:center;color:var(--text3);font-size:13px}
+.faq{max-width:720px;margin:36px auto 0;display:grid;gap:12px}
+details{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px 22px}
+summary{font-weight:700;cursor:pointer;font-size:15px}
+details p{color:var(--text2);font-size:14px;margin-top:10px}
+.center{text-align:center}
+.final{background:var(--bg2);border-top:1px solid var(--border)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo"><div class="logo-mark">C</div>CRIA<span>·OS</span></div>
+    <a class="btn sm primary" href="/">Entrar no app →</a>
+  </header>
+
+  <div class="hero">
+    <div class="pill">Para marcas que escalam com tráfego pago + UGC</div>
+    <h1>Quanto você queimou no último criativo que deveria ter <em>pausado 2 semanas antes</em>?</h1>
+    <p class="sub">Quem vive de e-commerce sabe: a campanha não morre por falta de verba — morre por falta de <b>criativo bom, na hora certa</b>. O CRIA·OS organiza toda a sua máquina de criativos e UGC em um só lugar e te diz o que escalar, o que iterar e o que matar.</p>
+    <div class="hero-ctas">
+      <a class="btn primary" href="/">Testar agora com dados demo →</a>
+      <a class="btn" href="#modulos">Ver o que tem dentro</a>
+    </div>
+    <div class="micro">Sem cadastro · Sem cartão · Abre no navegador e já funciona</div>
+  </div>
+</div>
+
+<section class="pain">
+  <div class="wrap">
+    <div class="kicker">A dor que ninguém resolve</div>
+    <h2>Sua operação de criativos hoje vive em 5 lugares diferentes</h2>
+    <p class="lead">WhatsApp com 14 creators, planilha de pagamentos desatualizada, brief improvisado em áudio, gerenciador de anúncios aberto em 6 abas — e nenhuma resposta clara pra pergunta que importa: <b style="color:var(--text)">qual criativo merece mais verba amanhã?</b></p>
+    <div class="pain-grid">
+      <div class="pain-card"><span class="x">✕</span><h3>Criativo campeão morre de fadiga</h3><p>Você só percebe que o vencedor cansou quando o ROAS já caiu — e não tem variação nova pronta pra assumir o lugar.</p></div>
+      <div class="pain-card"><span class="x">✕</span><h3>Creator some, entrega atrasa</h3><p>Brief mandado por áudio, prazo combinado "de boca", cobrança esquecida. O vídeo que sustentaria a semana não chega.</p></div>
+      <div class="pain-card"><span class="x">✕</span><h3>Direito de uso vencido no ar</h3><p>Anúncio rodando com contrato expirado é risco jurídico real — e ninguém na operação está olhando pra isso.</p></div>
+      <div class="pain-card"><span class="x">✕</span><h3>Verba queimando em zumbi</h3><p>Criativos abaixo da meta continuam ativos por dias porque a decisão de pausar não tem dono nem critério.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="modulos">
+  <div class="wrap">
+    <div class="kicker">O que tem dentro</div>
+    <h2>Um sistema operacional completo, do creator ao ROAS</h2>
+    <div class="mods">
+      <div class="mod"><span class="emoji">🎛️</span><h3>Central de Comando</h3><p>Abriu, já sabe o que fazer: alertas automáticos de escalar, pausar, fadiga, direitos vencendo, pagamentos e entregas atrasadas — em ordem de urgência.</p></div>
+      <div class="mod"><span class="emoji">🔥</span><h3>Inteligência de Criativos</h3><p>Cole as métricas do gerenciador e receba score 0-100 + veredito na hora: 🏆 Escalar · 🔁 Iterar · ⚠️ Fadiga · ❌ Pausar. Critério claro, decisão rápida.</p></div>
+      <div class="mod"><span class="emoji">💡</span><h3>Insights por Angle</h3><p>"Antes & Depois rende 3.2x, Trend rende 0.9x — peça 3 variações do vencedor." O sistema lê seus dados e escreve a recomendação.</p></div>
+      <div class="mod"><span class="emoji">👥</span><h3>CRM de Creators</h3><p>Kanban da prospecção ao creator ativo: preço, nicho, avaliação, WhatsApp em 1 clique e ROAS que cada creator gera pra sua marca.</p></div>
+      <div class="mod"><span class="emoji">📝</span><h3>Gerador de Briefings</h3><p>Escolha o angle e o sistema monta o roteiro completo (hook, estrutura cena a cena, CTA, direitos, prazo) — texto pronto pra colar no WhatsApp.</p></div>
+      <div class="mod"><span class="emoji">🎬</span><h3>Pipeline de Produção</h3><p>Do brief ao "no ar" em kanban: prazos, atrasos em vermelho automático e feedback de aprovação registrado por versão.</p></div>
+      <div class="mod"><span class="emoji">📜</span><h3>Direitos & Pagamentos</h3><p>Alerta antes do direito de uso vencer e controle de pagamento por creator. Creator pago em dia é creator que grava de novo.</p></div>
+      <div class="mod"><span class="emoji">🪝</span><h3>Biblioteca de Hooks</h3><p>27+ hooks validados em PT-BR, CTAs que convertem e 12 angles com estrutura pronta. Munição infinita pro próximo brief.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="kicker">Como funciona</div>
+    <h2>Da prospecção ao criativo escalado em 4 passos</h2>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Monte seu exército</h3><p>Cadastre creators no CRM e mova pelo funil: prospecção → negociação → ativo.</p></div>
+      <div class="step"><div class="n">2</div><h3>Brief em 2 minutos</h3><p>Escolha campanha, creator e angle. Copie o brief pronto e mande no WhatsApp.</p></div>
+      <div class="step"><div class="n">3</div><h3>Acompanhe a produção</h3><p>Arraste os cards até "No Ar". Atraso fica vermelho sozinho — é só cobrar.</p></div>
+      <div class="step"><div class="n">4</div><h3>Escale com critério</h3><p>Atualize as métricas 1x por semana e siga os vereditos: escalar, iterar ou pausar.</p></div>
+    </div>
+    <div class="quote">"Um único criativo ruim rodando 3 dias a mais custa mais caro que um ano de qualquer ferramenta."</div>
+  </div>
+</section>
+
+<section class="pain">
+  <div class="wrap center">
+    <div class="kicker">Investimento</div>
+    <h2>Menos que 1 dia de tráfego desperdiçado</h2>
+    <div class="price-box">
+      <div class="price">R$ 97<small>/mês por marca</small></div>
+      <div class="price-note">ou R$ 970/ano (2 meses grátis)</div>
+      <div class="check-list">
+        <div><span class="check">✓</span><span><b>Todos os módulos</b> — sem plano "pro" escondido</span></div>
+        <div><span class="check">✓</span><span><b>Creators e criativos ilimitados</b></span></div>
+        <div><span class="check">✓</span><span><b>Seus dados são seus</b> — backup completo em 1 clique</span></div>
+        <div><span class="check">✓</span><span><b>Funciona no navegador</b> — sem instalação, sem TI</span></div>
+      </div>
+      <a class="btn primary" href="/">Começar agora — grátis com dados demo →</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker center" style="text-align:center">Perguntas frequentes</div>
+    <h2 class="center">FAQ</h2>
+    <div class="faq">
+      <details><summary>Preciso conectar minha conta de anúncios?</summary><p>Não. Você cola as métricas do gerenciador em segundos, 1-2x por semana. Sem permissões de acesso, sem risco de bloqueio, funciona com Meta, TikTok, Google e até orgânico.</p></details>
+      <details><summary>Onde ficam meus dados?</summary><p>No seu navegador (localStorage) — privados por padrão. Exporte um backup em JSON a qualquer momento e importe em outro computador.</p></details>
+      <details><summary>Serve pra agência que atende várias marcas?</summary><p>Sim: um perfil/janela de navegador por marca, ou exporte/importe o backup de cada cliente. Cada base é 100% independente.</p></details>
+      <details><summary>Eu não trabalho com influencer ainda, só criativo interno. Serve?</summary><p>Serve — a Inteligência de Criativos, os insights por angle e a biblioteca de hooks funcionam para qualquer criativo, com ou sem creator.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap center">
+    <h2>O próximo criativo campeão já está na sua operação.<br/>Você só não está enxergando.</h2>
+    <p class="lead" style="margin:0 auto 30px">Abra o CRIA·OS agora — vem com uma operação de demonstração completa pra você sentir o produto em 60 segundos.</p>
+    <a class="btn primary" href="/">Abrir o CRIA·OS →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">CRIA·OS v1.0 — O sistema operacional de criativos & UGC para e-commerce.</div>
+</footer>
+</body>
+</html>

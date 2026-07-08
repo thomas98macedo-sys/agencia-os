@@ -182,6 +182,56 @@
     });
   }
 
+  /* ---------- 7b. Carrossel: autoplay + setas + contador ---------- */
+  $$('.carousel').forEach(function (car) {
+    var reel = car.querySelector('.reel');
+    if (!reel) return;
+    var figs = $$('figure', reel);
+    var countEl = car.querySelector('.car-count');
+    var barEl = car.querySelector('.car-progress i');
+    var prev = car.querySelector('.car-prev');
+    var next = car.querySelector('.car-next');
+    var idx = 0, paused = false, t0 = null;
+    var DUR = 4200;
+
+    function itemW() { return figs.length > 1 ? figs[1].offsetLeft - figs[0].offsetLeft : reel.clientWidth; }
+    function maxIdx() {
+      return Math.max(0, Math.round((reel.scrollWidth - reel.clientWidth) / itemW()));
+    }
+    function goTo(i, smooth) {
+      var m = maxIdx();
+      idx = i > m ? 0 : (i < 0 ? m : i);
+      reel.scrollTo({ left: idx * itemW(), behavior: smooth === false ? 'auto' : 'smooth' });
+      t0 = null;
+    }
+    function syncCount() {
+      var m = maxIdx();
+      var i = Math.round(reel.scrollLeft / itemW());
+      i = Math.max(0, Math.min(m, i));
+      if (i !== idx) { idx = i; t0 = null; }
+      if (countEl) countEl.innerHTML = '<b>' + String(idx + 1).padStart(2, '0') + '</b> / ' + String(m + 1).padStart(2, '0');
+    }
+    reel.addEventListener('scroll', function () { requestAnimationFrame(syncCount); }, { passive: true });
+    if (prev) prev.addEventListener('click', function () { goTo(idx - 1); });
+    if (next) next.addEventListener('click', function () { goTo(idx + 1); });
+
+    ['pointerenter', 'pointerdown', 'focusin'].forEach(function (ev) { car.addEventListener(ev, function () { paused = true; }); });
+    ['pointerleave', 'pointerup', 'focusout'].forEach(function (ev) { car.addEventListener(ev, function () { paused = false; t0 = null; }); });
+
+    if (!reduced) {
+      (function autoplay(t) {
+        if (!paused && document.visibilityState === 'visible') {
+          if (!t0) t0 = t;
+          var p = (t - t0) / DUR;
+          if (barEl) barEl.style.width = Math.min(100, p * 100) + '%';
+          if (p >= 1) goTo(idx + 1);
+        } else { t0 = null; }
+        requestAnimationFrame(autoplay);
+      })(0);
+    }
+    syncCount();
+  });
+
   /* ---------- 8. Reel: arrastar para navegar ---------- */
   $$('.reel').forEach(function (reel) {
     var down = false, startX = 0, sl = 0;

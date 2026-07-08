@@ -418,6 +418,19 @@ body > header.hidden{transform:translateY(-100%)}
 .related a:hover h3{color:var(--accent)}
 @media(max-width:600px){.related-grid{grid-template-columns:1fr}.related a,.related a:nth-child(odd),.related a:nth-child(even){padding:26px 0;border-right:none}}
 
+/* ---------- Carrossel (autoplay + arraste) ---------- */
+.car-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:24px}
+.car-controls{display:flex;align-items:center;gap:14px}
+.car-count{font-family:var(--serif);font-size:1rem;color:var(--muted);min-width:64px;text-align:right}
+.car-count b{color:var(--ink);font-weight:400;font-size:1.35rem}
+.car-btn{width:46px;height:46px;border-radius:50%;border:1px solid var(--line-strong);background:transparent;color:var(--ink);font-size:1.1rem;cursor:pointer;transition:background .3s,color .3s,border-color .3s,transform .3s;display:inline-flex;align-items:center;justify-content:center}
+.car-btn:hover{background:var(--accent);border-color:var(--accent);color:#141310;transform:translateY(-2px)}
+.carousel .reel figure{flex:0 0 min(440px,82vw)}
+.carousel .reel img{aspect-ratio:4/5;object-position:center 22%}
+.car-progress{height:2px;background:var(--line);margin-top:4px;border-radius:2px;overflow:hidden}
+.car-progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s linear}
+@media(prefers-reduced-motion:reduce){.car-progress{display:none}}
+
 /* ---------- Instagram band (disruptiva) ---------- */
 a.ig-band{display:block;background:var(--ink);color:var(--paper);padding:110px 0;overflow:hidden;position:relative;cursor:pointer}
 .ig-bg{position:absolute;top:50%;left:0;right:0;transform:translateY(-50%);opacity:.06;pointer-events:none;overflow:hidden;white-space:nowrap}

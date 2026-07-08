@@ -22,7 +22,7 @@ jobs:
       - name: Download Drive folder
         run: |
           pip -q install gdown pillow
-          gdown --folder "https://drive.google.com/drive/folders/1u5QnhoNeDPNvdRY9CI2Sbz1FLl-zzMyd" -O /tmp/fotos --remaining-ok
+          gdown --folder "https://drive.google.com/drive/folders/1u5QnhoNeDPNvdRY9CI2Sbz1FLl-zzMyd" -O /tmp/fotos
           ls -la /tmp/fotos
       - name: Optimize into repo
         run: |

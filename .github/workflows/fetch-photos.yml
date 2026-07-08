@@ -1,0 +1,59 @@
+name: Fetch photos from Drive
+
+on:
+  push:
+    branches: [claude/thomas-macedo-landing-page-unuugl]
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    # roda só quando o commit pedir explicitamente (evita loop)
+    if: contains(github.event.head_commit.message, '[fetch-photos]')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: claude/thomas-macedo-landing-page-unuugl
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download Drive folder
+        run: |
+          pip -q install gdown pillow
+          gdown --folder "https://drive.google.com/drive/folders/1u5QnhoNeDPNvdRY9CI2Sbz1FLl-zzMyd" -O /tmp/fotos --remaining-ok
+          ls -la /tmp/fotos
+      - name: Optimize into repo
+        run: |
+          python3 - << 'EOF'
+          from PIL import Image, ImageOps
+          import os, hashlib
+          src = '/tmp/fotos'
+          dst = 'thomas-macedo/img/eventos'
+          os.makedirs(dst, exist_ok=True)
+          seen = set()
+          n = 0
+          for f in sorted(os.listdir(src)):
+              if not f.lower().endswith(('.jpg', '.jpeg', '.png')):
+                  continue
+              p = os.path.join(src, f)
+              h = hashlib.md5(open(p, 'rb').read()).hexdigest()
+              if h in seen:
+                  continue
+              seen.add(h)
+              im = ImageOps.exif_transpose(Image.open(p)).convert('RGB')
+              if im.width > 1100:
+                  im = im.resize((1100, int(im.height * 1100 / im.width)), Image.LANCZOS)
+              n += 1
+              im.save(f'{dst}/evento-{n:02d}.jpg', 'JPEG', quality=80, optimize=True, progressive=True)
+              print(f'evento-{n:02d}.jpg  {im.width}x{im.height}')
+          print('total:', n)
+          EOF
+      - name: Commit photos
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add thomas-macedo/img/eventos
+          git diff --cached --quiet || git commit -m "Add event photos downloaded from Drive"
+          git push

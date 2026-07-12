@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Shot List — Gravações · Hotel Suéter" />
+<title>🎬 Shot List — Gravações · Hotel Suéter</title>
+<style>
+  :root{
+    --bg:#0b0e14; --card:#12161f; --border:#232a38; --txt:#e6e9f0; --muted:#8b93a7;
+    --accent:#7c5cff; --accent-soft:#7c5cff22; --ok:#22c55e; --ok-soft:#22c55e1a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;min-height:100vh}
+  .wrap{max-width:1080px;margin:0 auto;padding:40px 24px}
+  .back{color:var(--muted);text-decoration:none;font-size:13px}
+  .back:hover{color:var(--accent)}
+  header{display:flex;align-items:center;gap:14px;margin:14px 0 4px}
+  h1{font-size:24px;font-weight:700;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:24px}
+  .bar{display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+  .progress{flex:1;min-width:220px;height:10px;background:var(--card);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+  .progress > div{height:100%;background:linear-gradient(90deg,var(--accent),var(--ok));width:0%;transition:width .3s ease}
+  .count{font-size:13px;color:var(--muted);white-space:nowrap}
+  button{background:var(--card);color:var(--txt);border:1px solid var(--border);border-radius:10px;padding:9px 14px;font-size:13px;cursor:pointer;transition:border-color .15s}
+  button:hover{border-color:var(--accent)}
+  button.primary{background:var(--accent);border-color:var(--accent);font-weight:600}
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;font-size:13.5px}
+  th{background:#0e121b;color:var(--muted);text-transform:uppercase;font-size:11px;letter-spacing:.08em;padding:12px 10px;text-align:left}
+  td{border-top:1px solid var(--border);padding:10px;vertical-align:top}
+  td[contenteditable]{outline:none;min-width:60px}
+  td[contenteditable]:focus{background:var(--accent-soft);border-radius:6px}
+  tr.done td{color:var(--muted)}
+  tr.done td.desc{text-decoration:line-through}
+  .chk{width:18px;height:18px;accent-color:var(--ok);cursor:pointer}
+  .num{color:var(--muted);white-space:nowrap}
+  .del{color:var(--muted);cursor:pointer;border:none;background:none;font-size:15px;padding:2px 6px}
+  .del:hover{color:#ef4444}
+  .table-scroll{overflow-x:auto}
+  footer{margin-top:36px;color:var(--muted);font-size:12px;text-align:center}
+  @media print{
+    body{background:#fff;color:#000}
+    .bar button,.back,.del,footer{display:none}
+    table,th,td{border-color:#ccc;background:#fff;color:#000}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">← Voltar ao Hub · Painel Eve</a>
+  <header>
+    <span style="font-size:30px">🎬</span>
+    <h1>Shot List — Gravações</h1>
+  </header>
+  <p class="sub">Hotel Suéter · marque cada plano conforme for gravado. As alterações ficam salvas neste navegador.</p>
+
+  <div class="bar">
+    <div class="progress"><div id="pbar"></div></div>
+    <span class="count" id="pcount"></span>
+    <button class="primary" id="add">+ Adicionar plano</button>
+    <button onclick="window.print()">Imprimir / PDF</button>
+    <button id="reset">Restaurar padrão</button>
+  </div>
+
+  <div class="table-scroll">
+  <table>
+    <thead>
+      <tr>
+        <th>✓</th><th>Nº</th><th>Cena / Descrição</th><th>Plano</th><th>Local</th><th>Duração</th><th>Obs.</th><th></th>
+      </tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
+  </div>
+
+  <footer>Shot List · Painel Eve · AgênciaOS</footer>
+</div>
+
+<script>
+const KEY = "eve_shotlist_hotel_sueter";
+
+// Lista inicial (exemplo editável — substitua pelos planos reais da gravação)
+const DEFAULT_SHOTS = [
+  { done:false, desc:"Fachada do hotel — chegada, estabelecimento de cena", plano:"Geral / drone", local:"Entrada", dur:"10s", obs:"Golden hour" },
+  { done:false, desc:"Recepção — check-in com sorriso da equipe", plano:"Médio", local:"Lobby", dur:"8s", obs:"" },
+  { done:false, desc:"Detalhe do suéter/amenidades no quarto", plano:"Close / detalhe", local:"Quarto", dur:"6s", obs:"Luz natural da janela" },
+  { done:false, desc:"Quarto — panorâmica revelando a cama arrumada", plano:"Pan lento", local:"Quarto", dur:"10s", obs:"" },
+  { done:false, desc:"Café da manhã — mesa posta, vapor do café", plano:"Close + slow motion", local:"Restaurante", dur:"8s", obs:"" },
+  { done:false, desc:"Hóspede relaxando — leitura na poltrona", plano:"Médio lateral", local:"Quarto / varanda", dur:"8s", obs:"Figurante" },
+  { done:false, desc:"Área externa / piscina — clima aconchegante", plano:"Geral", local:"Área externa", dur:"10s", obs:"" },
+  { done:false, desc:"Encerramento — logo do hotel na fachada iluminada", plano:"Geral noturno", local:"Entrada", dur:"6s", obs:"Após anoitecer" },
+];
+
+let shots = load();
+
+function load(){
+  try{
+    const raw = localStorage.getItem(KEY);
+    if(raw) return JSON.parse(raw);
+  }catch(e){}
+  return JSON.parse(JSON.stringify(DEFAULT_SHOTS));
+}
+function save(){ localStorage.setItem(KEY, JSON.stringify(shots)); }
+
+const tbody = document.getElementById("rows");
+const FIELDS = ["desc","plano","local","dur","obs"];
+
+function render(){
+  tbody.innerHTML = shots.map((s,i)=>`
+    <tr class="${s.done?"done":""}">
+      <td><input type="checkbox" class="chk" data-i="${i}" ${s.done?"checked":""}></td>
+      <td class="num">${String(i+1).padStart(2,"0")}</td>
+      <td class="desc" contenteditable data-i="${i}" data-f="desc">${s.desc}</td>
+      <td contenteditable data-i="${i}" data-f="plano">${s.plano}</td>
+      <td contenteditable data-i="${i}" data-f="local">${s.local}</td>
+      <td contenteditable data-i="${i}" data-f="dur">${s.dur}</td>
+      <td contenteditable data-i="${i}" data-f="obs">${s.obs}</td>
+      <td><button class="del" data-i="${i}" title="Remover plano">✕</button></td>
+    </tr>`).join("");
+  const done = shots.filter(s=>s.done).length;
+  const pct = shots.length ? Math.round(done/shots.length*100) : 0;
+  document.getElementById("pbar").style.width = pct+"%";
+  document.getElementById("pcount").textContent = `${done}/${shots.length} gravados (${pct}%)`;
+}
+
+tbody.addEventListener("change", e=>{
+  if(e.target.classList.contains("chk")){
+    shots[e.target.dataset.i].done = e.target.checked;
+    save(); render();
+  }
+});
+tbody.addEventListener("input", e=>{
+  const f = e.target.dataset.f;
+  if(f && FIELDS.includes(f)){
+    shots[e.target.dataset.i][f] = e.target.textContent;
+    save();
+    const done = shots.filter(s=>s.done).length;
+    const pct = shots.length ? Math.round(done/shots.length*100) : 0;
+    document.getElementById("pcount").textContent = `${done}/${shots.length} gravados (${pct}%)`;
+  }
+});
+tbody.addEventListener("click", e=>{
+  if(e.target.classList.contains("del")){
+    shots.splice(e.target.dataset.i,1);
+    save(); render();
+  }
+});
+document.getElementById("add").addEventListener("click", ()=>{
+  shots.push({done:false, desc:"Novo plano — descreva a cena", plano:"", local:"", dur:"", obs:""});
+  save(); render();
+  const last = tbody.querySelector("tr:last-child td.desc");
+  if(last){ last.focus(); document.getSelection().selectAllChildren(last); }
+});
+document.getElementById("reset").addEventListener("click", ()=>{
+  if(confirm("Restaurar a lista padrão? As edições feitas neste navegador serão perdidas.")){
+    shots = JSON.parse(JSON.stringify(DEFAULT_SHOTS));
+    save(); render();
+  }
+});
+
+render();
+</script>
+</body>
+</html>

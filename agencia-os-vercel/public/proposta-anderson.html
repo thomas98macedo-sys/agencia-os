@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposta — Anderson · Filmmaker | Lince</title>
+<style>
+  :root{
+    --ink:#0c0c0f; --ink-soft:#33313a; --muted:#77747f; --line:#ececef; --paper:#ffffff;
+    --black:#0b0b0e; --black-2:#17141c;
+    --pink:#ff2e88; --pink-2:#ff62a6; --pink-deep:#cf1466; --pink-soft:#ffe6f0; --pink-soft2:#fff2f7;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{ font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:var(--ink);
+    background:#08080b; font-size:13px; line-height:1.55; }
+  h1,h2,h3,h4{ margin:0; line-height:1.2; }
+
+  /* ---- top bar (integra ao painel) ---- */
+  .topbar{ position:sticky; top:0; z-index:20; display:flex; align-items:center; justify-content:space-between;
+    padding:10px 18px; background:rgba(11,11,14,.92); backdrop-filter:blur(6px); border-bottom:1px solid #1e1a24;}
+  .topbar .l{ display:flex; align-items:center; gap:10px; color:#fff;}
+  .topbar .mark{ width:26px;height:26px;border-radius:7px; background:linear-gradient(135deg,var(--pink),var(--pink-deep)); display:flex;align-items:center;justify-content:center;}
+  .topbar .mark svg{ width:15px;height:15px;}
+  .topbar b{ font-size:13px; letter-spacing:.02em;} .topbar small{ display:block; color:#9a94a4; font-size:10px;}
+  .dl{ display:inline-flex; align-items:center; gap:7px; text-decoration:none; font-size:12px; font-weight:700;
+    color:#fff; background:linear-gradient(135deg,var(--pink),var(--pink-deep)); padding:8px 14px; border-radius:9px;
+    box-shadow:0 6px 18px rgba(255,46,136,.35);}
+  .dl:active{ transform:translateY(1px);}
+
+  .doc{ max-width:900px; margin:0 auto; padding:22px 16px 60px;}
+
+  /* ---- sheets ---- */
+  .sheet{ background:var(--paper); border-radius:16px; box-shadow:0 14px 44px rgba(0,0,0,.55); padding:30px 34px; margin-bottom:22px; }
+  .sheet.cover{ padding:0; background:transparent; box-shadow:none;}
+
+  /* ---- cover ---- */
+  .cover-inner{ position:relative; color:#fff; border-radius:16px; padding:44px 40px; overflow:hidden; min-height:440px;
+    display:flex; flex-direction:column; box-shadow:0 14px 44px rgba(0,0,0,.55);
+    background:radial-gradient(120% 90% at 85% 8%, #2a0f1e 0%, #120910 42%, #0b0b0e 100%);}
+  .cover-inner .g1{ position:absolute; right:-120px; top:-90px; width:360px;height:360px;border-radius:50%;
+    background:radial-gradient(circle at center, rgba(255,46,136,.55), rgba(255,46,136,0) 68%);}
+  .cover-inner .g2{ position:absolute; left:-90px; bottom:-120px; width:320px;height:320px;border-radius:50%;
+    background:radial-gradient(circle at center, rgba(255,98,166,.30), rgba(255,98,166,0) 70%);}
+  .cover-inner .z{ position:relative; z-index:2;}
+  .logo{ display:inline-flex; align-items:center; gap:9px;}
+  .logo .mark{ width:26px;height:26px;border-radius:7px; background:linear-gradient(135deg,var(--pink),var(--pink-deep)); display:flex;align-items:center;justify-content:center;}
+  .logo .mark svg{ width:15px;height:15px;} .logo .wm{ font-weight:800; letter-spacing:.22em; font-size:15px; color:#fff;}
+  .toprow{ display:flex; align-items:center; justify-content:space-between;}
+  .tag-int{ font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:#ffb9d4; font-weight:700; border:1px solid rgba(255,46,136,.5); border-radius:999px; padding:6px 13px;}
+  .cover-mid{ margin-top:auto;}
+  .kicker{ font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:#ff8fbb; font-weight:700; margin:26px 0 12px;}
+  .cover-inner h1{ font-size:44px; font-weight:800; letter-spacing:-.02em;} .cover-inner h1 span{ color:var(--pink);}
+  .cover-inner .sub{ margin-top:14px; font-size:14px; max-width:560px; color:#efe6ea; line-height:1.6;}
+  .namechip{ display:inline-flex; align-items:center; gap:10px; margin-top:20px; background:rgba(255,46,136,.14); border:1px solid rgba(255,46,136,.4); padding:9px 15px; border-radius:12px;}
+  .namechip .av{ width:30px;height:30px;border-radius:50%; background:linear-gradient(135deg,var(--pink),var(--pink-deep)); display:flex;align-items:center;justify-content:center; font-weight:800; font-size:13px; color:#fff;}
+  .namechip b{ font-size:15px;} .namechip small{ display:block; color:#ffb9d4; font-size:10px; letter-spacing:.1em; text-transform:uppercase;}
+  .cover-foot{ margin-top:34px; display:flex; gap:26px; flex-wrap:wrap; border-top:1px solid rgba(255,255,255,.16); padding-top:15px;}
+  .cover-foot div small{ display:block; text-transform:uppercase; letter-spacing:.14em; font-size:9px; color:#e79ebd; margin-bottom:4px;}
+  .cover-foot div b{ font-size:12.5px; font-weight:600;}
+
+  /* ---- generic ---- */
+  .head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;}
+  .section-tag{ display:inline-flex; align-items:center; gap:8px; font-size:10px; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--pink-deep); background:var(--pink-soft); padding:6px 12px; border-radius:999px; margin-bottom:12px;}
+  .logo-sm .mark{ width:20px;height:20px;border-radius:5px;} .logo-sm .mark svg{width:11px;height:11px;} .logo-sm .wm{ font-size:11px; color:var(--ink); letter-spacing:.2em;}
+  h2.title{ font-size:23px; font-weight:800; letter-spacing:-.01em; margin-bottom:6px;}
+  .lead{ color:var(--muted); font-size:12.5px; margin-bottom:18px;}
+  .divider{ height:3px; width:52px; background:var(--pink); border-radius:3px; margin:0 0 20px;}
+
+  .mission{ background:var(--pink-soft2); border:1px solid #ffd4e4; border-radius:14px; padding:17px 19px; display:flex; gap:15px; align-items:flex-start; margin-bottom:20px;}
+  .mission .ic{ font-size:22px; line-height:1;} .mission b{ color:var(--pink-deep);}
+
+  .grid{ display:grid; grid-template-columns:1fr 1fr; gap:11px;}
+  .card{ border:1px solid var(--line); border-radius:13px; padding:14px 15px; background:#fff; position:relative;}
+  .card .ic{ width:32px;height:32px;border-radius:9px; display:flex;align-items:center;justify-content:center; font-size:16px; margin-bottom:9px; background:var(--pink-soft);}
+  .card .ic.dark{ background:var(--black);}
+  .card h3{ font-size:13px; font-weight:750; margin-bottom:5px;}
+  .card p{ margin:0; color:var(--ink-soft); font-size:11.4px;}
+  .num{ position:absolute; top:14px; right:15px; font-weight:800; color:var(--pink); font-size:12px; opacity:.55;}
+
+  table{ width:100%; border-collapse:collapse; font-size:11.4px; margin-top:4px;}
+  thead th{ text-align:left; background:var(--black); color:#fff; font-weight:600; padding:9px 11px; font-size:9.5px; letter-spacing:.05em; text-transform:uppercase;}
+  thead th:first-child{ border-radius:9px 0 0 9px;} thead th:last-child{ border-radius:0 9px 9px 0;}
+  tbody td{ padding:9px 11px; border-bottom:1px solid var(--line); vertical-align:top; color:var(--ink-soft);}
+  tbody tr:nth-child(even){ background:#fff5f9;} td b{ color:var(--ink);}
+  .pill{ display:inline-block; font-size:9px; font-weight:700; padding:2px 9px; border-radius:999px; background:var(--pink-soft); color:var(--pink-deep);}
+  .pill.k{ background:var(--black); color:#fff;}
+
+  .pipe{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:11px; margin-bottom:16px;}
+  .pcol{ border:1px solid var(--line); border-radius:13px; overflow:hidden;}
+  .pcol .ph{ padding:11px 13px; color:#fff; background:var(--black);}
+  .pcol .ph b{ font-size:12.5px; display:block;} .pcol .ph small{ font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--pink-2);}
+  .pcol ul{ margin:0; padding:11px 13px 12px 26px;} .pcol li{ font-size:11px; margin-bottom:5px; color:var(--ink-soft);}
+  .pcol li::marker{ color:var(--pink);}
+
+  .kanban{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:9px;}
+  .kcol{ border:1px solid var(--line); border-radius:11px; overflow:hidden;}
+  .kcol h4{ font-size:10px; text-transform:uppercase; letter-spacing:.05em; padding:7px 9px; color:#fff; background:var(--black);}
+  .kcol.hot h4{ background:linear-gradient(135deg,var(--pink),var(--pink-deep));}
+  .kcol .body{ padding:8px 9px; font-size:10.2px; color:var(--ink-soft); min-height:44px;}
+
+  .ritual{ display:grid; grid-template-columns:1.15fr 1fr; gap:13px; margin-top:6px;}
+  .box{ border:1px solid var(--line); border-radius:13px; padding:15px 16px;}
+  .box.hi{ background:radial-gradient(120% 120% at 80% 0%, #2a0f1e, #0b0b0e); color:#fff; border:none;}
+  .box.hi h3{ color:#fff;} .box.hi .muted2{ color:#ffb9d4;}
+  .box h3{ font-size:13.5px; margin-bottom:9px;}
+  .box ul{ margin:0; padding-left:16px;} .box li{ margin-bottom:6px; font-size:11.6px;} .box li::marker{ color:var(--pink);}
+  .clock{ font-size:29px; font-weight:800; letter-spacing:-.02em; color:#fff;}
+  .clock small{ display:block; font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--pink-2); margin-top:5px;}
+
+  .phase{ display:flex; gap:13px; margin-bottom:11px;}
+  .phase .badge{ flex:0 0 60px; height:60px; border-radius:14px; color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; font-weight:800;}
+  .phase .badge span{ font-size:19px;} .phase .badge small{ font-size:8px; letter-spacing:.1em; text-transform:uppercase; font-weight:600;}
+  .p1{ background:linear-gradient(135deg,var(--pink),var(--pink-deep));} .p2{ background:var(--black-2);} .p3{ background:var(--black);}
+  .phase .pc{ border:1px solid var(--line); border-radius:12px; padding:11px 13px; flex:1;}
+  .phase .pc h4{ font-size:12.5px; margin-bottom:4px;} .phase .pc ul{ margin:3px 0 0; padding-left:15px;} .phase .pc li{ font-size:11px; margin-bottom:3px; color:var(--ink-soft);} .phase .pc li::marker{ color:var(--pink);}
+
+  .kpis{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+  .kpi{ border:1px solid var(--line); border-radius:12px; padding:13px; text-align:center;}
+  .kpi .big{ font-size:21px; font-weight:800; color:var(--pink-deep);}
+  .kpi p{ margin:5px 0 0; font-size:10.6px; color:var(--muted);}
+
+  .note{ margin-top:16px; background:var(--pink-soft2); border:1px dashed #ffbcd6; border-radius:12px; padding:13px 15px; font-size:11px; color:var(--ink-soft);}
+  .note b{ color:var(--pink-deep);}
+  .logo-note{ margin-top:12px; background:#fff; border:1px dashed var(--black); border-radius:10px; padding:10px 13px; font-size:10.8px; color:var(--ink-soft);}
+  .foot{ margin-top:15px; text-align:center; color:var(--muted); font-size:10px;}
+  .spacer{ height:16px;} .two{ display:grid; grid-template-columns:1fr 1fr; gap:11px;}
+
+  @media (max-width:720px){
+    .grid,.two,.pipe,.kpis,.ritual,.kanban{ grid-template-columns:1fr;}
+    .cover-inner h1{ font-size:34px;} .sheet{ padding:22px 18px;}
+  }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="l">
+      <span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20 L9 5 L12 13 L15 5 L20 20" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <div><b>Proposta — Anderson · Filmmaker</b><small>Plano de Onboarding &amp; Funções · Lince</small></div>
+    </div>
+    <a class="dl" href="/proposta-anderson.pdf" download>⬇ Baixar PDF</a>
+  </div>
+
+  <div class="doc">
+
+    <!-- COVER -->
+    <section class="sheet cover">
+      <div class="cover-inner">
+        <span class="g1"></span><span class="g2"></span>
+        <div class="z toprow">
+          <div class="logo"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20 L9 5 L12 13 L15 5 L20 20" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="wm">LINCE</span></div>
+          <span class="tag-int">Planejamento Interno</span>
+        </div>
+        <div class="z cover-mid">
+          <div class="kicker">Plano de Onboarding &amp; Funções</div>
+          <h1>Filmmaker <span>da Lince</span></h1>
+          <p class="sub">Papel, responsabilidades e rotina do Anderson — o filmmaker que lidera o conteúdo da Lince: dirige e grava, cuida dos perfis, conduz as gravações com o Thomas em horário fixo e mantém a estética impecável em preto e rosa.</p>
+          <div class="namechip"><span class="av">A</span><span><b>Anderson</b><small>Filmmaker &amp; Líder de Conteúdo</small></span></div>
+        </div>
+        <div class="z cover-foot">
+          <div><small>Integrante</small><b>Anderson — Filmmaker</b></div>
+          <div><small>Reporta para</small><b>Thomas Macedo</b></div>
+          <div><small>Marca</small><b>Lince</b></div>
+          <div><small>Documento</small><b>v2 · Julho 2026</b></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VISÃO GERAL -->
+    <section class="sheet">
+      <div class="head">
+        <span class="section-tag">01 · Visão Geral</span>
+        <div class="logo logo-sm"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20 L9 5 L12 13 L15 5 L20 20" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="wm">LINCE</span></div>
+      </div>
+      <h2 class="title">O papel do Anderson em uma frase</h2>
+      <div class="divider"></div>
+      <div class="mission">
+        <div class="ic">🎬</div>
+        <div>O <b>Anderson</b> entra na Lince como <b>Filmmaker e líder de conteúdo</b>: é dono da produção audiovisual de ponta a ponta — dirige, grava e edita —, cuida dos perfis (Thomas Pessoal, Thomas IA, YouTube e Lince), lidera o time, zela pela <b>estética em preto e rosa</b> de tudo que sai e garante que as <b>contas e clientes mais importantes</b> sejam cuidados de perto. Ele chega com os <b>roteiros prontos</b> e conduz as gravações com o Thomas sempre no mesmo dia e horário.</div>
+      </div>
+      <h3 style="font-size:14px;margin-bottom:11px;">Responsabilidades principais</h3>
+      <div class="grid">
+        <div class="card"><span class="num">01</span><div class="ic dark">🎥</div><h3>Dirigir &amp; gravar</h3><p>Responsável pela captação audiovisual: direção, câmera, luz e áudio. Traduz cada roteiro em imagem com padrão de cinema.</p></div>
+        <div class="card"><span class="num">02</span><div class="ic">✂️</div><h3>Editar &amp; finalizar</h3><p>Edição, correção de cor, cortes para redes, legendas, capas e thumbnails — tudo com a identidade preto e rosa da Lince.</p></div>
+        <div class="card"><span class="num">03</span><div class="ic dark">👑</div><h3>Liderar o time</h3><p>Comanda o time de conteúdo: distribui tarefas, define prioridades, cobra prazos e sustenta o padrão de qualidade.</p></div>
+        <div class="card"><span class="num">04</span><div class="ic">📱</div><h3>Cuidar dos perfis</h3><p>Dono dos perfis do <b>Thomas</b> (pessoal + IA) e da <b>Lince</b> — estratégia, calendário, publicação e consistência.</p></div>
+        <div class="card"><span class="num">05</span><div class="ic dark">🗂️</div><h3>Roteirizar em Kanban</h3><p>Estrutura todo o conteúdo num quadro Kanban; cada peça avança por etapas claras, da ideia até a publicação.</p></div>
+        <div class="card"><span class="num">06</span><div class="ic">🎙️</div><h3>Gravações com o Thomas</h3><p>Agenda e conduz a gravação em <b>dia e horário fixos</b>, sempre chegando com os <b>roteiros prontos</b>.</p></div>
+        <div class="card"><span class="num">07</span><div class="ic dark">💼</div><h3>Contas &amp; clientes-chave</h3><p>Cuida de perto das <b>contas mais importantes</b> e dos <b>clientes prioritários</b> — relacionamento, entrega e resultado.</p></div>
+        <div class="card"><span class="num">08</span><div class="ic">✨</div><h3>Estética &amp; identidade</h3><p>Guardião do visual: paleta preto e rosa, capas e primeiro segundo do vídeo. Entre duas opções, vale a mais bonita.</p></div>
+        <div class="card"><span class="num">09</span><div class="ic dark">🤝</div><h3>Sombra em eventos</h3><p>Acompanha o Thomas nos eventos como sombra — captando conteúdo em tempo real e absorvendo o contexto do negócio.</p></div>
+        <div class="card"><span class="num">10</span><div class="ic">📅</div><h3>YouTube semanal</h3><p>Garante <b>1 vídeo por semana</b> no ar: pauta, roteiro, gravação, edição, thumbnail e publicação.</p></div>
+      </div>
+    </section>
+
+    <!-- FILMMAKER PIPELINE -->
+    <section class="sheet">
+      <div class="head">
+        <span class="section-tag">02 · O ofício do Filmmaker</span>
+        <div class="logo logo-sm"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20 L9 5 L12 13 L15 5 L20 20" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="wm">LINCE</span></div>
+      </div>
+      <h2 class="title">Da ideia à tela — o pipeline do Anderson</h2>
+      <div class="divider"></div>
+      <p class="lead">O trabalho do filmmaker se divide em três blocos. Anderson é responsável pelos três, delegando partes ao time conforme o volume, mas sempre respondendo pela entrega final.</p>
+      <div class="pipe">
+        <div class="pcol"><div class="ph"><small>Bloco 1</small><b>Pré-produção</b></div><ul><li>Pauta e roteiro escritos e aprovados</li><li>Direção: decupagem, planos e referências</li><li>Definição de locação, luz e figurino</li><li>Checklist de equipamento e áudio</li><li>Agenda da gravação confirmada</li></ul></div>
+        <div class="pcol"><div class="ph"><small>Bloco 2</small><b>Produção</b></div><ul><li>Captação com o Thomas (horário fixo)</li><li>Câmera, iluminação e áudio limpos</li><li>Direção em cena: conduzir o take</li><li>Gravar em bloco (semana adiantada)</li><li>Backup do material no mesmo dia</li></ul></div>
+        <div class="pcol"><div class="ph"><small>Bloco 3</small><b>Pós-produção</b></div><ul><li>Edição e ritmo de corte</li><li>Correção de cor (preto e rosa)</li><li>Cortes verticais para Reels/Shorts</li><li>Legendas, capas e thumbnails</li><li>Aprovação, agendamento e publicação</li></ul></div>
+      </div>
+      <div class="two">
+        <div class="box hi"><h3>Padrão de estética Lince</h3><ul><li>Paleta <b>preto e rosa</b> em capas, títulos e cor do vídeo</li><li>Primeiro segundo do vídeo sempre com gancho forte</li><li>Tipografia e ritmo de edição consistentes entre os perfis</li><li>Nada publicado sem passar pelo filtro visual do Anderson</li></ul></div>
+        <div class="box"><h3>Setup de gravação</h3><ul><li>Kit de câmera, lentes e cartões sempre prontos</li><li>Áudio (lapela/boom) testado antes de cada bloco</li><li>Iluminação montada para render mais rápido</li><li>Local fixo de gravação para ganhar tempo</li></ul></div>
+      </div>
+    </section>
+
+    <!-- LINHAS DE CONTEÚDO -->
+    <section class="sheet">
+      <div class="head">
+        <span class="section-tag">03 · Linhas de Conteúdo</span>
+        <div class="logo logo-sm"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20 L9 5 L12 13 L15 5 L20 20" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="wm">LINCE</span></div>
+      </div>
+      <h2 class="title">O que produzir, para cada frente</h2>
+      <div class="divider"></div>
+      <p class="lead">Mapa das frentes de conteúdo sob responsabilidade do Anderson. Frequências e pautas são ponto de partida — ajustáveis conforme a estratégia da Lince.</p>
+      <table>
+        <thead><tr><th>Frente</th><th>Foco</th><th>Formatos</th><th>Exemplos de pauta</th><th>Frequência</th></tr></thead>
+        <tbody>
+          <tr><td><b>Thomas — Pessoal</b><br><span class="pill">Você aparecendo</span></td><td>Bastidores, rotina, posicionamento e autoridade pessoal.</td><td>Reels, Stories, carrosséis</td><td>Dia a dia, decisões, aprendizados, bastidores da Lince</td><td>3–5 / sem</td></tr>
+          <tr><td><b>Thomas — IA</b><br><span class="pill">Conteúdo de IA</span></td><td>Inteligência artificial: novidades, ferramentas e aplicação prática.</td><td>Reels, carrosséis, threads</td><td>Ferramenta da semana, tutorial rápido, opinião sobre IA</td><td>3–4 / sem</td></tr>
+          <tr><td><b>Thomas — YouTube</b><br><span class="pill k">Longo</span></td><td>Vídeo semanal aprofundando os temas dos perfis.</td><td>Vídeo longo + cortes</td><td>Deep-dives, entrevistas, cases, tutoriais</td><td><b>1 / sem</b></td></tr>
+          <tr><td><b>Lince</b><br><span class="pill">Marca / agência</span></td><td>Marca da Lince: cases, bastidores do time, autoridade e captação.</td><td>Reels, carrosséis, institucional</td><td>Resultados de clientes, bastidores, cultura, provas sociais</td><td>3–4 / sem</td></tr>
+        </tbody>
+      </table>
+      <div class="mission" style="margin-top:20px;"><div class="ic">🎯</div><div><b>Régua de qualidade.</b> Cada frente tem dono, mas todas passam pelo mesmo filtro: roteiro claro, gancho nos primeiros segundos, estética preto e rosa e uma chamada para ação. Volume só conta quando vem com consistência.</div></div>
+    </section>
+
+    <!-- KANBAN + RITUAL -->
+    <section class="sheet">
+      <div class="head">
+        <span class="section-tag">04 · Processo de Produção</span>
+        <div class="logo logo-sm"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20 L9 5 L12 13 L15 5 L20 20" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="wm">LINCE</span></div>
+      </div>
+      <h2 class="title">Do roteiro à publicação, em Kanban</h2>
+      <div class="divider"></div>
+      <p class="lead">Todo conteúdo caminha por um quadro Kanban. Cada peça só avança quando a etapa anterior está aprovada — previsibilidade total e nada perdido no caminho.</p>
+      <div class="kanban">
+        <div class="kcol"><h4>1 · Ideias</h4><div class="body">Backlog de pautas: Thomas e Lince.</div></div>
+        <div class="kcol"><h4>2 · Roteiro</h4><div class="body">Roteiro escrito e revisado.</div></div>
+        <div class="kcol"><h4>3 · Aprovação</h4><div class="body">Ok do Thomas antes de gravar.</div></div>
+        <div class="kcol hot"><h4>4 · Gravação</h4><div class="body">Captação no horário fixo.</div></div>
+      </div>
+      <div class="kanban" style="grid-template-columns:repeat(3,1fr);">
+        <div class="kcol"><h4>5 · Edição &amp; cor</h4><div class="body">Corte, cor, capa, legendas e thumbnail.</div></div>
+        <div class="kcol"><h4>6 · Agendado</h4><div class="body">Publicação programada no calendário.</div></div>
+        <div class="kcol hot"><h4>7 · Publicado + Análise</h4><div class="body">No ar e com métricas acompanhadas.</div></div>
+      </div>
+      <h3 style="font-size:14px;margin:18px 0 9px;">O ritual de gravação com o Thomas</h3>
+      <div class="ritual">
+        <div class="box"><h3>Como funciona</h3><ul><li><b>Roteiros prontos:</b> o Anderson chega com tudo escrito e aprovado — o Thomas só grava.</li><li><b>Horário fixo:</b> sempre o <b>mesmo dia da semana e mesmo horário</b>, virando hábito na agenda.</li><li><b>Bloco único:</b> várias peças gravadas de uma vez, deixando a semana adiantada.</li><li><b>Agenda protegida:</b> o Anderson marca e mantém o compromisso recorrente no calendário do Thomas.</li></ul></div>
+        <div class="box hi"><h3 style="margin-bottom:12px;">Slot recorrente</h3><div class="clock">Terça · 10h<small>Sugestão — a confirmar</small></div><p class="muted2" style="margin-top:13px; font-size:11px;">Toda semana, sem exceção. Se cair feriado, remarca no mesmo bloco da semana.</p></div>
+      </div>
+    </section>
+
+    <!-- SEMANA + CONTAS + EVENTOS -->
+    <section class="sheet">
+      <div class="head">
+        <span class="section-tag">05 · Rotina</span>
+        <div class="logo logo-sm"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20 L9 5 L12 13 L15 5 L20 20" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="wm">LINCE</span></div>
+      </div>
+      <h2 class="title">Uma semana-modelo do Anderson</h2>
+      <div class="divider"></div>
+      <p class="lead">Sugestão de cadência para dar ritmo ao time. Serve de esqueleto — o Anderson ajusta conforme a demanda das contas.</p>
+      <table>
+        <thead><tr><th>Dia</th><th>Foco do dia</th><th>Entregas-chave</th></tr></thead>
+        <tbody>
+          <tr><td><b>Segunda</b></td><td>Planejamento &amp; liderança</td><td>Reunião com o time · revisão do Kanban · prioridades e pautas da semana</td></tr>
+          <tr><td><b>Terça</b></td><td><b>Gravação</b></td><td>Bloco de captação com o Thomas (roteiros já prontos e aprovados)</td></tr>
+          <tr><td><b>Quarta</b></td><td>Edição &amp; cor</td><td>Corte, correção de cor preto e rosa, capas, thumbnails e cortes verticais</td></tr>
+          <tr><td><b>Quinta</b></td><td>Contas &amp; clientes</td><td>Contas-chave da Lince · alinhamento e relacionamento com clientes importantes</td></tr>
+          <tr><td><b>Sexta</b></td><td>Roteiros &amp; análise</td><td>Roteiriza a próxima semana · analisa métricas · agenda as publicações</td></tr>
+        </tbody>
+      </table>
+      <div class="spacer"></div>
+      <div class="two">
+        <div class="card"><div class="ic dark">💼</div><h3>Contas &amp; clientes mais importantes</h3><p>Atenção dedicada às contas prioritárias da Lince: entende o objetivo de cada uma, garante a entrega no prazo, mantém o relacionamento próximo e antecipa demandas. É o ponto focal dos clientes-chave dentro da Lince.</p></div>
+        <div class="card"><div class="ic">🤝</div><h3>Sombra em eventos</h3><p>Acompanha o Thomas nos eventos como sombra: capta conteúdo em tempo real (Stories, bastidores, registros em vídeo), absorve o contexto do negócio e dá suporte no momento — transformando cada evento em material.</p></div>
+      </div>
+      <div class="note"><b>Liderança na prática.</b> Como líder do time, o Anderson não executa tudo sozinho: delega roteiro, edição e publicação quando o volume pede, mas responde pelo resultado final, pelo padrão estético preto e rosa e pela saúde das contas-chave.</div>
+    </section>
+
+    <!-- ONBOARDING + KPIs -->
+    <section class="sheet">
+      <div class="head">
+        <span class="section-tag">06 · Onboarding &amp; Métricas</span>
+        <div class="logo logo-sm"><span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20 L9 5 L12 13 L15 5 L20 20" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="wm">LINCE</span></div>
+      </div>
+      <h2 class="title">Primeiros 30 · 60 · 90 dias</h2>
+      <div class="divider"></div>
+      <div class="phase"><div class="badge p1"><span>30</span><small>dias</small></div><div class="pc"><h4>Imersão &amp; padrão</h4><ul><li>Entende a marca e os perfis: Thomas (pessoal + IA) e Lince.</li><li>Monta o Kanban, o setup de gravação e assume o slot fixo.</li><li>Conhece o time e as contas mais importantes.</li><li>Primeiros roteiros prontos e primeiras gravações rodando.</li></ul></div></div>
+      <div class="phase"><div class="badge p2"><span>60</span><small>dias</small></div><div class="pc"><h4>Ritmo &amp; liderança</h4><ul><li>YouTube semanal e perfis girando com consistência.</li><li>Lidera o time com autonomia e delega com clareza.</li><li>Estética preto e rosa aplicada em todas as entregas.</li><li>Presente como sombra nos eventos do Thomas.</li></ul></div></div>
+      <div class="phase"><div class="badge p3"><span>90</span><small>dias</small></div><div class="pc"><h4>Dono do resultado</h4><ul><li>Contas-chave sob controle, com relacionamento próximo.</li><li>Calendário de conteúdo previsível e adiantado.</li><li>Métricas em crescimento nos perfis prioritários.</li><li>Processo redondo o suficiente para escalar o time.</li></ul></div></div>
+      <h3 style="font-size:14px;margin:18px 0 10px;">Como medimos sucesso</h3>
+      <div class="kpis">
+        <div class="kpi"><div class="big">1/sem</div><p>Vídeo no YouTube publicado toda semana, sem falha</p></div>
+        <div class="kpi"><div class="big">100%</div><p>Gravações no horário fixo com roteiro pronto</p></div>
+        <div class="kpi"><div class="big">↑</div><p>Alcance e engajamento dos perfis Thomas &amp; Lince</p></div>
+        <div class="kpi"><div class="big">0</div><p>Contas-chave sem acompanhamento próximo</p></div>
+        <div class="kpi"><div class="big">Sem.</div><p>Kanban sempre com a próxima semana adiantada</p></div>
+        <div class="kpi"><div class="big">✨</div><p>Padrão estético preto e rosa em toda entrega</p></div>
+      </div>
+      <div class="logo-note">🖼️ <b>Logo:</b> este documento usa um wordmark provisório da Lince. Envie o arquivo oficial do logo (PNG/SVG) que eu embuto a versão real.</div>
+      <div class="note"><b>A confirmar com o Thomas:</b> dia/horário definitivo da gravação (sugerido: terça, 10h) · lista nominal das contas e clientes prioritários · frequência final por perfil · escopo exato de delegação do time.</div>
+      <div class="foot">Lince · Plano de Funções — Anderson, Filmmaker · Documento interno · v2 · Julho 2026</div>
+    </section>
+
+  </div>
+</body>
+</html>

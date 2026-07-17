@@ -1597,6 +1597,7 @@ function AgenciaOSApp() {
     {id:"reports",icon:BarChart3,label:"Relatórios"},
     {id:"team",icon:Users,label:"Equipe"},
     {id:"multiverso",icon:Target,label:"Multiverso"},
+    {id:"proposta",icon:Film,label:"Proposta"},
     ...((authUser?.role==="director"||authUser?.role==="admin")?[{id:"settings",icon:Settings,label:"Config"}]:[]),
   ];
 
@@ -4248,6 +4249,13 @@ function AgenciaOSApp() {
   // KANBAN MULTIVERSO — iframe
   const MultiversoPage = () => React.createElement("div", {style:{height:"calc(100vh - 56px)"}}, React.createElement("iframe", {src:"/multiverso-v4.html", style:{width:"100%",height:"100%",border:"none"}, title:"Kanban Multiverso", allow:"autoplay"}));
 
+  // ═══ PROPOSTA — plano de funções do Anderson (Filmmaker) ═══
+  const PropostaPage = () => (
+    <div style={{height:"calc(100vh - 56px)"}}>
+      <iframe src="/proposta-anderson.html" style={{width:"100%",height:"100%",border:"none"}} title="Proposta — Anderson Filmmaker" allow="clipboard-read; clipboard-write"/>
+    </div>
+  );
+
   const renderPage = () => {
     switch(page) {
       case "dashboard": return <Dashboard/>;
@@ -4262,6 +4270,7 @@ function AgenciaOSApp() {
       case "gc": return <GCPage/>;
       case "team": return <TeamPage/>;
       case "multiverso": return <MultiversoPage/>;
+      case "proposta": return <PropostaPage/>;
       case "settings": return <SettingsPage/>;
       default: return <Dashboard/>;
     }

@@ -246,6 +246,12 @@
     var path = sec.getAttribute('data-path');
     var ext = sec.getAttribute('data-ext') || '.webp';
     var FOCAL = parseFloat(sec.getAttribute('data-focal') || '0.5');
+    /* data-pan="0.10,0.90": em telas estreitas o enquadramento desliza
+       da esquerda p/ direita conforme o scroll (câmera virtual) */
+    var PAN = (sec.getAttribute('data-pan') || '').split(',');
+    var pan0 = parseFloat(PAN[0]), pan1 = parseFloat(PAN[1]);
+    var hasPan = !isNaN(pan0) && !isNaN(pan1);
+    var focalNow = FOCAL, drawnFocal = -1;
     var IDLE_END = parseInt(sec.getAttribute('data-idle'), 10) || 0; /* >0: roda em loop parado no início */
     var isHero = sec.id === 'abertura';
     var IDLE_MS = 42; /* 24 fps */
@@ -265,8 +271,9 @@
       if (!iw || !ih || !cw || !ch) return;
       var s = Math.max(cw / iw, ch / ih);
       var w = iw * s, h = ih * s;
-      ctx.drawImage(img, (cw - w) * FOCAL, (ch - h) * 0.5, w, h);
+      ctx.drawImage(img, (cw - w) * focalNow, (ch - h) * 0.5, w, h);
       shown = i;
+      drawnFocal = focalNow;
       if (canvas.className.indexOf('on') < 0) canvas.className += ' on';
     }
     function nearest(i) {
@@ -289,6 +296,9 @@
 
       var total = sec.offsetHeight - sticky.offsetHeight;
       var p = total > 0 ? Math.max(0, Math.min(1, -r.top / total)) : 0;
+
+      /* tela estreita: o corte vira uma panorâmica guiada pelo scroll */
+      focalNow = (hasPan && canvas.width < canvas.height * 0.9) ? pan0 + (pan1 - pan0) * p : FOCAL;
 
       if (IDLE_END && p <= 0.002) {
         /* parado no início: o filme roda sozinho em loop até o scroll começar */
@@ -315,6 +325,8 @@
         var j = nearest(shown + step);
         if (j >= 0 && j !== shown) draw(j);
       }
+      /* redesenha se só o enquadramento mudou */
+      if (shown >= 0 && Math.abs(focalNow - drawnFocal) > 0.004) draw(shown);
 
       if (overlay) overlay.style.opacity = String(Math.max(0, 1 - p * 5));
       if (hint) hint.style.opacity = String(Math.max(0, 1 - p * 8));

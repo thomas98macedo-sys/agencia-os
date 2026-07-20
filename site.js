@@ -248,7 +248,11 @@
     var N = parseInt(sec.getAttribute('data-frames'), 10) || 64;
     var path = sec.getAttribute('data-path') || './img/hero-frames/frame-';
     var ext = sec.getAttribute('data-ext') || '.webp';
-    var imgs = new Array(N), ok = new Array(N), drawn = -1;
+    var imgs = new Array(N), ok = new Array(N), shown = -1;
+
+    var IDLE_END = 24;      /* frames do loop de espera (~2s a 12fps) */
+    var IDLE_MS = 83;       /* 12 fps */
+    var target = 0, idleFrame = 0, idleAcc = 0, lastT = 0;
 
     function src(i) {
       var s = String(i + 1);
@@ -265,7 +269,7 @@
       var w = iw * s, h = ih * s;
       /* foco levemente à direita (o carrinho vive do lado direito do quadro) */
       ctx.drawImage(img, (cw - w) * 0.6, (ch - h) * 0.5, w, h);
-      drawn = i;
+      shown = i;
       if (canvas.className.indexOf('on') < 0) canvas.className += ' on';
     }
     function nearest(i) {
@@ -281,24 +285,53 @@
       if (total <= 0) return 0;
       return Math.max(0, Math.min(1, -r.top / total));
     }
-    function update(force) {
+    function update(t) {
+      var dt = lastT ? t - lastT : 0;
+      lastT = t;
       var p = progress();
-      var i = Math.min(N - 1, Math.floor(p * N));
-      var j = nearest(i);
-      if (j >= 0 && (j !== drawn || force)) draw(j);
+
+      if (p <= 0.002) {
+        /* topo da página: o filme roda sozinho em loop até o scroll começar */
+        idleAcc += dt;
+        if (idleAcc >= IDLE_MS) {
+          idleAcc = 0;
+          idleFrame = (idleFrame + 1) % IDLE_END;
+        }
+        target = idleFrame;
+      } else {
+        /* scroll assume: avança/retrocede quadro a quadro até o fim */
+        target = Math.min(N - 1, Math.floor(p * N));
+        idleFrame = 0; idleAcc = 0;
+      }
+
+      /* aproxima o quadro exibido do alvo (suaviza saltos, ex.: loop -> scrub) */
+      if (shown < 0) {
+        var j0 = nearest(target);
+        if (j0 >= 0) draw(j0);
+      } else if (target !== shown) {
+        var diff = target - shown;
+        var step = diff > 0 ? Math.min(diff, Math.max(1, Math.round(diff / 5))) :
+                              Math.max(diff, Math.min(-1, Math.round(diff / 5)));
+        var j = nearest(shown + step);
+        if (j >= 0 && j !== shown) draw(j);
+      }
+
       if (overlay) overlay.style.opacity = String(Math.max(0, 1 - p * 5));
       if (hint) hint.style.opacity = String(Math.max(0, 1 - p * 8));
       if (fade) fade.style.opacity = String(Math.max(0, (p - 0.86) / 0.14));
+      if (header) header.classList.toggle('over-film', p < 0.92);
     }
     function resize() {
       var dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = Math.round(sticky.clientWidth * dpr);
       canvas.height = Math.round(sticky.clientHeight * dpr);
-      update(true);
+      var j = nearest(shown >= 0 ? shown : 0);
+      if (j >= 0) draw(j);
     }
 
-    /* pré-carga progressiva: 1 frame a cada 8, depois 4, 2, 1 */
+    /* pré-carga: primeiro os frames do loop inicial, depois o resto em ondas */
     var order = [], seen = {};
+    for (var ii = 0; ii < IDLE_END && ii < N; ii++) { seen[ii] = 1; order.push(ii); }
     [8, 4, 2, 1].forEach(function (st) {
       for (var i = 0; i < N; i += st) { if (!seen[i]) { seen[i] = 1; order.push(i); } }
     });
@@ -309,7 +342,7 @@
           if (imgs[i]) { return; }
           active++;
           var im = new Image();
-          im.onload = function () { ok[i] = true; active--; update(true); pump(); };
+          im.onload = function () { ok[i] = true; active--; pump(); };
           im.onerror = function () { active--; pump(); };
           im.src = src(i);
           imgs[i] = im;
@@ -318,9 +351,13 @@
     }
 
     window.addEventListener('resize', resize);
-    window.addEventListener('scroll', function () { requestAnimationFrame(function () { update(false); }); }, { passive: true });
     resize();
     pump();
+    (function loop(t) {
+      if (document.visibilityState === 'visible') update(t || 0);
+      else lastT = 0;
+      requestAnimationFrame(loop);
+    })(0);
   })();
 
   /* ---------- 8. Reel: arrastar para navegar ---------- */

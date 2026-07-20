@@ -487,3 +487,5 @@ article > .article-head,article > .prose,article > .author-box{padding-left:24px
 .vscrub.static .vscrub-hint{display:none}
 @media(prefers-reduced-motion:reduce){.vscrub{height:100vh}.vscrub-hint span{animation:none}}
 @media(max-width:760px){.vscrub{height:300vh}.vscrub-overlay{bottom:14vh}}
+body > header{transition:transform .5s cubic-bezier(.19,1,.22,1),background .45s ease,border-color .45s ease}
+body > header.over-film{background:transparent;border-bottom-color:transparent;backdrop-filter:none;-webkit-backdrop-filter:none}

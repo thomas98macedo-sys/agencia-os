@@ -468,3 +468,22 @@ a.ig-band:hover .btn .arrow{transform:translateX(4px)}
 /* ---------- correções pós-revisão ---------- */
 article > .article-head,article > .prose,article > .author-box{padding-left:24px;padding-right:24px}
 .related .wrap-narrow{padding-left:24px !important;padding-right:24px !important}
+
+/* ---------- Abertura: filme guiado pelo scroll ---------- */
+.vscrub{position:relative;height:380vh;padding:0;background:#EFEAE0;border-bottom:1px solid var(--line)}
+.vscrub-sticky{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:#EFEAE0}
+.vscrub-poster,.vscrub-canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 50%}
+.vscrub-canvas{opacity:0;transition:opacity .35s ease}
+.vscrub-canvas.on{opacity:1}
+.vscrub-overlay{position:absolute;left:0;right:0;bottom:11vh;z-index:2;text-align:center;padding:0 22px;pointer-events:none}
+.vscrub-kicker{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:14px}
+.vscrub-title{font-family:var(--serif);font-weight:300;font-size:clamp(2rem,5.6vw,4.4rem);line-height:1.04;color:var(--ink)}
+.vscrub-title em{font-style:italic;color:var(--accent)}
+.vscrub-hint{position:absolute;left:50%;transform:translateX(-50%);bottom:24px;z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);pointer-events:none;white-space:nowrap}
+.vscrub-hint span{display:block;width:1px;height:34px;background:var(--ink);opacity:.5;animation:hintline 1.7s ease-in-out infinite;transform-origin:top}
+@keyframes hintline{0%{transform:scaleY(0);opacity:.5}55%{transform:scaleY(1);opacity:.5}100%{transform:scaleY(1);opacity:0}}
+.vscrub-fade{position:absolute;inset:0;z-index:3;background:var(--paper);opacity:0;pointer-events:none}
+.vscrub.static{height:100vh;height:100svh}
+.vscrub.static .vscrub-hint{display:none}
+@media(prefers-reduced-motion:reduce){.vscrub{height:100vh}.vscrub-hint span{animation:none}}
+@media(max-width:760px){.vscrub{height:300vh}.vscrub-overlay{bottom:14vh}}

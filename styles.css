@@ -489,3 +489,17 @@ article > .article-head,article > .prose,article > .author-box{padding-left:24px
 @media(max-width:760px){.vscrub{height:460vh}.vscrub.mid{height:360vh}.vscrub-overlay{bottom:14vh}}
 body > header{transition:transform .5s cubic-bezier(.19,1,.22,1),background .45s ease,border-color .45s ease}
 body > header.over-film{background:transparent;border-bottom-color:transparent;backdrop-filter:none;-webkit-backdrop-filter:none}
+
+/* ---------- Instagram: phone + prints ---------- */
+.ig-grid{grid-template-columns:auto 1fr auto}
+.ig-phone{width:236px;flex-shrink:0;margin:0;border-radius:30px;overflow:hidden;border:1px solid rgba(199,162,76,.45);box-shadow:0 34px 90px rgba(0,0,0,.55);transform:rotate(3.5deg);background:#000}
+.ig-phone img{width:100%;height:auto;display:block}
+.ig-stats{display:flex;gap:26px;margin-top:20px;color:rgba(250,248,243,.75);font-size:.85rem;flex-wrap:wrap}
+.ig-stats b{color:var(--accent-bright);font-weight:700}
+.ig-strip{margin-top:72px;overflow:hidden;position:relative;z-index:2}
+.ig-strip-track{display:flex;gap:14px;width:max-content;animation:scrollx 42s linear infinite}
+.ig-strip img{width:220px;height:274px;object-fit:cover;object-position:top;border-radius:10px;border:1px solid rgba(250,248,243,.1);display:block}
+a.ig-band:hover .ig-strip-track{animation-play-state:paused}
+@media(max-width:980px){.ig-grid{grid-template-columns:1fr}.ig-phone{margin:8px auto 0;transform:rotate(2deg)}}
+@media(max-width:760px){.ig-strip{margin-top:48px}.ig-strip img{width:170px;height:212px}}
+@media(prefers-reduced-motion:reduce){.ig-strip-track{animation:none}}

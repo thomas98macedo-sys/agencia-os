@@ -470,7 +470,7 @@ article > .article-head,article > .prose,article > .author-box{padding-left:24px
 .related .wrap-narrow{padding-left:24px !important;padding-right:24px !important}
 
 /* ---------- Abertura: filme guiado pelo scroll ---------- */
-.vscrub{position:relative;height:380vh;padding:0;background:#EFEAE0;border-bottom:1px solid var(--line)}
+.vscrub{position:relative;height:620vh;padding:0;background:#EFEAE0;border-bottom:1px solid var(--line)}
 .vscrub-sticky{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:#EFEAE0}
 .vscrub-poster,.vscrub-canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 50%}
 .vscrub-canvas{opacity:0;transition:opacity .35s ease}
@@ -486,6 +486,6 @@ article > .article-head,article > .prose,article > .author-box{padding-left:24px
 .vscrub.static{height:100vh;height:100svh}
 .vscrub.static .vscrub-hint{display:none}
 @media(prefers-reduced-motion:reduce){.vscrub{height:100vh}.vscrub-hint span{animation:none}}
-@media(max-width:760px){.vscrub{height:300vh}.vscrub-overlay{bottom:14vh}}
+@media(max-width:760px){.vscrub{height:460vh}.vscrub-overlay{bottom:14vh}}
 body > header{transition:transform .5s cubic-bezier(.19,1,.22,1),background .45s ease,border-color .45s ease}
 body > header.over-film{background:transparent;border-bottom-color:transparent;backdrop-filter:none;-webkit-backdrop-filter:none}

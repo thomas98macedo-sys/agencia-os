@@ -250,8 +250,8 @@
     var ext = sec.getAttribute('data-ext') || '.webp';
     var imgs = new Array(N), ok = new Array(N), shown = -1;
 
-    var IDLE_END = 24;      /* frames do loop de espera (~2s a 12fps) */
-    var IDLE_MS = 83;       /* 12 fps */
+    var IDLE_END = 48;      /* frames do loop de espera (~2s a 24fps) */
+    var IDLE_MS = 42;       /* 24 fps */
     var target = 0, idleFrame = 0, idleAcc = 0, lastT = 0;
 
     function src(i) {
@@ -310,15 +310,15 @@
         if (j0 >= 0) draw(j0);
       } else if (target !== shown) {
         var diff = target - shown;
-        var step = diff > 0 ? Math.min(diff, Math.max(1, Math.round(diff / 5))) :
-                              Math.max(diff, Math.min(-1, Math.round(diff / 5)));
+        var step = diff > 0 ? Math.min(diff, 8, Math.max(1, Math.round(diff / 5))) :
+                              Math.max(diff, -8, Math.min(-1, Math.round(diff / 5)));
         var j = nearest(shown + step);
         if (j >= 0 && j !== shown) draw(j);
       }
 
       if (overlay) overlay.style.opacity = String(Math.max(0, 1 - p * 5));
       if (hint) hint.style.opacity = String(Math.max(0, 1 - p * 8));
-      if (fade) fade.style.opacity = String(Math.max(0, (p - 0.86) / 0.14));
+      if (fade) fade.style.opacity = String(Math.max(0, (p - 0.94) / 0.06));
       if (header) header.classList.toggle('over-film', p < 0.92);
     }
     function resize() {
@@ -335,7 +335,7 @@
     [8, 4, 2, 1].forEach(function (st) {
       for (var i = 0; i < N; i += st) { if (!seen[i]) { seen[i] = 1; order.push(i); } }
     });
-    var qi = 0, active = 0, CONC = 6;
+    var qi = 0, active = 0, CONC = 10;
     function pump() {
       while (active < CONC && qi < order.length) {
         (function (i) {

@@ -30,12 +30,13 @@
   <meta name="twitter:image" content="https://www.thomas-macedo.com/og-image.jpg" />
 
   <link rel="icon" type="image/svg+xml" href="./icon.svg" />
+  <link rel="preload" as="image" href="./img/hero-frames/frame-001.webp" fetchpriority="high" />
   <link rel="preload" as="image" href="./img/thomas-macedo-palestra.jpeg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./styles.css" />
-  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
+  <noscript><style>.vscrub{height:100vh}.vscrub-hint{display:none}.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
 
   <script type="application/ld+json">
   {
@@ -113,6 +114,20 @@
       </nav>
     </div>
   </header>
+
+  <!-- ABERTURA — filme guiado pelo scroll -->
+  <section class="vscrub" id="abertura" data-frames="64" data-path="./img/hero-frames/frame-" data-ext=".webp" aria-label="Abertura em vídeo: carrinho de compras dourado cheio de dinheiro percorre trilhos enquanto notificações de venda aparecem">
+    <div class="vscrub-sticky">
+      <img class="vscrub-poster" src="./img/hero-frames/frame-001.webp" alt="Carrinho de compras dourado cheio de dinheiro sobre trilhos, em um estúdio off-white" width="1280" height="720" fetchpriority="high" />
+      <canvas class="vscrub-canvas" aria-hidden="true"></canvas>
+      <div class="vscrub-overlay">
+        <p class="vscrub-kicker">Thomas Macedo apresenta</p>
+        <p class="vscrub-title">Cada scroll, <em>uma venda.</em></p>
+      </div>
+      <div class="vscrub-hint" aria-hidden="true"><span></span>Role para assistir</div>
+      <div class="vscrub-fade" aria-hidden="true"></div>
+    </div>
+  </section>
 
   <!-- HERO -->
   <section class="hero">

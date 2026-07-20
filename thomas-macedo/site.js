@@ -232,27 +232,25 @@
     syncCount();
   });
 
-  /* ---------- 7c. Abertura: filme guiado pelo scroll ---------- */
-  (function () {
-    var sec = document.querySelector('.vscrub');
-    if (!sec) return;
+  /* ---------- 7c. Filmes guiados pelo scroll ---------- */
+  $$('.vscrub').forEach(function (sec) {
     var sticky = sec.querySelector('.vscrub-sticky');
     var canvas = sec.querySelector('.vscrub-canvas');
     var overlay = sec.querySelector('.vscrub-overlay');
     var hint = sec.querySelector('.vscrub-hint');
-    var fade = sec.querySelector('.vscrub-fade');
     if (!sticky || !canvas || !canvas.getContext) { sec.classList.add('static'); return; }
     if (reduced) { sec.classList.add('static'); return; }
 
     var ctx = canvas.getContext('2d');
-    var N = parseInt(sec.getAttribute('data-frames'), 10) || 64;
-    var path = sec.getAttribute('data-path') || './img/hero-frames/frame-';
+    var N = parseInt(sec.getAttribute('data-frames'), 10) || 240;
+    var path = sec.getAttribute('data-path');
     var ext = sec.getAttribute('data-ext') || '.webp';
+    var FOCAL = parseFloat(sec.getAttribute('data-focal') || '0.5');
+    var IDLE_END = parseInt(sec.getAttribute('data-idle'), 10) || 0; /* >0: roda em loop parado no início */
+    var isHero = sec.id === 'abertura';
+    var IDLE_MS = 42; /* 24 fps */
     var imgs = new Array(N), ok = new Array(N), shown = -1;
-
-    var IDLE_END = 48;      /* frames do loop de espera (~2s a 24fps) */
-    var IDLE_MS = 42;       /* 24 fps */
-    var target = 0, idleFrame = 0, idleAcc = 0, lastT = 0;
+    var target = 0, idleFrame = 0, idleAcc = 0, lastT = 0, started = false;
 
     function src(i) {
       var s = String(i + 1);
@@ -267,8 +265,7 @@
       if (!iw || !ih || !cw || !ch) return;
       var s = Math.max(cw / iw, ch / ih);
       var w = iw * s, h = ih * s;
-      /* foco levemente à direita (o carrinho vive do lado direito do quadro) */
-      ctx.drawImage(img, (cw - w) * 0.6, (ch - h) * 0.5, w, h);
+      ctx.drawImage(img, (cw - w) * FOCAL, (ch - h) * 0.5, w, h);
       shown = i;
       if (canvas.className.indexOf('on') < 0) canvas.className += ' on';
     }
@@ -279,19 +276,22 @@
       }
       return -1;
     }
-    function progress() {
-      var r = sec.getBoundingClientRect();
-      var total = sec.offsetHeight - sticky.offsetHeight;
-      if (total <= 0) return 0;
-      return Math.max(0, Math.min(1, -r.top / total));
-    }
     function update(t) {
       var dt = lastT ? t - lastT : 0;
       lastT = t;
-      var p = progress();
+      var r = sec.getBoundingClientRect();
+      var vh = window.innerHeight;
 
-      if (p <= 0.002) {
-        /* topo da página: o filme roda sozinho em loop até o scroll começar */
+      /* só começa a baixar os frames quando o filme se aproxima da tela */
+      if (!started && r.top < vh * 1.8) { started = true; pump(); }
+      /* longe da tela: não gasta trabalho */
+      if (r.bottom < -vh || r.top > vh * 2.5) return;
+
+      var total = sec.offsetHeight - sticky.offsetHeight;
+      var p = total > 0 ? Math.max(0, Math.min(1, -r.top / total)) : 0;
+
+      if (IDLE_END && p <= 0.002) {
+        /* parado no início: o filme roda sozinho em loop até o scroll começar */
         idleAcc += dt;
         if (idleAcc >= IDLE_MS) {
           idleAcc = 0;
@@ -318,8 +318,7 @@
 
       if (overlay) overlay.style.opacity = String(Math.max(0, 1 - p * 5));
       if (hint) hint.style.opacity = String(Math.max(0, 1 - p * 8));
-      if (fade) fade.style.opacity = String(Math.max(0, (p - 0.94) / 0.06));
-      if (header) header.classList.toggle('over-film', p < 0.92);
+      if (isHero && header) header.classList.toggle('over-film', p < 0.92);
     }
     function resize() {
       var dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -352,13 +351,12 @@
 
     window.addEventListener('resize', resize);
     resize();
-    pump();
     (function loop(t) {
       if (document.visibilityState === 'visible') update(t || 0);
       else lastT = 0;
       requestAnimationFrame(loop);
     })(0);
-  })();
+  });
 
   /* ---------- 8. Reel: arrastar para navegar ---------- */
   $$('.reel').forEach(function (reel) {

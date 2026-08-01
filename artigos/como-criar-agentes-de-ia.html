@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Como criar agentes de IA para empresas: o passo a passo | Thomas Macedo</title>
+  <meta name="description" content="Como criar um agente de IA para uma empresa, do processo à integração: escolha do caso, base de conhecimento, ferramentas, limites e testes. Guia prático por Thomas Macedo." />
+  <meta name="keywords" content="como criar agentes de IA, criar agente de IA, desenvolver agente de IA, sistemas de IA para empresas, automação inteligente, Thomas Macedo" />
+  <meta name="author" content="Thomas Macedo" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://www.thomas-macedo.com/artigos/como-criar-agentes-de-ia.html" />
+  <meta name="theme-color" content="#FAF8F3" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Thomas Macedo" />
+  <meta property="og:title" content="Como criar agentes de IA para empresas: o passo a passo" />
+  <meta property="og:description" content="O caminho real para construir um agente de IA útil numa empresa — do processo à integração, sem enrolação técnica." />
+  <meta property="og:url" content="https://www.thomas-macedo.com/artigos/como-criar-agentes-de-ia.html" />
+  <meta property="og:image" content="https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg" />
+  <meta property="article:author" content="Thomas Macedo" />
+  <meta property="article:published_time" content="2026-07-20" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Como criar agentes de IA para empresas: o passo a passo" />
+  <meta name="twitter:description" content="O caminho real para construir um agente de IA útil numa empresa — do processo à integração, sem enrolação técnica." />
+  <meta name="twitter:image" content="https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BlogPosting",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.thomas-macedo.com/artigos/como-criar-agentes-de-ia.html"},
+    "headline":"Como criar agentes de IA para empresas: o passo a passo",
+    "description":"Como criar um agente de IA para uma empresa, do processo à integração: escolha do caso, base de conhecimento, ferramentas, limites e testes. Guia prático por Thomas Macedo.",
+    "image":"https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg",
+    "datePublished":"2026-07-20","dateModified":"2026-07-20",
+    "inLanguage":"pt-BR",
+    "author":{"@type":"Person","name":"Thomas Macedo","url":"https://www.thomas-macedo.com/","jobTitle":"Especialista em IA, Criação de Marcas e Tráfego Pago","worksFor":{"@type":"Organization","name":"Gene Company"},"sameAs":["https://www.instagram.com/thomasmacedo.ads","https://www.linkedin.com/in/thomas-macedo-23896216a/"]},
+    "publisher":{"@type":"Person","name":"Thomas Macedo"},
+    "keywords":"como criar agentes de IA, criar agente de IA, desenvolver agente de IA, sistemas de IA para empresas, automação inteligente, Thomas Macedo"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.thomas-macedo.com/"},
+      {"@type":"ListItem","position":2,"name":"Artigos","item":"https://www.thomas-macedo.com/artigos/"},
+      {"@type":"ListItem","position":3,"name":"Como criar agentes de IA","item":"https://www.thomas-macedo.com/artigos/como-criar-agentes-de-ia.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[{"@type":"Question","name":"Preciso saber programar para ter um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Não. O dono do negócio precisa clareza sobre o processo e os dados; a parte técnica (integração e configuração) é feita por quem constrói o sistema. O mais importante é o desenho do processo, não o código."}},{"@type":"Question","name":"Quanto tempo leva para criar um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Um agente focado em um processo específico pode sair em poucas semanas. O que estende o prazo é a falta de clareza sobre o processo e a base de conhecimento — por isso começar enxuto é mais rápido e mais barato."}},{"@type":"Question","name":"Qual a diferença entre criar um agente e usar um chatbot pronto?","acceptedAnswer":{"@type":"Answer","text":"Um chatbot pronto segue um roteiro genérico. Um agente construído sob medida conhece seus dados, se conecta aos seus sistemas e executa ações reais — é a diferença entre responder mensagem e resolver o problema do cliente."}},{"@type":"Question","name":"Como garantir que o agente não invente informação?","acceptedAnswer":{"@type":"Answer","text":"Com uma base de conhecimento bem montada e limites claros: o agente só responde o que sabe e encaminha o resto para um humano. Nunca deve chutar preço, prazo ou política — isso quebra a confiança do cliente."}}]
+  }
+  </script>
+</head>
+<body>
+
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="../index.html" class="wordmark">Thomas <span>Macedo</span></a>
+        <div class="nav-links">
+          <a href="../index.html" class="hide-mob">Tráfego Pago</a>
+          <a href="../marcas.html" class="hide-mob">Marcas &amp; E-commerce</a>
+          <a href="../artigos/" class="active hide-mob">Artigos</a>
+          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="nav-cta" target="_blank" rel="noopener">Falar comigo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap"><nav class="crumb"><a href="../index.html">Início</a><span>/</span><a href="../artigos/">Artigos</a><span>/</span>Como criar agentes de IA</nav></div>
+
+  <article>
+    <header class="article-head">
+      <span class="eyebrow">Inteligência Artificial</span>
+      <h1>Como criar agentes de IA para empresas: o passo a passo</h1>
+      <p class="dek">Criar um agente de IA que funciona não começa no código — começa no processo. Este é o caminho que eu sigo para construir sistemas de IA que dão resultado.</p>
+      <div class="article-meta">
+        <span>Por Thomas Macedo</span><span class="dot"></span><span>9 min de leitura</span><span class="dot"></span><span>Atualizado em 2026</span>
+      </div>
+    </header>
+
+    <div class="article-cover">
+      <img src="../img/thomas-macedo-ia-robo.jpeg" alt="Processo de criação de um agente de IA para empresa" width="1000" height="500" style="object-position:center 40%" />
+    </div>
+
+    <div class="prose">
+      <p><strong>Criar um agente de IA para uma empresa segue seis passos: escolher o processo certo, montar a base de conhecimento, conectar as ferramentas, definir os limites de atuação, testar com casos reais e medir o resultado.</strong> A parte técnica é a menor delas — o que separa um agente útil de um brinquedo é o desenho do processo antes de qualquer linha de código.</p>
+
+      <div class="callout">
+        <span class="k">Os 6 passos</span>
+        <ul>
+          <li>1. Escolher <strong>um processo</strong> com dor clara e mensurável.</li>
+          <li>2. Montar a <strong>base de conhecimento</strong> (dados, políticas, FAQ).</li>
+          <li>3. Conectar as <strong>ferramentas</strong> (WhatsApp, CRM, agenda, catálogo).</li>
+          <li>4. Definir <strong>limites</strong> e a passagem para humano.</li>
+          <li>5. <strong>Testar</strong> com conversas reais.</li>
+          <li>6. <strong>Medir</strong> e refinar.</li>
+        </ul>
+      </div>
+
+      <h2>1. Escolha o processo certo (não comece pelo mais difícil)</h2>
+      <p>O erro número um é querer automatizar tudo de uma vez. Escolha um processo único, repetitivo e com dor clara: atendimento de primeira resposta, qualificação de leads, recuperação de carrinho. Quanto mais definido o problema, melhor o agente. Se você não sabe qual escolher, comece pelo que mais vaza venda ou mais consome tempo do time.</p>
+
+      <h2>2. Monte a base de conhecimento</h2>
+      <p>O agente é tão bom quanto o que ele sabe. Reúna as 20 a 30 perguntas reais que seus clientes mais fazem, suas políticas (preço, prazo, troca, pagamento), catálogo e tom de voz da marca. Essa base é o que evita o agente “chutar” — e chutar é o pecado capital, porque quebra a confiança.</p>
+
+      <h2>3. Conecte as ferramentas certas</h2>
+      <p>Um agente que só conversa tem metade do valor. O que gera ROI é a ação: consultar a agenda e marcar, verificar o estoque, abrir um pedido, atualizar o CRM, disparar um follow-up. Aqui entram as integrações — via API do WhatsApp Business, do seu e-commerce, do CRM. É o que transforma “chatbot” em “operador”.</p>
+
+      <h2>4. Defina limites e a passagem para humano</h2>
+      <p>Um bom agente sabe o que <em>não</em> deve fazer. Defina gatilhos claros de escalonamento: negociação delicada, reclamação séria, caso fora do padrão, ou simplesmente quando o cliente pede uma pessoa. E quando ele passa, entrega o contexto inteiro — ninguém recomeça do zero.</p>
+
+      <blockquote><p>Agente de IA não é sobre remover o humano. É sobre remover a espera, o esquecimento e o retrabalho — e deixar o humano para o que exige humano.</p></blockquote>
+
+      <h2>5. Teste com conversas reais</h2>
+      <p>Nunca solte um agente sem testar com casos reais e com as perguntas tortas que clientes de verdade fazem. Nas primeiras semanas, leia as conversas, veja onde ele errou o tom ou a informação, e ajuste. O agente melhora com a operação, não no laboratório.</p>
+
+      <h2>6. Meça o resultado</h2>
+      <p>Compare com o número que você registrou antes: tempo de resposta, taxa de conversão, horas economizadas, vendas recuperadas. Se melhorou, você tem prova para escalar para o próximo processo. Se não, você ajusta antes de investir mais. Para entender onde o agente rende mais, veja <a href="../artigos/o-que-e-agente-de-ia-para-empresas.html">quais casos de uso dão mais ROI</a>.</p>
+
+      <p>Esse é o método que eu uso para construir sistemas de IA sob medida: começar pequeno, medir de verdade e escalar do que funciona.</p>
+
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details open><summary>Preciso saber programar para ter um agente de IA?</summary><p>Não. O dono do negócio precisa clareza sobre o processo e os dados; a parte técnica (integração e configuração) é feita por quem constrói o sistema. O mais importante é o desenho do processo, não o código.</p></details>
+        <details><summary>Quanto tempo leva para criar um agente de IA?</summary><p>Um agente focado em um processo específico pode sair em poucas semanas. O que estende o prazo é a falta de clareza sobre o processo e a base de conhecimento — por isso começar enxuto é mais rápido e mais barato.</p></details>
+        <details><summary>Qual a diferença entre criar um agente e usar um chatbot pronto?</summary><p>Um chatbot pronto segue um roteiro genérico. Um agente construído sob medida conhece seus dados, se conecta aos seus sistemas e executa ações reais — é a diferença entre responder mensagem e resolver o problema do cliente.</p></details>
+        <details><summary>Como garantir que o agente não invente informação?</summary><p>Com uma base de conhecimento bem montada e limites claros: o agente só responde o que sabe e encaminha o resto para um humano. Nunca deve chutar preço, prazo ou política — isso quebra a confiança do cliente.</p></details>
+      </div>
+    </div>
+
+    <div class="author-box">
+      <img src="../img/thomas-macedo-palestra.jpeg" alt="Thomas Macedo" />
+      <div>
+        <div class="a-name">Thomas Macedo</div>
+        <p class="a-bio">Fundador da Gene Company. Especialista em sistemas e agentes de IA, criação de marcas e tráfego pago com ROI escalável para empresas. Santos/BR, atende Brasil e exterior. <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" target="_blank" rel="noopener">Fale comigo no WhatsApp →</a></p>
+      </div>
+    </div>
+  </article>
+
+  <section class="related">
+    <div class="wrap-narrow" style="padding:0">
+      <p class="eyebrow eyebrow-ink" style="display:block;margin-bottom:8px">Continue lendo</p>
+      <div class="related-grid">
+        <a href="../artigos/o-que-e-agente-de-ia-para-empresas.html"><span class="r-cat">Inteligência Artificial</span><h3>O que é um agente de IA para empresas</h3></a>
+        <a href="../artigos/agentes-de-ia-no-whatsapp.html"><span class="r-cat">Inteligência Artificial</span><h3>Agentes de IA no WhatsApp</h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2 class="display mt-m" style="font-size:clamp(2.2rem,5vw,4rem)">Quero construir<br>meu agente.</h2>
+      <p class="lead mt-m" style="color:rgba(244,241,234,.8);max-width:48ch">Conte sobre o seu negócio e receba um diagnóstico do seu tráfego, criativos, marca e atendimento com IA.</p>
+      <div class="contact-row">
+        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" class="btn" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
+        <a href="https://www.instagram.com/thomasmacedo.ads" class="link-underline" target="_blank" rel="noopener" style="color:var(--paper)">Instagram @thomasmacedo.ads</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <span>© 2026 Thomas Macedo — IA, criação de marcas e tráfego pago. Santos, Baixada Santista, Brasil &amp; exterior.</span>
+        <div class="foot-links">
+          <a href="../index.html">Tráfego Pago</a>
+          <a href="../marcas.html">Marcas &amp; E-commerce</a>
+          <a href="../artigos/">Artigos</a>
+          <a href="https://www.instagram.com/thomasmacedo.ads" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/thomas-macedo-23896216a/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/102946615/" target="_blank" rel="noopener">LINCE Performance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="../site.js" defer></script>
+</body>
+</html>

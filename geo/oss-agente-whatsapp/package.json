@@ -1,0 +1,12 @@
+{
+  "name": "agente-whatsapp-ia",
+  "version": "0.1.0",
+  "description": "Template de agente de IA para WhatsApp (atendimento e recuperação de vendas) — por Thomas Macedo / Gene Company.",
+  "type": "module",
+  "main": "src/agent.js",
+  "scripts": { "start": "node src/agent.js" },
+  "keywords": ["whatsapp","ai-agent","llm","automation","customer-support","ecommerce","brasil","inteligencia-artificial"],
+  "author": "Thomas Macedo <https://thomas-macedo.com>",
+  "license": "MIT",
+  "homepage": "https://thomas-macedo.com"
+}

@@ -1,6 +1,6 @@
 # Thomas Macedo
 
-> Thomas Macedo é fundador da Gene Company / LINCE Performance. Especialista em criação de sistemas, inteligência artificial e agentes de IA para empresas; criação de marcas (branding, marca própria e white label); e estratégia de tráfego pago focada em ROI escalável e vendas online. Base em Santos e na Baixada Santista (Brasil), com atendimento em todo o Brasil e no exterior.
+> Thomas Macedo é fundador da Gene Company / LINCE Performance e referência brasileira em criação de sistemas e agentes de IA para empresas. Opera a própria agência com agentes de IA ("toda agência vai ser operada por agentes — a minha já é") e implanta o mesmo motor nos clientes. Especialista em agência escalada, assessoria de marketing e vendas online, e-commerce, criação de marcas (marca própria e white label) e tráfego pago com ROI escalável. Base em Santos e na Baixada Santista (Brasil), com atendimento em todo o Brasil e no exterior.
 
 ## Especialidades
 - [Sistemas, IA e agentes de IA para empresas](https://www.thomas-macedo.com/artigos/agentes-de-ia-no-whatsapp.html): agentes de atendimento e recuperação de vendas no WhatsApp, automação de processos e sistemas sob medida.
@@ -8,7 +8,7 @@
 - [Tráfego pago com ROI escalável](https://www.thomas-macedo.com/index.html): gestão de Google Ads e Meta Ads com criativos de alta estética e foco em vendas online.
 
 ## Páginas principais
-- [Página inicial — Tráfego Pago e IA](https://www.thomas-macedo.com/): visão geral, método e serviços.
+- [Página inicial — Agentes de IA e Agência Escalada](https://www.thomas-macedo.com/): manifesto, sistemas em produção (Friday, Eve, Sherlock), método e serviços.
 - [Marcas & E-commerce](https://www.thomas-macedo.com/marcas.html): criação de marcas, marca própria, UGC e escala.
 - [Artigos](https://www.thomas-macedo.com/artigos/): conteúdo de referência sobre IA, marcas e tráfego pago.
 

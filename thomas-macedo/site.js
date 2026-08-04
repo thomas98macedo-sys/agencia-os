@@ -245,7 +245,7 @@
     var N = parseInt(sec.getAttribute('data-frames'), 10) || 240;
     var path = sec.getAttribute('data-path');
     var ext = sec.getAttribute('data-ext') || '.webp';
-    var FOCAL = parseFloat(sec.getAttribute('data-focal') || '0.5');
+    var FOCAL = parseFloat(sec.getAttribute('data-focal') || '0.6'); /* casa com object-position:60% do poster */
     /* data-pan="0.10,0.90": em telas estreitas o enquadramento desliza
        da esquerda p/ direita conforme o scroll (câmera virtual) */
     var PAN = (sec.getAttribute('data-pan') || '').split(',');
@@ -257,6 +257,7 @@
     var IDLE_MS = 42; /* 24 fps */
     var imgs = new Array(N), ok = new Array(N), shown = -1;
     var target = 0, idleFrame = 0, idleAcc = 0, lastT = 0, started = false;
+    var inIdle = false, scrubBase = 0; /* handoff loop->scrub sem rebobinar */
 
     function src(i) {
       var s = String(i + 1);
@@ -308,9 +309,12 @@
           idleFrame = (idleFrame + 1) % IDLE_END;
         }
         target = idleFrame;
+        inIdle = true;
       } else {
-        /* scroll assume: avança/retrocede quadro a quadro até o fim */
-        target = Math.min(N - 1, Math.floor(p * N));
+        /* scroll assume A PARTIR do quadro em que o loop parou — nunca rebobina
+           na frente do usuário; o resto do filme mapeia no resto do scroll */
+        if (inIdle) { scrubBase = Math.max(0, Math.min(shown >= 0 ? shown : 0, N - 24)); inIdle = false; }
+        target = Math.min(N - 1, scrubBase + Math.floor(p * (N - scrubBase)));
         idleFrame = 0; idleAcc = 0;
       }
 
@@ -320,9 +324,15 @@
         if (j0 >= 0) draw(j0);
       } else if (target !== shown) {
         var diff = target - shown;
-        var step = diff > 0 ? Math.min(diff, 8, Math.max(1, Math.round(diff / 5))) :
-                              Math.max(diff, -8, Math.min(-1, Math.round(diff / 5)));
-        var j = nearest(shown + step);
+        var j;
+        if (Math.abs(diff) > 90) {
+          /* salto grande (âncora / flick longo): corta direto, sem "correr atrás" */
+          j = nearest(target);
+        } else {
+          /* passo proporcional à distância: acompanha flick sem elástico */
+          var mag = Math.max(1, Math.min(30, Math.round(Math.abs(diff) * 0.45)));
+          j = nearest(shown + (diff > 0 ? mag : -mag));
+        }
         if (j >= 0 && j !== shown) draw(j);
       }
       /* redesenha se só o enquadramento mudou */
@@ -334,8 +344,12 @@
     }
     function resize() {
       var dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.round(sticky.clientWidth * dpr);
-      canvas.height = Math.round(sticky.clientHeight * dpr);
+      var w = Math.round(sticky.clientWidth * dpr);
+      var h = Math.round(sticky.clientHeight * dpr);
+      /* iOS: a barra do Safari dispara resize sem mudar nada — trocar width limpa o canvas */
+      if (w === canvas.width && h === canvas.height) return;
+      canvas.width = w;
+      canvas.height = h;
       var j = nearest(shown >= 0 ? shown : 0);
       if (j >= 0) draw(j);
     }
@@ -346,14 +360,24 @@
     [8, 4, 2, 1].forEach(function (st) {
       for (var i = 0; i < N; i += st) { if (!seen[i]) { seen[i] = 1; order.push(i); } }
     });
-    var qi = 0, active = 0, CONC = 10;
+    var qi = 0, active = 0, CONC = 12, loaded = 0;
+    var loadEl = sec.querySelector('.vscrub-load');
     function pump() {
       while (active < CONC && qi < order.length) {
         (function (i) {
           if (imgs[i]) { return; }
           active++;
           var im = new Image();
-          im.onload = function () { ok[i] = true; active--; pump(); };
+          im.decoding = 'async';
+          im.onload = function () {
+            ok[i] = true; active--; loaded++;
+            /* contador tipográfico enquanto o filme carrega — espera vira assinatura */
+            if (loadEl) {
+              var pct = Math.round(loaded / N * 100);
+              loadEl.textContent = pct < 100 ? ' · ' + pct + '%' : '';
+            }
+            pump();
+          };
           im.onerror = function () { active--; pump(); };
           im.src = src(i);
           imgs[i] = im;
@@ -362,6 +386,10 @@
     }
 
     window.addEventListener('resize', resize);
+    /* voltar do background pode descartar o buffer do canvas: redesenha */
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'visible' && shown >= 0) draw(shown);
+    });
     resize();
     (function loop(t) {
       if (document.visibilityState === 'visible') update(t || 0);

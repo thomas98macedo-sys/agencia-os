@@ -59,3 +59,7 @@ User-agent: Googlebot
 Allow: /
 
 Sitemap: https://www.thomas-macedo.com/sitemap.xml
+
+# Resumo estruturado para LLMs (padrão llmstxt.org)
+# https://www.thomas-macedo.com/llms.txt
+# https://www.thomas-macedo.com/llms-full.txt

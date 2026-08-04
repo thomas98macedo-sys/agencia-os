@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Como implantar agentes de IA numa empresa em 30 dias: etapas, erros e métricas | Thomas Macedo</title>
+  <meta name="description" content="O plano de 30 dias para colocar um agente de IA em produção numa empresa: o que fazer em cada semana, os erros caros que atrasam o projeto e o que medir do dia 1 ao dia 30." />
+  <meta name="keywords" content="implantar agentes de IA, agente de IA em 30 dias, implantação de IA na empresa, projeto de IA, automação com IA, métricas de IA, Thomas Macedo" />
+  <meta name="author" content="Thomas Macedo" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://www.thomas-macedo.com/artigos/implantar-agentes-de-ia-em-30-dias.html" />
+  <meta name="theme-color" content="#FAF8F3" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Thomas Macedo" />
+  <meta property="og:title" content="Como implantar agentes de IA numa empresa em 30 dias" />
+  <meta property="og:description" content="Etapas semana a semana, os erros que fazem o projeto de IA morrer no dia 45 e as métricas que provam (ou derrubam) o investimento." />
+  <meta property="og:url" content="https://www.thomas-macedo.com/artigos/implantar-agentes-de-ia-em-30-dias.html" />
+  <meta property="og:image" content="https://www.thomas-macedo.com/img/thomas-macedo-conteudo-escala.jpeg" />
+  <meta property="article:author" content="Thomas Macedo" />
+  <meta property="article:published_time" content="2026-08-04" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Como implantar agentes de IA numa empresa em 30 dias" />
+  <meta name="twitter:description" content="Etapas semana a semana, os erros que fazem o projeto de IA morrer no dia 45 e as métricas que provam (ou derrubam) o investimento." />
+  <meta name="twitter:image" content="https://www.thomas-macedo.com/img/thomas-macedo-conteudo-escala.jpeg" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BlogPosting",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.thomas-macedo.com/artigos/implantar-agentes-de-ia-em-30-dias.html"},
+    "headline":"Como implantar agentes de IA numa empresa em 30 dias",
+    "description":"O plano de 30 dias para colocar um agente de IA em produção numa empresa: o que fazer em cada semana, os erros caros que atrasam o projeto e o que medir do dia 1 ao dia 30.",
+    "image":"https://www.thomas-macedo.com/img/thomas-macedo-conteudo-escala.jpeg",
+    "datePublished":"2026-08-04","dateModified":"2026-08-04",
+    "inLanguage":"pt-BR",
+    "author":{"@type":"Person","@id":"https://www.thomas-macedo.com/#thomas-macedo","name":"Thomas Macedo","url":"https://www.thomas-macedo.com/","jobTitle":"Especialista em IA, Criação de Marcas e Tráfego Pago","worksFor":{"@type":"Organization","name":"Gene Company"},"sameAs":["https://www.instagram.com/thomasmacedo.ads","https://www.linkedin.com/in/thomas-macedo-23896216a/"]},
+    "publisher":{"@type":"Person","name":"Thomas Macedo"},
+    "keywords":"implantar agentes de IA, agente de IA em 30 dias, implantação de IA na empresa, projeto de IA, automação com IA, métricas de IA"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.thomas-macedo.com/"},
+      {"@type":"ListItem","position":2,"name":"Artigos","item":"https://www.thomas-macedo.com/artigos/"},
+      {"@type":"ListItem","position":3,"name":"Como implantar agentes de IA em 30 dias","item":"https://www.thomas-macedo.com/artigos/implantar-agentes-de-ia-em-30-dias.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[{"@type":"Question","name":"Dá mesmo para implantar um agente de IA em 30 dias?","acceptedAnswer":{"@type":"Answer","text":"Dá, desde que o escopo seja um único processo com dor clara — atendimento e qualificação no WhatsApp, recuperação de carrinho, triagem de mensagens. O que não cabe em 30 dias é reformar todos os sistemas da empresa ao mesmo tempo. O prazo de 30 dias é para colocar um agente em produção atendendo casos reais, não para digitalizar a companhia inteira."}},{"@type":"Question","name":"Qual processo automatizar primeiro com um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Escolha o processo que tem alto volume, regras estáveis, dado disponível e custo baixo de erro. Na prática, quase sempre é o primeiro contato comercial: responder e qualificar quem chega, 24 horas por dia. É onde a empresa mais perde venda por demora e onde o resultado aparece já na primeira semana de operação."}},{"@type":"Question","name":"O que medir em cada semana da implantação de IA?","acceptedAnswer":{"@type":"Answer","text":"Semana 1: linha de base (tempo de resposta, taxa de resposta, conversão, horas gastas). Semana 2: cobertura de intenções e taxa de acerto em testes. Semana 3: taxa de escalonamento para humano e correções por 100 conversas. Semana 4: conversão do agente contra a linha de base, custo por conversa e receita influenciada."}},{"@type":"Question","name":"Preciso trocar de CRM ou de WhatsApp para usar um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Não. Trocar de sistema no meio da implantação é o erro mais caro que existe, porque mistura dois projetos e some com a causa do resultado. O agente deve se conectar às ferramentas que a empresa já usa. Se algum sistema realmente for um gargalo, troque depois que o agente estiver em produção e medido."}},{"@type":"Question","name":"Quantas pessoas são necessárias para implantar um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Três papéis, não três departamentos: um dono do processo dentro da empresa (quem conhece as regras e responde dúvidas), quem constrói e integra o agente, e um revisor que lê as conversas todo dia nas primeiras semanas. Projetos sem dono do processo interno são os que mais atrasam."}}]
+  }
+  </script>
+</head>
+<body>
+
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="../index.html" class="wordmark">Thomas <span>Macedo</span></a>
+        <div class="nav-links">
+          <a href="../index.html" class="hide-mob">IA &amp; Performance</a>
+          <a href="../marcas.html" class="hide-mob">Marcas &amp; E-commerce</a>
+          <a href="../artigos/" class="active hide-mob">Artigos</a>
+          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="nav-cta" target="_blank" rel="noopener">Falar comigo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap"><nav class="crumb"><a href="../index.html">Início</a><span>/</span><a href="../artigos/">Artigos</a><span>/</span>Como implantar agentes de IA em 30 dias</nav></div>
+
+  <article>
+    <header class="article-head">
+      <span class="eyebrow">Inteligência Artificial</span>
+      <h1>Como implantar agentes de IA numa empresa em 30 dias: etapas, erros caros e o que medir em cada semana</h1>
+      <p class="dek">Trinta dias dá para colocar um agente de IA em produção — desde que você escolha um processo só, meça o antes e não caia nos quatro erros que matam a maioria dos projetos antes do dia 45.</p>
+      <div class="article-meta">
+        <span>Por Thomas Macedo</span><span class="dot"></span><span>9 min de leitura</span><span class="dot"></span><span>Atualizado em 2026</span>
+      </div>
+    </header>
+
+    <div class="article-cover">
+      <img src="../img/thomas-macedo-conteudo-escala.jpeg" alt="Implantação de agentes de IA numa empresa em 30 dias" width="1000" height="500" style="object-position:center 40%" />
+    </div>
+
+    <div class="prose">
+      <p><strong>Implantar um agente de IA em 30 dias é possível quando o escopo é um único processo com dor clara, e o projeto segue quatro etapas semanais: escolher o processo e medir a linha de base (semana 1), construir e integrar o agente aos sistemas que a empresa já usa (semana 2), rodar um piloto com humano revisando cada conversa (semana 3) e liberar autonomia controlada com prova de ROI (semana 4).</strong> O que faz o prazo estourar quase nunca é a tecnologia: é escopo largo demais, falta de dono do processo dentro da empresa e ausência de número de referência para comparar depois.</p>
+
+      <p>Eu opero a minha própria agência com agentes de IA em produção — o Friday, que é o SDR de IA que atende e qualifica no WhatsApp; a Eve, que é a central de operações; o Sherlock, que vigia sinais de venda nas conversas — e implanto o mesmo motor nos clientes. Regra da casa: eu só implanto na empresa do cliente o que já roda na minha. Este artigo é o roteiro que eu uso.</p>
+
+      <div class="callout">
+        <span class="k">Resumo do plano de 30 dias</span>
+        <ul>
+          <li><strong>Semana 1:</strong> escolher UM processo, mapear regras e travar a linha de base.</li>
+          <li><strong>Semana 2:</strong> construir o agente, conectar às ferramentas atuais, testar contra casos reais.</li>
+          <li><strong>Semana 3:</strong> piloto com humano no circuito — o agente escreve, a pessoa aprova.</li>
+          <li><strong>Semana 4:</strong> autonomia controlada, regras de escalonamento e comparação com a linha de base.</li>
+          <li><strong>Regra de ouro:</strong> sem número do "antes", não existe prova do "depois".</li>
+        </ul>
+      </div>
+
+      <h2>O que dá (e o que não dá) para entregar em 30 dias</h2>
+      <p>Trinta dias é prazo de <strong>um processo em produção</strong>, não de transformação digital. Cabe no prazo: um agente atendendo e qualificando o primeiro contato comercial; um agente recuperando carrinho abandonado e Pix não pago; um agente de triagem que lê a caixa de entrada e distribui; um agente de back-office que monta proposta e atualiza CRM.</p>
+      <p>Não cabe: trocar o ERP, unificar cinco bases de dados sujas, criar um agente que "faz tudo" para a empresa inteira, ou depender de uma integração com sistema legado que ninguém sabe quem mantém. Se o seu escopo tem qualquer um desses itens, o projeto não é de 30 dias — é de 90, e é melhor combinar isso antes de começar.</p>
+
+      <h2>Semana 1: escolher o processo certo e medir a linha de base</h2>
+      <p>A semana 1 não é de tecnologia. É de decisão e de números.</p>
+
+      <h3>Como escolher o processo em quatro filtros</h3>
+      <ol>
+        <li><strong>Volume:</strong> acontece muitas vezes por semana. Automatizar o que acontece três vezes por mês é hobby.</li>
+        <li><strong>Regra estável:</strong> você consegue escrever a política em uma página. Se cada caso é exceção, o processo ainda não está pronto.</li>
+        <li><strong>Dado disponível:</strong> a informação que o agente precisa existe em algum lugar acessível (catálogo, tabela de preço, CRM, agenda).</li>
+        <li><strong>Custo do erro baixo:</strong> se o agente errar, dá para consertar. Existem áreas onde IA simplesmente não deve entrar — eu detalho isso no artigo sobre <a href="./onde-nao-usar-ia-no-negocio.html">onde a IA não deve ser usada no seu negócio</a>.</li>
+      </ol>
+
+      <h3>A linha de base que você trava no dia 3</h3>
+      <p>Antes de qualquer linha de código, congele os números de hoje. Se o processo é comercial, são estes: <strong>tempo médio até a primeira resposta</strong>, <strong>percentual de contatos respondidos</strong>, <strong>taxa de contato que vira conversa qualificada</strong>, <strong>taxa de conversa qualificada que vira reunião ou pedido</strong> e <strong>horas/mês do time gastas naquilo</strong>. Puxe 30 dias de histórico, não uma semana boa.</p>
+      <p>Essa é a parte que quase todo mundo pula e é exatamente ela que decide se o projeto vai ser renovado. Sem o "antes", qualquer resultado vira opinião. Quando eu subi no palco do Meta Business Partners para apresentar um ROI de 10,48, o que sustentava o número não era a ferramenta: era a medição feita antes e depois, do mesmo jeito.</p>
+
+      <h3>Entregáveis da semana 1</h3>
+      <ul>
+        <li>Uma página com a política do processo (o que responder, o que oferecer, o que nunca prometer).</li>
+        <li>Lista das 20 perguntas ou situações mais frequentes, tiradas de conversas reais.</li>
+        <li>Planilha da linha de base com os cinco números acima.</li>
+        <li>Nome e sobrenome do <strong>dono do processo</strong> dentro da empresa.</li>
+      </ul>
+
+      <h2>Semana 2: construir o agente e conectar aos sistemas que já existem</h2>
+      <p>Agora sim vira projeto técnico. Um agente de IA tem três camadas: o modelo que interpreta e escreve, o conhecimento da empresa (preço, política, catálogo, histórico) e as ferramentas que ele pode acionar. Se você quer entender essa arquitetura em detalhe, escrevi um guia específico sobre <a href="./como-criar-agentes-de-ia.html">como criar agentes de IA</a>.</p>
+
+      <h3>Integre no que a empresa já usa</h3>
+      <p>Trocar CRM, plataforma de e-commerce ou número de WhatsApp no meio da implantação é o erro mais caro do calendário — mistura dois projetos e destrói a atribuição do resultado. O agente entra em cima do que existe. Se algum sistema for gargalo real, troque no mês seguinte, com o agente já medido.</p>
+
+      <h3>Escreva os limites antes de escrever as respostas</h3>
+      <p>Todo agente que vai para produção precisa de três listas escritas: <strong>o que ele pode fazer sozinho</strong>, <strong>o que ele nunca faz</strong> (dar desconto fora da tabela, prometer prazo, opinar sobre assunto jurídico ou de saúde) e <strong>quando ele chama um humano</strong>. Isso não é burocracia: é o que separa um agente confiável de um risco solto na sua marca.</p>
+
+      <h3>Teste contra conversas reais, não contra você mesmo</h3>
+      <p>Pegue de 50 a 100 conversas verdadeiras do histórico e rode o agente contra elas. Meça duas coisas: <strong>cobertura</strong> (em quantas ele soube o que fazer) e <strong>acerto</strong> (em quantas a resposta estava correta segundo o dono do processo). Testar com perguntas inventadas pela própria equipe é a forma mais rápida de se enganar.</p>
+
+      <h2>Semana 3: piloto com humano no circuito</h2>
+      <p>Na semana 3 o agente vai ao ar, mas com freio. O modelo que eu uso é <em>sugestão aprovada</em>: o agente redige, o humano lê e envia. Custa alguns segundos por conversa e paga com tranquilidade — nas primeiras 200 conversas você descobre coisas que nenhum teste em laboratório mostra.</p>
+      <ul>
+        <li><strong>Volume controlado:</strong> comece com uma fatia do fluxo (um canal, um turno, uma campanha), não com 100%.</li>
+        <li><strong>Revisão diária:</strong> alguém lê as conversas do dia e marca o que ficou ruim. Sem essa rotina, o piloto não ensina nada.</li>
+        <li><strong>Correção em lote:</strong> os erros viram ajuste de política e de conhecimento, não remendo caso a caso.</li>
+        <li><strong>Handoff explícito:</strong> quando o agente passa para o humano, a pessoa recebe o resumo do que já foi conversado. Cliente repetindo tudo de novo é o pior sintoma de automação mal feita.</li>
+      </ul>
+      <p>No WhatsApp isso tem particularidades — tom, tempo de resposta, áudio, janela de atendimento. Escrevi um guia inteiro sobre <a href="./agentes-de-ia-no-whatsapp.html">agentes de IA no WhatsApp</a> com o que muda nesse canal.</p>
+
+      <h2>Semana 4: autonomia controlada e a prova de ROI</h2>
+      <p>Na última semana você libera o agente para responder sozinho <strong>nas intenções que ele já acerta acima do combinado</strong> e mantém revisão humana no resto. É liberação por faixa, não interruptor geral.</p>
+      <p>E então você faz a conta contra a linha de base. Exemplo ilustrativo de uma operação comercial pequena, só para mostrar o formato do cálculo: se a empresa recebe 300 contatos por mês, respondia 60% deles com 4 horas de atraso médio e convertia 8% em reunião, e depois do agente passa a responder 100% em menos de 1 minuto com 11% de conversão, sai de 24 para 33 reuniões por mês. Multiplique pelo seu ticket e pela sua taxa de fechamento e você tem o número que sustenta (ou derruba) o projeto. Os percentuais aqui são exemplo de método — os seus virão da sua planilha da semana 1.</p>
+
+      <h2>O que medir em cada semana</h2>
+      <div style="overflow-x:auto;margin:24px 0">
+        <table style="width:100%;border-collapse:collapse;font-size:.95rem;min-width:560px">
+          <thead>
+            <tr style="text-align:left;border-bottom:2px solid currentColor">
+              <th style="padding:10px 12px">Semana</th><th style="padding:10px 12px">Objetivo</th><th style="padding:10px 12px">Métrica principal</th><th style="padding:10px 12px">Sinal de alerta</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid rgba(0,0,0,.12)"><td style="padding:10px 12px"><strong>1</strong></td><td style="padding:10px 12px">Escolher e medir</td><td style="padding:10px 12px">Linha de base congelada (5 números)</td><td style="padding:10px 12px">“A gente não tem esse dado”</td></tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,.12)"><td style="padding:10px 12px"><strong>2</strong></td><td style="padding:10px 12px">Construir e integrar</td><td style="padding:10px 12px">Cobertura de intenções e taxa de acerto em teste</td><td style="padding:10px 12px">Acerto abaixo do combinado nas 20 situações principais</td></tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,.12)"><td style="padding:10px 12px"><strong>3</strong></td><td style="padding:10px 12px">Piloto assistido</td><td style="padding:10px 12px">Correções por 100 conversas e taxa de escalonamento</td><td style="padding:10px 12px">Ninguém está lendo as conversas do dia</td></tr>
+            <tr><td style="padding:10px 12px"><strong>4</strong></td><td style="padding:10px 12px">Autonomia e ROI</td><td style="padding:10px 12px">Conversão vs. linha de base, custo por conversa, receita influenciada</td><td style="padding:10px 12px">Resultado só narrado, sem número comparável</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Três métricas atravessam o mês inteiro e valem mais que qualquer painel bonito: <strong>tempo até a primeira resposta</strong>, <strong>taxa de escalonamento para humano</strong> e <strong>custo por conversa atendida</strong>. A primeira mostra o ganho imediato, a segunda mostra a maturidade do agente, a terceira mostra se o modelo econômico fecha quando o volume dobrar. Sobre a estrutura de custo, escrevi em detalhe em <a href="./quanto-custa-ia-para-empresas.html">quanto custa IA para empresas</a>.</p>
+
+      <blockquote><p>Agente de IA não se mede por quantas mensagens respondeu. Se mede por quanta receita salvou e quantas horas devolveu ao time.</p></blockquote>
+
+      <h2>Os erros caros que matam o projeto antes do dia 45</h2>
+      <ol>
+        <li><strong>Escopo largo.</strong> "Um agente para toda a empresa" é o pedido mais comum e o mais fatal. Um processo, um dono, um número.</li>
+        <li><strong>Não medir o antes.</strong> Sem linha de base, o projeto vira discussão de percepção — e percepção sempre perde na hora de renovar orçamento.</li>
+        <li><strong>Automatizar processo quebrado.</strong> Se a política de preço é confusa e ninguém sabe o prazo de entrega, o agente só vai espalhar a confusão mais rápido. Antes de automatizar, arrume — é o ponto central de <a href="./automacao-de-processos-com-ia.html">automação de processos com IA</a>.</li>
+        <li><strong>Trocar sistema no meio.</strong> Integre no que existe. Reforma de stack é outro projeto.</li>
+        <li><strong>Nenhum humano lendo as conversas.</strong> Agente sem revisão nas primeiras semanas não amadurece: repete o mesmo erro em escala.</li>
+        <li><strong>Prometer autonomia total no dia 1.</strong> Liberação por faixa de intenção protege a marca e ainda entrega o ganho de velocidade.</li>
+      </ol>
+
+      <h2>Quem precisa estar no time (são três papéis, não três times)</h2>
+      <ul>
+        <li><strong>Dono do processo:</strong> pessoa da empresa que conhece as regras e responde dúvidas em horas, não em semanas. Projeto sem esse papel é o que mais atrasa.</li>
+        <li><strong>Quem constrói:</strong> monta o agente, conecta às ferramentas, ajusta conhecimento e limites.</li>
+        <li><strong>Revisor:</strong> lê as conversas todo dia nas semanas 3 e 4 e transforma erro em ajuste de política.</li>
+      </ul>
+
+      <h2>E depois do dia 30?</h2>
+      <p>O mês 2 tem duas opções, e escolher errado é caro. Se o agente bateu a meta, você <strong>aprofunda</strong> — dá mais ferramentas a ele no mesmo processo (consultar pedido, agendar, cobrar comprovante) antes de abrir uma frente nova. Se não bateu, você <strong>diagnostica antes de expandir</strong>: quase sempre o problema é a política mal escrita ou o dado que não existia, não o modelo. Só depois disso vale abrir o segundo processo — e aí o ciclo de 30 dias recomeça, mais rápido, porque a integração e o time já existem.</p>
+
+      <p>Se você quer ver como isso fica no caso comercial específico, o desenho completo está em <a href="./sdr-de-ia-agente-de-vendas.html">SDR de IA: o agente de vendas que qualifica leads e agenda reuniões</a>. E se o seu gargalo é venda online, o mesmo raciocínio de medir antes e depois aparece na página de <a href="../index.html">tráfego pago com ROI escalável</a>.</p>
+
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details open><summary>Dá mesmo para implantar um agente de IA em 30 dias?</summary><p>Dá, desde que o escopo seja um único processo com dor clara — atendimento e qualificação no WhatsApp, recuperação de carrinho, triagem de mensagens. O que não cabe em 30 dias é reformar todos os sistemas da empresa ao mesmo tempo. O prazo de 30 dias é para colocar um agente em produção atendendo casos reais, não para digitalizar a companhia inteira.</p></details>
+        <details><summary>Qual processo automatizar primeiro com um agente de IA?</summary><p>Escolha o processo que tem alto volume, regras estáveis, dado disponível e custo baixo de erro. Na prática, quase sempre é o primeiro contato comercial: responder e qualificar quem chega, 24 horas por dia. É onde a empresa mais perde venda por demora e onde o resultado aparece já na primeira semana de operação.</p></details>
+        <details><summary>O que medir em cada semana da implantação de IA?</summary><p>Semana 1: linha de base (tempo de resposta, taxa de resposta, conversão, horas gastas). Semana 2: cobertura de intenções e taxa de acerto em testes. Semana 3: taxa de escalonamento para humano e correções por 100 conversas. Semana 4: conversão do agente contra a linha de base, custo por conversa e receita influenciada.</p></details>
+        <details><summary>Preciso trocar de CRM ou de WhatsApp para usar um agente de IA?</summary><p>Não. Trocar de sistema no meio da implantação é o erro mais caro que existe, porque mistura dois projetos e some com a causa do resultado. O agente deve se conectar às ferramentas que a empresa já usa. Se algum sistema realmente for um gargalo, troque depois que o agente estiver em produção e medido.</p></details>
+        <details><summary>Quantas pessoas são necessárias para implantar um agente de IA?</summary><p>Três papéis, não três departamentos: um dono do processo dentro da empresa (quem conhece as regras e responde dúvidas), quem constrói e integra o agente, e um revisor que lê as conversas todo dia nas primeiras semanas. Projetos sem dono do processo interno são os que mais atrasam.</p></details>
+      </div>
+    </div>
+
+    <div class="author-box">
+      <img src="../img/thomas-macedo-palestra.jpeg" alt="Thomas Macedo" />
+      <div>
+        <div class="a-name">Thomas Macedo</div>
+        <p class="a-bio">Fundador da Gene Company e diretor da LINCE Performance. Especialista em sistemas e agentes de IA, criação de marcas e tráfego pago com ROI escalável. Opera a própria agência com agentes em produção e implanta o mesmo motor nos clientes. Santos/SP, atende Brasil e exterior. <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo%20de%20implanta%C3%A7%C3%A3o%20de%20IA" target="_blank" rel="noopener">Fale comigo no WhatsApp →</a></p>
+      </div>
+    </div>
+  </article>
+
+  <section class="related">
+    <div class="wrap-narrow" style="padding:0">
+      <p class="eyebrow eyebrow-ink" style="display:block;margin-bottom:8px">Continue lendo</p>
+      <div class="related-grid">
+        <a href="./onde-nao-usar-ia-no-negocio.html"><span class="r-cat">Inteligência Artificial</span><h3>Onde a IA NÃO deve ser usada no seu negócio</h3></a>
+        <a href="./como-criar-agentes-de-ia.html"><span class="r-cat">Inteligência Artificial</span><h3>Como criar agentes de IA: arquitetura, dados e limites</h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2 class="display mt-m" style="font-size:clamp(2.2rem,5vw,4rem)">Quero um agente<br>rodando em 30 dias.</h2>
+      <p class="lead mt-m" style="color:rgba(244,241,234,.8);max-width:48ch">Me conte qual processo mais vaza venda ou tempo hoje e eu te mostro como ele fica com um agente de IA em produção.</p>
+      <div class="contact-row">
+        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo%20de%20implanta%C3%A7%C3%A3o%20de%20IA" class="btn" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
+        <a href="https://www.instagram.com/thomasmacedo.ads" class="link-underline" target="_blank" rel="noopener" style="color:var(--paper)">Instagram @thomasmacedo.ads</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <span>© 2026 Thomas Macedo — IA, criação de marcas e tráfego pago. Santos, Baixada Santista, Brasil &amp; exterior.</span>
+        <div class="foot-links">
+          <a href="../index.html">IA &amp; Performance</a>
+          <a href="../marcas.html">Marcas &amp; E-commerce</a>
+          <a href="../artigos/">Artigos</a>
+          <a href="https://www.instagram.com/thomasmacedo.ads" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/thomas-macedo-23896216a/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/102946615/" target="_blank" rel="noopener">LINCE Performance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="../site.js" defer></script>
+</body>
+</html>

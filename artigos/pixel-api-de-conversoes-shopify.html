@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Pixel, API de Conversões e rastreamento no Shopify: como parar de perder eventos | Thomas Macedo</title>
+  <meta name="description" content="Como configurar Pixel da Meta, API de Conversões, GA4 e Google Ads no Shopify sem perder eventos: desduplicação, qualidade da correspondência, consentimento e por que os números nunca batem entre plataformas." />
+  <meta name="keywords" content="API de Conversões Shopify, Pixel da Meta Shopify, rastreamento Shopify, desduplicação de eventos, conversões aprimoradas Google Ads, GA4 Shopify, Consent Mode v2, Thomas Macedo" />
+  <meta name="author" content="Thomas Macedo" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://www.thomas-macedo.com/artigos/pixel-api-de-conversoes-shopify.html" />
+  <meta name="theme-color" content="#FAF8F3" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Thomas Macedo" />
+  <meta property="og:title" content="Pixel, API de Conversões e rastreamento no Shopify: como parar de perder eventos" />
+  <meta property="og:description" content="Desduplicação, qualidade da correspondência, consentimento e reconciliação de números: o guia prático de rastreamento para lojas Shopify." />
+  <meta property="og:url" content="https://www.thomas-macedo.com/artigos/pixel-api-de-conversoes-shopify.html" />
+  <meta property="og:image" content="https://www.thomas-macedo.com/img/eventos/evento-13.jpg" />
+  <meta property="article:author" content="Thomas Macedo" />
+  <meta property="article:published_time" content="2026-08-04" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Pixel, API de Conversões e rastreamento no Shopify: como parar de perder eventos" />
+  <meta name="twitter:description" content="Desduplicação, qualidade da correspondência, consentimento e reconciliação de números: o guia prático de rastreamento para lojas Shopify." />
+  <meta name="twitter:image" content="https://www.thomas-macedo.com/img/eventos/evento-13.jpg" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BlogPosting",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.thomas-macedo.com/artigos/pixel-api-de-conversoes-shopify.html"},
+    "headline":"Pixel, API de Conversões e rastreamento no Shopify: como parar de perder eventos e recuperar a leitura das campanhas",
+    "description":"Como configurar Pixel da Meta, API de Conversões, GA4 e Google Ads no Shopify sem perder eventos: desduplicação, qualidade da correspondência, consentimento e por que os números nunca batem entre plataformas.",
+    "image":"https://www.thomas-macedo.com/img/eventos/evento-13.jpg",
+    "datePublished":"2026-08-04","dateModified":"2026-08-04",
+    "inLanguage":"pt-BR",
+    "author":{"@type":"Person","@id":"https://www.thomas-macedo.com/#thomas-macedo","name":"Thomas Macedo","url":"https://www.thomas-macedo.com/","jobTitle":"Fundador da Gene Company e diretor da LINCE Performance","worksFor":{"@type":"Organization","name":"Gene Company"},"sameAs":["https://www.instagram.com/thomasmacedo.ads","https://www.linkedin.com/in/thomas-macedo-23896216a/"]},
+    "publisher":{"@type":"Person","@id":"https://www.thomas-macedo.com/#thomas-macedo","name":"Thomas Macedo"},
+    "keywords":"API de Conversões Shopify, Pixel da Meta, desduplicação de eventos, conversões aprimoradas, GA4, Consent Mode v2, atribuição, Thomas Macedo"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.thomas-macedo.com/"},
+      {"@type":"ListItem","position":2,"name":"Artigos","item":"https://www.thomas-macedo.com/artigos/"},
+      {"@type":"ListItem","position":3,"name":"Pixel, API de Conversões e rastreamento no Shopify","item":"https://www.thomas-macedo.com/artigos/pixel-api-de-conversoes-shopify.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[{"@type":"Question","name":"O que é a API de Conversões da Meta e para que ela serve?","acceptedAnswer":{"@type":"Answer","text":"A API de Conversões é o canal server-side da Meta: em vez de o evento sair do navegador do cliente, ele sai do servidor da loja direto para a Meta. Isso recupera eventos que o Pixel perde por bloqueador de anúncios, restrições de cookies do navegador, aba fechada antes do carregamento ou falha de rede. No Shopify, ela é ativada pelo canal de vendas da Meta escolhendo o nível máximo de compartilhamento de dados."}},{"@type":"Question","name":"A API de Conversões substitui o Pixel da Meta?","acceptedAnswer":{"@type":"Answer","text":"Não. As duas trabalham juntas. O Pixel captura sinais do navegador que o servidor não tem, como o cookie de clique no anúncio (_fbc), o identificador do navegador (_fbp) e o comportamento na página. A API garante a entrega do evento mesmo quando o navegador falha. A configuração correta é enviar os mesmos eventos pelos dois canais e deixar a Meta desduplicar."}},{"@type":"Question","name":"Como funciona a desduplicação de eventos entre Pixel e API de Conversões?","acceptedAnswer":{"@type":"Answer","text":"A Meta compara o par event_name e event_id. Quando o mesmo evento chega pelos dois canais com o mesmo event_id, ela conta uma vez só e mantém a versão mais completa. Para conferir, abra o Gerenciador de Eventos, clique no evento de compra e veja se ele aparece como recebido por navegador e servidor com desduplicação ativa. Se aparecerem duas contagens separadas, o event_id não está sendo compartilhado."}},{"@type":"Question","name":"Por que o número de vendas da Meta é diferente do Shopify?","acceptedAnswer":{"@type":"Answer","text":"Porque os três sistemas medem coisas diferentes. A Meta atribui a venda ao dia do clique ou da impressão do anúncio, dentro da janela configurada (o padrão é 7 dias após clique e 1 dia após visualização). O GA4 usa sessões e, por padrão, atribui ao último canal não direto. O Shopify registra o pedido no dia em que ele foi pago. Diferença sempre vai existir; o que importa é que ela seja estável e explicável. Na minha operação, o Shopify é a fonte da verdade para faturamento e as plataformas servem para decisão de mídia."}},{"@type":"Question","name":"O que é a Qualidade da Correspondência de Eventos e como melhorar?","acceptedAnswer":{"@type":"Answer","text":"É a nota de 0 a 10 que a Meta dá para a capacidade de casar seus eventos com pessoas reais. Ela sobe quando você envia mais parâmetros de identificação com hash: e-mail, telefone com código do país, nome, sobrenome, cidade, estado, CEP, país, ID externo do cliente, além de IP, user agent, _fbp e _fbc. No Shopify, a maior parte disso vem automaticamente ao ativar o compartilhamento máximo de dados; o que costuma faltar é o telefone no checkout e o consentimento configurado corretamente."}}]
+  }
+  </script>
+</head>
+<body>
+
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="../index.html" class="wordmark">Thomas <span>Macedo</span></a>
+        <div class="nav-links">
+          <a href="../index.html" class="hide-mob">IA &amp; Performance</a>
+          <a href="../marcas.html" class="hide-mob">Marcas &amp; E-commerce</a>
+          <a href="../artigos/" class="active hide-mob">Artigos</a>
+          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="nav-cta" target="_blank" rel="noopener">Falar comigo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap"><nav class="crumb"><a href="../index.html">Início</a><span>/</span><a href="../artigos/">Artigos</a><span>/</span>Pixel, API de Conversões e rastreamento no Shopify</nav></div>
+
+  <article>
+    <header class="article-head">
+      <span class="eyebrow">E-commerce</span>
+      <h1>Pixel, API de Conversões e rastreamento no Shopify: como parar de perder eventos e recuperar a leitura das campanhas</h1>
+      <p class="dek">Se a Meta mostra 40 compras e o Shopify mostra 62, você não tem um problema de relatório — tem um problema de decisão. Este é o mapa completo de rastreamento de uma loja Shopify: o que se perde, por quê, e como consertar.</p>
+      <div class="article-meta">
+        <span>Por Thomas Macedo</span><span class="dot"></span><span>10 min de leitura</span><span class="dot"></span><span>Atualizado em 2026</span>
+      </div>
+    </header>
+
+    <div class="article-cover">
+      <img src="../img/eventos/evento-13.jpg" alt="Rastreamento no Shopify: Pixel da Meta, API de Conversões e leitura de campanhas" width="1000" height="500" style="object-position:center 40%" />
+    </div>
+
+    <div class="prose">
+      <p><strong>O rastreamento de uma loja Shopify só fica confiável quando os mesmos eventos são enviados por dois caminhos ao mesmo tempo — o Pixel no navegador e a API de Conversões no servidor — com um <em>event_id</em> compartilhado para que a Meta desduplique e conte cada compra uma única vez.</strong> Quando só o Pixel está ativo, a loja perde eventos por bloqueador de anúncios, restrição de cookies do navegador, aba fechada antes do carregamento e falha de rede. Cada evento perdido é duas perdas: o relatório fica errado e o algoritmo aprende com menos exemplos, o que encarece o clique e a compra.</p>
+
+      <p>Eu opero mídia paga em e-commerce todos os dias na LINCE Performance, e a primeira coisa que faço em qualquer conta nova não é olhar criativo: é auditar rastreamento. Sem isso, toda decisão sobre pausar, escalar ou trocar criativo é chute com nome técnico. Vamos por partes.</p>
+
+      <div class="callout">
+        <span class="k">Resumo rápido</span>
+        <ul>
+          <li><strong>Pixel + API de Conversões juntos</strong>, nunca um no lugar do outro.</li>
+          <li><strong>event_id compartilhado</strong> é o que evita contar a mesma compra duas vezes.</li>
+          <li><strong>Qualidade da correspondência</strong> alta = algoritmo enxergando gente real.</li>
+          <li><strong>Consentimento configurado</strong> pela Customer Privacy API, sem quebrar a LGPD.</li>
+          <li><strong>Shopify é a fonte da verdade</strong> do faturamento; plataforma serve para decidir mídia.</li>
+        </ul>
+      </div>
+
+      <h2>Por que a sua loja está perdendo eventos hoje</h2>
+      <p>O rastreamento por navegador foi construído numa internet que não existe mais. Cinco coisas quebraram esse modelo, e todas continuam valendo:</p>
+      <ul>
+        <li><strong>Restrição de cookies nos navegadores.</strong> Safari e Firefox limitam a vida de cookies criados via JavaScript. Uma compra que acontece dias depois do clique pode chegar sem o rastro que ligava aquela pessoa ao anúncio.</li>
+        <li><strong>Bloqueadores de anúncio e privacidade do sistema.</strong> Boa parte dos usuários simplesmente não deixa o script do Pixel carregar.</li>
+        <li><strong>Permissão de rastreamento no iPhone.</strong> Desde a transparência de rastreamento de apps da Apple, quem recusa não gera sinal utilizável para o Pixel.</li>
+        <li><strong>Ambiente do checkout.</strong> O Shopify encerrou a injeção de scripts direto no <code>checkout.liquid</code> e migrou tudo para a Web Pixels API, com os pixels rodando em sandbox. Toda gambiarra de tema antigo parou de funcionar — e muita loja ficou meses sem perceber.</li>
+        <li><strong>Consentimento.</strong> Se o banner está mal configurado, você pode estar bloqueando o seu próprio rastreamento sem necessidade — ou, pior, coletando sem base legal.</li>
+      </ul>
+      <p>Resultado prático: o relatório subestima a campanha, você mata o conjunto que estava vendendo e escala o que só parecia melhor porque tinha público mais fácil de rastrear.</p>
+
+      <h2>O que é a API de Conversões e por que ela não substitui o Pixel</h2>
+      <p>A API de Conversões (CAPI) é o canal server-side da Meta. Em vez de o evento sair do navegador do cliente, ele sai do servidor da loja direto para a Meta. Isso torna a entrega muito mais confiável — servidor não tem bloqueador, não fecha aba e não depende da rede móvel do cliente.</p>
+      <p>Mas ela não substitui o Pixel, e quem desliga o Pixel piora tudo. O navegador carrega informações que o servidor não tem: o cookie <code>_fbc</code>, que guarda o clique no anúncio, o <code>_fbp</code>, que identifica o navegador, o user agent e o comportamento dentro da página. A configuração correta é <strong>redundância proposital</strong>: os dois canais mandando o mesmo evento, e a Meta escolhendo a versão mais completa.</p>
+
+      <h3>Como funciona a desduplicação, em uma frase</h3>
+      <p>A Meta compara o par <code>event_name</code> + <code>event_id</code>. Se a compra chega pelo navegador e pelo servidor com o mesmo <code>event_id</code>, ela conta uma vez só. Se o <code>event_id</code> não for compartilhado, você passa a ver o dobro de compras — e toma decisões com um ROAS inflado que não existe no extrato bancário.</p>
+
+      <blockquote><p>Rastreamento não é assunto de TI. É o sistema nervoso da sua mídia: se o sinal chega errado, o algoritmo aprende errado e você paga por isso todo dia.</p></blockquote>
+
+      <h2>Como configurar o rastreamento no Shopify sem gambiarra</h2>
+      <ol>
+        <li><strong>Instale o canal de vendas da Meta</strong> (Facebook &amp; Instagram) e conecte o Gerenciador de Negócios, a conta de anúncios e o catálogo. É por aqui que Pixel e API de Conversões passam a falar entre si com desduplicação nativa — sem você escrever código.</li>
+        <li><strong>Escolha o nível máximo de compartilhamento de dados</strong> no canal. É essa opção que liga o envio server-side dos eventos de checkout e compra.</li>
+        <li><strong>Verifique o domínio</strong> no Gerenciador de Negócios e configure os <strong>8 eventos priorizados</strong> na Mensuração de Eventos Agregados, com Compra em primeiro lugar.</li>
+        <li><strong>Configure o consentimento</strong> pela Customer Privacy API do Shopify, com banner que registre a escolha do visitante. Ela é quem informa às plataformas o que pode e o que não pode ser usado.</li>
+        <li><strong>Instale GA4 e a tag do Google Ads</strong> pelo app oficial do Google no Shopify. Ative <strong>conversões aprimoradas</strong> (envio de e-mail com hash junto da conversão) e confira se o e-commerce completo está chegando: <code>view_item</code>, <code>add_to_cart</code>, <code>begin_checkout</code>, <code>purchase</code>.</li>
+        <li><strong>Ative o Consent Mode v2</strong> do Google, com os quatro sinais — <code>ad_storage</code>, <code>analytics_storage</code>, <code>ad_user_data</code> e <code>ad_personalization</code> — alimentados pela escolha real do usuário.</li>
+        <li><strong>Padronize UTMs</strong> em todos os anúncios. É o único rastro que o Shopify entende sem depender de plataforma nenhuma.</li>
+        <li><strong>Use pixels customizados</strong> (Customer Events) apenas para o que os canais oficiais não cobrem, e sempre com o mesmo <code>event_id</code> do lado servidor.</li>
+      </ol>
+
+      <h2>Como saber se está funcionando: as seis checagens</h2>
+      <p>Configurar é fácil. Validar é o que quase ninguém faz. Rode estas seis antes de considerar o trabalho pronto:</p>
+      <ol>
+        <li><strong>Compra de teste real.</strong> Compre da própria loja, no celular, pagando de verdade. Depois reembolse.</li>
+        <li><strong>Gerenciador de Eventos da Meta.</strong> Abra o evento de compra e confira se ele aparece recebido por <em>navegador</em> e <em>servidor</em>, com desduplicação indicada. Duas contagens separadas = <code>event_id</code> quebrado.</li>
+        <li><strong>Eventos de teste.</strong> Use a aba de eventos de teste com o código da sua loja e siga o caminho completo: produto, carrinho, checkout, compra.</li>
+        <li><strong>Parâmetros presentes.</strong> Veja se o evento de compra carrega valor, moeda (BRL), <code>content_ids</code> e os dados de cliente com hash.</li>
+        <li><strong>GA4 no DebugView.</strong> Confira se <code>purchase</code> chega uma vez só, com <code>transaction_id</code> igual ao número do pedido — é isso que impede contagem duplicada quando o cliente atualiza a página de obrigado.</li>
+        <li><strong>Reconciliação de 7 dias.</strong> Compare pedidos do Shopify com compras da Meta e conversões do Google no mesmo período. Anote a diferença: ela é o seu novo normal.</li>
+      </ol>
+
+      <h2>Qualidade da correspondência de eventos: a nota que quase ninguém olha</h2>
+      <p>Dentro do Gerenciador de Eventos, a Meta dá uma nota de 0 a 10 chamada Qualidade da Correspondência de Eventos. Ela mede o quanto os seus eventos conseguem ser ligados a pessoas reais. Nota baixa significa que você está pagando para o algoritmo aprender com metade da informação.</p>
+      <p>O que sobe a nota, em ordem de impacto na prática:</p>
+      <ul>
+        <li><strong>E-mail e telefone</strong> com hash, telefone sempre com código do país (55).</li>
+        <li><strong>ID externo</strong> do cliente — o identificador do Shopify, que liga compras recorrentes à mesma pessoa.</li>
+        <li><strong>Nome, sobrenome, cidade, estado, CEP e país</strong>, que o checkout já coleta.</li>
+        <li><strong>IP e user agent</strong> enviados junto do evento server-side.</li>
+        <li><strong>_fbp e _fbc</strong> repassados do navegador para o servidor. Quando o <code>fbclid</code> se perde, o clique fica órfão.</li>
+      </ul>
+      <p>Nada disso exige enviar dado cru para lugar nenhum: os parâmetros vão com hash SHA-256. Mas exige base legal e consentimento — e é por isso que o banner de privacidade bem configurado é parte do rastreamento, não um obstáculo a ele.</p>
+
+      <h2>Por que Meta, GA4 e Shopify nunca vão bater</h2>
+      <p>Essa é a conversa que eu mais tenho com dono de loja. A resposta é: eles medem coisas diferentes, por desenho. Não existe conserto — existe entendimento.</p>
+
+      <div style="overflow-x:auto;margin:28px 0">
+        <table style="width:100%;border-collapse:collapse;font-size:.95rem">
+          <thead>
+            <tr>
+              <th style="text-align:left;padding:10px 12px;border-bottom:2px solid rgba(0,0,0,.15);font-weight:600">Sistema</th>
+              <th style="text-align:left;padding:10px 12px;border-bottom:2px solid rgba(0,0,0,.15);font-weight:600">O que ele conta</th>
+              <th style="text-align:left;padding:10px 12px;border-bottom:2px solid rgba(0,0,0,.15);font-weight:600">A que dia atribui</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:10px 12px;border-bottom:1px solid rgba(0,0,0,.08)"><strong>Meta Ads</strong></td><td style="padding:10px 12px;border-bottom:1px solid rgba(0,0,0,.08)">Compras atribuídas a quem clicou ou viu o anúncio, dentro da janela (padrão: 7 dias após clique, 1 dia após visualização)</td><td style="padding:10px 12px;border-bottom:1px solid rgba(0,0,0,.08)">Ao dia do <strong>anúncio</strong></td></tr>
+            <tr><td style="padding:10px 12px;border-bottom:1px solid rgba(0,0,0,.08)"><strong>Google Ads</strong></td><td style="padding:10px 12px;border-bottom:1px solid rgba(0,0,0,.08)">Conversões atribuídas ao clique, com modelo de atribuição da conta</td><td style="padding:10px 12px;border-bottom:1px solid rgba(0,0,0,.08)">Ao dia do <strong>clique</strong></td></tr>
+            <tr><td style="padding:10px 12px;border-bottom:1px solid rgba(0,0,0,.08)"><strong>GA4</strong></td><td style="padding:10px 12px;border-bottom:1px solid rgba(0,0,0,.08)">Sessões e eventos, com atribuição padrão ao último canal não direto</td><td style="padding:10px 12px;border-bottom:1px solid rgba(0,0,0,.08)">Ao dia da <strong>conversão</strong></td></tr>
+            <tr><td style="padding:10px 12px;border-bottom:1px solid rgba(0,0,0,.08)"><strong>Shopify</strong></td><td style="padding:10px 12px;border-bottom:1px solid rgba(0,0,0,.08)">Pedidos efetivamente criados e pagos</td><td style="padding:10px 12px;border-bottom:1px solid rgba(0,0,0,.08)">Ao dia do <strong>pedido</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Some a isso o Pix e o boleto brasileiros, que criam pedido hoje e pagamento amanhã, e a diferença cresce ainda mais. Minha regra de operação: <strong>Shopify é a fonte da verdade do faturamento</strong>; Meta e Google servem para decidir onde colocar o próximo real. Se a diferença entre Shopify e Meta se mantém estável de semana para semana, está saudável. Quando ela pula de repente, é sinal de que algo quebrou no rastreamento — e aí vale a auditoria completa.</p>
+
+      <h3>As três leituras que eu acompanho de verdade</h3>
+      <ul>
+        <li><strong>MER (faturamento total ÷ investimento total).</strong> Não depende de pixel nenhum. É o número que diz se a operação inteira está lucrando.</li>
+        <li><strong>Custo por compra na plataforma.</strong> Serve para comparar criativos e conjuntos entre si, não para provar faturamento.</li>
+        <li><strong>Origem informada pelo cliente.</strong> Uma pergunta simples no pós-compra ("como você nos conheceu?") corrige distorções de atribuição melhor do que qualquer painel.</li>
+      </ul>
+      <p>Quando a decisão é grande — dobrar verba, entrar em canal novo — eu não confio só em painel: faço teste de incrementalidade, desligando o canal em uma região ou por um período e observando o que acontece com o faturamento total. É o método que descrevo em <a href="./roi-escalavel-trafego-pago.html">ROI escalável em tráfego pago</a> e que sustenta a leitura de <a href="./maquina-de-roi-shopify.html">máquina de ROI no Shopify</a>.</p>
+
+      <h2>Os erros de rastreamento que mais vejo em loja Shopify</h2>
+      <ul>
+        <li><strong>Dois pixels instalados</strong> — um pelo tema, outro pelo canal oficial. Compra conta em dobro e o ROAS vira ficção.</li>
+        <li><strong>API de Conversões sem event_id compartilhado.</strong> Mesmo efeito de duplicação.</li>
+        <li><strong>Pixel do parceiro antigo ainda ativo</strong> depois da troca de agência, mandando sinal para uma conta que ninguém olha.</li>
+        <li><strong>Evento de compra disparando na página de obrigado sem <code>transaction_id</code></strong>, contando de novo a cada refresh.</li>
+        <li><strong>Banner de consentimento bloqueando tudo por padrão</strong> sem necessidade, ou não conectado à Customer Privacy API.</li>
+        <li><strong>UTM inconsistente</strong> entre anúncios, o que destrói qualquer relatório do lado do Shopify.</li>
+        <li><strong>Valor do evento com frete e imposto embutidos</strong> em um canal e sem em outro, gerando ROAS diferente entre plataformas.</li>
+        <li><strong>Ninguém revalidando depois de trocar tema ou instalar app.</strong> Toda mudança grande na loja pede nova checagem.</li>
+      </ul>
+
+      <h2>A rotina mensal que mantém o rastreamento vivo</h2>
+      <ol>
+        <li>Abrir o Gerenciador de Eventos e checar diagnósticos e Qualidade da Correspondência.</li>
+        <li>Comparar pedidos do Shopify × compras da Meta × conversões do Google no mês.</li>
+        <li>Conferir se o feed segue aprovado no Merchant Center e o catálogo sincronizado.</li>
+        <li>Rodar uma compra de teste depois de qualquer mudança de tema, checkout ou app.</li>
+        <li>Revisar se os 8 eventos priorizados continuam na ordem certa.</li>
+      </ol>
+      <p>Na minha agência isso não é tarefa manual esquecida numa planilha: eu tenho agente de IA vigiando indicador e me avisando quando algo sai do padrão. É a mesma lógica que aplico na recuperação de vendas, que expliquei em <a href="./agentes-de-ia-para-ecommerce-recuperar-vendas.html">agentes de IA para e-commerce</a>. Regra da casa: só implanto no cliente o que já roda na minha operação.</p>
+
+      <p>Rastreamento consertado é pré-requisito, não estratégia. Depois que o sinal está limpo, aí sim vale discutir estrutura de campanha e escala — assunto de <a href="./como-escalar-ecommerce-com-trafego-pago.html">como escalar e-commerce com tráfego pago</a> e da escolha entre <a href="./google-ads-ou-meta-ads.html">Google Ads ou Meta Ads</a>. E se a loja ainda nem subiu a primeira campanha, comece pelo <a href="./preparar-loja-shopify-para-trafego-pago.html">checklist para preparar a loja Shopify antes do tráfego pago</a>. Para falar do seu caso, <a href="../index.html">me chame</a>.</p>
+
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details open><summary>O que é a API de Conversões da Meta e para que ela serve?</summary><p>A API de Conversões é o canal server-side da Meta: em vez de o evento sair do navegador do cliente, ele sai do servidor da loja direto para a Meta. Isso recupera eventos que o Pixel perde por bloqueador de anúncios, restrições de cookies do navegador, aba fechada antes do carregamento ou falha de rede. No Shopify, ela é ativada pelo canal de vendas da Meta escolhendo o nível máximo de compartilhamento de dados.</p></details>
+        <details><summary>A API de Conversões substitui o Pixel da Meta?</summary><p>Não. As duas trabalham juntas. O Pixel captura sinais do navegador que o servidor não tem, como o cookie de clique no anúncio (_fbc), o identificador do navegador (_fbp) e o comportamento na página. A API garante a entrega do evento mesmo quando o navegador falha. A configuração correta é enviar os mesmos eventos pelos dois canais e deixar a Meta desduplicar.</p></details>
+        <details><summary>Como funciona a desduplicação de eventos entre Pixel e API de Conversões?</summary><p>A Meta compara o par event_name e event_id. Quando o mesmo evento chega pelos dois canais com o mesmo event_id, ela conta uma vez só e mantém a versão mais completa. Para conferir, abra o Gerenciador de Eventos, clique no evento de compra e veja se ele aparece como recebido por navegador e servidor com desduplicação ativa. Se aparecerem duas contagens separadas, o event_id não está sendo compartilhado.</p></details>
+        <details><summary>Por que o número de vendas da Meta é diferente do Shopify?</summary><p>Porque os três sistemas medem coisas diferentes. A Meta atribui a venda ao dia do clique ou da impressão do anúncio, dentro da janela configurada (o padrão é 7 dias após clique e 1 dia após visualização). O GA4 usa sessões e, por padrão, atribui ao último canal não direto. O Shopify registra o pedido no dia em que ele foi pago. Diferença sempre vai existir; o que importa é que ela seja estável e explicável. Na minha operação, o Shopify é a fonte da verdade para faturamento e as plataformas servem para decisão de mídia.</p></details>
+        <details><summary>O que é a Qualidade da Correspondência de Eventos e como melhorar?</summary><p>É a nota de 0 a 10 que a Meta dá para a capacidade de casar seus eventos com pessoas reais. Ela sobe quando você envia mais parâmetros de identificação com hash: e-mail, telefone com código do país, nome, sobrenome, cidade, estado, CEP, país, ID externo do cliente, além de IP, user agent, _fbp e _fbc. No Shopify, a maior parte disso vem automaticamente ao ativar o compartilhamento máximo de dados; o que costuma faltar é o telefone no checkout e o consentimento configurado corretamente.</p></details>
+      </div>
+    </div>
+
+    <div class="author-box">
+      <img src="../img/thomas-macedo-palestra.jpeg" alt="Thomas Macedo" />
+      <div>
+        <div class="a-name">Thomas Macedo</div>
+        <p class="a-bio">Fundador da Gene Company e diretor da LINCE Performance (Santos/SP). Especialista em sistemas e agentes de IA, e-commerce, criação de marcas e tráfego pago com ROI escalável. Case de ROI 10,48 apresentado ao vivo em evento de Meta Business Partners. <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" target="_blank" rel="noopener">Fale comigo no WhatsApp →</a></p>
+      </div>
+    </div>
+  </article>
+
+  <section class="related">
+    <div class="wrap-narrow" style="padding:0">
+      <p class="eyebrow eyebrow-ink" style="display:block;margin-bottom:8px">Continue lendo</p>
+      <div class="related-grid">
+        <a href="./preparar-loja-shopify-para-trafego-pago.html"><span class="r-cat">E-commerce</span><h3>Como preparar uma loja Shopify para tráfego pago</h3></a>
+        <a href="./como-escalar-ecommerce-com-trafego-pago.html"><span class="r-cat">E-commerce</span><h3>Como escalar e-commerce com tráfego pago</h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2 class="display mt-m" style="font-size:clamp(2.2rem,5vw,4rem)">Quero enxergar<br>minhas campanhas.</h2>
+      <p class="lead mt-m" style="color:rgba(244,241,234,.8);max-width:48ch">Se os números da sua loja não batem com os do Gerenciador, me chame: eu audito o rastreamento e devolvo a leitura real do que a mídia está gerando.</p>
+      <div class="contact-row">
+        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" class="btn" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
+        <a href="https://www.instagram.com/thomasmacedo.ads" class="link-underline" target="_blank" rel="noopener" style="color:var(--paper)">Instagram @thomasmacedo.ads</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <span>© 2026 Thomas Macedo — IA, criação de marcas e tráfego pago. Santos, Baixada Santista, Brasil &amp; exterior.</span>
+        <div class="foot-links">
+          <a href="../index.html">IA &amp; Performance</a>
+          <a href="../marcas.html">Marcas &amp; E-commerce</a>
+          <a href="../artigos/">Artigos</a>
+          <a href="https://www.instagram.com/thomasmacedo.ads" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/thomas-macedo-23896216a/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/102946615/" target="_blank" rel="noopener">LINCE Performance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="../site.js" defer></script>
+</body>
+</html>

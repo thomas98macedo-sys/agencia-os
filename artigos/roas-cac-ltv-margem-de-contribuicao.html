@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>ROAS, CAC, LTV e margem de contribuição: as 4 métricas do e-commerce | Thomas Macedo</title>
+  <meta name="description" content="ROAS, CAC, LTV e margem de contribuição são as quatro métricas que decidem se um e-commerce pode escalar. Veja as fórmulas, as contas explicadas e o ROAS mínimo que a sua margem exige." />
+  <meta name="keywords" content="ROAS, CAC, LTV, margem de contribuição, métricas de e-commerce, ROAS mínimo, como calcular CAC, LTV CAC, tráfego pago e-commerce, Thomas Macedo" />
+  <meta name="author" content="Thomas Macedo" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://www.thomas-macedo.com/artigos/roas-cac-ltv-margem-de-contribuicao.html" />
+  <meta name="theme-color" content="#FAF8F3" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Thomas Macedo" />
+  <meta property="og:title" content="ROAS, CAC, LTV e margem de contribuição: as 4 métricas que decidem a escala" />
+  <meta property="og:description" content="As contas explicadas, com exemplo real de loja: qual ROAS a sua margem exige, quanto você pode pagar por cliente e quando dá para escalar." />
+  <meta property="og:url" content="https://www.thomas-macedo.com/artigos/roas-cac-ltv-margem-de-contribuicao.html" />
+  <meta property="og:image" content="https://www.thomas-macedo.com/img/thomas-macedo-palestra.jpeg" />
+  <meta property="article:author" content="Thomas Macedo" />
+  <meta property="article:published_time" content="2026-08-04" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ROAS, CAC, LTV e margem de contribuição: as 4 métricas que decidem a escala" />
+  <meta name="twitter:description" content="As contas explicadas, com exemplo real de loja: qual ROAS a sua margem exige, quanto você pode pagar por cliente e quando dá para escalar." />
+  <meta name="twitter:image" content="https://www.thomas-macedo.com/img/thomas-macedo-palestra.jpeg" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .tbl-wrap{overflow-x:auto;margin:34px 0;-webkit-overflow-scrolling:touch}
+    .prose .tbl{width:100%;border-collapse:collapse;font-size:1rem;min-width:520px}
+    .prose .tbl th,.prose .tbl td{border-bottom:1px solid var(--line);padding:12px 12px 12px 0;text-align:left;vertical-align:top;color:var(--ink-soft);line-height:1.55}
+    .prose .tbl th{font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);font-weight:600;border-bottom:1px solid var(--line-strong)}
+    .prose .tbl td strong{color:var(--ink)}
+  </style>
+  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BlogPosting",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.thomas-macedo.com/artigos/roas-cac-ltv-margem-de-contribuicao.html"},
+    "headline":"ROAS, CAC, LTV e margem de contribuição: as quatro métricas que decidem se o seu e-commerce pode escalar",
+    "description":"ROAS, CAC, LTV e margem de contribuição são as quatro métricas que decidem se um e-commerce pode escalar. Veja as fórmulas, as contas explicadas e o ROAS mínimo que a sua margem exige.",
+    "image":"https://www.thomas-macedo.com/img/thomas-macedo-palestra.jpeg",
+    "datePublished":"2026-08-04","dateModified":"2026-08-04",
+    "inLanguage":"pt-BR",
+    "author":{"@type":"Person","@id":"https://www.thomas-macedo.com/#thomas-macedo","name":"Thomas Macedo","url":"https://www.thomas-macedo.com/","jobTitle":"Especialista em IA, Criação de Marcas e Tráfego Pago","worksFor":{"@type":"Organization","name":"Gene Company"},"sameAs":["https://www.instagram.com/thomasmacedo.ads","https://www.linkedin.com/in/thomas-macedo-23896216a/"]},
+    "publisher":{"@type":"Person","name":"Thomas Macedo"},
+    "keywords":"ROAS, CAC, LTV, margem de contribuição, métricas de e-commerce, ROAS mínimo, como calcular CAC, LTV CAC, tráfego pago e-commerce, Thomas Macedo"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.thomas-macedo.com/"},
+      {"@type":"ListItem","position":2,"name":"Artigos","item":"https://www.thomas-macedo.com/artigos/"},
+      {"@type":"ListItem","position":3,"name":"ROAS, CAC, LTV e margem de contribuição","item":"https://www.thomas-macedo.com/artigos/roas-cac-ltv-margem-de-contribuicao.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[{"@type":"Question","name":"Qual ROAS é bom para e-commerce?","acceptedAnswer":{"@type":"Answer","text":"Não existe ROAS bom universal: o número certo sai da sua margem de contribuição. O ROAS de equilíbrio é 1 dividido pela margem de contribuição percentual. Uma loja com 40% de margem empata em ROAS 2,5; com 25% de margem, precisa de ROAS 4 só para não perder dinheiro. Comparar o seu ROAS com o de outra loja, sem comparar a margem, não significa nada."}},{"@type":"Question","name":"Como calcular o CAC de um e-commerce?","acceptedAnswer":{"@type":"Answer","text":"CAC é todo o custo de aquisição do período dividido pelo número de clientes novos do mesmo período. Entram mídia paga, ferramentas de aquisição, agência, comissão de influenciador e cupom de primeira compra. Não entram os pedidos de clientes que já eram seus: se você dividir pelo total de pedidos, o que sai é CPA, não CAC — e o número fica artificialmente baixo."}},{"@type":"Question","name":"Qual a diferença entre ROAS e margem de contribuição?","acceptedAnswer":{"@type":"Answer","text":"ROAS mede quanta receita cada real de anúncio gerou. Margem de contribuição mede quanto sobra de cada venda depois de todos os custos variáveis (produto, frete, taxa de pagamento, imposto, embalagem). ROAS é velocímetro; margem é o tanque de combustível. Um ROAS alto em cima de uma margem pequena continua dando prejuízo, porque a receita não é sua — a margem é."}},{"@type":"Question","name":"Como calcular o LTV de um e-commerce?","acceptedAnswer":{"@type":"Answer","text":"Multiplique a margem de contribuição média por pedido pelo número médio de pedidos que um cliente faz numa janela definida — normalmente 12 meses. LTV em receita infla a conta e engana: o correto é LTV em margem, porque é isso que sobra para pagar o CAC, os custos fixos e o lucro."}},{"@type":"Question","name":"Qual relação entre LTV e CAC indica que dá para escalar?","acceptedAnswer":{"@type":"Answer","text":"A régua que eu uso é LTV em margem de pelo menos 3 vezes o CAC em janela de 12 meses, com a primeira compra pagando ou quase pagando a aquisição. Se o LTV só cobre o CAC no segundo ano, escalar vira problema de caixa antes de virar problema de mídia: você paga o anúncio hoje e recebe a margem no ano que vem."}},{"@type":"Question","name":"Por que o ROAS da plataforma é diferente do faturamento real?","acceptedAnswer":{"@type":"Answer","text":"Porque Meta Ads e Google Ads reportam conversões pelo modelo de atribuição de cada plataforma, com janelas e critérios diferentes, e somam vendas entre si. A receita da loja é uma só. Por isso eu decido pelo ROAS geral do negócio — faturamento real do período dividido pelo investimento total em mídia — e uso o número da plataforma apenas para comparar campanhas dentro dela."}}]
+  }
+  </script>
+</head>
+<body>
+
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="../index.html" class="wordmark">Thomas <span>Macedo</span></a>
+        <div class="nav-links">
+          <a href="../index.html" class="hide-mob">IA &amp; Performance</a>
+          <a href="../marcas.html" class="hide-mob">Marcas &amp; E-commerce</a>
+          <a href="../artigos/" class="active hide-mob">Artigos</a>
+          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="nav-cta" target="_blank" rel="noopener">Falar comigo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap"><nav class="crumb"><a href="../index.html">Início</a><span>/</span><a href="../artigos/">Artigos</a><span>/</span>ROAS, CAC, LTV e margem de contribuição</nav></div>
+
+  <article>
+    <header class="article-head">
+      <span class="eyebrow">E-commerce</span>
+      <h1>ROAS, CAC, LTV e margem de contribuição: as quatro métricas que decidem se o seu e-commerce pode escalar</h1>
+      <p class="dek">Loja que não sabe a própria margem escala no escuro. Aqui estão as quatro contas, explicadas com números de uma loja real de exemplo, e a regra que diz se você pode subir a verba ou não.</p>
+      <div class="article-meta">
+        <span>Por Thomas Macedo</span><span class="dot"></span><span>10 min de leitura</span><span class="dot"></span><span>Atualizado em 2026</span>
+      </div>
+    </header>
+
+    <div class="article-cover">
+      <img src="../img/thomas-macedo-palestra.jpeg" alt="Thomas Macedo explicando as métricas de e-commerce: ROAS, CAC, LTV e margem de contribuição" width="1000" height="500" style="object-position:center 40%" />
+    </div>
+
+    <div class="prose">
+      <p><strong>ROAS, CAC, LTV e margem de contribuição são as quatro métricas que definem se um e-commerce pode escalar: a margem de contribuição diz quanto sobra de cada venda, o CAC diz quanto custa trazer um cliente novo, o ROAS diz quanto de receita cada real de anúncio gerou e o LTV diz quanto esse cliente vale ao longo do tempo.</strong> A regra que amarra as quatro é simples: você só pode escalar enquanto a margem de contribuição cobrir o CAC com folga, e o LTV justificar pagar mais caro por cliente do que a primeira compra devolve. Sem essas quatro na mesma tela, aumentar verba é aposta, não estratégia.</p>
+
+      <p>Eu vivo disso todo dia na LINCE Performance: contas de tráfego pago para e-commerce em que a decisão de subir ou segurar orçamento sai de planilha, não de sensação. E a maior parte das lojas que chega até mim tem uma coisa em comum — sabe o ROAS de cor e não sabe a margem. É exatamente a métrica invertida. Vamos consertar isso agora, com as contas na mão.</p>
+
+      <div class="callout">
+        <span class="k">Resumo rápido</span>
+        <ul>
+          <li><strong>Margem de contribuição</strong> = o que sobra da venda depois dos custos variáveis. É ela que manda.</li>
+          <li><strong>ROAS de equilíbrio</strong> = 1 ÷ margem de contribuição. Margem 40% → ROAS 2,5 só para empatar.</li>
+          <li><strong>CAC</strong> = custo de aquisição ÷ <em>clientes novos</em>. Dividir por pedidos totais é CPA, e engana.</li>
+          <li><strong>LTV</strong> em margem, nunca em receita. E sempre com janela definida (12 meses).</li>
+          <li>Escala segura: LTV ≥ 3× CAC <em>e</em> a primeira compra pagando quase toda a aquisição.</li>
+        </ul>
+      </div>
+
+      <h2>O que é margem de contribuição no e-commerce (e por que ela vem primeiro)</h2>
+      <p>Margem de contribuição é o que sobra de cada venda depois de descontar todos os custos que só existem porque aquela venda aconteceu. Ela é a métrica-mãe: o ROAS mínimo, o CAC máximo e o LTV real são todos derivados dela. Se você errar essa conta, erra as outras três em cascata.</p>
+      <p>Os custos variáveis de uma loja brasileira típica são:</p>
+      <ul>
+        <li><strong>Custo do produto (CMV):</strong> quanto você paga pelo item que vai sair da prateleira.</li>
+        <li><strong>Frete que a loja subsidia:</strong> a parte do frete que você paga e não repassa.</li>
+        <li><strong>Taxa de meio de pagamento e checkout:</strong> gateway, antecipação, split de plataforma.</li>
+        <li><strong>Impostos sobre a venda:</strong> no Simples Nacional, a alíquota efetiva da faixa.</li>
+        <li><strong>Embalagem, picking e packing:</strong> caixa, plástico, brinde, mão de obra por pedido.</li>
+        <li><strong>Perdas previsíveis:</strong> troca, devolução, extravio, chargeback.</li>
+      </ul>
+      <p>Repare no que <em>não</em> entra: aluguel, salário fixo, assinatura de plataforma, agência. Isso é custo fixo, e custo fixo não entra na margem de contribuição — entra depois, na conta do lucro. Misturar os dois é o erro contábil mais comum em loja pequena, e ele faz o e-commerce achar que está no vermelho quando está saudável, ou o contrário.</p>
+
+      <h3>A conta, com números</h3>
+      <p>Vou usar uma loja de exemplo o artigo inteiro, para as quatro métricas conversarem entre si. Ticket médio de <strong>R$ 250</strong>:</p>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th>Item</th><th>Valor</th><th>% do ticket</th></tr></thead>
+          <tbody>
+            <tr><td>Receita (ticket médio)</td><td><strong>R$ 250,00</strong></td><td>100%</td></tr>
+            <tr><td>Custo do produto (CMV)</td><td>− R$ 90,00</td><td>36%</td></tr>
+            <tr><td>Frete subsidiado</td><td>− R$ 25,00</td><td>10%</td></tr>
+            <tr><td>Taxa de pagamento (4%)</td><td>− R$ 10,00</td><td>4%</td></tr>
+            <tr><td>Imposto sobre venda (8%)</td><td>− R$ 20,00</td><td>8%</td></tr>
+            <tr><td>Embalagem e operação do pedido</td><td>− R$ 5,00</td><td>2%</td></tr>
+            <tr><td><strong>Margem de contribuição</strong></td><td><strong>R$ 100,00</strong></td><td><strong>40%</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Guarde esses dois números: <strong>R$ 100 por pedido</strong> e <strong>40%</strong>. Tudo o que vem a seguir depende deles.</p>
+
+      <h2>O que é ROAS e como calcular o ROAS mínimo da sua loja</h2>
+      <p>ROAS (<em>Return on Ad Spend</em>) é a receita gerada dividida pelo valor investido em anúncio. Investiu R$ 10 mil e faturou R$ 35 mil naquele investimento? ROAS 3,5. É uma métrica de eficiência de mídia — nada mais que isso.</p>
+      <p>A pergunta que importa não é “meu ROAS é bom?”, é “<strong>qual é o ROAS que a minha margem exige?</strong>”. E essa tem fórmula:</p>
+      <blockquote><p>ROAS de equilíbrio = 1 ÷ margem de contribuição</p></blockquote>
+      <p>Na nossa loja: 1 ÷ 0,40 = <strong>ROAS 2,5</strong>. Abaixo disso, cada venda nova consome margem que não existe. Acima, sobra dinheiro para pagar custo fixo e lucro.</p>
+      <p>Veja como o mesmo ROAS significa coisas opostas em lojas diferentes:</p>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th>Margem de contribuição</th><th>ROAS de equilíbrio</th><th>ROAS 3,0 significa</th></tr></thead>
+          <tbody>
+            <tr><td>60% (marca própria, alto valor)</td><td>1,67</td><td>Muito lucro — dá para escalar forte</td></tr>
+            <tr><td>40% (loja do exemplo)</td><td>2,50</td><td>Lucro apertado, mas positivo</td></tr>
+            <tr><td>25% (revenda com frete grátis)</td><td>4,00</td><td><strong>Prejuízo</strong> a cada venda</td></tr>
+            <tr><td>15% (dropshipping de commodity)</td><td>6,67</td><td>Prejuízo pesado</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>É por isso que perguntar “qual ROAS é bom?” num grupo de e-commerce não leva a lugar nenhum. ROAS 3 é festa para uma loja e falência para a vizinha. Essa é uma das razões pelas quais eu insisto em <a href="./marca-propria-e-white-label.html">marca própria e white label</a> em vez de revender o que todo mundo revende: margem maior é liberdade de escala, não vaidade.</p>
+
+      <h3>ROAS da plataforma × ROAS do negócio</h3>
+      <p>Meta Ads e Google Ads reportam conversões pelos próprios modelos de atribuição, com janelas diferentes, e cada uma puxa o crédito para si. Some as duas e você “fatura” mais do que a loja faturou. Por isso eu trabalho com dois números em paralelo:</p>
+      <ul>
+        <li><strong>ROAS geral (ou <em>blended</em>):</strong> faturamento real da loja no período ÷ investimento total em mídia. É esse que decide se sobe ou segura verba.</li>
+        <li><strong>ROAS de plataforma:</strong> serve para comparar campanha com campanha <em>dentro</em> da mesma conta. Nunca para comparar Meta com Google, nem para fechar o caixa.</li>
+      </ul>
+      <p>Se você ainda está decidindo onde colocar a verba entre os dois canais, escrevi o comparativo completo em <a href="./google-ads-ou-meta-ads.html">Google Ads ou Meta Ads</a>.</p>
+
+      <h2>O que é CAC e como calcular do jeito certo</h2>
+      <p>CAC (Custo de Aquisição de Cliente) é todo o custo gasto para adquirir <strong>clientes novos</strong> num período, dividido pelo número de clientes novos daquele período. A palavra “novos” é o artigo inteiro em uma palavra.</p>
+      <blockquote><p>CAC = (mídia + ferramentas de aquisição + agência + comissões + cupom de 1ª compra) ÷ clientes novos</p></blockquote>
+      <p>O erro clássico: dividir o investimento pelo <em>total de pedidos</em>. Isso mistura cliente novo com recompra de quem já era seu e produz um número bonito e falso. O que sai daí é CPA (custo por pedido), não CAC. A diferença aparece justamente quando você escala — porque a base de recompra segura o CPA enquanto o CAC real já explodiu.</p>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th>Métrica</th><th>Fórmula</th><th>Responde</th><th>Armadilha</th></tr></thead>
+          <tbody>
+            <tr><td><strong>CPA</strong></td><td>Investimento ÷ pedidos totais</td><td>Quanto custou cada pedido</td><td>Recompra disfarça piora na aquisição</td></tr>
+            <tr><td><strong>CAC</strong></td><td>Custo de aquisição ÷ clientes novos</td><td>Quanto custa crescer a base</td><td>Exige separar novo de recorrente no relatório</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Quanto você pode pagar por cliente: o CAC teto</h3>
+      <p>Na loja do exemplo, cada pedido deixa R$ 100 de margem. Então:</p>
+      <ul>
+        <li><strong>CAC de equilíbrio = R$ 100.</strong> Pagar R$ 100 por cliente novo zera a conta antes dos custos fixos.</li>
+        <li><strong>CAC teto com meta de lucro:</strong> se você quer 15% de lucro operacional sobre a venda (R$ 37,50), o CAC teto vira R$ 100 − R$ 37,50 = <strong>R$ 62,50</strong>.</li>
+        <li><strong>ROAS alvo correspondente:</strong> R$ 250 ÷ R$ 62,50 = <strong>4,0</strong>.</li>
+      </ul>
+      <p>Pronto: a loja tem agora um número operacional para o gestor de tráfego. Não é “vamos buscar ROAS 3”. É “o CAC teto é R$ 62,50 na primeira compra; se passar disso três dias seguidos, segura o degrau”. Métrica que vira instrução é métrica que funciona — e é exatamente assim que eu conduzo a <a href="./como-escalar-verba-de-anuncio-ecommerce.html">escala de verba por degraus</a>.</p>
+
+      <h2>O que é LTV e como calcular sem se enganar</h2>
+      <p>LTV (<em>Lifetime Value</em>) é quanto um cliente deixa para o negócio ao longo do relacionamento. Duas correções obrigatórias na forma como o mercado calcula:</p>
+      <ol>
+        <li><strong>LTV em margem, não em receita.</strong> Receita não é sua: parte vira produto, frete, imposto e taxa. O que paga o CAC é margem.</li>
+        <li><strong>LTV com janela definida.</strong> “LTV vitalício” não paga boleto. Use 12 meses — é o horizonte em que a maioria das lojas consegue medir com honestidade e planejar caixa.</li>
+      </ol>
+      <blockquote><p>LTV (12 meses) = margem de contribuição por pedido × pedidos por cliente em 12 meses</p></blockquote>
+      <p>Na nossa loja, suponha que o cliente médio compre 1,6 vez em 12 meses. LTV = R$ 100 × 1,6 = <strong>R$ 160</strong>. Com CAC teto de R$ 62,50, a relação LTV/CAC fica em 2,56 — funciona, mas está no limite. Se essa loja conseguir levar a frequência para 2,2 compras/ano, o LTV vai a R$ 220 e a relação sobe para 3,5. Só aí ela pode, com segurança, pagar mais caro por cliente do que a concorrência — e é assim que se ganha um leilão de anúncio sem ganhar no grito.</p>
+      <p>Repare no que acabou de acontecer: a alavanca que mais aumenta a capacidade de escalar não estava na mídia. Estava na recompra. É o mesmo raciocínio que desenvolvo em <a href="./maquina-de-roi-shopify.html">máquina de ROI no Shopify</a> e em <a href="./agentes-de-ia-para-ecommerce-recuperar-vendas.html">agentes de IA para e-commerce recuperar vendas</a> — na minha operação, quem cuida do pós-venda e do follow-up é um agente, 24 horas por dia, porque recompra perdida é margem que já estava paga e foi embora.</p>
+
+      <h2>Como as quatro métricas se encaixam numa decisão só</h2>
+      <p>Colocadas na ordem certa, elas formam um semáforo. É esta a tabela que eu levo para a reunião mensal com uma loja:</p>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th>Métrica</th><th>Loja do exemplo</th><th>Pergunta que responde</th></tr></thead>
+          <tbody>
+            <tr><td>Margem de contribuição</td><td>R$ 100 (40%)</td><td>Quanto sobra por venda?</td></tr>
+            <tr><td>ROAS de equilíbrio</td><td>2,5</td><td>Abaixo de quanto eu perco dinheiro?</td></tr>
+            <tr><td>ROAS alvo (15% de lucro)</td><td>4,0</td><td>Qual meta dá lucro de verdade?</td></tr>
+            <tr><td>CAC teto</td><td>R$ 62,50</td><td>Quanto posso pagar por cliente novo?</td></tr>
+            <tr><td>LTV 12 meses (margem)</td><td>R$ 160</td><td>Quanto o cliente vale além da 1ª compra?</td></tr>
+            <tr><td>LTV ÷ CAC</td><td>2,56</td><td>Dá para escalar ou só para manter?</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>A leitura é direta:</p>
+      <ul>
+        <li><strong>LTV/CAC abaixo de 2:</strong> não escale. Conserte margem, ticket ou recompra primeiro.</li>
+        <li><strong>Entre 2 e 3:</strong> escale devagar, em degraus, vigiando o CAC de perto.</li>
+        <li><strong>Acima de 3, com a 1ª compra quase pagando o CAC:</strong> pode acelerar. É aqui que verba vira crescimento em vez de virar dívida.</li>
+      </ul>
+
+      <h2>Os cinco erros que quebram essas contas</h2>
+      <ol>
+        <li><strong>Usar margem bruta no lugar de margem de contribuição.</strong> Esquecer frete, taxa de gateway e imposto infla a margem em dezenas de pontos e faz a loja aceitar um CAC que ela não aguenta.</li>
+        <li><strong>Somar o ROAS do Meta com o do Google.</strong> Vira faturamento imaginário. Feche sempre pelo ROAS geral do negócio.</li>
+        <li><strong>Calcular LTV em receita.</strong> Multiplica o autoengano: o número fica 2,5 vezes maior do que a realidade na loja do exemplo.</li>
+        <li><strong>Olhar CAC médio e ignorar o CAC marginal.</strong> Ao escalar, o que importa é quanto custou o <em>último</em> cliente, não a média do mês. A média sempre atrasa a decisão.</li>
+        <li><strong>Ignorar o prazo de recebimento.</strong> A mídia é paga hoje; a venda no cartão cai em 30 dias ou mais. Uma loja pode estar lucrativa no papel e quebrar de caixa no meio da escala.</li>
+      </ol>
+
+      <h2>Como eu acompanho isso na prática</h2>
+      <p>Na minha agência, a régua semanal de um e-commerce tem cinco linhas, e nenhuma delas é “curtidas”: faturamento real, investimento total, ROAS geral, clientes novos e CAC do período. Uma vez por mês entram margem recalculada (porque frete e custo de produto mudam) e LTV atualizado. É pouco número, mas é o número certo — e é o que sustentou o case de ROI 10,48 que apresentei ao vivo no palco do Meta Business Partners.</p>
+      <p>Regra da casa: eu só implanto no cliente o que roda na minha própria operação. Painel simples, atualizado, com decisão amarrada a número. O resto é relatório bonito que ninguém lê.</p>
+      <p>Se você quer o passo seguinte — como transformar essas quatro métricas em aumento de verba sem estourar a operação —, siga para <a href="./como-escalar-verba-de-anuncio-ecommerce.html">como escalar verba de anúncio sem quebrar a operação</a> e para <a href="./roi-escalavel-trafego-pago.html">o que é ROI escalável em tráfego pago</a>. E se quiser que eu olhe os números da sua loja, é só me <a href="../marcas.html">chamar por aqui</a>.</p>
+
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details open><summary>Qual ROAS é bom para e-commerce?</summary><p>Não existe ROAS bom universal: o número certo sai da sua margem de contribuição. O ROAS de equilíbrio é 1 dividido pela margem de contribuição percentual. Uma loja com 40% de margem empata em ROAS 2,5; com 25% de margem, precisa de ROAS 4 só para não perder dinheiro. Comparar o seu ROAS com o de outra loja, sem comparar a margem, não significa nada.</p></details>
+        <details><summary>Como calcular o CAC de um e-commerce?</summary><p>CAC é todo o custo de aquisição do período dividido pelo número de clientes novos do mesmo período. Entram mídia paga, ferramentas de aquisição, agência, comissão de influenciador e cupom de primeira compra. Não entram os pedidos de clientes que já eram seus: se você dividir pelo total de pedidos, o que sai é CPA, não CAC — e o número fica artificialmente baixo.</p></details>
+        <details><summary>Qual a diferença entre ROAS e margem de contribuição?</summary><p>ROAS mede quanta receita cada real de anúncio gerou. Margem de contribuição mede quanto sobra de cada venda depois de todos os custos variáveis (produto, frete, taxa de pagamento, imposto, embalagem). ROAS é velocímetro; margem é o tanque de combustível. Um ROAS alto em cima de uma margem pequena continua dando prejuízo, porque a receita não é sua — a margem é.</p></details>
+        <details><summary>Como calcular o LTV de um e-commerce?</summary><p>Multiplique a margem de contribuição média por pedido pelo número médio de pedidos que um cliente faz numa janela definida — normalmente 12 meses. LTV em receita infla a conta e engana: o correto é LTV em margem, porque é isso que sobra para pagar o CAC, os custos fixos e o lucro.</p></details>
+        <details><summary>Qual relação entre LTV e CAC indica que dá para escalar?</summary><p>A régua que eu uso é LTV em margem de pelo menos 3 vezes o CAC em janela de 12 meses, com a primeira compra pagando ou quase pagando a aquisição. Se o LTV só cobre o CAC no segundo ano, escalar vira problema de caixa antes de virar problema de mídia: você paga o anúncio hoje e recebe a margem no ano que vem.</p></details>
+        <details><summary>Por que o ROAS da plataforma é diferente do faturamento real?</summary><p>Porque Meta Ads e Google Ads reportam conversões pelo modelo de atribuição de cada plataforma, com janelas e critérios diferentes, e somam vendas entre si. A receita da loja é uma só. Por isso eu decido pelo ROAS geral do negócio — faturamento real do período dividido pelo investimento total em mídia — e uso o número da plataforma apenas para comparar campanhas dentro dela.</p></details>
+      </div>
+    </div>
+
+    <div class="author-box">
+      <img src="../img/thomas-macedo-palestra.jpeg" alt="Thomas Macedo" />
+      <div>
+        <div class="a-name">Thomas Macedo</div>
+        <p class="a-bio">Fundador da Gene Company e diretor da LINCE Performance (Santos/SP). Especialista em sistemas e agentes de IA, e-commerce, criação de marcas e tráfego pago com ROI escalável. <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo%20de%20m%C3%A9tricas" target="_blank" rel="noopener">Fale comigo no WhatsApp →</a></p>
+      </div>
+    </div>
+  </article>
+
+  <section class="related">
+    <div class="wrap-narrow" style="padding:0">
+      <p class="eyebrow eyebrow-ink" style="display:block;margin-bottom:8px">Continue lendo</p>
+      <div class="related-grid">
+        <a href="./como-escalar-verba-de-anuncio-ecommerce.html"><span class="r-cat">E-commerce</span><h3>Como escalar verba de anúncio sem quebrar a operação</h3></a>
+        <a href="./maquina-de-roi-shopify.html"><span class="r-cat">E-commerce</span><h3>Máquina de ROI no Shopify: aquisição e recompra</h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2 class="display mt-m" style="font-size:clamp(2.2rem,5vw,4rem)">Quero saber se<br>minha loja escala.</h2>
+      <p class="lead mt-m" style="color:rgba(244,241,234,.8);max-width:48ch">Me manda o ticket médio, o custo do produto e o quanto você investe por mês. Eu te devolvo a margem, o CAC teto e o ROAS que a sua loja precisa buscar.</p>
+      <div class="contact-row">
+        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20quero%20calcular%20as%20m%C3%A9tricas%20da%20minha%20loja" class="btn" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
+        <a href="https://www.instagram.com/thomasmacedo.ads" class="link-underline" target="_blank" rel="noopener" style="color:var(--paper)">Instagram @thomasmacedo.ads</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <span>© 2026 Thomas Macedo — IA, criação de marcas e tráfego pago. Santos, Baixada Santista, Brasil &amp; exterior.</span>
+        <div class="foot-links">
+          <a href="../index.html">IA &amp; Performance</a>
+          <a href="../marcas.html">Marcas &amp; E-commerce</a>
+          <a href="../artigos/">Artigos</a>
+          <a href="https://www.instagram.com/thomasmacedo.ads" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/thomas-macedo-23896216a/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/102946615/" target="_blank" rel="noopener">LINCE Performance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="../site.js" defer></script>
+</body>
+</html>

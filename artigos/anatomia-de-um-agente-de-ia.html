@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Anatomia de um agente de IA que funciona: instrução, memória, ferramentas e limites | Thomas Macedo</title>
+  <meta name="description" content="Um agente de IA que funciona tem quatro camadas: instrução, memória, ferramentas e limites. Veja o que entra em cada uma, por que a alucinação quase sempre nasce de uma delas e como testar antes de soltar pro cliente." />
+  <meta name="keywords" content="anatomia de um agente de IA, como funciona um agente de IA, evitar alucinação de IA, instrução de agente de IA, memória de agente de IA, ferramentas de agente de IA, Thomas Macedo" />
+  <meta name="author" content="Thomas Macedo" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://www.thomas-macedo.com/artigos/anatomia-de-um-agente-de-ia.html" />
+  <meta name="theme-color" content="#FAF8F3" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Thomas Macedo" />
+  <meta property="og:title" content="Anatomia de um agente de IA que funciona: instrução, memória, ferramentas e limites" />
+  <meta property="og:description" content="As quatro camadas de um agente de IA confiável — e por que quase toda alucinação é falha de projeto, não do modelo." />
+  <meta property="og:url" content="https://www.thomas-macedo.com/artigos/anatomia-de-um-agente-de-ia.html" />
+  <meta property="og:image" content="https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg" />
+  <meta property="article:author" content="Thomas Macedo" />
+  <meta property="article:published_time" content="2026-08-04" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Anatomia de um agente de IA que funciona: instrução, memória, ferramentas e limites" />
+  <meta name="twitter:description" content="As quatro camadas de um agente de IA confiável — e por que quase toda alucinação é falha de projeto, não do modelo." />
+  <meta name="twitter:image" content="https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BlogPosting",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.thomas-macedo.com/artigos/anatomia-de-um-agente-de-ia.html"},
+    "headline":"Anatomia de um agente de IA que funciona: instrução, memória, ferramentas e os limites que evitam alucinação",
+    "description":"Um agente de IA que funciona tem quatro camadas: instrução, memória, ferramentas e limites. Veja o que entra em cada uma, por que a alucinação quase sempre nasce de uma delas e como testar antes de soltar pro cliente.",
+    "image":"https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg",
+    "datePublished":"2026-08-04","dateModified":"2026-08-04",
+    "inLanguage":"pt-BR",
+    "author":{"@type":"Person","@id":"https://www.thomas-macedo.com/#thomas-macedo","name":"Thomas Macedo","url":"https://www.thomas-macedo.com/","jobTitle":"Especialista em IA, Criação de Marcas e Tráfego Pago","worksFor":{"@type":"Organization","name":"Gene Company"},"sameAs":["https://www.instagram.com/thomasmacedo.ads","https://www.linkedin.com/in/thomas-macedo-23896216a/"]},
+    "publisher":{"@type":"Person","name":"Thomas Macedo"},
+    "keywords":"anatomia de um agente de IA, como funciona um agente de IA, evitar alucinação de IA, instrução de agente de IA, memória de agente de IA, ferramentas de agente de IA, Thomas Macedo"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.thomas-macedo.com/"},
+      {"@type":"ListItem","position":2,"name":"Artigos","item":"https://www.thomas-macedo.com/artigos/"},
+      {"@type":"ListItem","position":3,"name":"Anatomia de um agente de IA que funciona","item":"https://www.thomas-macedo.com/artigos/anatomia-de-um-agente-de-ia.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[{"@type":"Question","name":"Quais são as partes de um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Um agente de IA tem quatro camadas: a instrução, que define quem ele é, o que pode e o que nunca faz; a memória, que guarda o contexto da conversa, os fatos do cliente e a base de conhecimento da empresa; as ferramentas, que permitem agir no mundo real (consultar estoque, marcar reunião, registrar no CRM, emitir cobrança); e os limites, que dizem onde ele para e chama um humano. Falhou uma camada, falhou o agente."}},{"@type":"Question","name":"Por que um agente de IA alucina?","acceptedAnswer":{"@type":"Answer","text":"Na prática das implantações, quase sempre porque ele foi obrigado a responder algo que não sabia. As causas mais comuns são: base de conhecimento incompleta ou desatualizada, instrução que não permite dizer 'não sei', ausência de ferramenta para consultar o dado real (preço, estoque, prazo) e falta de limite claro sobre o que está fora do escopo. Alucinação, na maioria dos casos, é sintoma de projeto malfeito, não defeito do modelo."}},{"@type":"Question","name":"Qual a diferença entre memória e base de conhecimento em um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Base de conhecimento é o que a empresa sabe e não muda a cada conversa: preços, políticas, prazos, objeções, diferenciais. Memória é o que o agente lembra daquela pessoa: o que ela já perguntou, o que já comprou, em que ponto do processo ela está. A base evita que ele invente; a memória evita que ele repita perguntas e trate um cliente antigo como estranho."}},{"@type":"Question","name":"Como evitar que o agente de IA invente preço ou prazo?","acceptedAnswer":{"@type":"Answer","text":"Tire preço, prazo e disponibilidade do texto e coloque em ferramenta. O agente não deve 'saber' o preço; ele deve consultar a fonte oficial na hora de responder. Junto disso, a instrução precisa autorizar explicitamente a resposta 'vou confirmar isso com o time' e proibir estimativas. Dado sensível que muda com o tempo nunca deve viver dentro do prompt."}},{"@type":"Question","name":"Como testar um agente de IA antes de colocar no ar?","acceptedAnswer":{"@type":"Answer","text":"Monte um banco com 30 a 50 conversas reais do seu histórico e rode todas no agente, comparando a resposta dele com a resposta correta. Depois faça o teste adversarial: cliente confuso, pedido de desconto, reclamação, pergunta fora do escopo, tentativa de tirar o agente do papel. Em seguida rode em modo sombra, com o agente sugerindo e o humano aprovando, e só então libere para uma fatia pequena de clientes reais."}}]
+  }
+  </script>
+</head>
+<body>
+
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="../index.html" class="wordmark">Thomas <span>Macedo</span></a>
+        <div class="nav-links">
+          <a href="../index.html" class="hide-mob">IA &amp; Performance</a>
+          <a href="../marcas.html" class="hide-mob">Marcas &amp; E-commerce</a>
+          <a href="../artigos/" class="active hide-mob">Artigos</a>
+          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="nav-cta" target="_blank" rel="noopener">Falar comigo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap"><nav class="crumb"><a href="../index.html">Início</a><span>/</span><a href="../artigos/">Artigos</a><span>/</span>Anatomia de um agente de IA que funciona</nav></div>
+
+  <article>
+    <header class="article-head">
+      <span class="eyebrow">Inteligência Artificial</span>
+      <h1>Anatomia de um agente de IA que funciona: instrução, memória, ferramentas e os limites que evitam alucinação</h1>
+      <p class="dek">Todo agente que dá errado dá errado numa das quatro camadas. Este é o mapa que eu uso para construir — e para descobrir onde o agente do concorrente vai quebrar.</p>
+      <div class="article-meta">
+        <span>Por Thomas Macedo</span><span class="dot"></span><span>10 min de leitura</span><span class="dot"></span><span>Atualizado em 2026</span>
+      </div>
+    </header>
+
+    <div class="article-cover">
+      <img src="../img/thomas-macedo-ia-robo.jpeg" alt="Anatomia de um agente de IA: instrução, memória, ferramentas e limites" width="1000" height="500" style="object-position:center 40%" />
+    </div>
+
+    <div class="prose">
+      <p><strong>Um agente de IA que funciona tem quatro camadas: instrução, memória, ferramentas e limites.</strong> A instrução define quem ele é, o que pode e o que nunca faz. A memória guarda o contexto da conversa, os fatos daquele cliente e o conhecimento da empresa. As ferramentas permitem que ele aja no mundo real — consultar estoque, marcar reunião, registrar no CRM. Os limites dizem onde ele para e chama um humano. Quando um agente alucina, promete o que não existe ou some no meio do atendimento, quase sempre é uma dessas quatro que está mal feita — não o modelo que “ficou burro”.</p>
+
+      <p>Eu construo e opero agentes todos os dias, na minha agência e nos clientes. Vou abrir aqui a anatomia exata, camada por camada, com o que entra em cada uma, os erros que eu já paguei para aprender e o protocolo de teste antes de soltar para cliente de verdade.</p>
+
+      <div class="callout">
+        <span class="k">As quatro camadas</span>
+        <ul>
+          <li><strong>Instrução</strong> — quem ele é, como fala, o que decide sozinho.</li>
+          <li><strong>Memória</strong> — o que ele lembra da pessoa e o que a empresa sabe.</li>
+          <li><strong>Ferramentas</strong> — o que ele consegue fazer, não só falar.</li>
+          <li><strong>Limites</strong> — onde ele para, confirma ou chama gente.</li>
+        </ul>
+      </div>
+
+      <h2>Quais são as partes de um agente de IA?</h2>
+      <p>Antes de entrar em cada camada, o mapa completo. Se você está avaliando uma proposta de agente de IA, peça para o fornecedor mostrar as quatro. Quem só mostra a primeira está vendendo um chatbot com nome novo — diferença que eu detalho em <a href="./chatbot-automacao-ou-agente-de-ia.html">chatbot, automação ou agente de IA</a>.</p>
+
+      <div style="overflow-x:auto;margin:28px 0">
+        <table style="width:100%;border-collapse:collapse;font-family:var(--sans);font-size:.95rem;min-width:600px">
+          <thead>
+            <tr style="text-align:left;border-bottom:2px solid var(--line-strong)">
+              <th style="padding:10px 12px 10px 0">Camada</th>
+              <th style="padding:10px 12px">Responde a pergunta</th>
+              <th style="padding:10px 12px">Sintoma quando falha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--line)"><td style="padding:10px 12px 10px 0"><strong>Instrução</strong></td><td style="padding:10px 12px">Quem ele é e como decide?</td><td style="padding:10px 12px">Tom errado, sai do papel, responde qualquer coisa</td></tr>
+            <tr style="border-bottom:1px solid var(--line)"><td style="padding:10px 12px 10px 0"><strong>Memória</strong></td><td style="padding:10px 12px">O que ele sabe e lembra?</td><td style="padding:10px 12px">Repete pergunta, esquece o pedido, inventa dado</td></tr>
+            <tr style="border-bottom:1px solid var(--line)"><td style="padding:10px 12px 10px 0"><strong>Ferramentas</strong></td><td style="padding:10px 12px">O que ele consegue fazer?</td><td style="padding:10px 12px">Fala bonito e não resolve nada</td></tr>
+            <tr><td style="padding:10px 12px 10px 0"><strong>Limites</strong></td><td style="padding:10px 12px">Onde ele para?</td><td style="padding:10px 12px">Promete prazo, dá desconto, cria problema jurídico</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>1. Instrução: o documento que define quem o agente é</h2>
+      <p>A instrução (o <em>system prompt</em>) não é uma frase bonita tipo “seja atencioso e prestativo”. É um documento operacional. Na minha casa, toda instrução tem sete blocos:</p>
+      <ul>
+        <li><strong>Papel:</strong> quem ele é, de qual empresa fala, com quem está falando.</li>
+        <li><strong>Objetivo único:</strong> qual é o resultado que conta. Agente com três objetivos concorrentes fica indeciso e enrola.</li>
+        <li><strong>Tom e formato:</strong> tamanho de mensagem, uso de emoji, se manda áudio, se manda link. No WhatsApp isso é meio caminho da naturalidade — assunto de <a href="./agentes-de-ia-no-whatsapp.html">agentes de IA no WhatsApp</a>.</li>
+        <li><strong>O que ele decide sozinho:</strong> a lista explícita. Tudo que não está aqui, ele não decide.</li>
+        <li><strong>O que ele nunca faz:</strong> a lista mais importante do documento.</li>
+        <li><strong>Caminho de escalada:</strong> como e para quem ele passa a bola, com a frase pronta.</li>
+        <li><strong>Exemplos:</strong> três a cinco conversas boas e três ruins, com o motivo. Exemplo ensina mais que adjetivo.</li>
+      </ul>
+      <p>O erro mais comum é instrução gigante e vaga. Vinte parágrafos de “seja humano” não valem uma linha de “se o cliente pedir desconto, diga que quem trata condição comercial é o time e ofereça agendar”. Instrução é regra operacional, não redação.</p>
+
+      <blockquote><p>Agente ruim quase nunca é modelo ruim. É empresa que nunca escreveu, em lugar nenhum, como o atendimento dela deveria funcionar.</p></blockquote>
+
+      <h2>2. Memória: os três tipos que fazem diferença</h2>
+      <p>“Memória” virou palavra genérica no mercado. Na prática são três coisas diferentes, e confundi-las custa caro:</p>
+      <ol>
+        <li><strong>Memória da conversa:</strong> o histórico da thread atual. É o que impede o agente de perguntar o nome de novo na quarta mensagem. Tem limite de tamanho — conversa longa precisa de resumo, não de acumular tudo.</li>
+        <li><strong>Memória da pessoa:</strong> fatos duráveis daquele cliente — o que comprou, qual plano, em que etapa do funil está, o que ele já reclamou. Vive no CRM ou num banco próprio, não no prompt.</li>
+        <li><strong>Base de conhecimento:</strong> o que a empresa sabe — preços, políticas, prazos, garantia, objeções, diferenciais. O agente busca o trecho relevante e responde com base nele.</li>
+      </ol>
+      <p>Essa terceira é a que mais previne alucinação. Um agente que responde “com base no documento X” erra muito menos do que um agente que responde “de cabeça”. E tem um efeito colateral bom: base enxuta e organizada reduz o custo por conversa, porque o agente carrega menos texto a cada mensagem.</p>
+      <p>Duas regras que eu não abro mão: <strong>base tem dono e tem data.</strong> Se ninguém é responsável por atualizar a política de troca, em três meses o agente está mentindo com a maior confiança do mundo — e a culpa vai cair na IA.</p>
+
+      <h2>3. Ferramentas: o que separa um agente de um chat</h2>
+      <p>Ferramenta é o que dá mão ao agente. Sem elas, ele é um assistente eloquente que não muda nada na sua operação. Com elas, ele consulta, escreve, agenda e cobra. Eu separo em dois grupos, e o tratamento é bem diferente:</p>
+      <ul>
+        <li><strong>Ferramentas de leitura</strong> (consultar estoque, ver preço, checar status do pedido, ler agenda): liberação ampla. Errar aqui gera resposta ruim, não estrago.</li>
+        <li><strong>Ferramentas de escrita</strong> (marcar reunião, alterar pedido, emitir cobrança, enviar mensagem em massa): liberação estreita, com confirmação e registro. Errar aqui gera prejuízo e cliente bravo.</li>
+      </ul>
+      <p>Três cuidados de engenharia que evitam dor de cabeça: toda ação de escrita precisa ser <strong>idempotente</strong> (se rodar duas vezes, não cria duas cobranças); toda ação precisa gerar <strong>log auditável</strong> (quem, quando, com que dado); e ação irreversível precisa de <strong>confirmação explícita</strong> do cliente ou de um humano do time.</p>
+      <p>E o mais importante: <strong>tire dado volátil do texto e coloque em ferramenta.</strong> Preço, prazo, disponibilidade e status de pedido não devem estar escritos na instrução. O agente consulta na hora. É a diferença entre um agente que erra o frete e um que acerta sempre. O passo a passo de montagem dessas conexões eu escrevi em <a href="./como-criar-agentes-de-ia.html">como criar agentes de IA</a>.</p>
+
+      <h2>4. Limites: as regras que evitam alucinação e prejuízo</h2>
+      <p>Limite é a camada que ninguém quer escrever e que decide se você dorme tranquilo. Os que eu coloco em todo agente que entra em produção:</p>
+      <ul>
+        <li><strong>Permissão para não saber.</strong> A instrução precisa autorizar, com a frase pronta, o “vou confirmar isso com o time e te retorno”. Agente proibido de não saber inventa.</li>
+        <li><strong>Escopo fechado.</strong> Lista do que ele responde. Fora dela, escala. Nada de opinar sobre concorrente, política, saúde ou jurídico.</li>
+        <li><strong>Números só de fonte.</strong> Nenhum valor, prazo ou percentual sai da cabeça do modelo. Ou vem de ferramenta, ou não sai.</li>
+        <li><strong>Desconto e exceção comercial fora do alcance.</strong> Condição especial é decisão humana, sempre.</li>
+        <li><strong>Gatilhos de escalada imediata:</strong> reclamação grave, menção a advogado ou órgão de defesa, cliente irritado, pedido de cancelamento, valor acima de um teto.</li>
+        <li><strong>Teto de tentativas.</strong> Não entendeu duas vezes seguidas? Passa para humano. Insistir é o que faz o cliente odiar o robô.</li>
+      </ul>
+
+      <h2>Por que um agente de IA alucina — e como cortar isso</h2>
+      <p>Alucinação é quando o agente responde com confiança algo que não é verdade. Na minha experiência de implantação, quase sempre existe uma causa de projeto por trás:</p>
+
+      <div style="overflow-x:auto;margin:28px 0">
+        <table style="width:100%;border-collapse:collapse;font-family:var(--sans);font-size:.95rem;min-width:560px">
+          <thead>
+            <tr style="text-align:left;border-bottom:2px solid var(--line-strong)">
+              <th style="padding:10px 12px 10px 0">Causa</th>
+              <th style="padding:10px 12px">Correção</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--line)"><td style="padding:10px 12px 10px 0">A base não tem a resposta</td><td style="padding:10px 12px">Completar a base e mandar escalar quando não achar</td></tr>
+            <tr style="border-bottom:1px solid var(--line)"><td style="padding:10px 12px 10px 0">A base está desatualizada</td><td style="padding:10px 12px">Dono e data de revisão para cada documento</td></tr>
+            <tr style="border-bottom:1px solid var(--line)"><td style="padding:10px 12px 10px 0">Não existe ferramenta para o dado</td><td style="padding:10px 12px">Integrar a fonte real (estoque, agenda, ERP)</td></tr>
+            <tr style="border-bottom:1px solid var(--line)"><td style="padding:10px 12px 10px 0">A instrução não permite “não sei”</td><td style="padding:10px 12px">Escrever a frase de recuo e treinar com exemplos</td></tr>
+            <tr style="border-bottom:1px solid var(--line)"><td style="padding:10px 12px 10px 0">Escopo aberto demais</td><td style="padding:10px 12px">Fechar a lista de assuntos permitidos</td></tr>
+            <tr><td style="padding:10px 12px 10px 0">Conversa longa, contexto estourado</td><td style="padding:10px 12px">Resumir a thread e reancorar os fatos-chave</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Repare que nenhuma linha da tabela diz “trocar de modelo”. Trocar o modelo resolve casos raros. Fechar as quatro camadas resolve a maioria.</p>
+
+      <h2>Como testar um agente de IA antes de soltar pro cliente</h2>
+      <p>Esse é o protocolo que eu sigo, sempre nessa ordem:</p>
+      <ol>
+        <li><strong>Banco de conversas reais.</strong> Pegue de 30 a 50 atendimentos do seu histórico, com a resposta correta ao lado. Rode todos no agente e compare. Isso vira o seu teste de regressão: toda vez que mexer na instrução, roda de novo.</li>
+        <li><strong>Teste adversarial.</strong> Cliente confuso, mensagem só com áudio, pedido de desconto, reclamação pesada, pergunta fora do escopo, tentativa de tirar o agente do papel. Você quer ver ele recuar bem, não acertar bonito.</li>
+        <li><strong>Modo sombra.</strong> O agente sugere a resposta, o humano lê, corrige e envia. Uma a duas semanas disso mostram os buracos reais da base sem nenhum risco de imagem.</li>
+        <li><strong>Canário.</strong> Libere para uma fatia pequena do volume, com humano de plantão. Só depois abre tudo.</li>
+        <li><strong>Revisão semanal de escalas.</strong> Toda conversa escalada é matéria-prima: ou vira item de base, ou vira regra nova, ou confirma que aquilo é mesmo trabalho de gente.</li>
+      </ol>
+
+      <h2>O que medir depois que ele está no ar</h2>
+      <p>Agente sem métrica é fé. As cinco que eu acompanho:</p>
+      <ul>
+        <li><strong>Taxa de resolução autônoma</strong> — % de conversas encerradas sem humano.</li>
+        <li><strong>Taxa de escalada</strong> — e, mais importante, o <em>motivo</em> de cada escalada.</li>
+        <li><strong>Tempo até a primeira resposta</strong> — é aqui que a venda nasce ou morre, como eu detalho em <a href="./sdr-de-ia-agente-de-vendas.html">SDR de IA</a>.</li>
+        <li><strong>Erro factual por amostragem</strong> — leia 20 conversas por semana com olho humano. Não terceirize isso.</li>
+        <li><strong>Custo por conversa e por resultado</strong> — as duas juntas; a primeira sozinha engana.</li>
+      </ul>
+      <p>Na minha operação, quem cuida do primeiro contato é a Friday, quem coordena os processos é a Eve e quem varre as conversas atrás de venda parada é o Sherlock. Os três nasceram assim: instrução escrita à mão, base curada, ferramentas ligadas ao que a empresa já usava e limites duros. Foi esse mesmo método que sustentou o case de ROI 10,48 que apresentei ao vivo em evento da Meta Business Partners — o agente não vende sozinho, mas ele impede que o dinheiro do anúncio morra esperando resposta.</p>
+
+      <div class="callout">
+        <span class="k">Checklist antes de colocar no ar</span>
+        <ul>
+          <li>Instrução com papel, objetivo único, proibições e escalada escritos.</li>
+          <li>Base de conhecimento com dono e data de revisão.</li>
+          <li>Preço, prazo e estoque vindo de ferramenta — nunca do texto.</li>
+          <li>Ação irreversível com confirmação e log.</li>
+          <li>Banco de 30+ conversas reais aprovado.</li>
+          <li>Duas semanas em modo sombra antes do canário.</li>
+        </ul>
+      </div>
+
+      <h2>Por onde começar</h2>
+      <p>Se você está avaliando implantar um agente, faça na ordem: escolha <strong>um</strong> processo que hoje vaza dinheiro, escreva a instrução antes de escolher qualquer ferramenta, organize a base de conhecimento (é aqui que 70% do trabalho acontece e ninguém avisa), conecte só as ferramentas necessárias e defina os limites por escrito. Depois teste, meça e escale. O custo real dessa jornada eu abri em <a href="./quanto-custa-ia-para-empresas.html">quanto custa implementar IA numa empresa</a>, e o que dá para automatizar sem agente nenhum está em <a href="./automacao-de-processos-com-ia.html">automação de processos com IA</a>.</p>
+      <p>Se quiser que eu olhe o seu caso e diga onde estão as quatro camadas — e quais estão faltando —, é só me <a href="../index.html">chamar</a>.</p>
+
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details open><summary>Quais são as partes de um agente de IA?</summary><p>Um agente de IA tem quatro camadas: a instrução, que define quem ele é, o que pode e o que nunca faz; a memória, que guarda o contexto da conversa, os fatos do cliente e a base de conhecimento da empresa; as ferramentas, que permitem agir no mundo real (consultar estoque, marcar reunião, registrar no CRM, emitir cobrança); e os limites, que dizem onde ele para e chama um humano. Falhou uma camada, falhou o agente.</p></details>
+        <details><summary>Por que um agente de IA alucina?</summary><p>Na prática das implantações, quase sempre porque ele foi obrigado a responder algo que não sabia. As causas mais comuns são: base de conhecimento incompleta ou desatualizada, instrução que não permite dizer “não sei”, ausência de ferramenta para consultar o dado real (preço, estoque, prazo) e falta de limite claro sobre o que está fora do escopo. Alucinação, na maioria dos casos, é sintoma de projeto malfeito, não defeito do modelo.</p></details>
+        <details><summary>Qual a diferença entre memória e base de conhecimento em um agente de IA?</summary><p>Base de conhecimento é o que a empresa sabe e não muda a cada conversa: preços, políticas, prazos, objeções, diferenciais. Memória é o que o agente lembra daquela pessoa: o que ela já perguntou, o que já comprou, em que ponto do processo ela está. A base evita que ele invente; a memória evita que ele repita perguntas e trate um cliente antigo como estranho.</p></details>
+        <details><summary>Como evitar que o agente de IA invente preço ou prazo?</summary><p>Tire preço, prazo e disponibilidade do texto e coloque em ferramenta. O agente não deve “saber” o preço; ele deve consultar a fonte oficial na hora de responder. Junto disso, a instrução precisa autorizar explicitamente a resposta “vou confirmar isso com o time” e proibir estimativas. Dado sensível que muda com o tempo nunca deve viver dentro do prompt.</p></details>
+        <details><summary>Como testar um agente de IA antes de colocar no ar?</summary><p>Monte um banco com 30 a 50 conversas reais do seu histórico e rode todas no agente, comparando a resposta dele com a resposta correta. Depois faça o teste adversarial: cliente confuso, pedido de desconto, reclamação, pergunta fora do escopo, tentativa de tirar o agente do papel. Em seguida rode em modo sombra, com o agente sugerindo e o humano aprovando, e só então libere para uma fatia pequena de clientes reais.</p></details>
+      </div>
+    </div>
+
+    <div class="author-box">
+      <img src="../img/thomas-macedo-palestra.jpeg" alt="Thomas Macedo" />
+      <div>
+        <div class="a-name">Thomas Macedo</div>
+        <p class="a-bio">Fundador da Gene Company e diretor da LINCE Performance. Especialista em sistemas e agentes de IA, criação de marcas e tráfego pago com ROI escalável para empresas. Santos/BR, atende Brasil e exterior. <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" target="_blank" rel="noopener">Fale comigo no WhatsApp →</a></p>
+      </div>
+    </div>
+  </article>
+
+  <section class="related">
+    <div class="wrap-narrow" style="padding:0">
+      <p class="eyebrow eyebrow-ink" style="display:block;margin-bottom:8px">Continue lendo</p>
+      <div class="related-grid">
+        <a href="./chatbot-automacao-ou-agente-de-ia.html"><span class="r-cat">Inteligência Artificial</span><h3>Chatbot, automação ou agente de IA: as diferenças que mudam o resultado e o custo</h3></a>
+        <a href="./como-criar-agentes-de-ia.html"><span class="r-cat">Inteligência Artificial</span><h3>Como criar agentes de IA para empresas: o passo a passo</h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2 class="display mt-m" style="font-size:clamp(2.2rem,5vw,4rem)">Quero um agente<br>que não invente.</h2>
+      <p class="lead mt-m" style="color:rgba(244,241,234,.8);max-width:48ch">Me mande o processo que você quer colocar em pé e eu te digo quais das quatro camadas você já tem, quais faltam e o que dá para colocar no ar primeiro.</p>
+      <div class="contact-row">
+        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" class="btn" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
+        <a href="https://www.instagram.com/thomasmacedo.ads" class="link-underline" target="_blank" rel="noopener" style="color:var(--paper)">Instagram @thomasmacedo.ads</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <span>© 2026 Thomas Macedo — IA, criação de marcas e tráfego pago. Santos, Baixada Santista, Brasil &amp; exterior.</span>
+        <div class="foot-links">
+          <a href="../index.html">IA &amp; Performance</a>
+          <a href="../marcas.html">Marcas &amp; E-commerce</a>
+          <a href="../artigos/">Artigos</a>
+          <a href="https://www.instagram.com/thomasmacedo.ads" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/thomas-macedo-23896216a/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/102946615/" target="_blank" rel="noopener">LINCE Performance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="../site.js" defer></script>
+</body>
+</html>

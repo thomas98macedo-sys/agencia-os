@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Como medir o resultado de um agente de recuperação de vendas (sem métrica de vaidade) | Thomas Macedo</title>
+  <meta name="description" content="A única métrica que prova o resultado de um agente de recuperação de vendas é a receita incremental medida contra um grupo de controle. Veja como montar o holdout, a conta do ROI líquido e os 7 números do painel." />
+  <meta name="keywords" content="medir agente de IA, recuperação de vendas, receita incremental, grupo de controle, holdout, métrica de vaidade, ROI de agente de IA, Thomas Macedo" />
+  <meta name="author" content="Thomas Macedo" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://www.thomas-macedo.com/artigos/como-medir-agente-de-recuperacao-de-vendas.html" />
+  <meta name="theme-color" content="#FAF8F3" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Thomas Macedo" />
+  <meta property="og:title" content="Como medir de verdade um agente de recuperação de vendas" />
+  <meta property="og:description" content="Receita recuperada não é resultado. O que prova o agente é a receita incremental contra um grupo de controle — com a conta feita aqui, passo a passo." />
+  <meta property="og:url" content="https://www.thomas-macedo.com/artigos/como-medir-agente-de-recuperacao-de-vendas.html" />
+  <meta property="og:image" content="https://www.thomas-macedo.com/img/thomas-macedo-palestra-2.jpeg" />
+  <meta property="article:author" content="Thomas Macedo" />
+  <meta property="article:published_time" content="2026-08-04" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Como medir de verdade um agente de recuperação de vendas" />
+  <meta name="twitter:description" content="Receita recuperada não é resultado. O que prova o agente é a receita incremental contra um grupo de controle — com a conta feita aqui, passo a passo." />
+  <meta name="twitter:image" content="https://www.thomas-macedo.com/img/thomas-macedo-palestra-2.jpeg" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BlogPosting",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.thomas-macedo.com/artigos/como-medir-agente-de-recuperacao-de-vendas.html"},
+    "headline":"Como medir de verdade o resultado de um agente de recuperação de vendas",
+    "description":"A única métrica que prova o resultado de um agente de recuperação de vendas é a receita incremental medida contra um grupo de controle. Veja como montar o holdout, a conta do ROI líquido e os 7 números do painel.",
+    "image":"https://www.thomas-macedo.com/img/thomas-macedo-palestra-2.jpeg",
+    "datePublished":"2026-08-04","dateModified":"2026-08-04",
+    "inLanguage":"pt-BR",
+    "author":{"@type":"Person","@id":"https://www.thomas-macedo.com/#thomas-macedo","name":"Thomas Macedo","url":"https://www.thomas-macedo.com/","jobTitle":"Especialista em IA, Criação de Marcas e Tráfego Pago","worksFor":{"@type":"Organization","name":"Gene Company"},"sameAs":["https://www.instagram.com/thomasmacedo.ads","https://www.linkedin.com/in/thomas-macedo-23896216a/"]},
+    "publisher":{"@type":"Person","name":"Thomas Macedo"},
+    "keywords":"medir agente de IA, recuperação de vendas, receita incremental, grupo de controle, holdout, métrica de vaidade, ROI de agente de IA"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.thomas-macedo.com/"},
+      {"@type":"ListItem","position":2,"name":"Artigos","item":"https://www.thomas-macedo.com/artigos/"},
+      {"@type":"ListItem","position":3,"name":"Como medir um agente de recuperação de vendas","item":"https://www.thomas-macedo.com/artigos/como-medir-agente-de-recuperacao-de-vendas.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[{"@type":"Question","name":"Qual é a métrica correta para medir um agente de recuperação de vendas?","acceptedAnswer":{"@type":"Answer","text":"Receita incremental: a diferença de conversão entre o grupo que recebeu o agente e um grupo de controle equivalente que não recebeu nada, na mesma janela de tempo. Todo o resto — mensagens enviadas, taxa de entrega, receita recuperada bruta — descreve atividade, não resultado. Se você não tem grupo de controle, não tem como saber quanto o agente realmente gerou."}},{"@type":"Question","name":"O que é uma métrica de vaidade em automação de vendas?","acceptedAnswer":{"@type":"Answer","text":"É todo número que sobe quando o agente trabalha mais, e não quando a empresa vende mais. Mensagens disparadas, taxa de entrega, conversas iniciadas, tempo de resposta e até receita recuperada bruta entram nessa lista. Elas servem para diagnosticar a saúde da operação, mas nenhuma delas prova que o faturamento subiu por causa do agente."}},{"@type":"Question","name":"Como montar um grupo de controle para testar o agente?","acceptedAnswer":{"@type":"Answer","text":"Sorteie de 10% a 20% dos clientes elegíveis e marque esses contatos para não receber nenhuma mensagem do agente durante todo o período do teste. A separação precisa ser aleatória, feita no momento em que o cliente se torna elegível, e mantida por pelo menos um ciclo completo de compra. Compare então a taxa de conversão dos dois grupos e a diferença é o efeito real do agente."}},{"@type":"Question","name":"Quanto tempo é preciso rodar para ter um resultado confiável?","acceptedAnswer":{"@type":"Answer","text":"O tempo necessário para acumular volume suficiente de casos elegíveis, e no mínimo um ciclo completo de compra do seu produto. Para carrinho abandonado, isso costuma ser algumas semanas. Para recompra de um produto com ciclo de 90 dias, são pelo menos 90 dias. Encerrar o teste na primeira semana boa é como parar uma campanha no melhor dia e chamar aquilo de média."}},{"@type":"Question","name":"Como calcular o ROI líquido de um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Pegue a margem de contribuição da receita incremental, subtraia os descontos concedidos pelo agente, o custo das conversas com modelo de mensagem, a mensalidade da plataforma e as horas humanas gastas em supervisão e correção. Divida esse lucro líquido pelo custo total. Se o resultado for menor que 1, o agente está custando mais do que gera, mesmo que o painel dele mostre números bonitos."}}]
+  }
+  </script>
+</head>
+<body>
+
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="../index.html" class="wordmark">Thomas <span>Macedo</span></a>
+        <div class="nav-links">
+          <a href="../index.html" class="hide-mob">IA &amp; Performance</a>
+          <a href="../marcas.html" class="hide-mob">Marcas &amp; E-commerce</a>
+          <a href="../artigos/" class="active hide-mob">Artigos</a>
+          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="nav-cta" target="_blank" rel="noopener">Falar comigo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap"><nav class="crumb"><a href="../index.html">Início</a><span>/</span><a href="../artigos/">Artigos</a><span>/</span>Como medir um agente de recuperação de vendas</nav></div>
+
+  <article>
+    <header class="article-head">
+      <span class="eyebrow">Inteligência Artificial</span>
+      <h1>Como medir de verdade o resultado de um agente de recuperação de vendas (e não se enganar com métrica de vaidade)</h1>
+      <p class="dek">Todo painel de agente de IA mostra "R$ X recuperados". Quase sempre esse número está errado — e para mais. Aqui está a forma honesta de medir, com a conta completa e o painel de sete números que eu uso.</p>
+      <div class="article-meta">
+        <span>Por Thomas Macedo</span><span class="dot"></span><span>10 min de leitura</span><span class="dot"></span><span>Atualizado em 2026</span>
+      </div>
+    </header>
+
+    <div class="article-cover">
+      <img src="../img/thomas-macedo-palestra-2.jpeg" alt="Thomas Macedo apresentando medição de resultado de agentes de IA" width="1000" height="500" style="object-position:center 35%" />
+    </div>
+
+    <div class="prose">
+      <p><strong>O resultado de um agente de recuperação de vendas se mede por receita incremental: a diferença de conversão entre quem recebeu o agente e um grupo de controle equivalente que não recebeu nada, na mesma janela de tempo.</strong> Qualquer outro número — mensagens enviadas, taxa de entrega, conversas iniciadas, até a "receita recuperada" que o painel exibe — descreve atividade, não resultado. Sem grupo de controle, você não está medindo o agente. Está apenas somando vendas que passaram perto dele.</p>
+
+      <p>Eu opero agentes de recuperação na minha agência e implanto o mesmo motor em clientes. A conversa mais difícil de todo projeto é justamente esta: explicar por que o número bonito do painel não é o número que entra no caixa. Vamos direto.</p>
+
+      <div class="callout">
+        <span class="k">Resumo rápido</span>
+        <ul>
+          <li>A métrica que vale é <strong>receita incremental</strong>, não receita recuperada.</li>
+          <li><strong>Grupo de controle</strong> de 10% a 20% é o que separa medição de autoengano.</li>
+          <li>Do incremento você ainda desconta <strong>desconto concedido, custo de mensagem e hora humana</strong>.</li>
+          <li>Métricas de operação (entrega, resposta, escalonamento) servem para <strong>diagnóstico</strong>, nunca para prova.</li>
+          <li>Amostra semanal de conversas lidas à mão detecta a <strong>regressão silenciosa</strong> que o painel esconde.</li>
+        </ul>
+      </div>
+
+      <h2>Por que "receita recuperada" quase sempre está inflada</h2>
+      <p>O painel de um agente de recuperação normalmente conta assim: o cliente abandonou o carrinho, o agente mandou mensagem, o cliente comprou em até 72 horas, logo a venda é do agente. É atribuição de último toque aplicada a um canal que fala com gente que <em>já estava comprando</em>. Três coisas contaminam esse número:</p>
+
+      <ul>
+        <li><strong>A venda que aconteceria de qualquer jeito.</strong> Boa parte de quem abandona carrinho volta sozinho — trocou de dispositivo, foi almoçar, esperou o salário cair. O agente entrou no meio e levou o crédito.</li>
+        <li><strong>A canibalização de canal.</strong> A pessoa já tinha visto seu remarketing, seu e-mail e seu anúncio. O agente foi o último a falar, não o que convenceu.</li>
+        <li><strong>O desconto que virou custo.</strong> Se o agente fecha com 10% off, parte daquela "receita recuperada" é margem que você mesmo devolveu — inclusive para quem pagaria cheio.</li>
+      </ul>
+
+      <p>Nada disso significa que o agente não funciona. Significa que você não sabe o tamanho do efeito enquanto não isolar o experimento. E não saber o tamanho é o que faz empresa renovar contrato ruim e cortar contrato bom.</p>
+
+      <blockquote><p>Não existe métrica errada de propósito. Existe métrica que sobe quando o robô trabalha mais — e métrica que sobe quando a empresa vende mais. Confundir as duas custa contrato.</p></blockquote>
+
+      <h2>Métrica de vaidade x métrica de resultado</h2>
+      <p>Tabela direta. À esquerda o que aparece em toda apresentação de fornecedor; à direita o que você deveria estar cobrando.</p>
+
+      <div style="overflow-x:auto;margin:24px 0">
+        <table style="width:100%;border-collapse:collapse;font-size:.95rem;min-width:600px">
+          <thead>
+            <tr style="text-align:left;border-bottom:2px solid rgba(0,0,0,.2)">
+              <th style="padding:10px 12px">Métrica de vaidade</th>
+              <th style="padding:10px 12px">Por que engana</th>
+              <th style="padding:10px 12px">Substitua por</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid rgba(0,0,0,.1)">
+              <td style="padding:10px 12px">Mensagens enviadas</td>
+              <td style="padding:10px 12px">Sobe só aumentando frequência</td>
+              <td style="padding:10px 12px">Conversas com resposta humana real</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,.1)">
+              <td style="padding:10px 12px">Taxa de entrega</td>
+              <td style="padding:10px 12px">Mede a operadora, não a venda</td>
+              <td style="padding:10px 12px">Taxa de resposta em 24h</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,.1)">
+              <td style="padding:10px 12px">Leads "atendidos"</td>
+              <td style="padding:10px 12px">Atender não é qualificar</td>
+              <td style="padding:10px 12px">Leads que viraram reunião ou pedido</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,.1)">
+              <td style="padding:10px 12px">Receita recuperada bruta</td>
+              <td style="padding:10px 12px">Inclui venda que ocorreria sozinha</td>
+              <td style="padding:10px 12px">Receita incremental vs. controle</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(0,0,0,.1)">
+              <td style="padding:10px 12px">Tempo médio de resposta</td>
+              <td style="padding:10px 12px">Robô sempre ganha do humano nisso</td>
+              <td style="padding:10px 12px">Conversão por faixa de tempo</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 12px">Satisfação com o bot</td>
+              <td style="padding:10px 12px">Só responde quem já estava bem</td>
+              <td style="padding:10px 12px">Taxa de escalonamento e de opt-out</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Como montar o grupo de controle (o passo que ninguém quer dar)</h2>
+      <p>Grupo de controle, ou <em>holdout</em>, é uma fatia dos clientes elegíveis que <strong>não recebe nada</strong>. Parece contraintuitivo abrir mão de receita de propósito. Na prática é o investimento mais barato que você faz: é o que te dá o direito de dizer um número em reunião sem ser desmentido.</p>
+
+      <ol>
+        <li><strong>Defina elegibilidade com precisão.</strong> "Abandonou carrinho acima de R$ 100 nas últimas 4 horas e não comprou" é elegibilidade. "Cliente da base" não é.</li>
+        <li><strong>Sorteie de 10% a 20%</strong> no momento em que a pessoa se torna elegível — não depois. Separar depois é escolher a dedo, e escolher a dedo destrói o teste.</li>
+        <li><strong>Bloqueie o contato</strong> desse grupo em todos os canais do agente. Se ele recebe o e-mail automático mas não o WhatsApp, o teste mede meia coisa.</li>
+        <li><strong>Mantenha por um ciclo completo</strong> de compra. Encerrar cedo é a forma mais comum de ver resultado que não existe.</li>
+        <li><strong>Compare taxa de conversão</strong>, não valores absolutos — os grupos têm tamanhos diferentes.</li>
+      </ol>
+
+      <p>Um detalhe que salva a análise: registre a data de entrada no experimento, não só a data da venda. Sem isso você compara pessoas que tiveram 30 dias de janela com pessoas que tiveram 3.</p>
+
+      <h2>A conta completa da receita incremental</h2>
+      <p>Vou usar números de exemplo para mostrar a estrutura. Substitua pelos seus — os seus são os únicos que importam.</p>
+
+      <div class="callout">
+        <span class="k">Exemplo, passo a passo</span>
+        <ul>
+          <li>Elegíveis no mês: <strong>5.000</strong> · controle sorteado: <strong>15% = 750</strong> · tratamento: <strong>4.250</strong>.</li>
+          <li>Controle: <strong>60 pedidos</strong> em 750 → conversão de <strong>8,0%</strong>.</li>
+          <li>Tratamento: <strong>510 pedidos</strong> em 4.250 → conversão de <strong>12,0%</strong>.</li>
+          <li>Ganho de conversão: <strong>4,0 pontos percentuais</strong>.</li>
+          <li>Pedidos incrementais: 4,0% × 4.250 = <strong>170 pedidos</strong> (não 510).</li>
+          <li>Ticket médio R$ 210 → receita incremental de <strong>R$ 35.700</strong>.</li>
+          <li>Margem de contribuição 42% → <strong>R$ 14.994 de margem incremental</strong>.</li>
+        </ul>
+      </div>
+
+      <p>Note o tamanho do erro: o painel diria 510 pedidos e R$ 107.100. O número honesto é 170 pedidos e R$ 35.700. Três vezes menor — e ainda assim um resultado excelente, que vale contratar. A diferença é que agora ele é defensável.</p>
+
+      <h2>Do incremento para o lucro: os custos que somem do slide</h2>
+      <p>Margem incremental não é lucro. Faltam quatro linhas que raramente aparecem na proposta do fornecedor:</p>
+
+      <ul>
+        <li><strong>Desconto concedido pelo agente.</strong> Se ele fecha com cupom, some tudo que foi dado — inclusive para quem pagaria cheio. É a linha mais esquecida e a que mais come resultado.</li>
+        <li><strong>Custo de conversa.</strong> Na WhatsApp Business Platform da Meta, iniciar conversa fora da janela de 24 horas exige modelo de mensagem aprovado e é cobrado. Multiplique pelo volume de tentativas, não pelo de vendas.</li>
+        <li><strong>Plataforma e infraestrutura.</strong> Mensalidade, uso de modelo de linguagem, integrações.</li>
+        <li><strong>Hora humana.</strong> Supervisão, correção de resposta ruim, atendimento escalado. Isso não some quando você automatiza — só muda de lugar.</li>
+      </ul>
+
+      <p>Seguindo o exemplo acima: R$ 14.994 de margem incremental, menos R$ 3.100 de descontos, menos R$ 1.900 de conversas e plataforma, menos 20 horas humanas a R$ 60 (R$ 1.200) → <strong>R$ 8.794 de lucro líquido</strong> sobre R$ 6.200 de custo total. ROI de 1,42 sobre custo — ou seja, cada real gasto devolveu R$ 1,42 de lucro. Esse é o número que se leva para o conselho. Para dimensionar a linha de investimento antes de contratar, eu detalhei faixas em <a href="./quanto-custa-ia-para-empresas.html">quanto custa IA para empresas</a>.</p>
+
+      <h2>Os sete números que ficam no meu painel</h2>
+      <p>Dois provam resultado. Cinco protegem a operação. Nenhum deles é "mensagens enviadas".</p>
+
+      <ol>
+        <li><strong>Receita incremental vs. controle</strong> — o número principal, atualizado por ciclo.</li>
+        <li><strong>Lucro líquido sobre custo total</strong> — o número que decide renovação.</li>
+        <li><strong>Taxa de resposta em 24h</strong> — saúde do primeiro contato. Cai? A mensagem ou a lista degradou.</li>
+        <li><strong>Taxa de escalonamento para humano</strong> — muito alta significa agente incapaz; muito baixa significa agente teimoso.</li>
+        <li><strong>Taxa de opt-out e bloqueio</strong> — o custo invisível. Cada descadastro é um cliente que você perdeu para sempre naquele canal.</li>
+        <li><strong>Taxa de erro por amostragem</strong> — percentual de conversas lidas à mão em que o agente informou algo errado.</li>
+        <li><strong>Tempo até a primeira resposta humana</strong> nos casos escalados — de nada adianta o robô ser rápido se o time demora dois dias.</li>
+      </ol>
+
+      <p>O item 5 merece destaque. Opt-out é dívida: ele não aparece no mês em que acontece, aparece seis meses depois quando a base parou de reagir. Eu trato aumento de descadastro como alarme vermelho, mesmo com a receita subindo.</p>
+
+      <h2>A regressão silenciosa: quando o agente piora e o painel não conta</h2>
+      <p>Agente de IA não quebra com erro na tela. Ele degrada. Muda o catálogo, muda a política de frete, entra um produto novo — e o agente segue respondendo com confiança total sobre a realidade antiga. As métricas agregadas demoram semanas para acusar.</p>
+
+      <p>A única defesa que eu conheço é barata e chata: <strong>ler 30 a 50 conversas reais por semana, à mão</strong>, sorteadas ao acaso. Classificar cada uma em correta, imprecisa ou errada. Isso vira a sua taxa de erro por amostragem, e é o indicador que antecipa queda de conversão em semanas. Na minha operação, esse ritual já pegou coisa que nenhum gráfico pegaria — agente oferecendo item fora de linha, prometendo prazo que a logística não cumpre, insistindo com quem tinha pedido para parar.</p>
+
+      <p>Se você ainda está estruturando o agente em si, o desenho dessas travas está em <a href="./agentes-de-ia-para-ecommerce-recuperar-vendas.html">agentes de IA para e-commerce recuperando vendas</a> e o raciocínio de qualificação, em <a href="./sdr-de-ia-agente-de-vendas.html">SDR de IA</a>.</p>
+
+      <h2>Checklist antes de aprovar ou renovar um contrato</h2>
+      <ol>
+        <li>Existe grupo de controle ativo? Se a resposta for "não precisa", já sabe o que fazer.</li>
+        <li>O número apresentado é incremental ou bruto? Peça a conta, não o slide.</li>
+        <li>Os descontos concedidos pelo agente estão descontados do resultado?</li>
+        <li>O custo de conversa e a hora humana entraram na conta de ROI?</li>
+        <li>Qual a taxa de opt-out no período — e ela subiu?</li>
+        <li>Quem lê as conversas à mão, com que frequência, e qual foi a taxa de erro do último mês?</li>
+        <li>A janela de atribuição está declarada e é a mesma para os dois grupos?</li>
+      </ol>
+
+      <p>Sete perguntas. Um fornecedor sério responde todas sem desconforto. Se travar em três, o problema não é o agente — é a medição, e você vai pagar por ela.</p>
+
+      <h2>Por que eu insisto tanto nisso</h2>
+      <p>Quando apresentei um caso de ROI 10,48 ao vivo num evento de Meta Business Partners, o que sustentou o palco não foi a criatividade do anúncio: foi ter a conta fechada, com custo real e receita rastreada, do clique até o pedido pago. É a mesma disciplina aqui. Um agente de IA é um investimento como qualquer outro — e investimento que não se mede direito vira fé.</p>
+
+      <p>Medir com honestidade tem um efeito secundário que ninguém espera: você para de discutir se IA funciona e começa a discutir onde ela funciona melhor. Aí a conversa fica boa. Depois que o agente de recuperação está medido, o passo natural é estender a régua para o pós-venda inteiro — escrevi o método completo em <a href="./recompra-e-pos-venda-com-agentes-de-ia.html">recompra e pós-venda com agentes de IA</a>. E se quiser ver como eu conecto tráfego, marca e atendimento numa operação só, comece por <a href="../index.html">esta página</a>.</p>
+
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details open><summary>Qual é a métrica correta para medir um agente de recuperação de vendas?</summary><p>Receita incremental: a diferença de conversão entre o grupo que recebeu o agente e um grupo de controle equivalente que não recebeu nada, na mesma janela de tempo. Todo o resto — mensagens enviadas, taxa de entrega, receita recuperada bruta — descreve atividade, não resultado. Se você não tem grupo de controle, não tem como saber quanto o agente realmente gerou.</p></details>
+        <details><summary>O que é uma métrica de vaidade em automação de vendas?</summary><p>É todo número que sobe quando o agente trabalha mais, e não quando a empresa vende mais. Mensagens disparadas, taxa de entrega, conversas iniciadas, tempo de resposta e até receita recuperada bruta entram nessa lista. Elas servem para diagnosticar a saúde da operação, mas nenhuma delas prova que o faturamento subiu por causa do agente.</p></details>
+        <details><summary>Como montar um grupo de controle para testar o agente?</summary><p>Sorteie de 10% a 20% dos clientes elegíveis e marque esses contatos para não receber nenhuma mensagem do agente durante todo o período do teste. A separação precisa ser aleatória, feita no momento em que o cliente se torna elegível, e mantida por pelo menos um ciclo completo de compra. Compare então a taxa de conversão dos dois grupos e a diferença é o efeito real do agente.</p></details>
+        <details><summary>Quanto tempo é preciso rodar para ter um resultado confiável?</summary><p>O tempo necessário para acumular volume suficiente de casos elegíveis, e no mínimo um ciclo completo de compra do seu produto. Para carrinho abandonado, isso costuma ser algumas semanas. Para recompra de um produto com ciclo de 90 dias, são pelo menos 90 dias. Encerrar o teste na primeira semana boa é como parar uma campanha no melhor dia e chamar aquilo de média.</p></details>
+        <details><summary>Como calcular o ROI líquido de um agente de IA?</summary><p>Pegue a margem de contribuição da receita incremental, subtraia os descontos concedidos pelo agente, o custo das conversas com modelo de mensagem, a mensalidade da plataforma e as horas humanas gastas em supervisão e correção. Divida esse lucro líquido pelo custo total. Se o resultado for menor que 1, o agente está custando mais do que gera, mesmo que o painel dele mostre números bonitos.</p></details>
+      </div>
+    </div>
+
+    <div class="author-box">
+      <img src="../img/thomas-macedo-palestra.jpeg" alt="Thomas Macedo" />
+      <div>
+        <div class="a-name">Thomas Macedo</div>
+        <p class="a-bio">Fundador da Gene Company e diretor da LINCE Performance. Especialista em sistemas e agentes de IA, criação de marcas e tráfego pago com ROI escalável para empresas. Santos/BR, atende Brasil e exterior. <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" target="_blank" rel="noopener">Fale comigo no WhatsApp →</a></p>
+      </div>
+    </div>
+  </article>
+
+  <section class="related">
+    <div class="wrap-narrow" style="padding:0">
+      <p class="eyebrow eyebrow-ink" style="display:block;margin-bottom:8px">Continue lendo</p>
+      <div class="related-grid">
+        <a href="../artigos/recompra-e-pos-venda-com-agentes-de-ia.html"><span class="r-cat">Inteligência Artificial</span><h3>Recompra e pós-venda com agentes de IA: uma venda vira cliente recorrente</h3></a>
+        <a href="../artigos/roi-escalavel-trafego-pago.html"><span class="r-cat">Marketing &amp; Vendas</span><h3>ROI escalável em tráfego pago: como crescer verba sem quebrar o retorno</h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2 class="display mt-m" style="font-size:clamp(2.2rem,5vw,4rem)">Quero saber quanto<br>a IA está gerando.</h2>
+      <p class="lead mt-m" style="color:rgba(244,241,234,.8);max-width:48ch">Conte sobre o seu negócio e receba um diagnóstico do seu tráfego, criativos, marca e atendimento com IA.</p>
+      <div class="contact-row">
+        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" class="btn" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
+        <a href="https://www.instagram.com/thomasmacedo.ads" class="link-underline" target="_blank" rel="noopener" style="color:var(--paper)">Instagram @thomasmacedo.ads</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <span>© 2026 Thomas Macedo — IA, criação de marcas e tráfego pago. Santos, Baixada Santista, Brasil &amp; exterior.</span>
+        <div class="foot-links">
+          <a href="../index.html">IA &amp; Performance</a>
+          <a href="../marcas.html">Marcas &amp; E-commerce</a>
+          <a href="../artigos/">Artigos</a>
+          <a href="https://www.instagram.com/thomasmacedo.ads" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/thomas-macedo-23896216a/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/102946615/" target="_blank" rel="noopener">LINCE Performance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="../site.js" defer></script>
+</body>
+</html>

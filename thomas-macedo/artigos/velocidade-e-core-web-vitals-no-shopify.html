@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Velocidade e Core Web Vitals no Shopify: loja lenta queima verba | Thomas Macedo</title>
+  <meta name="description" content="Como velocidade e Core Web Vitals (LCP, INP, CLS) afetam a conversão e o custo do tráfego pago numa loja Shopify — o que medir, o que deixa lento e o que consertar primeiro. Por Thomas Macedo." />
+  <meta name="keywords" content="Core Web Vitals Shopify, velocidade loja Shopify, LCP INP CLS, loja lenta conversão, PageSpeed Shopify, tráfego pago e-commerce, Thomas Macedo" />
+  <meta name="author" content="Thomas Macedo" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://www.thomas-macedo.com/artigos/velocidade-e-core-web-vitals-no-shopify.html" />
+  <meta name="theme-color" content="#FAF8F3" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Thomas Macedo" />
+  <meta property="og:title" content="Loja lenta queima verba: velocidade e Core Web Vitals no Shopify" />
+  <meta property="og:description" content="LCP, INP e CLS explicados para quem investe em Google Ads e Meta Ads — e o que consertar primeiro numa loja Shopify." />
+  <meta property="og:url" content="https://www.thomas-macedo.com/artigos/velocidade-e-core-web-vitals-no-shopify.html" />
+  <meta property="og:image" content="https://www.thomas-macedo.com/img/thomas-macedo-palestra-2.jpeg" />
+  <meta property="article:author" content="Thomas Macedo" />
+  <meta property="article:published_time" content="2026-08-04" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Loja lenta queima verba: velocidade e Core Web Vitals no Shopify" />
+  <meta name="twitter:description" content="LCP, INP e CLS explicados para quem investe em Google Ads e Meta Ads — e o que consertar primeiro numa loja Shopify." />
+  <meta name="twitter:image" content="https://www.thomas-macedo.com/img/thomas-macedo-palestra-2.jpeg" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BlogPosting",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.thomas-macedo.com/artigos/velocidade-e-core-web-vitals-no-shopify.html"},
+    "headline":"Loja lenta queima verba: velocidade e Core Web Vitals no Shopify explicados para quem investe em tráfego pago",
+    "description":"Como velocidade e Core Web Vitals (LCP, INP, CLS) afetam a conversão e o custo do tráfego pago numa loja Shopify — o que medir, o que deixa lento e o que consertar primeiro.",
+    "image":"https://www.thomas-macedo.com/img/thomas-macedo-palestra-2.jpeg",
+    "datePublished":"2026-08-04","dateModified":"2026-08-04",
+    "inLanguage":"pt-BR",
+    "author":{"@type":"Person","@id":"https://www.thomas-macedo.com/#thomas-macedo","name":"Thomas Macedo","url":"https://www.thomas-macedo.com/","jobTitle":"Especialista em IA, Criação de Marcas e Tráfego Pago","worksFor":{"@type":"Organization","name":"Gene Company"},"sameAs":["https://www.instagram.com/thomasmacedo.ads","https://www.linkedin.com/in/thomas-macedo-23896216a/"]},
+    "publisher":{"@type":"Person","name":"Thomas Macedo"},
+    "keywords":"Core Web Vitals Shopify, velocidade loja Shopify, LCP INP CLS, loja lenta conversão, PageSpeed Shopify, tráfego pago e-commerce, Thomas Macedo"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.thomas-macedo.com/"},
+      {"@type":"ListItem","position":2,"name":"Artigos","item":"https://www.thomas-macedo.com/artigos/"},
+      {"@type":"ListItem","position":3,"name":"Velocidade e Core Web Vitals no Shopify","item":"https://www.thomas-macedo.com/artigos/velocidade-e-core-web-vitals-no-shopify.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[{"@type":"Question","name":"O que são Core Web Vitals?","acceptedAnswer":{"@type":"Answer","text":"São três métricas do Google que medem a experiência real de quem usa a página: LCP (quanto tempo até o maior elemento visível aparecer), INP (quanto tempo a página leva para responder a um toque ou clique) e CLS (o quanto o layout se mexe sozinho durante o carregamento). O Google considera boa a página que entrega LCP até 2,5 segundos, INP até 200 milissegundos e CLS até 0,1, medidos no percentil 75 dos acessos reais."}},{"@type":"Question","name":"Velocidade da loja afeta o custo do tráfego pago?","acceptedAnswer":{"@type":"Answer","text":"Afeta o resultado do investimento por dois caminhos. O direto: quem clica no anúncio e desiste antes da página carregar é um clique pago que virou nada, então o custo por venda sobe mesmo com o CPC igual. O indireto: tanto o Google Ads quanto o Meta consideram a qualidade da experiência de destino nos seus sistemas de leilão e entrega, o que tende a encarecer o alcance de páginas ruins."}},{"@type":"Question","name":"Qual é a velocidade ideal para uma loja Shopify?","acceptedAnswer":{"@type":"Answer","text":"O alvo prático é a página de produto abrir e ficar utilizável em até 2,5 segundos no celular, em rede móvel comum, medido com dados de campo. Nota de PageSpeed é bússola, não meta — o que decide é o tempo real que o cliente espera antes de ver preço, foto e botão de comprar."}},{"@type":"Question","name":"O que mais deixa uma loja Shopify lenta?","acceptedAnswer":{"@type":"Answer","text":"Na ordem que eu mais encontro: imagens pesadas e sem dimensão definida, excesso de aplicativos que injetam scripts em todas as páginas, carrossel ou vídeo no topo da home, fontes e ícones carregados de vários lugares e scripts de terceiros como chats, popups, avaliações e pixels duplicados. O checkout é hospedado pelo Shopify e raramente é o gargalo; o gargalo quase sempre está no tema e nos apps."}},{"@type":"Question","name":"Vale a pena usar landing page separada em vez da loja para campanha?","acceptedAnswer":{"@type":"Answer","text":"Vale quando a campanha é de um produto só, com oferta e público específicos: a landing carrega leve, tem uma única decisão e evita o peso do tema completo. Para catálogo, remarketing e campanhas de compra do Google, o melhor caminho continua sendo levar o tráfego para a loja e deixá-la rápida, porque é a loja que sustenta a recompra e o pixel."}}]
+  }
+  </script>
+</head>
+<body>
+
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="../index.html" class="wordmark">Thomas <span>Macedo</span></a>
+        <div class="nav-links">
+          <a href="../index.html" class="hide-mob">IA &amp; Performance</a>
+          <a href="../marcas.html" class="hide-mob">Marcas &amp; E-commerce</a>
+          <a href="../artigos/" class="active hide-mob">Artigos</a>
+          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="nav-cta" target="_blank" rel="noopener">Falar comigo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap"><nav class="crumb"><a href="../index.html">Início</a><span>/</span><a href="../artigos/">Artigos</a><span>/</span>Velocidade e Core Web Vitals no Shopify</nav></div>
+
+  <article>
+    <header class="article-head">
+      <span class="eyebrow">E-commerce</span>
+      <h1>Loja lenta queima verba: velocidade e Core Web Vitals no Shopify explicados para quem investe em tráfego pago</h1>
+      <p class="dek">Cada segundo a mais entre o clique e a página é dinheiro de anúncio que você já pagou e não vai receber de volta. O que medir, o que está deixando sua loja lenta e a ordem certa de consertar.</p>
+      <div class="article-meta">
+        <span>Por Thomas Macedo</span><span class="dot"></span><span>10 min de leitura</span><span class="dot"></span><span>Atualizado em 2026</span>
+      </div>
+    </header>
+
+    <div class="article-cover">
+      <img src="../img/thomas-macedo-palestra-2.jpeg" alt="Thomas Macedo em palestra sobre performance e tráfego pago para e-commerce" width="1000" height="500" style="object-position:center 30%" />
+    </div>
+
+    <div class="prose">
+      <p><strong>Loja lenta queima verba porque o clique já foi pago antes de a página existir.</strong> Quando alguém toca no seu anúncio e some antes do produto aparecer, o custo daquele clique fica e a receita não vem — o CPC continua igual e o custo por venda sobe. O Google publicou no Think with Google que a probabilidade de abandono cresce cerca de 32% quando o carregamento vai de 1 para 3 segundos, e dispara conforme o tempo aumenta. Core Web Vitals é simplesmente o jeito do Google medir isso com três números: LCP, INP e CLS.</p>
+
+      <div class="callout">
+        <span class="k">Os 3 números que importam</span>
+        <ul>
+          <li><strong>LCP</strong> — tempo até o maior elemento visível aparecer. Bom: até <strong>2,5 s</strong>.</li>
+          <li><strong>INP</strong> — tempo de resposta a toques e cliques. Bom: até <strong>200 ms</strong>.</li>
+          <li><strong>CLS</strong> — o quanto o layout pula sozinho. Bom: até <strong>0,1</strong>.</li>
+        </ul>
+      </div>
+
+      <h2>Por que velocidade é assunto de gestor de tráfego, não só de programador</h2>
+      <p>Faça a conta com números seus. Imagine R$ 20.000 no mês, CPC médio de R$ 2,00 — são 10.000 cliques comprados. Se 15% dessas pessoas desistem antes de a página ficar utilizável, você comprou 1.500 cliques que não viraram nem sessão aproveitável: R$ 3.000 que saíram do caixa e não entraram em lugar nenhum do funil. Nenhum ajuste de lance recupera isso, porque o dinheiro não foi perdido no leilão, foi perdido no destino.</p>
+      <p>E tem o efeito composto: menos sessões válidas significa menos eventos de conversão para o algoritmo aprender. Campanha com sinal fraco entrega pior, e entrega pior encarece o próximo clique. É por isso que eu trato performance de loja como parte da mídia — a mesma lógica que sustenta o <a href="./roi-escalavel-trafego-pago.html">ROI escalável</a>.</p>
+
+      <blockquote><p>Ninguém escala uma campanha boa em cima de uma loja lenta. Você só descobre mais rápido quanto está perdendo.</p></blockquote>
+
+      <h2>O que são LCP, INP e CLS</h2>
+
+      <h3>LCP — o tempo até aparecer algo que importa</h3>
+      <p>Largest Contentful Paint mede quanto tempo leva até o maior elemento da área visível terminar de renderizar. Numa página de produto, quase sempre é a foto principal. Se o LCP está em 5 segundos, o cliente ficou 5 segundos olhando para um esqueleto branco depois de clicar no seu anúncio. Meta: até 2,5 segundos.</p>
+
+      <h3>INP — o tempo até a página responder</h3>
+      <p>Interaction to Next Paint substituiu o antigo FID como métrica oficial do Google em março de 2024. Ele mede a demora entre a pessoa tocar em algo (escolher tamanho, abrir a galeria, apertar Comprar) e a tela reagir. É a métrica que mais denuncia excesso de JavaScript de aplicativos. Meta: até 200 milissegundos.</p>
+
+      <h3>CLS — o quanto a página se mexe sozinha</h3>
+      <p>Cumulative Layout Shift mede o pulo do conteúdo durante o carregamento. É o banner que aparece atrasado e empurra tudo para baixo bem na hora em que o dedo desce no botão. Além de irritar, gera clique errado e abandono. Meta: até 0,1.</p>
+
+      <p>Os três são avaliados no <strong>percentil 75 dos acessos reais</strong>: não basta ficar rápido no seu iPhone novo com Wi-Fi de fibra, precisa ficar rápido para 3 em cada 4 visitantes, em aparelho comum e rede móvel.</p>
+
+      <h2>Onde medir de verdade (e por que sua nota engana)</h2>
+      <p>Existem dois tipos de dado, e confundir os dois é o erro mais comum:</p>
+      <ul>
+        <li><strong>Dado de laboratório</strong> — uma simulação rodada agora, num ambiente controlado. É o que gera aquela nota de 0 a 100. Serve para diagnosticar.</li>
+        <li><strong>Dado de campo</strong> — o que os visitantes reais viveram nos últimos 28 dias, coletado pelo Chrome. É o que o Google usa para dizer se sua página passa ou não nos Core Web Vitals. Serve para decidir.</li>
+      </ul>
+      <p>Onde eu olho, nessa ordem:</p>
+      <ol>
+        <li><strong>PageSpeed Insights</strong> — a parte de cima da tela mostra o dado de campo; a de baixo, o laboratório. Teste a página de produto, não só a home, porque é para lá que o anúncio manda.</li>
+        <li><strong>Google Search Console, relatório de Core Web Vitals</strong> — mostra o site inteiro agrupado por tipo de página. É o mapa de onde o problema é sistêmico.</li>
+        <li><strong>Relatório de velocidade no admin do Shopify</strong> — comparativo ao longo do tempo, útil para pegar a queda depois de instalar um app.</li>
+        <li><strong>Teste manual em celular real</strong> — modo anônimo, 4G, sem cache. Nenhuma ferramenta substitui esperar você mesmo pela sua loja.</li>
+      </ol>
+      <p>Nota alta não é a meta. Já vi loja com 90 no laboratório e LCP horroroso no campo — e o cliente não sente nota, sente segundo.</p>
+
+      <h2>O que mais deixa uma loja Shopify lenta</h2>
+      <p>Uma coisa importante: o checkout é hospedado e otimizado pelo Shopify, e raramente é o gargalo. O peso quase sempre está no que <em>você</em> colocou por cima — tema e aplicativos. Na ordem em que eu mais encontro:</p>
+      <ul>
+        <li><strong>Imagens pesadas.</strong> Foto de 3 MB exportada do banco de imagens, servida do mesmo tamanho para celular e desktop.</li>
+        <li><strong>Imagens sem largura e altura definidas.</strong> Causa direta de CLS: o navegador não sabe quanto espaço reservar e o conteúdo pula quando a foto chega.</li>
+        <li><strong>Carrossel ou vídeo automático no topo.</strong> O elemento mais pesado da página, exatamente onde o LCP é medido.</li>
+        <li><strong>Excesso de aplicativos.</strong> Cada app instalado tende a injetar script em toda a loja, inclusive nas páginas onde ele não faz nada. Cinco apps que você não usa mais continuam cobrando pedágio em cada visita.</li>
+        <li><strong>Scripts de terceiros.</strong> Chat, popup de cupom, roleta de desconto, app de avaliação, mapa de calor. Todos úteis em tese; somados, um freio de mão.</li>
+        <li><strong>Pixels duplicados.</strong> Pixel do Meta instalado no tema, de novo pelo app e mais uma vez pelo gerenciador de tags. Além de deixar lento, contamina dado de conversão — e dado sujo estraga decisão de campanha, seja no <a href="./google-ads-ou-meta-ads.html">Google Ads ou no Meta Ads</a>.</li>
+        <li><strong>Fontes carregadas de vários lugares.</strong> Três famílias, oito pesos, dois provedores. Escolha duas fontes e dois pesos.</li>
+        <li><strong>Sliders e efeitos do tema.</strong> Bibliotecas de animação inteiras carregadas para fazer um texto aparecer suave.</li>
+      </ul>
+
+      <h2>A ordem em que eu conserto</h2>
+      <p>Trabalho sempre de cima para baixo, do que dá mais resultado com menos risco:</p>
+      <ol>
+        <li><strong>Auditoria de apps.</strong> Liste todos, marque o que gera receita comprovada e desinstale o resto. Desinstalar de verdade, não só desativar — e conferir se sobrou código órfão no tema.</li>
+        <li><strong>Imagens.</strong> Redimensione antes de subir, use formatos modernos, entregue tamanhos diferentes por dispositivo e defina largura e altura em tudo.</li>
+        <li><strong>Carregamento preguiçoso, mas com exceção.</strong> Tudo que está abaixo da dobra carrega depois; a imagem principal do produto carrega com prioridade. Colocar lazy loading na foto do LCP é o autogol clássico.</li>
+        <li><strong>Topo limpo.</strong> Uma imagem no lugar do carrossel. Vídeo só depois do clique do usuário.</li>
+        <li><strong>Scripts de terceiros com atraso.</strong> Chat, avaliações e popup entram depois da interação ou de alguns segundos. O cliente não precisa do chat no milissegundo zero.</li>
+        <li><strong>Pixel único e limpo.</strong> Um caminho de rastreamento, conferido evento por evento.</li>
+        <li><strong>Tema.</strong> Se depois de tudo isso a loja continua pesada, o problema é o tema. Tema leve e bem-feito é investimento, não gasto.</li>
+      </ol>
+
+      <h2>Como isso conversa com o leilão de anúncios</h2>
+      <p>No Google Ads, a experiência da página de destino é um componente declarado do Índice de qualidade — página lenta e irrelevante tende a custar mais caro pelo mesmo lugar. No Meta, a qualidade da experiência de destino também entra nos sinais de entrega, e a plataforma penaliza destinos ruins na prática, mesmo quando não mostra um número na sua frente.</p>
+      <p>Só que nem precisa desse argumento. A matemática da própria loja já resolve: se metade do público desiste na espera, você está comprando audiência para o concorrente. Quando apresentei o case de ROI 10,48 ao vivo num evento do Meta Business Partners, o pré-requisito nem foi discutido em cima do palco — a loja abria rápido. Anúncio bom não conserta destino ruim, e é isso que separa quem escala de quem só aumenta o orçamento. Se você quer o quadro completo de aquisição, recuperação e recompra, escrevi sobre isso em <a href="./maquina-de-roi-shopify.html">máquina de ROI no Shopify</a> e em <a href="./como-escalar-ecommerce-com-trafego-pago.html">como escalar e-commerce com tráfego pago</a>.</p>
+
+      <h2>Landing page separada ou a loja mesmo?</h2>
+      <p>Pergunta que aparece toda semana. Minha resposta:</p>
+      <ul>
+        <li><strong>Landing dedicada</strong> quando é campanha de produto único, com oferta e público específicos. Ela carrega leve, tem uma decisão só e não arrasta o peso do tema completo.</li>
+        <li><strong>A loja</strong> quando é catálogo, remarketing ou campanha de compras do Google. É a loja que sustenta pixel, recompra e a jornada inteira — vale mais deixá-la rápida do que fugir dela.</li>
+      </ul>
+      <p>O que não funciona é usar landing como desculpa para nunca arrumar a loja. Uma hora todo mundo cai lá.</p>
+
+      <h2>O que eu checo antes de subir qualquer verba nova</h2>
+      <ul>
+        <li>Página de produto abre e fica utilizável em até 2,5 s no celular, em rede móvel.</li>
+        <li>Nada pula depois que a página aparece.</li>
+        <li>Botão de comprar responde na hora, sem meio segundo de atraso.</li>
+        <li>Nenhum app instalado sem função definida.</li>
+        <li>Um pixel só, com evento de compra batendo com o Shopify.</li>
+        <li>Recuperação ligada para quem sai mesmo assim — geralmente com <a href="./agentes-de-ia-para-ecommerce-recuperar-vendas.html">agentes de IA respondendo em segundos</a>.</li>
+      </ul>
+      <p>É uma lista de seis linhas e vale mais do que qualquer otimização de lance feita em cima de uma loja que demora. Se quiser ver como eu junto performance, marca e operação com IA, comece pela <a href="../index.html">página inicial</a>.</p>
+
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details open><summary>O que são Core Web Vitals?</summary><p>São três métricas do Google que medem a experiência real de quem usa a página: LCP (quanto tempo até o maior elemento visível aparecer), INP (quanto tempo a página leva para responder a um toque ou clique) e CLS (o quanto o layout se mexe sozinho durante o carregamento). O Google considera boa a página que entrega LCP até 2,5 segundos, INP até 200 milissegundos e CLS até 0,1, medidos no percentil 75 dos acessos reais.</p></details>
+        <details><summary>Velocidade da loja afeta o custo do tráfego pago?</summary><p>Afeta o resultado do investimento por dois caminhos. O direto: quem clica no anúncio e desiste antes da página carregar é um clique pago que virou nada, então o custo por venda sobe mesmo com o CPC igual. O indireto: tanto o Google Ads quanto o Meta consideram a qualidade da experiência de destino nos seus sistemas de leilão e entrega, o que tende a encarecer o alcance de páginas ruins.</p></details>
+        <details><summary>Qual é a velocidade ideal para uma loja Shopify?</summary><p>O alvo prático é a página de produto abrir e ficar utilizável em até 2,5 segundos no celular, em rede móvel comum, medido com dados de campo. Nota de PageSpeed é bússola, não meta — o que decide é o tempo real que o cliente espera antes de ver preço, foto e botão de comprar.</p></details>
+        <details><summary>O que mais deixa uma loja Shopify lenta?</summary><p>Na ordem que eu mais encontro: imagens pesadas e sem dimensão definida, excesso de aplicativos que injetam scripts em todas as páginas, carrossel ou vídeo no topo da home, fontes e ícones carregados de vários lugares e scripts de terceiros como chats, popups, avaliações e pixels duplicados. O checkout é hospedado pelo Shopify e raramente é o gargalo; o gargalo quase sempre está no tema e nos apps.</p></details>
+        <details><summary>Vale a pena usar landing page separada em vez da loja para campanha?</summary><p>Vale quando a campanha é de um produto só, com oferta e público específicos: a landing carrega leve, tem uma única decisão e evita o peso do tema completo. Para catálogo, remarketing e campanhas de compra do Google, o melhor caminho continua sendo levar o tráfego para a loja e deixá-la rápida, porque é a loja que sustenta a recompra e o pixel.</p></details>
+      </div>
+    </div>
+
+    <div class="author-box">
+      <img src="../img/thomas-macedo-palestra.jpeg" alt="Thomas Macedo" />
+      <div>
+        <div class="a-name">Thomas Macedo</div>
+        <p class="a-bio">Fundador da Gene Company e diretor da LINCE Performance. Especialista em sistemas e agentes de IA, criação de marcas, e-commerce e tráfego pago com ROI escalável. Santos/SP, atende Brasil e exterior. <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo%20de%20velocidade%20no%20Shopify" target="_blank" rel="noopener">Fale comigo no WhatsApp →</a></p>
+      </div>
+    </div>
+  </article>
+
+  <section class="related">
+    <div class="wrap-narrow" style="padding:0">
+      <p class="eyebrow eyebrow-ink" style="display:block;margin-bottom:8px">Continue lendo</p>
+      <div class="related-grid">
+        <a href="./otimizacao-de-conversao-shopify.html"><span class="r-cat">E-commerce</span><h3>Otimização de conversão no Shopify: produto e checkout</h3></a>
+        <a href="./como-escalar-ecommerce-com-trafego-pago.html"><span class="r-cat">Tráfego Pago</span><h3>Como escalar e-commerce com tráfego pago</h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2 class="display mt-m" style="font-size:clamp(2.2rem,5vw,4rem)">Sua verba está<br>esperando a página.</h2>
+      <p class="lead mt-m" style="color:rgba(244,241,234,.8);max-width:48ch">Me manda o link da sua loja e eu te digo onde a lentidão está comendo o seu retorno — e o que consertar primeiro.</p>
+      <div class="contact-row">
+        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo%20de%20velocidade%20no%20Shopify" class="btn" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
+        <a href="https://www.instagram.com/thomasmacedo.ads" class="link-underline" target="_blank" rel="noopener" style="color:var(--paper)">Instagram @thomasmacedo.ads</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <span>© 2026 Thomas Macedo — IA, criação de marcas e tráfego pago. Santos, Baixada Santista, Brasil &amp; exterior.</span>
+        <div class="foot-links">
+          <a href="../index.html">IA &amp; Performance</a>
+          <a href="../marcas.html">Marcas &amp; E-commerce</a>
+          <a href="../artigos/">Artigos</a>
+          <a href="https://www.instagram.com/thomasmacedo.ads" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/thomas-macedo-23896216a/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/102946615/" target="_blank" rel="noopener">LINCE Performance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="../site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Alucinação de agentes de IA: por que acontece e como impedir com guardrails | Thomas Macedo</title>
+  <meta name="description" content="Alucinação é quando o agente de IA responde algo falso com tom de certeza. Veja por que acontece, os erros que custam caro e os guardrails que impedem o agente de inventar preço, prazo ou política." />
+  <meta name="keywords" content="alucinação de IA, guardrails de agente de IA, agente de IA inventando resposta, controlar agente de IA, segurança de agentes de IA, LGPD agente de IA, Thomas Macedo" />
+  <meta name="author" content="Thomas Macedo" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://www.thomas-macedo.com/artigos/alucinacao-e-guardrails-de-agentes-de-ia.html" />
+  <meta name="theme-color" content="#FAF8F3" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Thomas Macedo" />
+  <meta property="og:title" content="Alucinação de agentes de IA: por que acontece e como impedir" />
+  <meta property="og:description" content="Sem hype: por que o agente de IA inventa resposta, quais erros custam caro e os guardrails que travam preço, prazo e política errados antes de chegar no cliente." />
+  <meta property="og:url" content="https://www.thomas-macedo.com/artigos/alucinacao-e-guardrails-de-agentes-de-ia.html" />
+  <meta property="og:image" content="https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg" />
+  <meta property="article:author" content="Thomas Macedo" />
+  <meta property="article:published_time" content="2026-08-12" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Alucinação de agentes de IA: por que acontece e como impedir" />
+  <meta name="twitter:description" content="Sem hype: por que o agente de IA inventa resposta, quais erros custam caro e os guardrails que travam preço, prazo e política errados antes de chegar no cliente." />
+  <meta name="twitter:image" content="https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BlogPosting",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.thomas-macedo.com/artigos/alucinacao-e-guardrails-de-agentes-de-ia.html"},
+    "headline":"Alucinação de agentes de IA: por que acontece e como impedir com guardrails",
+    "description":"Alucinação é quando o agente de IA responde algo falso com tom de certeza. Veja por que acontece, os erros que custam caro e os guardrails que impedem o agente de inventar preço, prazo ou política.",
+    "image":"https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg",
+    "datePublished":"2026-08-12","dateModified":"2026-08-12",
+    "inLanguage":"pt-BR",
+    "author":{"@type":"Person","name":"Thomas Macedo","url":"https://www.thomas-macedo.com/","jobTitle":"Especialista em IA, Criação de Marcas e Tráfego Pago","worksFor":{"@type":"Organization","name":"Gene Company"},"sameAs":["https://www.instagram.com/thomasmacedo.ads","https://www.linkedin.com/in/thomas-macedo-23896216a/"]},
+    "publisher":{"@id":"https://www.thomas-macedo.com/#thomas-macedo"},
+    "keywords":"alucinação de IA, guardrails de agente de IA, agente de IA inventando resposta, controlar agente de IA, segurança de agentes de IA, LGPD agente de IA, Thomas Macedo"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.thomas-macedo.com/"},
+      {"@type":"ListItem","position":2,"name":"Artigos","item":"https://www.thomas-macedo.com/artigos/"},
+      {"@type":"ListItem","position":3,"name":"Alucinação de agentes de IA: por que acontece e como impedir","item":"https://www.thomas-macedo.com/artigos/alucinacao-e-guardrails-de-agentes-de-ia.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[{"@type":"Question","name":"O que é alucinação de um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Alucinação é quando o agente de IA gera uma resposta que parece correta e segura, mas é falsa — um preço que não existe, um prazo que ninguém prometeu, uma política inventada. Acontece porque o modelo de linguagem completa texto pela probabilidade das palavras, não por consultar a verdade. Quando não tem o dado, ele preenche a lacuna com a resposta mais plausível."}},{"@type":"Question","name":"Por que o agente de IA inventa preço, prazo ou política?","acceptedAnswer":{"@type":"Answer","text":"Porque foi perguntado sobre algo que não está na base de conhecimento dele. Sem acesso ao dado real e sem instrução para dizer 'não sei', o modelo gera a continuação mais provável — que soa convincente, mas não veio dos seus sistemas. A correção é dar a fonte oficial e proibir o agente de responder de cabeça sobre valores e regras."}},{"@type":"Question","name":"O que são guardrails em um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Guardrails são as regras e travas que limitam o que o agente pode dizer e fazer: obrigar a consultar a fonte real antes de falar preço, proibir promessas que a empresa não cumpre, escalar para um humano em casos sensíveis e nunca expor dados de outro cliente. São o que separa um agente confiável de um risco solto na operação."}},{"@type":"Question","name":"Como impedir que o agente de IA fale o que não deve?","acceptedAnswer":{"@type":"Answer","text":"Conectando o agente à fonte oficial de cada informação (catálogo, tabela de preços, política), instruindo-o a dizer que vai verificar quando não tiver o dado, definindo limites de ação claros e testando com perguntas difíceis antes de colocar no ar. Sem essas quatro camadas, ele vai improvisar na primeira pergunta fora do script."}},{"@type":"Question","name":"Agente de IA que atende cliente pode violar a LGPD?","acceptedAnswer":{"@type":"Answer","text":"Pode, se não for construído com cuidado. O risco maior é o agente expor dado de um cliente para outro ou registrar informação sensível sem base legal. A proteção vem de isolar o contexto de cada conversa, restringir quais dados o agente consegue acessar e registrar o que ele faz — tratando dado pessoal com o mesmo rigor que qualquer sistema da empresa."}}]
+  }
+  </script>
+</head>
+<body>
+
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="../index.html" class="wordmark">Thomas <span>Macedo</span></a>
+        <div class="nav-links">
+          <a href="../index.html" class="hide-mob">IA &amp; Performance</a>
+          <a href="../marcas.html" class="hide-mob">Marcas &amp; E-commerce</a>
+          <a href="../artigos/" class="active hide-mob">Artigos</a>
+          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="nav-cta" target="_blank" rel="noopener">Falar comigo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap"><nav class="crumb"><a href="../index.html">Início</a><span>/</span><a href="../artigos/">Artigos</a><span>/</span>Alucinação de agentes de IA e guardrails</nav></div>
+
+  <article>
+    <header class="article-head">
+      <span class="eyebrow">Inteligência Artificial</span>
+      <h1>Alucinação de agentes de IA: por que acontece e como impedir com guardrails</h1>
+      <p class="dek">O erro mais caro de um agente de IA não é travar. É responder com toda confiança uma informação que não existe. Aqui eu explico por que isso acontece e como se trava na prática.</p>
+      <div class="article-meta">
+        <span>Por Thomas Macedo</span><span class="dot"></span><span>9 min de leitura</span><span class="dot"></span><span>Atualizado em 2026</span>
+      </div>
+    </header>
+
+    <div class="article-cover">
+      <img src="../img/thomas-macedo-ia-robo.jpeg" alt="Agente de IA com guardrails para não alucinar respostas" width="1000" height="500" style="object-position:center 40%" />
+    </div>
+
+    <div class="prose">
+      <p><strong>Alucinação é quando o agente de IA gera uma resposta que parece correta e segura, mas é falsa — um preço que não existe, um prazo que ninguém prometeu, uma política inventada.</strong> Acontece porque o modelo de linguagem completa texto pela probabilidade das palavras, não por consultar a verdade: quando falta o dado, ele preenche a lacuna com a resposta mais plausível. A forma de impedir são os guardrails — conectar o agente à fonte oficial de cada informação, obrigá-lo a dizer “vou verificar” quando não sabe, limitar o que ele pode fazer e testar com perguntas difíceis antes de colocar no ar.</p>
+
+      <p>Eu construo esses sistemas todo dia, e é aqui que a maioria dos projetos de IA quebra: não no “fazer o agente falar”, e sim no “fazer o agente não falar besteira”. Vou direto ao ponto.</p>
+
+      <div class="callout">
+        <span class="k">Resumo rápido</span>
+        <ul>
+          <li>Alucinação = resposta <strong>falsa com tom de certeza</strong>, não um erro óbvio.</li>
+          <li>O modelo <strong>prevê a próxima palavra</strong>; ele não “sabe”, ele completa.</li>
+          <li>Erro caro: inventar <strong>preço, prazo, garantia ou política</strong>.</li>
+          <li>Guardrail = fonte oficial + “não sei” permitido + limite de ação + teste.</li>
+        </ul>
+      </div>
+
+      <h2>O que é alucinação de IA, em palavras simples</h2>
+      <p>Alucinação não é o agente responder “erro” ou travar — isso é fácil de perceber. O problema é o oposto: ele responde com fluência, educação e confiança total uma informação que simplesmente não é verdade. O cliente pergunta o prazo de entrega para o interior, e o agente cita “7 dias úteis” que ninguém nunca configurou. Pergunta se tem garantia estendida, e ele confirma uma que a loja não oferece. Tudo soa profissional. Nada disso existe.</p>
+      <p>Esse é o risco real de um agente mal construído: ele não erra parecendo errado. Ele erra parecendo certo.</p>
+
+      <h2>Por que o agente de IA inventa resposta?</h2>
+      <p>Por baixo, um modelo de linguagem (LLM) faz uma coisa só: prevê a próxima palavra mais provável, com base em tudo que já viu. Ele não consulta um banco de dados de verdade antes de responder — ele gera a continuação mais estatisticamente plausível. Quando a pergunta cai dentro do que ele conhece e tem a fonte à mão, isso funciona muito bem. Quando cai numa lacuna — um dado da sua empresa que ele não tem —, ele não fica em silêncio. Ele preenche a lacuna com o que “combina”.</p>
+      <p>É por isso que a solução nunca é “usar um modelo melhor”. Um modelo melhor alucina com mais elegância. A solução é <strong>controlar o que entra e o que pode sair</strong> — e isso é engenharia, não sorte. Se você ainda está entendendo como um agente é montado por dentro, vale ler a <a href="../artigos/anatomia-de-um-agente-de-ia.html">anatomia de um agente de IA que funciona</a> antes de seguir.</p>
+
+      <blockquote><p>Modelo bom não é o que sabe tudo. É o que sabe dizer “não sei, vou verificar” em vez de inventar com confiança.</p></blockquote>
+
+      <h2>Os erros de alucinação que custam caro (e viram prejuízo)</h2>
+      <p>Nem toda alucinação tem o mesmo custo. Estas são as que viram dor de cabeça, chargeback ou processo:</p>
+      <ul>
+        <li><strong>Preço inventado:</strong> o agente promete um valor abaixo do real. Se o cliente compra em cima disso, você honra o erro ou queima a relação.</li>
+        <li><strong>Prazo e frete errados:</strong> promete entrega que a operação não consegue cumprir. A venda fecha e a reputação abre um buraco.</li>
+        <li><strong>Garantia ou política falsa:</strong> confirma troca, reembolso ou condição que não existe — e depois alguém do time humano tem que desdizer.</li>
+        <li><strong>Disponibilidade de estoque:</strong> confirma um produto esgotado. Cliente paga, você cancela, todo mundo perde.</li>
+        <li><strong>Vazamento de contexto:</strong> mistura os dados de um cliente na conversa de outro. Esse não é só um erro comercial — é risco de LGPD.</li>
+      </ul>
+      <p>Repare no padrão: os erros mais caros são sempre sobre <strong>número, regra e dado de terceiro</strong>. É exatamente aí que o guardrail precisa ser mais duro.</p>
+
+      <h2>O que são guardrails em um agente de IA</h2>
+      <p>Guardrails são as regras e travas que definem o que o agente pode dizer e fazer. Não é uma linha de configuração mágica — são camadas que trabalham juntas. Na prática, eu construo quatro:</p>
+
+      <h3>1. Fonte oficial para cada informação sensível</h3>
+      <p>Preço vem da tabela de preços. Prazo vem do sistema de frete. Estoque vem do catálogo. Política vem do documento oficial. O agente é <strong>proibido de responder de cabeça</strong> sobre qualquer uma dessas coisas — ele consulta a fonte via integração e responde com o dado real, ou não responde. Isso é o que separa um agente de um chute educado. Se você quer entender a diferença de fundo, escrevi sobre <a href="../artigos/chatbot-automacao-ou-agente-de-ia.html">chatbot, automação ou agente de IA</a> e o que muda no custo da operação.</p>
+
+      <h3>2. Permissão para dizer “não sei”</h3>
+      <p>Parece contraintuitivo, mas metade do trabalho é <strong>autorizar o agente a não responder</strong>. A instrução é explícita: se não tiver o dado na fonte, não invente — diga que vai verificar e encaminhe. Um agente que admite o limite é infinitamente mais confiável que um que preenche todas as lacunas.</p>
+
+      <h3>3. Limite de ação claro</h3>
+      <p>O agente resolve o simples e escala o sensível. Cancelamento, reclamação grave, negociação fora da tabela, qualquer coisa jurídica — isso vai para uma pessoa. Definir essa fronteira é decidir, antes de ligar o sistema, o que ele pode fazer sozinho e o que exige mão humana.</p>
+
+      <h3>4. Teste adversarial antes do ar</h3>
+      <p>Antes de colocar em produção, eu ataco o próprio agente: pergunto o que ele não deveria saber, tento fazê-lo prometer o impossível, misturo pedidos, forço contradição. Cada resposta ruim vira uma regra nova. Agente não se testa com as perguntas fáceis — se testa com as que o cliente irritado vai fazer.</p>
+
+      <h2>Alucinação, dados e LGPD: o guardrail que não é opcional</h2>
+      <p>Quando o agente atende cliente de verdade, ele lida com dado pessoal — nome, pedido, endereço, histórico. Aí a alucinação deixa de ser só um erro comercial e vira risco legal. O pior cenário é o agente expor a informação de um cliente na conversa de outro, ou registrar dado sensível sem necessidade. A proteção é a mesma disciplina de qualquer sistema sério: <strong>isolar o contexto de cada conversa</strong>, restringir quais dados o agente consegue alcançar e registrar o que ele faz para dar para auditar depois. Dado pessoal em agente de IA merece o mesmo rigor que dado pessoal em qualquer lugar da empresa.</p>
+
+      <h2>Como medir se os guardrails estão funcionando</h2>
+      <p>Guardrail não é “instalar e esquecer”. Ele se monitora. Os sinais que eu acompanho:</p>
+      <ol>
+        <li><strong>Taxa de escalonamento:</strong> quantas conversas o agente passou para um humano — se for zero, ou ele é perfeito (não é) ou está inventando em vez de escalar.</li>
+        <li><strong>Correções humanas:</strong> quantas vezes alguém do time precisou desdizer o agente. Cada correção é um guardrail que faltou.</li>
+        <li><strong>Reclamações do tipo “o atendimento me disse que…”:</strong> o termômetro mais honesto de alucinação chegando ao cliente.</li>
+        <li><strong>Amostragem de conversas:</strong> ler conversas reais toda semana, não só olhar o número no painel.</li>
+      </ol>
+      <p>Essa lógica de medir o comportamento em vez de confiar na promessa é a mesma que uso para <a href="../artigos/como-medir-agente-de-recuperacao-de-vendas.html">medir o resultado de um agente de recuperação de vendas</a> — sem métrica de vaidade, olhando o que de fato aconteceu na operação.</p>
+
+      <h2>O ponto que quase ninguém fala</h2>
+      <p>A pesquisa da consultoria <a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noopener nofollow">McKinsey sobre o estado da IA</a> aponta a imprecisão dos modelos como um dos riscos que as empresas mais reconhecem — e, ao mesmo tempo, um dos que menos mitigam ativamente. Ou seja: quase todo mundo sabe que o agente pode alucinar, e quase ninguém constrói as travas para impedir. É essa lacuna que separa um projeto de IA que dá orgulho de um que dá processo.</p>
+      <p>É por isso que eu não vendo “um robô que responde tudo”. Eu construo um agente que responde o que sabe, admite o que não sabe e chama gente quando precisa. Menos impressionante numa demo. Muito mais barato no fim do mês.</p>
+
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details open><summary>O que é alucinação de um agente de IA?</summary><p>Alucinação é quando o agente de IA gera uma resposta que parece correta e segura, mas é falsa — um preço que não existe, um prazo que ninguém prometeu, uma política inventada. Acontece porque o modelo de linguagem completa texto pela probabilidade das palavras, não por consultar a verdade. Quando não tem o dado, ele preenche a lacuna com a resposta mais plausível.</p></details>
+        <details><summary>Por que o agente de IA inventa preço, prazo ou política?</summary><p>Porque foi perguntado sobre algo que não está na base de conhecimento dele. Sem acesso ao dado real e sem instrução para dizer “não sei”, o modelo gera a continuação mais provável — que soa convincente, mas não veio dos seus sistemas. A correção é dar a fonte oficial e proibir o agente de responder de cabeça sobre valores e regras.</p></details>
+        <details><summary>O que são guardrails em um agente de IA?</summary><p>Guardrails são as regras e travas que limitam o que o agente pode dizer e fazer: obrigar a consultar a fonte real antes de falar preço, proibir promessas que a empresa não cumpre, escalar para um humano em casos sensíveis e nunca expor dados de outro cliente. São o que separa um agente confiável de um risco solto na operação.</p></details>
+        <details><summary>Como impedir que o agente de IA fale o que não deve?</summary><p>Conectando o agente à fonte oficial de cada informação (catálogo, tabela de preços, política), instruindo-o a dizer que vai verificar quando não tiver o dado, definindo limites de ação claros e testando com perguntas difíceis antes de colocar no ar. Sem essas quatro camadas, ele vai improvisar na primeira pergunta fora do script.</p></details>
+        <details><summary>Agente de IA que atende cliente pode violar a LGPD?</summary><p>Pode, se não for construído com cuidado. O risco maior é o agente expor dado de um cliente para outro ou registrar informação sensível sem base legal. A proteção vem de isolar o contexto de cada conversa, restringir quais dados o agente consegue acessar e registrar o que ele faz — tratando dado pessoal com o mesmo rigor que qualquer sistema da empresa.</p></details>
+      </div>
+    </div>
+
+    <div class="author-box">
+      <img src="../img/thomas-macedo-palestra.jpeg" alt="Thomas Macedo" />
+      <div>
+        <div class="a-name"><a href="../sobre.html" style="color:inherit;border-bottom:1px solid var(--line-strong)">Thomas Macedo</a></div>
+        <p class="a-bio">Fundador da Gene Company. Especialista em sistemas e agentes de IA, criação de marcas e tráfego pago com ROI escalável para empresas. Santos/BR, atende Brasil e exterior. <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" target="_blank" rel="noopener">Fale comigo no WhatsApp →</a></p>
+      </div>
+    </div>
+  </article>
+
+  <section class="related">
+    <div class="wrap-narrow" style="padding:0">
+      <p class="eyebrow eyebrow-ink" style="display:block;margin-bottom:8px">Continue lendo</p>
+      <div class="related-grid">
+        <a href="../artigos/anatomia-de-um-agente-de-ia.html"><span class="r-cat">Inteligência Artificial</span><h3>Anatomia de um agente de IA que funciona: instrução, memória, ferramentas e limites</h3></a>
+        <a href="../artigos/onde-nao-usar-ia-no-negocio.html"><span class="r-cat">Inteligência Artificial</span><h3>Onde a IA NÃO deve ser usada no seu negócio</h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2 class="display mt-m" style="font-size:clamp(2.2rem,5vw,4rem)">Quero IA<br>na minha empresa.</h2>
+      <p class="lead mt-m" style="color:rgba(244,241,234,.8);max-width:48ch">Conte sobre o seu negócio e receba um diagnóstico do seu tráfego, criativos, marca e atendimento com IA.</p>
+      <div class="contact-row">
+        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" class="btn" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
+        <a href="https://www.instagram.com/thomasmacedo.ads" class="link-underline" target="_blank" rel="noopener" style="color:var(--paper)">Instagram @thomasmacedo.ads</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <span>© 2026 Thomas Macedo — IA, criação de marcas e tráfego pago. Santos, Baixada Santista, Brasil &amp; exterior.</span>
+        <div class="foot-links">
+          <a href="../index.html">IA &amp; Performance</a>
+          <a href="../marcas.html">Marcas &amp; E-commerce</a>
+          <a href="../artigos/">Artigos</a>
+          <a href="../sobre.html">Sobre</a>
+          <a href="https://www.instagram.com/thomasmacedo.ads" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/thomas-macedo-23896216a/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/102946615/" target="_blank" rel="noopener">LINCE Performance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="../site.js" defer></script>
+</body>
+</html>

@@ -56,6 +56,7 @@
 - [Posicionamento de marca: como escolher o lugar que a sua marca ocupa na cabeça do cliente](https://www.thomas-macedo.com/artigos/posicionamento-de-marca.html): Posicionamento de marca é a escolha do lugar que a sua marca vai ocupar na memória do cliente. Veja o método, a frase de posicionamento pronta, os territórios possíveis e como testar antes de reformar a marca inteira.
 
 ## Artigos recentes
+- [Funil de vendas online: como estruturar do anúncio ao fechamento](https://www.thomas-macedo.com/artigos/funil-de-vendas-online.html): As 4 etapas de um funil que vende — topo, meio, fundo e pós-venda — e por que o tráfego pago sozinho não fecha a venda.
 - [Como cobrar por gestão de tráfego: fee, percentual da verba ou performance](https://www.thomas-macedo.com/artigos/como-cobrar-por-gestao-de-trafego.html): Os 3 modelos de cobrança de uma agência — fee fixo, percentual do investimento e performance —, quando cada um faz sentido e qual sustenta a escala.
 - [LGPD e segurança de dados em agentes de IA: o que garantir](https://www.thomas-macedo.com/artigos/lgpd-e-seguranca-de-dados-em-agentes-de-ia.html): Todo agente que atende cliente mexe com dado pessoal e cai na LGPD. O que a lei exige e como configurar um agente seguro e conforme.
 - [Alucinação de agentes de IA: por que acontece e como impedir com guardrails](https://www.thomas-macedo.com/artigos/alucinacao-e-guardrails-de-agentes-de-ia.html): O erro mais caro de um agente não é travar — é inventar preço, prazo ou política com confiança. Por que acontece e como se trava na prática.

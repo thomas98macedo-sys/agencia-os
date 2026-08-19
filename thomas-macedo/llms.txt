@@ -56,6 +56,7 @@
 - [Posicionamento de marca: como escolher o lugar que a sua marca ocupa na cabeça do cliente](https://www.thomas-macedo.com/artigos/posicionamento-de-marca.html): Posicionamento de marca é a escolha do lugar que a sua marca vai ocupar na memória do cliente. Veja o método, a frase de posicionamento pronta, os territórios possíveis e como testar antes de reformar a marca inteira.
 
 ## Artigos recentes
+- [Retargeting para e-commerce: como transformar quem visitou em quem compra](https://www.thomas-macedo.com/artigos/retargeting-para-ecommerce.html): Públicos quentes, exclusões e sequência de anúncios: como estruturar retargeting no Meta e Google para recuperar quem já demonstrou interesse na sua loja.
 - [Fornecedor para marca própria: private label, importação e o que negociar](https://www.thomas-macedo.com/artigos/fornecedor-para-marca-propria.html): Como achar a fábrica que produz a sua marca (private label), o que é MOQ e o que negociar antes de fechar — no Brasil ou importando.
 - [Meios de pagamento e taxa de aprovação no e-commerce: pare de perder venda no checkout](https://www.thomas-macedo.com/artigos/meios-de-pagamento-e-taxa-de-aprovacao-ecommerce.html): Pix, cartão, gateway e antifraude decidem quanto da sua venda vira dinheiro. Como aumentar a taxa de aprovação.
 - [Funil de vendas online: como estruturar do anúncio ao fechamento](https://www.thomas-macedo.com/artigos/funil-de-vendas-online.html): As 4 etapas de um funil que vende — topo, meio, fundo e pós-venda — e por que o tráfego pago sozinho não fecha a venda.
@@ -65,7 +66,6 @@
 - [Régua de recuperação de vendas no WhatsApp: quantas mensagens e quando parar](https://www.thomas-macedo.com/artigos/regua-de-recuperacao-de-vendas-whatsapp.html): A cadência certa de follow-up com IA para carrinho, Pix e boleto: quantos toques, em quais intervalos e o momento exato de encerrar sem queimar a base.
 - [Quanto investir em tráfego pago para e-commerce (e como dividir a verba)](https://www.thomas-macedo.com/artigos/quanto-investir-em-trafego-pago-ecommerce.html): O orçamento certo sai da sua margem e do seu CAC, não de um número mágico. Como definir a verba inicial e dividir entre prospecção e remarketing.
 - [Manual de marca (brand book): o que é, para que serve e o que precisa ter](https://www.thomas-macedo.com/artigos/manual-de-marca-brand-book.html): O documento que mantém sua marca consistente em todo canal. O que é um brand book, para que serve e as 8 seções que não podem faltar.
-- [Logística de e-commerce no Brasil: frete, prazo e estoque que seguram a venda](https://www.thomas-macedo.com/artigos/logistica-de-ecommerce-no-brasil.html): Frete, prazo e estoque não são custo escondido: são alavancas de conversão e recompra. Como estruturar a operação para escalar sem quebrar a margem.
 
 ## Contato
 - WhatsApp: +55 13 99150-1840

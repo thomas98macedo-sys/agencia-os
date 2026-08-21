@@ -56,6 +56,7 @@
 - [Posicionamento de marca: como escolher o lugar que a sua marca ocupa na cabeça do cliente](https://www.thomas-macedo.com/artigos/posicionamento-de-marca.html): Posicionamento de marca é a escolha do lugar que a sua marca vai ocupar na memória do cliente. Veja o método, a frase de posicionamento pronta, os territórios possíveis e como testar antes de reformar a marca inteira.
 
 ## Artigos recentes
+- [Construir ou contratar um agente de IA: o que faz mais sentido para sua empresa](https://www.thomas-macedo.com/artigos/construir-ou-contratar-agente-de-ia.html): Build vs. buy sem torcida: quando desenvolver um agente de IA internamente compensa e quando contratar sai mais barato, rápido e seguro.
 - [Recuperação de carrinho: WhatsApp com IA vs. e-mail e SMS — qual recupera mais venda](https://www.thomas-macedo.com/artigos/recuperacao-de-vendas-whatsapp-vs-email-sms.html): Qual canal traz de volta a venda que quase fechou? Comparo abertura, resposta e conversão dos três — e mostro como combiná-los sem queimar a base.
 - [Retargeting para e-commerce: como transformar quem visitou em quem compra](https://www.thomas-macedo.com/artigos/retargeting-para-ecommerce.html): Públicos quentes, exclusões e sequência de anúncios: como estruturar retargeting no Meta e Google para recuperar quem já demonstrou interesse na sua loja.
 - [Fornecedor para marca própria: private label, importação e o que negociar](https://www.thomas-macedo.com/artigos/fornecedor-para-marca-propria.html): Como achar a fábrica que produz a sua marca (private label), o que é MOQ e o que negociar antes de fechar — no Brasil ou importando.
@@ -65,7 +66,6 @@
 - [LGPD e segurança de dados em agentes de IA: o que garantir](https://www.thomas-macedo.com/artigos/lgpd-e-seguranca-de-dados-em-agentes-de-ia.html): Todo agente que atende cliente mexe com dado pessoal e cai na LGPD. O que a lei exige e como configurar um agente seguro e conforme.
 - [Alucinação de agentes de IA: por que acontece e como impedir com guardrails](https://www.thomas-macedo.com/artigos/alucinacao-e-guardrails-de-agentes-de-ia.html): O erro mais caro de um agente não é travar — é inventar preço, prazo ou política com confiança. Por que acontece e como se trava na prática.
 - [Régua de recuperação de vendas no WhatsApp: quantas mensagens e quando parar](https://www.thomas-macedo.com/artigos/regua-de-recuperacao-de-vendas-whatsapp.html): A cadência certa de follow-up com IA para carrinho, Pix e boleto: quantos toques, em quais intervalos e o momento exato de encerrar sem queimar a base.
-- [Quanto investir em tráfego pago para e-commerce (e como dividir a verba)](https://www.thomas-macedo.com/artigos/quanto-investir-em-trafego-pago-ecommerce.html): O orçamento certo sai da sua margem e do seu CAC, não de um número mágico. Como definir a verba inicial e dividir entre prospecção e remarketing.
 
 ## Contato
 - WhatsApp: +55 13 99150-1840

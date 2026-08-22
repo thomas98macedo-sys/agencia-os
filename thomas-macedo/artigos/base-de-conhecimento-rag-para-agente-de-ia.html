@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Base de conhecimento e RAG: como dar à IA o conhecimento da sua empresa | Thomas Macedo</title>
+  <meta name="description" content="RAG é a técnica que conecta um agente de IA aos documentos e dados da sua empresa, para ele responder com base na sua verdade — e não no que o modelo inventa. Veja como funciona e como montar a base." />
+  <meta name="keywords" content="RAG, base de conhecimento para IA, como treinar agente de IA com dados da empresa, retrieval augmented generation, base de conhecimento agente de IA, IA com documentos da empresa, Thomas Macedo" />
+  <meta name="author" content="Thomas Macedo" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://www.thomas-macedo.com/artigos/base-de-conhecimento-rag-para-agente-de-ia.html" />
+  <meta name="theme-color" content="#FAF8F3" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Thomas Macedo" />
+  <meta property="og:title" content="Base de conhecimento e RAG: como a IA aprende a sua empresa" />
+  <meta property="og:description" content="Sem inventar resposta: como o RAG conecta o agente de IA aos seus documentos, preços e políticas para ele responder com a verdade da sua empresa." />
+  <meta property="og:url" content="https://www.thomas-macedo.com/artigos/base-de-conhecimento-rag-para-agente-de-ia.html" />
+  <meta property="og:image" content="https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg" />
+  <meta property="article:author" content="Thomas Macedo" />
+  <meta property="article:published_time" content="2026-08-22" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Base de conhecimento e RAG: como a IA aprende a sua empresa" />
+  <meta name="twitter:description" content="Sem inventar resposta: como o RAG conecta o agente de IA aos seus documentos, preços e políticas para ele responder com a verdade da sua empresa." />
+  <meta name="twitter:image" content="https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BlogPosting",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.thomas-macedo.com/artigos/base-de-conhecimento-rag-para-agente-de-ia.html"},
+    "headline":"Base de conhecimento e RAG: como dar à IA o conhecimento da sua empresa",
+    "description":"RAG é a técnica que conecta um agente de IA aos documentos e dados da sua empresa, para ele responder com base na sua verdade — e não no que o modelo inventa. Veja como funciona e como montar a base.",
+    "image":"https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg",
+    "datePublished":"2026-08-22","dateModified":"2026-08-22",
+    "inLanguage":"pt-BR",
+    "author":{"@type":"Person","name":"Thomas Macedo","url":"https://www.thomas-macedo.com/","jobTitle":"Especialista em IA, Criação de Marcas e Tráfego Pago","worksFor":{"@type":"Organization","name":"Gene Company"},"sameAs":["https://www.instagram.com/thomasmacedo.ads","https://www.linkedin.com/in/thomas-macedo-23896216a/"]},
+    "publisher":{"@id":"https://www.thomas-macedo.com/#thomas-macedo"},
+    "keywords":"RAG, base de conhecimento para IA, como treinar agente de IA com dados da empresa, retrieval augmented generation, base de conhecimento agente de IA, Thomas Macedo"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.thomas-macedo.com/"},
+      {"@type":"ListItem","position":2,"name":"Artigos","item":"https://www.thomas-macedo.com/artigos/"},
+      {"@type":"ListItem","position":3,"name":"Base de conhecimento e RAG para agente de IA","item":"https://www.thomas-macedo.com/artigos/base-de-conhecimento-rag-para-agente-de-ia.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[{"@type":"Question","name":"O que é RAG (Retrieval-Augmented Generation) em palavras simples?","acceptedAnswer":{"@type":"Answer","text":"RAG é uma técnica que, antes de o agente de IA responder, faz ele buscar a informação certa dentro dos documentos e dados da sua empresa e usa esse trecho como base da resposta. Em vez de o modelo responder de cabeça, ele responde consultando a sua fonte oficial — como um atendente que confere o manual antes de falar."}},{"@type":"Question","name":"Qual a diferença entre treinar um modelo e usar RAG?","acceptedAnswer":{"@type":"Answer","text":"Treinar (fine-tuning) muda o comportamento e o estilo do modelo, é caro e envelhece rápido: se o preço muda, você teria que treinar de novo. RAG deixa o conhecimento fora do modelo, numa base que você atualiza a qualquer hora. Para a maioria das empresas, RAG é o caminho: mais barato, mais rápido de atualizar e mais fácil de auditar."}},{"@type":"Question","name":"O RAG impede a IA de inventar resposta (alucinação)?","acceptedAnswer":{"@type":"Answer","text":"Reduz muito, mas não elimina sozinho. Ao amarrar a resposta a um trecho real da sua base, o RAG dá contexto verdadeiro ao modelo. Combinado com guardrails — instrução para só responder o que está na fonte e admitir quando não sabe — ele derruba a maior parte das invenções."}},{"@type":"Question","name":"O que precisa ter na base de conhecimento de um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Tabela de preços e condições, políticas (troca, garantia, prazo, frete), catálogo e ficha dos produtos, perguntas frequentes reais, procedimentos internos e um documento de tom de voz. O segredo não é volume: é ter conteúdo correto, atualizado e organizado, porque a IA responde exatamente o que estiver ali."}},{"@type":"Question","name":"Preciso de muitos documentos para começar?","acceptedAnswer":{"@type":"Answer","text":"Não. Começa pelo processo que mais gera dúvida ou perde venda e monte a base só com o que responde aquelas perguntas. Uma base pequena e correta funciona melhor do que um monte de arquivos desatualizados e contraditórios."}}]
+  }
+  </script>
+</head>
+<body>
+
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="../index.html" class="wordmark">Thomas <span>Macedo</span></a>
+        <div class="nav-links">
+          <a href="../index.html" class="hide-mob">IA &amp; Performance</a>
+          <a href="../marcas.html" class="hide-mob">Marcas &amp; E-commerce</a>
+          <a href="../artigos/" class="active hide-mob">Artigos</a>
+          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="nav-cta" target="_blank" rel="noopener">Falar comigo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap"><nav class="crumb"><a href="../index.html">Início</a><span>/</span><a href="../artigos/">Artigos</a><span>/</span>Base de conhecimento e RAG para agente de IA</nav></div>
+
+  <article>
+    <header class="article-head">
+      <span class="eyebrow">Inteligência Artificial</span>
+      <h1>Base de conhecimento e RAG: como dar à IA o conhecimento da sua empresa</h1>
+      <p class="dek">De nada adianta um agente de IA esperto se ele não sabe os seus preços, as suas políticas e os seus produtos. É aqui que entra o RAG — a técnica que conecta a IA à verdade da sua empresa. Explico sem tecniquês.</p>
+      <div class="article-meta">
+        <span>Por Thomas Macedo</span><span class="dot"></span><span>9 min de leitura</span><span class="dot"></span><span>Atualizado em 2026</span>
+      </div>
+    </header>
+
+    <div class="article-cover">
+      <img src="../img/thomas-macedo-ia-robo.jpeg" alt="Agente de IA conectado à base de conhecimento e aos documentos da empresa via RAG" width="1000" height="500" style="object-position:center 40%" />
+    </div>
+
+    <div class="prose">
+      <p><strong>RAG (Retrieval-Augmented Generation) é a técnica que faz o agente de IA buscar a informação certa dentro dos documentos e dados da sua empresa antes de responder — e usar esse trecho real como base da resposta.</strong> Em vez de o modelo responder “de cabeça” (e às vezes inventar), ele consulta a sua fonte oficial e responde com a sua verdade: os seus preços, as suas políticas, o seu catálogo. É a diferença entre um atendente que chuta e um que confere o manual antes de falar.</p>
+
+      <p>Eu construo agentes de IA para empresas, e digo com franqueza: o modelo é a parte fácil. O que separa um agente que resolve de um que constrange na frente do cliente é a <strong>base de conhecimento</strong> — o que ele sabe e de onde ele tira a resposta. Vamos ao que importa.</p>
+
+      <div class="callout">
+        <span class="k">Resumo rápido</span>
+        <ul>
+          <li><strong>RAG</strong> = a IA busca na sua base antes de responder, em vez de inventar.</li>
+          <li>O conhecimento fica <strong>fora do modelo</strong>, numa base que você atualiza quando quiser.</li>
+          <li>Base boa não é a maior — é a <strong>correta, atualizada e organizada</strong>.</li>
+          <li>RAG + guardrails = menos alucinação e resposta que você consegue auditar.</li>
+        </ul>
+      </div>
+
+      <h2>Por que a IA sozinha não sabe da sua empresa</h2>
+      <p>Um modelo de linguagem foi treinado na internet até certa data. Ele sabe português, sabe raciocinar, escreve bem — mas <strong>não faz ideia</strong> de quanto custa o seu produto, qual é a sua política de troca ou se aquele item está em estoque. Se você perguntar mesmo assim, ele tende a preencher a lacuna com algo plausível. Plausível e errado. É a raiz de boa parte das <a href="../artigos/alucinacao-e-guardrails-de-agentes-de-ia.html">alucinações de agentes de IA</a>.</p>
+      <p>A saída não é “ensinar” o modelo do zero. É dar a ele acesso à informação certa na hora da resposta. É exatamente isso que o RAG faz.</p>
+
+      <h2>Como o RAG funciona por dentro (sem tecniquês)</h2>
+      <p>Imagine um atendente muito bom que, toda vez que recebe uma pergunta, corre até o arquivo, pega a pasta certa, lê o trecho que responde e só então fala com o cliente. O RAG é isso, automatizado, em milissegundos. Na prática, são quatro passos:</p>
+      <ol>
+        <li><strong>Você monta a base:</strong> seus documentos (preços, políticas, catálogo, FAQ, procedimentos) são organizados e indexados.</li>
+        <li><strong>Chega a pergunta:</strong> o cliente escreve “vocês entregam em Santos e qual o prazo?”.</li>
+        <li><strong>A IA busca:</strong> o sistema encontra, dentro da sua base, o trecho da política de frete que responde àquilo.</li>
+        <li><strong>A IA responde:</strong> o modelo redige a resposta usando o trecho real como base — no seu tom, com a sua informação.</li>
+      </ol>
+      <p>O ganho é duplo: a resposta fica <strong>certa</strong> (veio da sua fonte) e fica <strong>rastreável</strong> (você sabe de qual documento ela saiu). Isso é o que torna um agente confiável para colocar na frente do cliente.</p>
+
+      <blockquote><p>O modelo é o cérebro. A base de conhecimento é a memória da empresa. Sem a segunda, o primeiro é só um bom conversador que não sabe do seu negócio.</p></blockquote>
+
+      <h2>RAG ou treinar o modelo (fine-tuning): qual usar?</h2>
+      <p>Essa é a dúvida que mais aparece. As duas coisas resolvem problemas diferentes:</p>
+      <ul>
+        <li><strong>Fine-tuning (treinar):</strong> muda o <em>comportamento</em> e o <em>estilo</em> do modelo. É caro, demora e envelhece rápido — se o seu preço muda amanhã, você teria que treinar de novo. Faz sentido em casos específicos de tom ou formato muito particular.</li>
+        <li><strong>RAG:</strong> deixa o <em>conhecimento</em> fora do modelo, numa base que você edita a qualquer hora. Mudou o preço? Atualiza o documento e pronto — a IA já responde com o valor novo, sem retreino.</li>
+      </ul>
+      <p>Para a esmagadora maioria das empresas brasileiras, o caminho é RAG: mais barato, mais rápido de atualizar e muito mais fácil de auditar. Fine-tuning entra depois, quando faz diferença — não como ponto de partida.</p>
+
+      <h2>O que precisa ter na sua base de conhecimento</h2>
+      <p>Aqui é onde o projeto ganha ou perde. A IA responde <strong>exatamente</strong> o que estiver na base — então lixo dentro, lixo fora. O essencial para começar:</p>
+      <ul>
+        <li><strong>Preços e condições:</strong> tabela atual, formas de pagamento, descontos válidos.</li>
+        <li><strong>Políticas:</strong> troca, garantia, prazo, frete, cancelamento — escritas de forma clara.</li>
+        <li><strong>Catálogo e ficha de produto:</strong> o que é, para quem serve, especificações, dúvidas comuns.</li>
+        <li><strong>FAQ real:</strong> as perguntas que o seu time responde toda semana no WhatsApp.</li>
+        <li><strong>Procedimentos internos:</strong> como funciona o pedido, o pós-venda, o suporte.</li>
+        <li><strong>Tom de voz:</strong> um documento curto de como a marca fala — para a IA soar como você, não como robô.</li>
+      </ul>
+      <p>Repare: nada disso é sobre volume. Uma base enxuta e correta bate uma montanha de arquivos desatualizados e contraditórios todas as vezes. Se dois documentos discordam, a IA vai discordar de si mesma na frente do cliente.</p>
+
+      <h2>Onde a maioria erra na base de conhecimento</h2>
+      <p>Depois de montar várias, os erros se repetem:</p>
+      <ul>
+        <li><strong>Documento desatualizado:</strong> a base fica com o preço velho e a IA vira uma máquina de prometer o que não existe mais.</li>
+        <li><strong>Contradição interna:</strong> a política de troca diz 7 dias num arquivo e 30 em outro. A IA escolhe um — e você não controla qual.</li>
+        <li><strong>Texto vago:</strong> “consulte condições” não responde nada. Se o humano não entende, a IA também não.</li>
+        <li><strong>Sem dono:</strong> ninguém é responsável por manter a base viva. Em dois meses ela apodrece.</li>
+      </ul>
+      <p>A base de conhecimento não é um projeto que termina — é um ativo que se mantém. Tratar assim é metade do resultado.</p>
+
+      <h2>RAG e alucinação: reduz, mas não é mágica</h2>
+      <p>O RAG derruba boa parte das invenções porque amarra a resposta a um trecho real. Mas não elimina sozinho: se a base não tiver a resposta, o modelo ainda pode tentar preencher a lacuna. Por isso RAG anda junto com <a href="../artigos/alucinacao-e-guardrails-de-agentes-de-ia.html">guardrails</a> — a instrução de “só responda com o que está na fonte; se não achar, diga que vai chamar um humano”. RAG dá a verdade; o guardrail garante que a IA não vá além dela. Essa dupla é o que faz o agente ser seguro. Vale lembrar também da <a href="../artigos/lgpd-e-seguranca-de-dados-em-agentes-de-ia.html">LGPD</a>: dados de clientes na base pedem cuidado de acesso e tratamento.</p>
+
+      <h2>Como começar sem transformar isso num projeto eterno</h2>
+      <ol>
+        <li><strong>Escolha um processo só:</strong> o que mais gera dúvida repetida ou perde venda hoje.</li>
+        <li><strong>Reúna as respostas verdadeiras:</strong> junte os documentos e as FAQs reais daquele processo.</li>
+        <li><strong>Limpe e organize:</strong> tire contradição, atualize preço, deixe cada resposta clara.</li>
+        <li><strong>Conecte ao agente:</strong> a IA passa a responder buscando ali — no seu tom, com a sua verdade.</li>
+        <li><strong>Nomeie um dono:</strong> alguém revisa a base quando algo muda. Sem isso, ela envelhece.</li>
+      </ol>
+      <p>É assim que eu trabalho: base pequena e correta primeiro, agente resolvendo aquele processo, e só então expando para o próximo. É o mesmo espírito da <a href="../artigos/anatomia-de-um-agente-de-ia.html">anatomia de um agente que funciona</a> — instrução, memória, ferramentas e limites bem definidos. Se você ainda está no começo, o guia de <a href="../artigos/como-criar-agentes-de-ia.html">como criar agentes de IA para empresas</a> mostra o passo a passo completo. E se quiser entender o conceito antes de tudo, vale ler <a href="../artigos/o-que-e-agente-de-ia-para-empresas.html">o que é um agente de IA para empresas</a>.</p>
+
+      <p>A tecnologia de IA está acessível como nunca. O diferencial não é ter IA — é ela responder com a <strong>sua</strong> verdade, de forma que você confie em colocá-la na frente do cliente. É isso que uma boa base de conhecimento com RAG entrega. Quer ver como isso se aplica ao seu negócio? <a href="../index.html">Veja como eu trabalho com IA e performance</a>.</p>
+
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details open><summary>O que é RAG (Retrieval-Augmented Generation) em palavras simples?</summary><p>RAG é uma técnica que, antes de o agente de IA responder, faz ele buscar a informação certa dentro dos documentos e dados da sua empresa e usa esse trecho como base da resposta. Em vez de o modelo responder “de cabeça”, ele responde consultando a sua fonte oficial — como um atendente que confere o manual antes de falar.</p></details>
+        <details><summary>Qual a diferença entre treinar um modelo e usar RAG?</summary><p>Treinar (fine-tuning) muda o comportamento e o estilo do modelo, é caro e envelhece rápido: se o preço muda, você teria que treinar de novo. RAG deixa o conhecimento fora do modelo, numa base que você atualiza a qualquer hora. Para a maioria das empresas, RAG é o caminho: mais barato, mais rápido de atualizar e mais fácil de auditar.</p></details>
+        <details><summary>O RAG impede a IA de inventar resposta (alucinação)?</summary><p>Reduz muito, mas não elimina sozinho. Ao amarrar a resposta a um trecho real da sua base, o RAG dá contexto verdadeiro ao modelo. Combinado com guardrails — instrução para só responder o que está na fonte e admitir quando não sabe — ele derruba a maior parte das invenções.</p></details>
+        <details><summary>O que precisa ter na base de conhecimento de um agente de IA?</summary><p>Tabela de preços e condições, políticas (troca, garantia, prazo, frete), catálogo e ficha dos produtos, perguntas frequentes reais, procedimentos internos e um documento de tom de voz. O segredo não é volume: é ter conteúdo correto, atualizado e organizado, porque a IA responde exatamente o que estiver ali.</p></details>
+        <details><summary>Preciso de muitos documentos para começar?</summary><p>Não. Começa pelo processo que mais gera dúvida ou perde venda e monte a base só com o que responde aquelas perguntas. Uma base pequena e correta funciona melhor do que um monte de arquivos desatualizados e contraditórios.</p></details>
+      </div>
+    </div>
+
+    <div class="author-box">
+      <img src="../img/thomas-macedo-palestra.jpeg" alt="Thomas Macedo" />
+      <div>
+        <div class="a-name"><a href="../sobre.html" style="color:inherit;border-bottom:1px solid var(--line-strong)">Thomas Macedo</a></div>
+        <p class="a-bio">Fundador da Gene Company. Especialista em sistemas e agentes de IA, criação de marcas e tráfego pago com ROI escalável para empresas. Santos/BR, atende Brasil e exterior. <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" target="_blank" rel="noopener">Fale comigo no WhatsApp →</a></p>
+      </div>
+    </div>
+  </article>
+
+  <section class="related">
+    <div class="wrap-narrow" style="padding:0">
+      <p class="eyebrow eyebrow-ink" style="display:block;margin-bottom:8px">Continue lendo</p>
+      <div class="related-grid">
+        <a href="../artigos/anatomia-de-um-agente-de-ia.html"><span class="r-cat">Inteligência Artificial</span><h3>Anatomia de um agente de IA que funciona: instrução, memória, ferramentas e limites</h3></a>
+        <a href="../artigos/alucinacao-e-guardrails-de-agentes-de-ia.html"><span class="r-cat">Inteligência Artificial</span><h3>Alucinação de agentes de IA: por que acontece e como impedir com guardrails</h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2 class="display mt-m" style="font-size:clamp(2.2rem,5vw,4rem)">Quero IA<br>na minha empresa.</h2>
+      <p class="lead mt-m" style="color:rgba(244,241,234,.8);max-width:48ch">Conte sobre o seu negócio e receba um diagnóstico do seu tráfego, criativos, marca e atendimento com IA.</p>
+      <div class="contact-row">
+        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" class="btn" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
+        <a href="https://www.instagram.com/thomasmacedo.ads" class="link-underline" target="_blank" rel="noopener" style="color:var(--paper)">Instagram @thomasmacedo.ads</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <span>© 2026 Thomas Macedo — IA, criação de marcas e tráfego pago. Santos, Baixada Santista, Brasil &amp; exterior.</span>
+        <div class="foot-links">
+          <a href="../index.html">IA &amp; Performance</a>
+          <a href="../marcas.html">Marcas &amp; E-commerce</a>
+          <a href="../artigos/">Artigos</a>
+          <a href="../sobre.html">Sobre</a>
+          <a href="https://www.instagram.com/thomasmacedo.ads" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/thomas-macedo-23896216a/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/102946615/" target="_blank" rel="noopener">LINCE Performance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="../site.js" defer></script>
+</body>
+</html>

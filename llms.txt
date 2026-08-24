@@ -56,6 +56,7 @@
 - [Posicionamento de marca: como escolher o lugar que a sua marca ocupa na cabeça do cliente](https://www.thomas-macedo.com/artigos/posicionamento-de-marca.html): Posicionamento de marca é a escolha do lugar que a sua marca vai ocupar na memória do cliente. Veja o método, a frase de posicionamento pronta, os territórios possíveis e como testar antes de reformar a marca inteira.
 
 ## Artigos recentes
+- [Assessoria de marketing ou agência: qual a diferença e qual seu negócio precisa](https://www.thomas-macedo.com/artigos/assessoria-vs-agencia-de-marketing.html): A assessoria pensa a estratégia e responde pelo número de vendas; a agência executa entregas. Entenda a diferença e como escolher.
 - [Retenção de clientes em agência: como reduzir o churn e escalar](https://www.thomas-macedo.com/artigos/retencao-de-clientes-em-agencia.html): Agência não quebra por falta de venda — quebra por churn. Como reter clientes com onboarding, ritmo de resultado e IA.
 - [Base de conhecimento e RAG: como dar à IA o conhecimento da sua empresa](https://www.thomas-macedo.com/artigos/base-de-conhecimento-rag-para-agente-de-ia.html): RAG conecta o agente de IA aos seus documentos e dados para ele responder com a sua verdade — não com o que o modelo inventa. Veja como montar a base.
 - [Construir ou contratar um agente de IA: o que faz mais sentido para sua empresa](https://www.thomas-macedo.com/artigos/construir-ou-contratar-agente-de-ia.html): Build vs. buy sem torcida: quando desenvolver um agente de IA internamente compensa e quando contratar sai mais barato, rápido e seguro.
@@ -65,7 +66,6 @@
 - [Meios de pagamento e taxa de aprovação no e-commerce: pare de perder venda no checkout](https://www.thomas-macedo.com/artigos/meios-de-pagamento-e-taxa-de-aprovacao-ecommerce.html): Pix, cartão, gateway e antifraude decidem quanto da sua venda vira dinheiro. Como aumentar a taxa de aprovação.
 - [Funil de vendas online: como estruturar do anúncio ao fechamento](https://www.thomas-macedo.com/artigos/funil-de-vendas-online.html): As 4 etapas de um funil que vende — topo, meio, fundo e pós-venda — e por que o tráfego pago sozinho não fecha a venda.
 - [Como cobrar por gestão de tráfego: fee, percentual da verba ou performance](https://www.thomas-macedo.com/artigos/como-cobrar-por-gestao-de-trafego.html): Os 3 modelos de cobrança de uma agência — fee fixo, percentual do investimento e performance —, quando cada um faz sentido e qual sustenta a escala.
-- [LGPD e segurança de dados em agentes de IA: o que garantir](https://www.thomas-macedo.com/artigos/lgpd-e-seguranca-de-dados-em-agentes-de-ia.html): Todo agente que atende cliente mexe com dado pessoal e cai na LGPD. O que a lei exige e como configurar um agente seguro e conforme.
 
 ## Contato
 - WhatsApp: +55 13 99150-1840

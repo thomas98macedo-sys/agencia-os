@@ -56,6 +56,7 @@
 - [Posicionamento de marca: como escolher o lugar que a sua marca ocupa na cabeça do cliente](https://www.thomas-macedo.com/artigos/posicionamento-de-marca.html): Posicionamento de marca é a escolha do lugar que a sua marca vai ocupar na memória do cliente. Veja o método, a frase de posicionamento pronta, os territórios possíveis e como testar antes de reformar a marca inteira.
 
 ## Artigos recentes
+- [Marketplace ou loja própria: onde vender e como escalar seu e-commerce](https://www.thomas-macedo.com/artigos/marketplace-ou-loja-propria-ecommerce.html): Marketplace traz tráfego e prova; loja própria dá margem, dados e marca. Veja custos e a estratégia dos dois canais para escalar no Brasil.
 - [Assessoria de marketing ou agência: qual a diferença e qual seu negócio precisa](https://www.thomas-macedo.com/artigos/assessoria-vs-agencia-de-marketing.html): A assessoria pensa a estratégia e responde pelo número de vendas; a agência executa entregas. Entenda a diferença e como escolher.
 - [Retenção de clientes em agência: como reduzir o churn e escalar](https://www.thomas-macedo.com/artigos/retencao-de-clientes-em-agencia.html): Agência não quebra por falta de venda — quebra por churn. Como reter clientes com onboarding, ritmo de resultado e IA.
 - [Base de conhecimento e RAG: como dar à IA o conhecimento da sua empresa](https://www.thomas-macedo.com/artigos/base-de-conhecimento-rag-para-agente-de-ia.html): RAG conecta o agente de IA aos seus documentos e dados para ele responder com a sua verdade — não com o que o modelo inventa. Veja como montar a base.
@@ -65,7 +66,6 @@
 - [Fornecedor para marca própria: private label, importação e o que negociar](https://www.thomas-macedo.com/artigos/fornecedor-para-marca-propria.html): Como achar a fábrica que produz a sua marca (private label), o que é MOQ e o que negociar antes de fechar — no Brasil ou importando.
 - [Meios de pagamento e taxa de aprovação no e-commerce: pare de perder venda no checkout](https://www.thomas-macedo.com/artigos/meios-de-pagamento-e-taxa-de-aprovacao-ecommerce.html): Pix, cartão, gateway e antifraude decidem quanto da sua venda vira dinheiro. Como aumentar a taxa de aprovação.
 - [Funil de vendas online: como estruturar do anúncio ao fechamento](https://www.thomas-macedo.com/artigos/funil-de-vendas-online.html): As 4 etapas de um funil que vende — topo, meio, fundo e pós-venda — e por que o tráfego pago sozinho não fecha a venda.
-- [Como cobrar por gestão de tráfego: fee, percentual da verba ou performance](https://www.thomas-macedo.com/artigos/como-cobrar-por-gestao-de-trafego.html): Os 3 modelos de cobrança de uma agência — fee fixo, percentual do investimento e performance —, quando cada um faz sentido e qual sustenta a escala.
 
 ## Contato
 - WhatsApp: +55 13 99150-1840

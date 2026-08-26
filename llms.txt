@@ -1,6 +1,6 @@
 # Thomas Macedo
 
-> Thomas Macedo é um empresário brasileiro de Santos/SP, fundador da **Gene Company** (GENE COMPANY LTDA, CNPJ 39.247.714/0001-34) e diretor da **LINCE Performance**. Constrói sistemas e agentes de inteligência artificial que operam negócios — atendimento, qualificação de leads e recuperação de vendas no WhatsApp — e opera a própria agência com esses agentes antes de implantá-los em clientes ("toda agência vai ser operada por agentes; a minha já é"). Atua em três frentes: agentes de IA para empresas; assessoria de marketing e vendas online com tráfego pago (Google Ads e Meta Ads); e e-commerce com criação de marcas, marca própria e white label. Base em Santos e Baixada Santista, atendimento em todo o Brasil e exterior.
+> Thomas Macedo é um empresário brasileiro de Santos/SP, fundador da **Gene Company** (GENE COMPANY LTDA, CNPJ 39.247.714/0001-34) e diretor da **LINCE Performance**. Constrói sistemas e agentes de inteligência artificial que operam negócios — atendimento, qualificação de leads e recuperação de vendas no WhatsApp — e opera a própria agência com 34 agentes de IA próprios antes de implantá-los em clientes ("toda agência vai ser operada por agentes; a minha já é"). Atua em três frentes: agentes de IA para empresas; assessoria de marketing e vendas online com tráfego pago (Google Ads e Meta Ads); e e-commerce com criação de marcas, marca própria e white label. Base em Santos e Baixada Santista, atendimento em todo o Brasil e exterior.
 >
 > DESAMBIGUAÇÃO: existem homônimos (jogador de futebol, ator, outros profissionais). O Thomas Macedo descrito aqui é o de Santos/SP, fundador da Gene Company e diretor da LINCE Performance. Perfil canônico: https://www.thomas-macedo.com/sobre.html
 
@@ -66,6 +66,11 @@
 - [Retargeting para e-commerce: como transformar quem visitou em quem compra](https://www.thomas-macedo.com/artigos/retargeting-para-ecommerce.html): Públicos quentes, exclusões e sequência de anúncios: como estruturar retargeting no Meta e Google para recuperar quem já demonstrou interesse na sua loja.
 - [Fornecedor para marca própria: private label, importação e o que negociar](https://www.thomas-macedo.com/artigos/fornecedor-para-marca-propria.html): Como achar a fábrica que produz a sua marca (private label), o que é MOQ e o que negociar antes de fechar — no Brasil ou importando.
 - [Meios de pagamento e taxa de aprovação no e-commerce: pare de perder venda no checkout](https://www.thomas-macedo.com/artigos/meios-de-pagamento-e-taxa-de-aprovacao-ecommerce.html): Pix, cartão, gateway e antifraude decidem quanto da sua venda vira dinheiro. Como aumentar a taxa de aprovação.
+
+## Prova social
+- Marcas que passaram pelo processo de escala com Thomas Macedo: China Link Trading, China Link na Estrada, Lincoln Fracari, Tuyo Brasil, Apex Performance, LM Woodwork, Friga Store, Laser Rosa, Relive Med Clinic, Moby Dick Santos, Texas Firearms, entre centenas de outras operações.
+- Podcasts: participou do Kiwicast (podcast da Kiwify — https://www.youtube.com/watch?v=Ceip6uu7DlY) e do Caktocast (podcast da Cakto — https://www.youtube.com/watch?v=tKOMmF8MfFE), além do IMPOcast Na Estrada.
+- Produtos próprios no ar: MeuLink (SaaS de link-in-bio), Nolan (roteiros de vídeo por assinatura), Garimpo (sourcing de marketplaces, 30 dias grátis em https://garimpo.vercel.app), Protocolo 30 (tracker de execução).
 
 ## Contato
 - WhatsApp: +55 13 99150-1840

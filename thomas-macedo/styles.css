@@ -575,3 +575,35 @@ a.ig-band:hover .ig-strip-track{animation-play-state:paused}
 @media(max-width:480px){.portas{grid-template-columns:1fr}}
 .ecos{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:14px}
 @media(prefers-reduced-motion:reduce){.dot-live,.typing i,.replay-head i{animation:none}}
+
+/* ============================================================
+   V2 — roster de agentes, marcas e podcasts (ago/2026)
+   ============================================================ */
+
+/* elenco completo de agentes */
+.roster-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px 34px;margin-top:34px;position:relative}
+.rgroup{border-top:1px solid var(--line-strong);padding-top:16px}
+.rgroup h3{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:12px}
+.rgroup ul{list-style:none;margin:0;padding:0}
+.rgroup li{font-size:.88rem;color:var(--ink-soft);padding:5px 0;line-height:1.45}
+.rgroup li b{color:var(--ink);font-weight:600}
+@media(max-width:900px){.roster-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.roster-grid{grid-template-columns:1fr}}
+
+/* marcas — roster tipográfico */
+.brand-grid{display:flex;flex-wrap:wrap;gap:18px 38px;align-items:baseline;margin-top:8px}
+.brand{font-family:var(--serif);font-weight:400;font-size:clamp(1.3rem,2.4vw,1.9rem);color:var(--ink);border-bottom:1px solid var(--line-strong);padding-bottom:2px;transition:color .3s,border-color .3s;white-space:nowrap}
+a.brand:hover{color:var(--accent);border-color:var(--accent)}
+.brand-mais{font-style:italic;color:var(--accent);border-bottom:0;white-space:normal}
+
+/* podcasts */
+.podcasts{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pod{border:1px solid var(--line-strong);border-radius:2px;padding:30px 28px;display:flex;gap:24px;align-items:center;transition:transform .5s cubic-bezier(.19,1,.22,1),border-color .3s}
+.pod:hover{transform:translateY(-4px);border-color:var(--ink)}
+.pod-play{width:58px;height:58px;flex:none;border-radius:50%;border:1px solid var(--ink);display:flex;align-items:center;justify-content:center;color:var(--ink);transition:background .3s,color .3s}
+.pod:hover .pod-play{background:var(--ink);color:var(--paper)}
+.pod-play svg{width:22px;height:22px;margin-left:3px}
+.pod-kicker{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+.pod h3{font-family:var(--serif);font-weight:400;font-size:1.9rem;line-height:1.1;margin:6px 0 8px}
+.pod-go{font-size:.85rem;letter-spacing:.04em;border-bottom:1px solid var(--line-strong);padding-bottom:2px}
+@media(max-width:760px){.podcasts{grid-template-columns:1fr}.pod{padding:24px 20px;gap:18px}}

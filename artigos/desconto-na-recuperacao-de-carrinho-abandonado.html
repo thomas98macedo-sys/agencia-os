@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Desconto na recuperação de carrinho abandonado: quando oferecer (e quando o cupom destrói sua margem) | Thomas Macedo</title>
+  <meta name="description" content="Oferecer cupom na recuperação de carrinho abandonado recupera venda em alguns casos e destrói margem em outros. Veja a regra de quando dar desconto, quanto, e como o agente de IA decide sem treinar o cliente a abandonar de propósito." />
+  <meta name="keywords" content="desconto na recuperação de carrinho, cupom carrinho abandonado, quando oferecer desconto recuperação de vendas, recuperação de carrinho com IA, agente de IA WhatsApp, margem e-commerce, Thomas Macedo" />
+  <meta name="author" content="Thomas Macedo" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://www.thomas-macedo.com/artigos/desconto-na-recuperacao-de-carrinho-abandonado.html" />
+  <meta name="theme-color" content="#FAF8F3" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Thomas Macedo" />
+  <meta property="og:title" content="Desconto na recuperação de carrinho: quando o cupom recupera (e quando destrói margem)" />
+  <meta property="og:description" content="A regra de quando oferecer cupom na recuperação de carrinho abandonado, quanto dar e como não ensinar o cliente a abandonar de propósito." />
+  <meta property="og:url" content="https://www.thomas-macedo.com/artigos/desconto-na-recuperacao-de-carrinho-abandonado.html" />
+  <meta property="og:image" content="https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg" />
+  <meta property="article:author" content="Thomas Macedo" />
+  <meta property="article:published_time" content="2026-08-28" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Desconto na recuperação de carrinho: quando o cupom recupera (e quando destrói margem)" />
+  <meta name="twitter:description" content="A regra de quando oferecer cupom na recuperação de carrinho abandonado, quanto dar e como não ensinar o cliente a abandonar de propósito." />
+  <meta name="twitter:image" content="https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BlogPosting",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.thomas-macedo.com/artigos/desconto-na-recuperacao-de-carrinho-abandonado.html"},
+    "headline":"Desconto na recuperação de carrinho abandonado: quando oferecer (e quando o cupom destrói sua margem)",
+    "description":"Oferecer cupom na recuperação de carrinho abandonado recupera venda em alguns casos e destrói margem em outros. Veja a regra de quando dar desconto, quanto, e como o agente de IA decide sem treinar o cliente a abandonar de propósito.",
+    "image":"https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg",
+    "datePublished":"2026-08-28","dateModified":"2026-08-28",
+    "inLanguage":"pt-BR",
+    "author":{"@type":"Person","name":"Thomas Macedo","url":"https://www.thomas-macedo.com/","jobTitle":"Especialista em IA, Criação de Marcas e Tráfego Pago","worksFor":{"@type":"Organization","name":"Gene Company"},"sameAs":["https://www.instagram.com/thomasmacedo.ads","https://www.linkedin.com/in/thomas-macedo-23896216a/"]},
+    "publisher":{"@id":"https://www.thomas-macedo.com/#thomas-macedo"},
+    "keywords":"desconto na recuperação de carrinho, cupom carrinho abandonado, quando oferecer desconto recuperação de vendas, recuperação de carrinho com IA, agente de IA WhatsApp, margem e-commerce, Thomas Macedo"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.thomas-macedo.com/"},
+      {"@type":"ListItem","position":2,"name":"Artigos","item":"https://www.thomas-macedo.com/artigos/"},
+      {"@type":"ListItem","position":3,"name":"Desconto na recuperação de carrinho abandonado","item":"https://www.thomas-macedo.com/artigos/desconto-na-recuperacao-de-carrinho-abandonado.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[{"@type":"Question","name":"Devo oferecer desconto para recuperar carrinho abandonado?","acceptedAnswer":{"@type":"Answer":false ,"text":"Nem sempre. O desconto só deve entrar quando o motivo do abandono é preço ou frete, e nunca na primeira mensagem. A maioria dos carrinhos volta por lembrete, ajuda ou prova de confiança — sem cupom nenhum. Oferecer desconto de largada ensina o cliente a abandonar de propósito para ganhar o cupom, e corrói a margem de quem compraria pelo preço cheio."}},{"@type":"Question","name":"Quando vale a pena dar cupom na recuperação de vendas?","acceptedAnswer":{"@type":"Answer","text":"Vale quando: o cliente já disse que o preço ou o frete travou a compra; é a última mensagem da régua e ele não respondeu a nada; ou o carrinho tem margem que suporta o desconto. Fora disso, o desconto é dinheiro que você entregaria sem precisar."}},{"@type":"Question","name":"Qual o desconto ideal para recuperar carrinho?","acceptedAnswer":{"@type":"Answer","text":"O menor desconto que resolve a objeção. Frete grátis costuma converter melhor que percentual porque o frete é a dor mais citada e custa menos que um desconto no produto. Se for percentual, comece baixo e limite o cupom no tempo. O que importa é preservar a margem de contribuição do pedido."}},{"@type":"Question","name":"Como um agente de IA decide se oferece desconto ou não?","acceptedAnswer":{"@type":"Answer","text":"O agente conversa antes de oferecer: pergunta o que travou a compra, identifica se é preço, frete, dúvida ou confiança, e só libera o cupom quando a objeção é de preço e as regras da loja permitem. Ele segue limites definidos — valor máximo, quando pode dar e para quem — em vez de jogar desconto para todo mundo."}}]
+  }
+  </script>
+</head>
+<body>
+
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="../index.html" class="wordmark">Thomas <span>Macedo</span></a>
+        <div class="nav-links">
+          <a href="../index.html" class="hide-mob">IA &amp; Performance</a>
+          <a href="../marcas.html" class="hide-mob">Marcas &amp; E-commerce</a>
+          <a href="../artigos/" class="active hide-mob">Artigos</a>
+          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="nav-cta" target="_blank" rel="noopener">Falar comigo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap"><nav class="crumb"><a href="../index.html">Início</a><span>/</span><a href="../artigos/">Artigos</a><span>/</span>Desconto na recuperação de carrinho abandonado</nav></div>
+
+  <article>
+    <header class="article-head">
+      <span class="eyebrow">Inteligência Artificial</span>
+      <h1>Desconto na recuperação de carrinho abandonado: quando oferecer (e quando o cupom destrói sua margem)</h1>
+      <p class="dek">Dar cupom na hora de recuperar um carrinho parece a saída óbvia. Na maioria das vezes é o jeito mais caro de recuperar uma venda que voltaria de graça — e que ainda ensina o cliente a abandonar de propósito.</p>
+      <div class="article-meta">
+        <span>Por Thomas Macedo</span><span class="dot"></span><span>8 min de leitura</span><span class="dot"></span><span>Atualizado em 2026</span>
+      </div>
+    </header>
+
+    <div class="article-cover">
+      <img src="../img/thomas-macedo-ia-robo.jpeg" alt="Agente de IA decidindo quando oferecer desconto na recuperação de carrinho abandonado" width="1000" height="500" style="object-position:center 40%" />
+    </div>
+
+    <div class="prose">
+      <p><strong>Desconto na recuperação de carrinho abandonado só deve entrar quando o motivo do abandono é preço ou frete — e nunca na primeira mensagem.</strong> A maioria dos carrinhos volta por lembrete, ajuda ou prova de confiança, sem cupom nenhum. Quando você oferece desconto de largada, faz duas coisas ruins ao mesmo tempo: entrega margem para quem compraria pelo preço cheio e ensina o cliente esperto a abandonar de propósito para ganhar o cupom. A regra é simples: dê o menor desconto possível, o mais tarde possível, só para quem realmente travou no preço.</p>
+
+      <p>Eu construo agentes de IA que fazem essa recuperação no WhatsApp todos os dias. E a pergunta que mais escuto de dono de e-commerce é justamente essa: “dou desconto ou não dou?”. Vou responder do jeito que respondo na operação.</p>
+
+      <div class="callout">
+        <span class="k">Resumo rápido</span>
+        <ul>
+          <li>Carrinho abandonado <strong>não é o mesmo que “cliente sem dinheiro”</strong> — a maioria abandona por distração, frete ou dúvida.</li>
+          <li><strong>Desconto na 1ª mensagem = erro.</strong> Você paga por quem já voltaria sozinho.</li>
+          <li>O cupom é a <strong>última carta</strong>, não a primeira — e só quando a objeção é preço.</li>
+          <li><strong>Frete grátis</strong> costuma resolver melhor que percentual, e custa menos.</li>
+          <li>Quem decide isso caso a caso é um <strong>agente com regras</strong>, não um disparo automático igual para todos.</li>
+        </ul>
+      </div>
+
+      <h2>Por que o desconto automático é quase sempre um erro</h2>
+      <p>O instituto <a href="https://baymard.com/lists/cart-abandonment-rate" target="_blank" rel="noopener nofollow">Baymard, referência mundial em pesquisa de checkout</a>, documenta que a taxa média de abandono de carrinho no e-commerce fica em torno de 70%. Mas o ponto que quase todo mundo ignora é <em>por que</em> as pessoas abandonam: uma parte grande sai por custos extras (frete e taxas), outra porque só estava pesquisando, outra por exigência de criar conta, e uma parcela por não confiar o suficiente para colocar o cartão. Preço do produto é só uma fatia disso.</p>
+      <p>Ou seja: se você dispara um cupom para <strong>todo</strong> carrinho abandonado, está dando desconto para gente que abandonou por motivo que desconto nenhum resolve — e para gente que voltaria de graça com um simples lembrete. É dinheiro jogado fora duas vezes.</p>
+
+      <blockquote><p>Cupom na primeira mensagem não recupera venda. Ele transfere margem sua para o cliente que já ia comprar de qualquer jeito.</p></blockquote>
+
+      <h2>O efeito colateral que ninguém mede: você treina o cliente a abandonar</h2>
+      <p>Esse é o custo escondido. Quando a loja manda cupom todo santo dia para quem abandona, o cliente recorrente aprende o jogo: enche o carrinho, sai, espera a mensagem com o desconto e só então compra. Você criou uma promoção permanente e disfarçada — e ainda por cima só para quem já era cliente. A margem cai, o preço cheio perde o sentido, e a recuperação vira um imposto sobre a própria base.</p>
+      <p>Por isso a decisão de dar ou não dar desconto não pode ser uma regra cega de automação. Ela precisa olhar o contexto de cada conversa. E é aí que muda o jogo.</p>
+
+      <h2>A regra: quando o desconto realmente faz sentido</h2>
+      <p>Existem três situações — e só três — em que o cupom se paga na recuperação de carrinho:</p>
+      <ul>
+        <li><strong>O cliente disse que travou no preço ou no frete.</strong> Se ele mesmo verbalizou a objeção (“achei o frete caro”, “tá acima do meu orçamento”), o desconto ataca a dor real. Aqui ele converte.</li>
+        <li><strong>É a última mensagem da régua e nada mais funcionou.</strong> Lembrete, ajuda e prova social já foram e ele não respondeu. O cupom é a carta final antes de desistir daquele carrinho.</li>
+        <li><strong>O carrinho tem margem que suporta.</strong> Ticket alto, produto com boa margem de contribuição. Dar 10% num pedido gordo pode valer; dar 10% num produto que já vende no osso, não.</li>
+      </ul>
+      <p>Fora dessas três, a resposta padrão é <strong>não dar desconto</strong> — e resolver o abandono de outro jeito: tirando a dúvida, mostrando prazo de entrega, oferecendo pagar no Pix, reforçando a garantia. Recuperar sem cupom é sempre mais lucrativo, e na maioria dos casos funciona.</p>
+
+      <h2>Quanto dar: o menor desconto que resolve a objeção</h2>
+      <p>Quando o desconto entra, a regra é a do mínimo eficaz. Alguns princípios que uso:</p>
+      <ul>
+        <li><strong>Frete grátis antes de percentual.</strong> Frete é a objeção mais citada e, para a loja, costuma custar menos do que um desconto no valor do produto. Muitas vezes “o frete é por nossa conta” recupera a venda que 15% de desconto não recuperaria.</li>
+        <li><strong>Comece baixo.</strong> Não abra com o maior desconto que a loja aguenta. Se 5% resolve, você não precisava de 15%.</li>
+        <li><strong>Prazo curto e claro.</strong> O cupom precisa de urgência real (“válido até amanhã”) — sem isso, ele vira preço novo, não incentivo.</li>
+        <li><strong>Proteja a margem de contribuição.</strong> A conta que importa não é o faturamento recuperado, é o que sobra depois do desconto, do frete e das taxas. Se você não sabe o que é isso, vale ler <a href="../artigos/roas-cac-ltv-margem-de-contribuicao.html">ROAS, CAC, LTV e margem de contribuição</a> antes de sair dando cupom.</li>
+      </ul>
+
+      <h2>Como um agente de IA decide isso caso a caso</h2>
+      <p>Aqui está a diferença entre um disparo automático e um agente de verdade. O disparo manda o mesmo cupom para todo mundo. O agente <strong>conversa antes de oferecer</strong>: ele puxa o cliente no WhatsApp, pergunta o que travou a compra, escuta a resposta e só aí decide. Se a pessoa diz que era só uma dúvida de tamanho, ele responde a dúvida — sem desconto. Se diz que o frete pesou, ele verifica as regras da loja e, se puder, oferece frete grátis. Se não respondeu a nada e é a última tentativa, ele solta o cupom limitado.</p>
+      <p>Tudo isso dentro de limites que você define: qual o desconto máximo, em que etapa ele pode aparecer, para quais produtos, para quais clientes. É o mesmo raciocínio de qualquer <a href="../artigos/regua-de-recuperacao-de-vendas-whatsapp.html">régua de recuperação bem montada</a> — só que agora a decisão de descontar é uma variável, não um reflexo. Se você quer entender o mecanismo completo da conversa, escrevi o passo a passo em <a href="../artigos/recuperacao-de-carrinho-abandonado-com-ia-whatsapp.html">recuperação de carrinho abandonado com IA no WhatsApp</a>.</p>
+
+      <blockquote><p>Automação boa não é a que dá desconto rápido. É a que sabe a hora de <em>não</em> dar.</p></blockquote>
+
+      <h2>E o Pix e o boleto não pago? Muda a lógica</h2>
+      <p>Um detalhe importante: carrinho abandonado e pedido com Pix ou boleto não pago são coisas diferentes. No boleto/Pix não pago, o cliente já <strong>decidiu</strong> comprar — só não concluiu o pagamento. Ali, desconto quase nunca é necessário; o que falta é lembrete e facilidade (reenviar o código, trocar a forma de pagamento). Dar cupom nesse caso é, de novo, pagar por uma venda que já estava fechada. Tratei disso em detalhe em <a href="../artigos/recuperar-pix-e-boleto-nao-pagos-com-ia.html">Pix e boleto não pagos: como um agente de IA recupera pedidos quase fechados</a>.</p>
+
+      <h2>Como saber se a sua estratégia de desconto está certa</h2>
+      <p>A única forma de não se enganar é medir o que sobra, não o que entra. Compare a receita recuperada <strong>com</strong> e <strong>sem</strong> cupom, olhando margem de contribuição e não faturamento bruto. Acompanhe também a taxa de recuperação sem desconto: se ela é alta, você provavelmente está dando cupom demais. Montei o guia de indicadores em <a href="../artigos/como-medir-agente-de-recuperacao-de-vendas.html">como medir o resultado de um agente de recuperação de vendas</a> — sem métrica de vaidade.</p>
+
+      <p>No fim, recuperação de vendas com IA não é sobre distribuir desconto rápido. É sobre recuperar a receita que já estava quase fechada gastando o mínimo de margem para isso. Se você quer montar essa operação do jeito certo, <a href="../index.html">veja como eu trabalho com IA e performance</a> ou me chama no WhatsApp.</p>
+
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details open><summary>Devo oferecer desconto para recuperar carrinho abandonado?</summary><p>Nem sempre. O desconto só deve entrar quando o motivo do abandono é preço ou frete, e nunca na primeira mensagem. A maioria dos carrinhos volta por lembrete, ajuda ou prova de confiança — sem cupom nenhum. Oferecer desconto de largada ensina o cliente a abandonar de propósito para ganhar o cupom, e corrói a margem de quem compraria pelo preço cheio.</p></details>
+        <details><summary>Quando vale a pena dar cupom na recuperação de vendas?</summary><p>Vale quando: o cliente já disse que o preço ou o frete travou a compra; é a última mensagem da régua e ele não respondeu a nada; ou o carrinho tem margem que suporta o desconto. Fora disso, o desconto é dinheiro que você entregaria sem precisar.</p></details>
+        <details><summary>Qual o desconto ideal para recuperar carrinho?</summary><p>O menor desconto que resolve a objeção. Frete grátis costuma converter melhor que percentual porque o frete é a dor mais citada e custa menos que um desconto no produto. Se for percentual, comece baixo e limite o cupom no tempo. O que importa é preservar a margem de contribuição do pedido.</p></details>
+        <details><summary>Como um agente de IA decide se oferece desconto ou não?</summary><p>O agente conversa antes de oferecer: pergunta o que travou a compra, identifica se é preço, frete, dúvida ou confiança, e só libera o cupom quando a objeção é de preço e as regras da loja permitem. Ele segue limites definidos — valor máximo, quando pode dar e para quem — em vez de jogar desconto para todo mundo.</p></details>
+        <details><summary>Frete grátis ou percentual de desconto: o que recupera mais?</summary><p>Na maioria das lojas, frete grátis. O frete é uma das objeções mais citadas no abandono de checkout e, para a operação, costuma custar menos que um desconto direto no produto. Teste os dois medindo margem de contribuição, não faturamento — mas comece pelo frete.</p></details>
+      </div>
+    </div>
+
+    <div class="author-box">
+      <img src="../img/thomas-macedo-palestra.jpeg" alt="Thomas Macedo" />
+      <div>
+        <div class="a-name"><a href="../sobre.html" style="color:inherit;border-bottom:1px solid var(--line-strong)">Thomas Macedo</a></div>
+        <p class="a-bio">Fundador da Gene Company. Especialista em sistemas e agentes de IA, criação de marcas e tráfego pago com ROI escalável para empresas. Santos/BR, atende Brasil e exterior. <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" target="_blank" rel="noopener">Fale comigo no WhatsApp →</a></p>
+      </div>
+    </div>
+  </article>
+
+  <section class="related">
+    <div class="wrap-narrow" style="padding:0">
+      <p class="eyebrow eyebrow-ink" style="display:block;margin-bottom:8px">Continue lendo</p>
+      <div class="related-grid">
+        <a href="../artigos/recuperacao-de-carrinho-abandonado-com-ia-whatsapp.html"><span class="r-cat">Inteligência Artificial</span><h3>Recuperação de carrinho abandonado com IA no WhatsApp</h3></a>
+        <a href="../artigos/regua-de-recuperacao-de-vendas-whatsapp.html"><span class="r-cat">Inteligência Artificial</span><h3>Régua de recuperação de vendas no WhatsApp: quantas mensagens e quando parar</h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2 class="display mt-m" style="font-size:clamp(2.2rem,5vw,4rem)">Quero recuperar<br>vendas sem queimar margem.</h2>
+      <p class="lead mt-m" style="color:rgba(244,241,234,.8);max-width:48ch">Conte sobre o seu negócio e receba um diagnóstico do seu tráfego, criativos, marca e recuperação de vendas com IA.</p>
+      <div class="contact-row">
+        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" class="btn" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
+        <a href="https://www.instagram.com/thomasmacedo.ads" class="link-underline" target="_blank" rel="noopener" style="color:var(--paper)">Instagram @thomasmacedo.ads</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <span>© 2026 Thomas Macedo — IA, criação de marcas e tráfego pago. Santos, Baixada Santista, Brasil &amp; exterior.</span>
+        <div class="foot-links">
+          <a href="../index.html">IA &amp; Performance</a>
+          <a href="../marcas.html">Marcas &amp; E-commerce</a>
+          <a href="../artigos/">Artigos</a>
+          <a href="../sobre.html">Sobre</a>
+          <a href="https://www.instagram.com/thomasmacedo.ads" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/thomas-macedo-23896216a/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/102946615/" target="_blank" rel="noopener">LINCE Performance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="../site.js" defer></script>
+</body>
+</html>

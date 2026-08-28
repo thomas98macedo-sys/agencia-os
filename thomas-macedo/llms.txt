@@ -56,6 +56,7 @@
 - [Posicionamento de marca: como escolher o lugar que a sua marca ocupa na cabeça do cliente](https://www.thomas-macedo.com/artigos/posicionamento-de-marca.html): Posicionamento de marca é a escolha do lugar que a sua marca vai ocupar na memória do cliente. Veja o método, a frase de posicionamento pronta, os territórios possíveis e como testar antes de reformar a marca inteira.
 
 ## Artigos recentes
+- [Desconto na recuperação de carrinho: quando o cupom recupera venda e quando destrói margem](https://www.thomas-macedo.com/artigos/desconto-na-recuperacao-de-carrinho-abandonado.html): Oferecer cupom na recuperação de carrinho às vezes salva a venda — e às vezes ensina o cliente a abandonar de propósito. Veja a regra.
 - [TikTok Ads para e-commerce: quando vale e como escalar sem queimar verba](https://www.thomas-macedo.com/artigos/tiktok-ads-para-ecommerce.html): Quando o TikTok Ads dá retorno para loja própria, como estruturar campanha, rastrear a venda no Shopify e escalar a verba com CAC sob controle.
 - [Rebranding: quando vale a pena mudar a marca (e como não perder o que já construiu)](https://www.thomas-macedo.com/artigos/rebranding-quando-vale-a-pena.html): Sem modismo: quando um rebranding resolve um problema real de negócio, quando ele só destrói valor e como reposicionar sem perder quem já te conhece.
 - [Marketplace ou loja própria: onde vender e como escalar seu e-commerce](https://www.thomas-macedo.com/artigos/marketplace-ou-loja-propria-ecommerce.html): Marketplace traz tráfego e prova; loja própria dá margem, dados e marca. Veja custos e a estratégia dos dois canais para escalar no Brasil.
@@ -65,7 +66,6 @@
 - [Construir ou contratar um agente de IA: o que faz mais sentido para sua empresa](https://www.thomas-macedo.com/artigos/construir-ou-contratar-agente-de-ia.html): Build vs. buy sem torcida: quando desenvolver um agente de IA internamente compensa e quando contratar sai mais barato, rápido e seguro.
 - [Recuperação de carrinho: WhatsApp com IA vs. e-mail e SMS — qual recupera mais venda](https://www.thomas-macedo.com/artigos/recuperacao-de-vendas-whatsapp-vs-email-sms.html): Qual canal traz de volta a venda que quase fechou? Comparo abertura, resposta e conversão dos três — e mostro como combiná-los sem queimar a base.
 - [Retargeting para e-commerce: como transformar quem visitou em quem compra](https://www.thomas-macedo.com/artigos/retargeting-para-ecommerce.html): Públicos quentes, exclusões e sequência de anúncios: como estruturar retargeting no Meta e Google para recuperar quem já demonstrou interesse na sua loja.
-- [Fornecedor para marca própria: private label, importação e o que negociar](https://www.thomas-macedo.com/artigos/fornecedor-para-marca-propria.html): Como achar a fábrica que produz a sua marca (private label), o que é MOQ e o que negociar antes de fechar — no Brasil ou importando.
 
 ## Prova social
 - Marcas que passaram pelo processo de escala com Thomas Macedo: China Link Trading, China Link na Estrada, Lincoln Fracari, Tuyo Brasil, Apex Performance, LM Woodwork, Friga Store, Laser Rosa, Relive Med Clinic, Moby Dick Santos, Texas Firearms, entre centenas de outras operações.

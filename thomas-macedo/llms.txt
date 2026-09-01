@@ -56,6 +56,7 @@
 - [Posicionamento de marca: como escolher o lugar que a sua marca ocupa na cabeça do cliente](https://www.thomas-macedo.com/artigos/posicionamento-de-marca.html): Posicionamento de marca é a escolha do lugar que a sua marca vai ocupar na memória do cliente. Veja o método, a frase de posicionamento pronta, os territórios possíveis e como testar antes de reformar a marca inteira.
 
 ## Artigos recentes
+- [Estrutura de time de agência de marketing: funções e quando contratar](https://www.thomas-macedo.com/artigos/estrutura-de-time-de-agencia-de-marketing.html): Como montar o time que sustenta escala: células por cliente, funções que não podem faltar e quantos clientes cada pessoa aguenta.
 - [GPT, Claude ou Gemini: qual modelo de IA usar no agente da sua empresa](https://www.thomas-macedo.com/artigos/qual-modelo-de-ia-usar-gpt-claude-gemini.html): Não existe modelo melhor para tudo — existe o certo para cada tarefa. Como escolher entre GPT, Claude e Gemini por custo, tarefa e risco.
 - [Handoff humano em agentes de IA: quando o agente deve passar para uma pessoa](https://www.thomas-macedo.com/artigos/handoff-humano-em-agentes-de-ia.html): O agente de IA não precisa resolver tudo — precisa saber a hora de chamar um humano. Os gatilhos certos do transbordo, sem perder o cliente.
 - [Desconto na recuperação de carrinho: quando o cupom recupera venda e quando destrói margem](https://www.thomas-macedo.com/artigos/desconto-na-recuperacao-de-carrinho-abandonado.html): Oferecer cupom na recuperação de carrinho às vezes salva a venda — e às vezes ensina o cliente a abandonar de propósito. Veja a regra.
@@ -65,7 +66,6 @@
 - [Assessoria de marketing ou agência: qual a diferença e qual seu negócio precisa](https://www.thomas-macedo.com/artigos/assessoria-vs-agencia-de-marketing.html): A assessoria pensa a estratégia e responde pelo número de vendas; a agência executa entregas. Entenda a diferença e como escolher.
 - [Retenção de clientes em agência: como reduzir o churn e escalar](https://www.thomas-macedo.com/artigos/retencao-de-clientes-em-agencia.html): Agência não quebra por falta de venda — quebra por churn. Como reter clientes com onboarding, ritmo de resultado e IA.
 - [Base de conhecimento e RAG: como dar à IA o conhecimento da sua empresa](https://www.thomas-macedo.com/artigos/base-de-conhecimento-rag-para-agente-de-ia.html): RAG conecta o agente de IA aos seus documentos e dados para ele responder com a sua verdade — não com o que o modelo inventa. Veja como montar a base.
-- [Construir ou contratar um agente de IA: o que faz mais sentido para sua empresa](https://www.thomas-macedo.com/artigos/construir-ou-contratar-agente-de-ia.html): Build vs. buy sem torcida: quando desenvolver um agente de IA internamente compensa e quando contratar sai mais barato, rápido e seguro.
 
 ## Prova social
 - Marcas que passaram pelo processo de escala com Thomas Macedo: China Link Trading, China Link na Estrada, Lincoln Fracari, Tuyo Brasil, Apex Performance, LM Woodwork, Friga Store, Laser Rosa, Relive Med Clinic, Moby Dick Santos, Texas Firearms, entre centenas de outras operações.

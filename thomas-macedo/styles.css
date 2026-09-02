@@ -607,3 +607,14 @@ a.brand:hover{color:var(--accent);border-color:var(--accent)}
 .pod h3{font-family:var(--serif);font-weight:400;font-size:1.9rem;line-height:1.1;margin:6px 0 8px}
 .pod-go{font-size:.85rem;letter-spacing:.04em;border-bottom:1px solid var(--line-strong);padding-bottom:2px}
 @media(max-width:760px){.podcasts{grid-template-columns:1fr}.pod{padding:24px 20px;gap:18px}}
+
+/* ============================================================
+   O DIÁRIO — arquivo completo de matérias (mantido pelo Machado)
+   ============================================================ */
+.diario-list{list-style:none;margin:0;padding:0;columns:3;column-gap:44px}
+.diario-list li{break-inside:avoid;display:block;padding:7px 0;border-bottom:1px solid var(--line);font-size:.88rem;line-height:1.4}
+.diario-list time{font-variant-numeric:tabular-nums;color:var(--accent);font-size:.72rem;letter-spacing:.08em;margin-right:10px}
+.diario-list a{color:var(--ink-soft);transition:color .25s}
+.diario-list a:hover{color:var(--ink);border-bottom:1px solid var(--line-strong)}
+@media(max-width:1000px){.diario-list{columns:2}}
+@media(max-width:640px){.diario-list{columns:1}}

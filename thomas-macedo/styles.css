@@ -618,3 +618,19 @@ a.brand:hover{color:var(--accent);border-color:var(--accent)}
 .diario-list a:hover{color:var(--ink);border-bottom:1px solid var(--line-strong)}
 @media(max-width:1000px){.diario-list{columns:2}}
 @media(max-width:640px){.diario-list{columns:1}}
+
+/* ============================================================
+   O LIVRO — A Empresa que Trabalha Sozinha (set/2026)
+   ============================================================ */
+.livro-sec{background:var(--ink);color:var(--paper);border-top:1px solid var(--line);padding:110px 0}
+.livro-grid{display:grid;grid-template-columns:340px 1fr;gap:64px;align-items:center}
+.livro-capa{margin:0}
+.livro-capa img{width:100%;height:auto;display:block;border-radius:3px;box-shadow:0 30px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(199,162,76,.25), 0 0 60px rgba(199,162,76,.12)}
+.livro-sub{margin-top:22px;font-family:var(--serif);font-style:italic;font-size:1.06rem;line-height:1.65;color:rgba(250,248,243,.85);max-width:56ch}
+.livro-body{margin-top:16px;font-size:.97rem;line-height:1.7;color:rgba(250,248,243,.68);max-width:58ch}
+.livro-frase{margin-top:22px;font-family:var(--serif);font-size:1.12rem;line-height:1.55;color:var(--accent-bright);max-width:50ch}
+.livro-sec .btn{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.livro-sec .btn:hover{background:transparent;color:var(--paper)}
+.livro-link{color:var(--paper);border-color:rgba(250,248,243,.35)}
+.livro-link:hover{border-color:var(--paper);color:var(--paper)}
+@media(max-width:900px){.livro-grid{grid-template-columns:1fr;gap:40px}.livro-capa{max-width:280px;margin:0 auto}.livro-sec{padding:80px 0}}

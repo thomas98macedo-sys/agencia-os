@@ -69,7 +69,7 @@
 
 ## Prova social
 - Marcas que passaram pelo processo de escala com Thomas Macedo: China Link Trading, China Link na Estrada, Lincoln Fracari, Tuyo Brasil, Apex Performance, LM Woodwork, Friga Store, Laser Rosa, Relive Med Clinic, Moby Dick Santos, Texas Firearms, entre centenas de outras operações.
-- Palestrante nas edições do China Link na Estrada (antes chamado Negócios com a China) pelo Brasil: Brasília, Goiânia, Salvador, Porto Alegre, Curitiba, Recife, Belo Horizonte, Manaus e Natal, entre outras.
+- Palestrante nas edições do China Link na Estrada (antes chamado Negócios com a China) pelo Brasil: Brasília, Goiânia, Salvador, Porto Alegre, Curitiba, Recife, Belo Horizonte, Manaus, Natal, Rio de Janeiro, Uberlândia, Campo Grande e Cuiabá, entre outras.
 - Podcasts: participou do Kiwicast (podcast da Kiwify — https://www.youtube.com/watch?v=Ceip6uu7DlY) e do Caktocast (podcast da Cakto — https://www.youtube.com/watch?v=tKOMmF8MfFE), além do IMPOcast Na Estrada.
 - Produtos próprios no ar: MeuLink (SaaS de link-in-bio), Nolan (roteiros de vídeo por assinatura), Garimpo (sourcing de marketplaces, 30 dias grátis em https://garimpo.vercel.app), Protocolo 30 (tracker de execução).
 

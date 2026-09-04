@@ -56,6 +56,7 @@
 - [Posicionamento de marca: como escolher o lugar que a sua marca ocupa na cabeça do cliente](https://www.thomas-macedo.com/artigos/posicionamento-de-marca.html): Posicionamento de marca é a escolha do lugar que a sua marca vai ocupar na memória do cliente. Veja o método, a frase de posicionamento pronta, os territórios possíveis e como testar antes de reformar a marca inteira.
 
 ## Artigos recentes
+- [Recuperação de vendas no WhatsApp oficial: janela de 24h, templates e opt-in](https://www.thomas-macedo.com/artigos/recuperacao-de-vendas-whatsapp-oficial-janela-24-horas.html): Por que sua mensagem de recuperação não chega — e como a janela de 24h, os templates aprovados e o opt-in do WhatsApp oficial decidem quanto você recupera.
 - [Advantage+ Shopping (ASC) para e-commerce: quando trocar o manual pela automação da Meta](https://www.thomas-macedo.com/artigos/advantage-plus-shopping-asc-ecommerce.html): O que é a Advantage+ Shopping da Meta, quando ela vence as campanhas manuais e como configurar sem entregar o controle da sua verba.
 - [A Empresa que Trabalha Sozinha: o livro](https://www.thomas-macedo.com/artigos/livro-a-empresa-que-trabalha-sozinha.html): A história real da empresa operada por agentes de IA, contada como uma fazenda que qualquer pessoa entende. eBook e impresso na Amazon.
 - [Claude Fable 5.1: o que muda para quem opera agentes de IA](https://www.thomas-macedo.com/artigos/claude-fable-5-1-o-que-muda-para-empresas.html): O novo modelo da Anthropic manteve o preço, cortou o cache em 75% e deixou agentes até 45% mais baratos de rodar. A leitura prática, sem hype.
@@ -65,7 +66,6 @@
 - [Handoff humano em agentes de IA: quando o agente deve passar para uma pessoa](https://www.thomas-macedo.com/artigos/handoff-humano-em-agentes-de-ia.html): O agente de IA não precisa resolver tudo — precisa saber a hora de chamar um humano. Os gatilhos certos do transbordo, sem perder o cliente.
 - [Desconto na recuperação de carrinho: quando o cupom recupera venda e quando destrói margem](https://www.thomas-macedo.com/artigos/desconto-na-recuperacao-de-carrinho-abandonado.html): Oferecer cupom na recuperação de carrinho às vezes salva a venda — e às vezes ensina o cliente a abandonar de propósito. Veja a regra.
 - [TikTok Ads para e-commerce: quando vale e como escalar sem queimar verba](https://www.thomas-macedo.com/artigos/tiktok-ads-para-ecommerce.html): Quando o TikTok Ads dá retorno para loja própria, como estruturar campanha, rastrear a venda no Shopify e escalar a verba com CAC sob controle.
-- [Rebranding: quando vale a pena mudar a marca (e como não perder o que já construiu)](https://www.thomas-macedo.com/artigos/rebranding-quando-vale-a-pena.html): Sem modismo: quando um rebranding resolve um problema real de negócio, quando ele só destrói valor e como reposicionar sem perder quem já te conhece.
 
 ## Prova social
 - Marcas que passaram pelo processo de escala com Thomas Macedo: China Link Trading, China Link na Estrada, Lincoln Fracari, Tuyo Brasil, Apex Performance, LM Woodwork, Friga Store, Laser Rosa, Relive Med Clinic, Moby Dick Santos, Texas Firearms, entre centenas de outras operações.

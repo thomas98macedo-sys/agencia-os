@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Como testar um agente de IA antes de colocar em produção: cenários, dados reais e o que medir | Thomas Macedo</title>
+  <meta name="description" content="Testar um agente de IA antes de produção é rodar conversas reais em ambiente controlado, medir acerto, alucinação e handoff, e só liberar quando ele passa nos casos que mais custam caro. Veja o método." />
+  <meta name="keywords" content="testar agente de IA, teste de agente de IA antes de produção, avaliação de agente de IA, QA de agente de IA, homologação de agente de IA, Thomas Macedo" />
+  <meta name="author" content="Thomas Macedo" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://www.thomas-macedo.com/artigos/como-testar-agente-de-ia-antes-de-producao.html" />
+  <meta name="theme-color" content="#FAF8F3" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Thomas Macedo" />
+  <meta property="og:title" content="Como testar um agente de IA antes de colocar em produção" />
+  <meta property="og:description" content="Sem susto no cliente: como testar um agente de IA com cenários, dados reais e as métricas que dizem se ele está pronto para produção." />
+  <meta property="og:url" content="https://www.thomas-macedo.com/artigos/como-testar-agente-de-ia-antes-de-producao.html" />
+  <meta property="og:image" content="https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg" />
+  <meta property="article:author" content="Thomas Macedo" />
+  <meta property="article:published_time" content="2026-09-05" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Como testar um agente de IA antes de colocar em produção" />
+  <meta name="twitter:description" content="Sem susto no cliente: como testar um agente de IA com cenários, dados reais e as métricas que dizem se ele está pronto para produção." />
+  <meta name="twitter:image" content="https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BlogPosting",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.thomas-macedo.com/artigos/como-testar-agente-de-ia-antes-de-producao.html"},
+    "headline":"Como testar um agente de IA antes de colocar em produção",
+    "description":"Testar um agente de IA antes de produção é rodar conversas reais em ambiente controlado, medir acerto, alucinação e handoff, e só liberar quando ele passa nos casos que mais custam caro. Veja o método.",
+    "image":"https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg",
+    "datePublished":"2026-09-05","dateModified":"2026-09-05",
+    "inLanguage":"pt-BR",
+    "author":{"@type":"Person","name":"Thomas Macedo","url":"https://www.thomas-macedo.com/","jobTitle":"Especialista em IA, Criação de Marcas e Tráfego Pago","worksFor":{"@type":"Organization","name":"Gene Company"},"sameAs":["https://www.instagram.com/thomasmacedo.ads","https://www.linkedin.com/in/thomas-macedo-23896216a/"]},
+    "publisher":{"@id":"https://www.thomas-macedo.com/#thomas-macedo"},
+    "keywords":"testar agente de IA, teste de agente de IA antes de produção, avaliação de agente de IA, QA de agente de IA, homologação de agente de IA, Thomas Macedo"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.thomas-macedo.com/"},
+      {"@type":"ListItem","position":2,"name":"Artigos","item":"https://www.thomas-macedo.com/artigos/"},
+      {"@type":"ListItem","position":3,"name":"Como testar um agente de IA antes de colocar em produção","item":"https://www.thomas-macedo.com/artigos/como-testar-agente-de-ia-antes-de-producao.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[{"@type":"Question","name":"Como testar um agente de IA antes de colocar em produção?","acceptedAnswer":{"@type":"Answer","text":"Monte um conjunto de conversas reais (perguntas fáceis, casos difíceis e casos-armadilha), rode o agente contra elas em ambiente controlado, e avalie cada resposta por acerto, tom, alucinação e se ele acionou o handoff quando devia. Só libere para produção quando o agente passar nos cenários que mais custam caro se ele errar."}},{"@type":"Question","name":"Quantos casos de teste um agente de IA precisa antes de ir ao ar?","acceptedAnswer":{"@type":"Answer","text":"Não é o número que importa, é a cobertura. Comece com 30 a 50 conversas que representem os pedidos mais frequentes e os erros mais caros. Melhor 40 casos que cobrem preço, política de troca, dado inventado e cliente irritado do que 300 variações da mesma pergunta fácil."}},{"@type":"Question","name":"O que medir no teste de um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Taxa de resposta correta, taxa de alucinação (inventar informação), aderência ao tom e às políticas, taxa de handoff correto (passar para humano na hora certa) e tempo até resolver. Métrica de vaidade como número de mensagens não diz se o agente está pronto."}},{"@type":"Question","name":"Posso testar o agente de IA direto com clientes reais?","acceptedAnswer":{"@type":"Answer","text":"Só depois de passar no teste controlado. O caminho seguro é liberar para uma fração pequena do tráfego, com um humano monitorando as conversas em tempo real e podendo assumir a qualquer momento. Ir direto para 100% dos clientes sem homologação é onde o erro sai caro."}},{"@type":"Question","name":"Preciso testar o agente de novo depois que ele já está no ar?","acceptedAnswer":{"@type":"Answer","text":"Sim. Toda vez que você muda a instrução, atualiza a base de conhecimento, troca o modelo ou adiciona uma ferramenta, é preciso rodar o conjunto de testes de novo para garantir que a mudança não quebrou o que já funcionava."}}]
+  }
+  </script>
+</head>
+<body>
+
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="../index.html" class="wordmark">Thomas <span>Macedo</span></a>
+        <div class="nav-links">
+          <a href="../index.html" class="hide-mob">IA &amp; Performance</a>
+          <a href="../marcas.html" class="hide-mob">Marcas &amp; E-commerce</a>
+          <a href="../artigos/" class="active hide-mob">Artigos</a>
+          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="nav-cta" target="_blank" rel="noopener">Falar comigo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap"><nav class="crumb"><a href="../index.html">Início</a><span>/</span><a href="../artigos/">Artigos</a><span>/</span>Como testar um agente de IA antes de produção</nav></div>
+
+  <article>
+    <header class="article-head">
+      <span class="eyebrow">Inteligência Artificial</span>
+      <h1>Como testar um agente de IA antes de colocar em produção: cenários, dados reais e o que medir</h1>
+      <p class="dek">Colocar um agente de IA para falar com cliente sem testar direito é o erro mais caro que eu vejo. Aqui está o método que eu uso para homologar um agente antes de soltar ele no mundo.</p>
+      <div class="article-meta">
+        <span>Por Thomas Macedo</span><span class="dot"></span><span>9 min de leitura</span><span class="dot"></span><span>Atualizado em 2026</span>
+      </div>
+    </header>
+
+    <div class="article-cover">
+      <img src="../img/thomas-macedo-ia-robo.jpeg" alt="Teste e homologação de um agente de IA antes de entrar em produção" width="1000" height="500" style="object-position:center 40%" />
+    </div>
+
+    <div class="prose">
+      <p><strong>Testar um agente de IA antes de produção é rodar conversas reais contra ele em ambiente controlado, avaliar cada resposta por acerto, tom, alucinação e handoff, e só liberar quando ele passa nos casos que mais custam caro se ele errar.</strong> Não é “conversar um pouco e achar bacana”. É montar um conjunto de cenários, definir o que é resposta certa em cada um, medir os números e comparar. Um agente que responde bem as perguntas fáceis mas inventa uma política de troca na frente do cliente não está pronto — está perigoso.</p>
+
+      <p>Eu construo e coloco esses sistemas em operação no dia a dia. A diferença entre um agente que dá lucro e um que vira dor de cabeça quase nunca está no modelo — está no teste antes de subir. Vou te mostrar exatamente como faço.</p>
+
+      <div class="callout">
+        <span class="k">Resumo rápido</span>
+        <ul>
+          <li>Teste é <strong>rodar conversas reais</strong> num ambiente que não fala com cliente de verdade.</li>
+          <li>Cubra três tipos de caso: <strong>fácil, difícil e armadilha</strong>.</li>
+          <li>Meça <strong>acerto, alucinação, tom, handoff e tempo</strong> — não número de mensagens.</li>
+          <li>Suba <strong>por fração do tráfego</strong>, com humano vigiando, antes dos 100%.</li>
+          <li>Mudou instrução, base ou modelo? <strong>Testa tudo de novo.</strong></li>
+        </ul>
+      </div>
+
+      <h2>Por que testar um agente de IA não é opcional</h2>
+      <p>Um agente de IA fala com o cliente no seu nome. Se ele inventa um prazo de entrega, promete um desconto que não existe ou responde grosso, quem paga a conta é a sua marca — não a tecnologia. E o pior tipo de erro não é o agente travar; é ele responder com confiança uma informação errada. Isso tem nome: alucinação. Já escrevi em detalhe sobre <a href="../artigos/alucinacao-e-guardrails-de-agentes-de-ia.html">por que a alucinação acontece e como conter com guardrails</a>, mas o teste é onde você descobre se os guardrails realmente seguram antes de o cliente descobrir por você.</p>
+
+      <p>A regra é simples: o teste existe para transformar um erro caro (na frente do cliente) num erro barato (na sua tela, antes de subir).</p>
+
+      <h2>Passo 1: monte o conjunto de cenários (o “caderno de provas”)</h2>
+      <p>Antes de medir qualquer coisa, você precisa de uma lista de conversas para rodar contra o agente. Eu divido sempre em três tipos:</p>
+      <ul>
+        <li><strong>Casos fáceis:</strong> as perguntas mais frequentes, do jeito que o cliente pergunta de verdade. “Qual o prazo de entrega pra São Paulo?”, “Vocês têm na cor preta?”, “Como faço pra trocar?”. É o volume do dia a dia.</li>
+        <li><strong>Casos difíceis:</strong> perguntas ambíguas, com erro de português, várias perguntas na mesma mensagem, cliente que muda de ideia no meio. É onde o chatbot antigo trava e o bom agente precisa se sair bem.</li>
+        <li><strong>Casos-armadilha:</strong> aqui é o que separa o profissional do amador. Pergunte coisas que <em>não estão</em> na base de conhecimento e veja se ele inventa. Peça um desconto que a empresa não dá. Xingue. Peça algo fora do escopo (“me indica um concorrente”). Tente extrair dados de outro cliente. O agente tem que dizer “não sei” ou acionar o humano — nunca inventar.</li>
+      </ul>
+      <p>Não persiga um número mágico de casos. Comece com 30 a 50 conversas que cobrem os pedidos mais frequentes e os erros mais caros. Vale mais 40 cenários bem escolhidos do que 300 variações da mesma pergunta boba.</p>
+
+      <blockquote><p>O teste de um agente não é ver se ele acerta o fácil. É ver o que ele faz quando não sabe a resposta. Um bom agente sabe dizer “não sei” e chamar uma pessoa.</p></blockquote>
+
+      <h2>Passo 2: use dados reais, não exemplos inventados</h2>
+      <p>A maior fonte de bons casos de teste é o seu próprio histórico. Pegue conversas reais do WhatsApp, do e-mail, do chat — as perguntas que os clientes já fizeram nos últimos meses. Anonimize o que for dado pessoal (isso é obrigação da LGPD; falo mais em <a href="../artigos/lgpd-e-seguranca-de-dados-em-agentes-de-ia.html">LGPD e segurança de dados em agentes de IA</a>) e transforme essas conversas em cenários de teste.</p>
+      <p>Por quê? Porque a forma como você <em>imagina</em> que o cliente pergunta é sempre mais limpa do que a realidade. O cliente manda áudio, erra o nome do produto, pergunta três coisas de uma vez e usa gíria. Testar com dado real é a única forma de o agente enfrentar a linguagem que ele vai encontrar de verdade.</p>
+
+      <h2>Passo 3: defina o que é “resposta certa” antes de rodar</h2>
+      <p>Aqui mora o erro mais comum: rodar o teste e julgar a resposta “no olho”, depois de ver. Isso vicia o resultado — você acaba aceitando qualquer coisa que soa bem. Antes de rodar, escreva ao lado de cada cenário o que uma boa resposta precisa conter. Não a frase exata, mas os critérios:</p>
+      <ul>
+        <li>Trouxe a informação correta (prazo, preço, política)?</li>
+        <li>Ficou no tom da marca?</li>
+        <li>Não inventou nada que não está na base?</li>
+        <li>Acionou o handoff para humano quando o caso exigia?</li>
+        <li>Executou a ação certa (consultou pedido, registrou, agendou), quando era o caso?</li>
+      </ul>
+      <p>Com os critérios escritos antes, o teste vira objetivo: passou ou não passou. Isso é o que separa homologar de “achismo”.</p>
+
+      <h2>Passo 4: as métricas que realmente importam</h2>
+      <p>Depois de rodar os cenários, você tem números. Estes são os que eu olho — e nenhum deles é métrica de vaidade:</p>
+      <ul>
+        <li><strong>Taxa de resposta correta:</strong> de todos os casos, em quantos o agente entregou a informação certa e completa.</li>
+        <li><strong>Taxa de alucinação:</strong> em quantos ele inventou algo. Essa métrica precisa ser praticamente zero nos casos-armadilha. Uma alucinação num teste vale por dez erros no fácil.</li>
+        <li><strong>Aderência ao tom e às políticas:</strong> ele fala como a sua marca e respeita as regras (não dá desconto que não existe, não promete o que não pode)?</li>
+        <li><strong>Taxa de handoff correto:</strong> ele passou para o humano nos casos que exigiam e <em>não</em> passou nos que ele mesmo resolvia? Handoff cedo demais entope o time; tarde demais irrita o cliente. Detalhei o critério em <a href="../artigos/handoff-humano-em-agentes-de-ia.html">handoff humano em agentes de IA</a>.</li>
+        <li><strong>Tempo até resolver:</strong> quantas trocas de mensagem o agente levou para resolver de verdade — não quantas mensagens ele mandou.</li>
+      </ul>
+      <p>Repare que “quantidade de conversas atendidas” não está aqui. Volume não diz se o agente está pronto; diz só que ele está falando muito. O que importa é a qualidade do que ele fala — a mesma lógica que uso para <a href="../artigos/como-medir-agente-de-recuperacao-de-vendas.html">medir um agente de recuperação de vendas sem métrica de vaidade</a>.</p>
+
+      <h2>Passo 5: subir em produção com rede de segurança</h2>
+      <p>Passou no teste controlado? Ainda não solte para 100% dos clientes. O caminho seguro tem degraus:</p>
+      <ol>
+        <li><strong>Sombra (shadow):</strong> o agente responde, mas a resposta não vai para o cliente — vai para você conferir. Ele “trabalha” em paralelo ao humano e você compara.</li>
+        <li><strong>Fração pequena:</strong> libere para 5% a 10% do tráfego real, com um humano monitorando as conversas em tempo real e podendo assumir a qualquer momento.</li>
+        <li><strong>Escala gradual:</strong> se os números se mantêm, aumenta a fatia. Se aparece um erro novo, você corrige com pouco cliente exposto — não com a base inteira.</li>
+      </ol>
+      <p>Esse ritmo de subir com segurança é parte do mesmo método que descrevo em <a href="../artigos/implantar-agentes-de-ia-em-30-dias.html">como implantar agentes de IA numa empresa em 30 dias</a>. A pressa de ligar tudo de uma vez é exatamente onde o projeto de IA quebra.</p>
+
+      <h2>Passo 6: teste de novo a cada mudança</h2>
+      <p>O erro que pega muita gente depois do lançamento: mexer no agente e não retestar. Toda vez que você muda a instrução (o system prompt), atualiza a base de conhecimento, troca o modelo ou adiciona uma ferramenta nova, existe risco de quebrar o que já funcionava. Rode o mesmo conjunto de cenários de novo — é o equivalente ao “teste de regressão” do software. Guardar o caderno de provas e reusá-lo é o que permite evoluir o agente sem medo. Se você quer entender as peças que uma mudança dessas afeta, vale reler a <a href="../artigos/anatomia-de-um-agente-de-ia.html">anatomia de um agente de IA que funciona</a>.</p>
+
+      <p>No fim, testar um agente de IA é a parte menos glamourosa e mais lucrativa do projeto. É ela que faz o agente chegar no cliente pronto — e não virar aquele caso de “colocamos IA e deu ruim” que assombra tanta empresa. Se você quer implantar IA na sua operação do jeito certo, é assim que eu trabalho: com teste antes, rede de segurança na subida e medição depois. <a href="../index.html">Veja como eu faço IA e performance</a> ou fale comigo direto.</p>
+
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details open><summary>Como testar um agente de IA antes de colocar em produção?</summary><p>Monte um conjunto de conversas reais (perguntas fáceis, casos difíceis e casos-armadilha), rode o agente contra elas em ambiente controlado, e avalie cada resposta por acerto, tom, alucinação e se ele acionou o handoff quando devia. Só libere para produção quando o agente passar nos cenários que mais custam caro se ele errar.</p></details>
+        <details><summary>Quantos casos de teste um agente de IA precisa antes de ir ao ar?</summary><p>Não é o número que importa, é a cobertura. Comece com 30 a 50 conversas que representem os pedidos mais frequentes e os erros mais caros. Melhor 40 casos que cobrem preço, política de troca, dado inventado e cliente irritado do que 300 variações da mesma pergunta fácil.</p></details>
+        <details><summary>O que medir no teste de um agente de IA?</summary><p>Taxa de resposta correta, taxa de alucinação (inventar informação), aderência ao tom e às políticas, taxa de handoff correto (passar para humano na hora certa) e tempo até resolver. Métrica de vaidade como número de mensagens não diz se o agente está pronto.</p></details>
+        <details><summary>Posso testar o agente de IA direto com clientes reais?</summary><p>Só depois de passar no teste controlado. O caminho seguro é liberar para uma fração pequena do tráfego, com um humano monitorando as conversas em tempo real e podendo assumir a qualquer momento. Ir direto para 100% dos clientes sem homologação é onde o erro sai caro.</p></details>
+        <details><summary>Preciso testar o agente de novo depois que ele já está no ar?</summary><p>Sim. Toda vez que você muda a instrução, atualiza a base de conhecimento, troca o modelo ou adiciona uma ferramenta, é preciso rodar o conjunto de testes de novo para garantir que a mudança não quebrou o que já funcionava.</p></details>
+      </div>
+    </div>
+
+    <div class="author-box">
+      <img src="../img/thomas-macedo-palestra.jpeg" alt="Thomas Macedo" />
+      <div>
+        <div class="a-name"><a href="../sobre.html" style="color:inherit;border-bottom:1px solid var(--line-strong)">Thomas Macedo</a></div>
+        <p class="a-bio">Fundador da Gene Company. Especialista em sistemas e agentes de IA, criação de marcas e tráfego pago com ROI escalável para empresas. Santos/BR, atende Brasil e exterior. <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" target="_blank" rel="noopener">Fale comigo no WhatsApp →</a></p>
+      </div>
+    </div>
+  </article>
+
+  <section class="related">
+    <div class="wrap-narrow" style="padding:0">
+      <p class="eyebrow eyebrow-ink" style="display:block;margin-bottom:8px">Continue lendo</p>
+      <div class="related-grid">
+        <a href="../artigos/alucinacao-e-guardrails-de-agentes-de-ia.html"><span class="r-cat">Inteligência Artificial</span><h3>Alucinação de agentes de IA: por que acontece e como impedir com guardrails</h3></a>
+        <a href="../artigos/implantar-agentes-de-ia-em-30-dias.html"><span class="r-cat">Inteligência Artificial</span><h3>Como implantar agentes de IA numa empresa em 30 dias</h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2 class="display mt-m" style="font-size:clamp(2.2rem,5vw,4rem)">Quero IA<br>na minha empresa.</h2>
+      <p class="lead mt-m" style="color:rgba(244,241,234,.8);max-width:48ch">Conte sobre o seu negócio e receba um diagnóstico do seu tráfego, criativos, marca e atendimento com IA.</p>
+      <div class="contact-row">
+        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" class="btn" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
+        <a href="https://www.instagram.com/thomasmacedo.ads" class="link-underline" target="_blank" rel="noopener" style="color:var(--paper)">Instagram @thomasmacedo.ads</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <span>© 2026 Thomas Macedo — IA, criação de marcas e tráfego pago. Santos, Baixada Santista, Brasil &amp; exterior.</span>
+        <div class="foot-links">
+          <a href="../index.html">IA &amp; Performance</a>
+          <a href="../marcas.html">Marcas &amp; E-commerce</a>
+          <a href="../artigos/">Artigos</a>
+          <a href="../sobre.html">Sobre</a>
+          <a href="https://www.instagram.com/thomasmacedo.ads" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/thomas-macedo-23896216a/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/102946615/" target="_blank" rel="noopener">LINCE Performance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="../site.js" defer></script>
+</body>
+</html>

@@ -5,8 +5,16 @@
 <link>https://www.thomas-macedo.com/</link>
 <description>Uma matéria por dia sobre agentes de IA, agência escalada, tráfego pago, e-commerce e criação de marcas. Por Thomas Macedo (Gene Company / LINCE Performance).</description>
 <language>pt-BR</language>
-<lastBuildDate>Sat, 05 Sep 2026 10:34:42 +0000</lastBuildDate>
+<lastBuildDate>Sun, 06 Sep 2026 10:38:38 +0000</lastBuildDate>
 <atom:link href="https://www.thomas-macedo.com/feed.xml" rel="self" type="application/rss+xml" />
+<item>
+<title>Integrações de agentes de IA: como conectar o agente ao WhatsApp, CRM e ERP da empresa</title>
+<link>https://www.thomas-macedo.com/artigos/integracoes-de-agentes-de-ia-crm-erp-whatsapp.html</link>
+<guid isPermaLink="true">https://www.thomas-macedo.com/artigos/integracoes-de-agentes-de-ia-crm-erp-whatsapp.html</guid>
+<description>Um agente de IA só resolve de verdade quando está conectado aos sistemas da empresa. Veja como integrar via API, webhook e ferramentas como n8n — e o que decidir antes de ligar o primeiro sistema.</description>
+<author>thomas98macedo@gmail.com (Thomas Macedo)</author>
+<pubDate>Sun, 06 Sep 2026 10:00:00 +0000</pubDate>
+</item>
 <item>
 <title>Como testar um agente de IA antes de colocar em produção: cenários, dados reais e o que medir</title>
 <link>https://www.thomas-macedo.com/artigos/como-testar-agente-de-ia-antes-de-producao.html</link>

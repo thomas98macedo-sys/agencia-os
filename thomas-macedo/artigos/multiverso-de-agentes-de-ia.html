@@ -39,7 +39,8 @@
     /* ensaio fotográfico — figuras mais largas que a coluna de texto */
     .mv-fig{position:relative;left:50%;transform:translateX(-50%);
       width:min(1000px,92vw);max-width:none;margin:46px 0;padding:0}
-    .mv-fig img{width:100%;height:auto;display:block;border:1px solid var(--line-strong,rgba(22,20,15,.18));border-radius:2px}
+    .mv-fig img,.mv-fig video{width:100%;height:auto;display:block;background:#141009;
+      border:1px solid var(--line-strong,rgba(22,20,15,.18));border-radius:2px}
     .mv-fig .par{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     .mv-fig figcaption{font-family:var(--sans,'Hanken Grotesk',sans-serif);font-size:.85rem;line-height:1.6;
       color:var(--ink-soft,#4a463f);margin-top:12px;padding-left:12px;border-left:2px solid var(--accent,#9A7B33)}
@@ -76,6 +77,22 @@
       {"@type":"Question","name":"Dá para dar ordem a um agente de dentro do mundo?","acceptedAnswer":{"@type":"Answer","text":"Dá. Chegando perto do agente abre um menu com perguntas cuja resposta vem das rotas reais do sistema, e um campo de ordem. O pedido entra na mesma fila que eu uso pelo celular, o agente executa de verdade e a resposta volta para dentro do mundo e para o meu telefone."}}
     ]
   }
+  </script>
+  <script type="application/ld+json">
+  [
+   {"@context":"https://schema.org","@type":"VideoObject",
+    "name":"Modo cinema no Multiverso: a vila 3D dos agentes de IA em movimento",
+    "description":"Câmera de trailer atravessando a vila 3D onde moram os 41 agentes de IA da operação de Thomas Macedo.",
+    "thumbnailUrl":"https://www.thomas-macedo.com/img/multiverso/cinema-poster.jpg",
+    "contentUrl":"https://www.thomas-macedo.com/video/multiverso/cinema.mp4",
+    "uploadDate":"2026-09-08","duration":"PT30S","inLanguage":"pt-BR"},
+   {"@context":"https://schema.org","@type":"VideoObject",
+    "name":"Andando pela vila dos agentes de IA em terceira pessoa",
+    "description":"Gravação de tela do Multiverso: caminhada em terceira pessoa pela praça e pelo mercado da vila, com os agentes trabalhando ao redor.",
+    "thumbnailUrl":"https://www.thomas-macedo.com/img/multiverso/andando-poster.jpg",
+    "contentUrl":"https://www.thomas-macedo.com/video/multiverso/andando.mp4",
+    "uploadDate":"2026-09-08","duration":"PT30S","inLanguage":"pt-BR"}
+  ]
   </script>
 </head>
 <body>
@@ -117,7 +134,7 @@
     <div class="prose">
       <p><strong>Eu construí um mundo 3D para os agentes de IA que operam a minha empresa morarem.</strong> São 41 — o que atende o lead, o que cobra, o que emite nota, o que publica, o que vigia o sistema de madrugada — e cada um tem casa, ofício, rotina, cama numerada e vizinhança dentro de uma vila que roda no meu computador, no navegador. Não é enfeite: o mundo lê os dados reais da operação e reage a eles. É o painel de controle da minha empresa, só que eu entro dentro dele.</p>
 
-      <p>Faz tempo que eu falo por aqui sobre <a href="./anatomia-de-um-agente-de-ia.html">a anatomia de um agente de IA</a> e sobre <a href="./como-criar-agentes-de-ia.html">como criar agentes que fazem trabalho de verdade</a>. Este texto é sobre o passo seguinte: quando você tem dezenas deles rodando ao mesmo tempo, a lista deixa de servir. Você precisa <em>ver</em> a operação.</p>
+      <p>Faz tempo que eu falo por aqui sobre <a href="./anatomia-de-um-agente-de-ia.html">a anatomia de um agente de IA</a> e sobre <a href="./como-criar-agentes-de-ia.html">como criar agentes que fazem trabalho de verdade</a>. Este texto é sobre o passo seguinte: quando você tem dezenas deles rodando ao mesmo tempo, a lista deixa de servir. Você precisa <em>ver</em> a operação. A história de como essa empresa foi montada desse jeito está inteira no meu livro, <a href="./livro-a-empresa-que-trabalha-sozinha.html">A Empresa que Trabalha Sozinha</a> — aqui eu mostro o mundo que nasceu depois dela.</p>
 
       <div class="callout">
         <span class="k">Resumo rápido</span>
@@ -130,6 +147,15 @@
           <li>Rodar tudo isso <strong>não consome IA</strong>: a simulação é código, não modelo.</li>
         </ul>
       </div>
+
+      <figure class="mv-fig">
+        <video controls muted playsinline loop preload="none" width="1280" height="720"
+               poster="../img/multiverso/cinema-poster.jpg">
+          <source src="../video/multiverso/cinema.mp4" type="video/mp4" />
+          O seu navegador não reproduz este vídeo. <a href="../video/multiverso/cinema.mp4">Baixar o clipe</a>.
+        </video>
+        <figcaption>O modo cinema: a câmera de trailer atravessando a vila sozinha, do rio à praça. Ninguém está pilotando — o que se mexe ali são os agentes indo trabalhar, visitar e comer.</figcaption>
+      </figure>
 
       <h2>Por que um mundo, e não mais um painel</h2>
       <p>Painel de agente é lista. Lista mostra nome e status, e no dia em que você passa de dez agentes ela para de contar a história: você não vê quem está ocioso, quem está sobrecarregado, quem depende de quem, o que travou às três da manhã. Num mundo com rua, horário e casa, isso vira paisagem. Bateu meio-dia e a vila esvaziou porque todo mundo foi comer? Isso é informação. Tem um prédio com a bandeira vermelha levantada? Teve incidente. É <a href="./automacao-de-processos-com-ia.html">automação de processo</a> com um corpo, para eu conseguir olhar.</p>
@@ -370,6 +396,15 @@
       <p>Tem formação: aperto o botão, a corneta toca e os 41 largam tudo, correm até mim e entram em fila de quartel. Tem dragão, para voar por cima do mundo inteiro. Tem primeira pessoa, modo foto, modo cinema, controle de videogame e joystick no celular — o mundo inteiro cabe no meu telefone.</p>
 
             <figure class="mv-fig">
+        <video controls muted playsinline loop preload="none" width="1280" height="720"
+               poster="../img/multiverso/andando-poster.jpg">
+          <source src="../video/multiverso/andando.mp4" type="video/mp4" />
+          O seu navegador não reproduz este vídeo. <a href="../video/multiverso/andando.mp4">Baixar o clipe</a>.
+        </video>
+        <figcaption>Andando pela vila em terceira pessoa. As casas, os agentes trabalhando na porta, a praça — tudo rodando ao vivo enquanto eu ando.</figcaption>
+      </figure>
+
+            <figure class="mv-fig">
         <div class="par">
           <img src="../img/multiverso/50-formacao.jpg" alt="A tropa em formação e a vila em terceira pessoa. As duas coisas existem pelo mes" width="820" height="384" loading="lazy" decoding="async" />
           <img src="../img/multiverso/49-terceira-pessoa.jpg" alt="A tropa em formação e a vila em terceira pessoa. As duas coisas existem pelo mes" width="820" height="384" loading="lazy" decoding="async" />
@@ -385,6 +420,8 @@
         <li><strong>O sistema não mente.</strong> Falha de leitura vira “não sei”, e problema só desaparece do mundo quando desaparece da vida real.</li>
         <li><strong>O custo é honesto.</strong> A simulação é código; modelo de IA só é chamado quando tem trabalho de verdade para fazer.</li>
       </ul>
+      <p>Se você quer a história completa — como cheguei aqui, o que quebrou no caminho e o que eu faria diferente —, escrevi um livro sobre isso: <a href="./livro-a-empresa-que-trabalha-sozinha.html">A Empresa que Trabalha Sozinha</a>, disponível em eBook e impresso na <a href="https://www.amazon.com.br/dp/6597748107" target="_blank" rel="noopener">Amazon</a>.</p>
+
       <p>Eu construo essas estruturas para a minha operação e para clientes — dos agentes de atendimento e <a href="./agentes-de-ia-para-ecommerce-recuperar-vendas.html">recuperação de vendas</a> até o painel que junta tudo. Se você quer ver como isso funciona aplicado ao seu negócio, é só me chamar: eu mostro o mundo rodando ao vivo e explico o que teria dentro dele no seu caso.</p>
 
             <figure class="mv-fig">
@@ -415,7 +452,7 @@
       <p class="eyebrow eyebrow-ink" style="display:block;margin-bottom:8px">Continue lendo</p>
       <div class="related-grid">
         <a href="../artigos/anatomia-de-um-agente-de-ia.html"><span class="r-cat">Agentes de IA</span><h3>A anatomia de um agente de IA</h3></a>
-        <a href="../artigos/como-criar-agentes-de-ia.html"><span class="r-cat">Agentes de IA</span><h3>Como criar agentes de IA que fazem trabalho de verdade</h3></a>
+        <a href="../artigos/livro-a-empresa-que-trabalha-sozinha.html"><span class="r-cat">O livro</span><h3>A Empresa que Trabalha Sozinha: o livro sobre a empresa operada por agentes de IA</h3></a>
       </div>
     </div>
   </section>

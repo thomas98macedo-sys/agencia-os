@@ -56,6 +56,7 @@
 - [Posicionamento de marca: como escolher o lugar que a sua marca ocupa na cabeça do cliente](https://www.thomas-macedo.com/artigos/posicionamento-de-marca.html): Posicionamento de marca é a escolha do lugar que a sua marca vai ocupar na memória do cliente. Veja o método, a frase de posicionamento pronta, os territórios possíveis e como testar antes de reformar a marca inteira.
 
 ## Artigos recentes
+- [Como escolher uma assessoria de marketing digital: 7 sinais de que ela vai dar resultado](https://www.thomas-macedo.com/artigos/como-escolher-assessoria-de-marketing-digital.html): Sem cair em promessa vazia: os 7 sinais concretos de que uma assessoria de marketing digital vai gerar vendas — e as bandeiras vermelhas para fugir.
 - [Onboarding de cliente em agência: o processo dos primeiros 30 dias](https://www.thomas-macedo.com/artigos/onboarding-de-cliente-em-agencia-de-marketing.html): O processo de onboarding — kickoff, acessos, briefing, metas e primeira entrega — que reduz churn e faz o cliente ver resultado antes do 1º mês fechar.
 - [Integrações de agentes de IA: como conectar ao WhatsApp, CRM e ERP](https://www.thomas-macedo.com/artigos/integracoes-de-agentes-de-ia-crm-erp-whatsapp.html): API, webhook ou n8n? Como ligar o agente de IA aos sistemas da empresa — a parte que separa demo de operação que resolve.
 - [Como testar um agente de IA antes de colocar em produção](https://www.thomas-macedo.com/artigos/como-testar-agente-de-ia-antes-de-producao.html): Cenários, dados reais e as métricas que dizem se o agente está pronto — para o erro sair barato na sua tela, não caro na frente do cliente.
@@ -65,7 +66,6 @@
 - [Claude Fable 5.1: o que muda para quem opera agentes de IA](https://www.thomas-macedo.com/artigos/claude-fable-5-1-o-que-muda-para-empresas.html): O novo modelo da Anthropic manteve o preço, cortou o cache em 75% e deixou agentes até 45% mais baratos de rodar. A leitura prática, sem hype.
 - [Landing page que converte: a estrutura que transforma tráfego em venda](https://www.thomas-macedo.com/artigos/landing-page-que-converte.html): Objetivo único, promessa clara, prova e um só botão: a estrutura de uma landing page que faz o tráfego pago virar venda — e os erros que queimam verba.
 - [Estrutura de time de agência de marketing: funções e quando contratar](https://www.thomas-macedo.com/artigos/estrutura-de-time-de-agencia-de-marketing.html): Como montar o time que sustenta escala: células por cliente, funções que não podem faltar e quantos clientes cada pessoa aguenta.
-- [GPT, Claude ou Gemini: qual modelo de IA usar no agente da sua empresa](https://www.thomas-macedo.com/artigos/qual-modelo-de-ia-usar-gpt-claude-gemini.html): Não existe modelo melhor para tudo — existe o certo para cada tarefa. Como escolher entre GPT, Claude e Gemini por custo, tarefa e risco.
 
 ## Prova social
 - Marcas que passaram pelo processo de escala com Thomas Macedo: China Link Trading, China Link na Estrada, Lincoln Fracari, Tuyo Brasil, Apex Performance, LM Woodwork, Friga Store, Laser Rosa, Relive Med Clinic, Moby Dick Santos, Texas Firearms, entre centenas de outras operações.

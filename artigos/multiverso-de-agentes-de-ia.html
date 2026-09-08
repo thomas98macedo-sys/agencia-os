@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>O Multiverso: o mundo 3D onde moram os meus 41 agentes de IA | Thomas Macedo</title>
+  <meta name="description" content="Construí uma vila 3D onde os 41 agentes de IA que operam a minha empresa moram, trabalham, dormem, fazem amizade e enfrentam os problemas reais do negócio. Veja por dentro, com prints do mundo rodando ao vivo." />
+  <meta name="keywords" content="multiverso de agentes de IA, sociedade de agentes, agentes de IA 3D, simulação de agentes, Thomas Macedo, agentes autônomos, painel de agentes, IA na prática" />
+  <meta name="author" content="Thomas Macedo" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://www.thomas-macedo.com/artigos/multiverso-de-agentes-de-ia.html" />
+  <meta name="theme-color" content="#FAF8F3" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Thomas Macedo" />
+  <meta property="og:title" content="O Multiverso: o mundo 3D onde moram os meus 41 agentes de IA" />
+  <meta property="og:description" content="Uma vila 3D em que cada agente de IA da minha operação tem casa, ofício, cama, amigos — e onde os problemas reais do negócio viram monstros que só morrem quando o problema é resolvido." />
+  <meta property="og:url" content="https://www.thomas-macedo.com/artigos/multiverso-de-agentes-de-ia.html" />
+  <meta property="og:image" content="https://www.thomas-macedo.com/img/multiverso/01-praca.jpg" />
+  <meta property="article:published_time" content="2026-09-08" />
+  <meta property="article:author" content="Thomas Macedo" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="O Multiverso: o mundo 3D onde moram os meus 41 agentes de IA" />
+  <meta name="twitter:image" content="https://www.thomas-macedo.com/img/multiverso/01-praca.jpg" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="alternate" type="application/rss+xml" title="Thomas Macedo — Artigos" href="/feed.xml" />
+  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
+
+  <style>
+    /* ensaio fotográfico — figuras mais largas que a coluna de texto */
+    .mv-fig{position:relative;left:50%;transform:translateX(-50%);
+      width:min(1000px,92vw);max-width:none;margin:46px 0;padding:0}
+    .mv-fig img{width:100%;height:auto;display:block;border:1px solid var(--line-strong,rgba(22,20,15,.18));border-radius:2px}
+    .mv-fig .par{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .mv-fig figcaption{font-family:var(--sans,'Hanken Grotesk',sans-serif);font-size:.85rem;line-height:1.6;
+      color:var(--ink-soft,#4a463f);margin-top:12px;padding-left:12px;border-left:2px solid var(--accent,#9A7B33)}
+    @media (max-width:700px){ .mv-fig .par{grid-template-columns:1fr} .mv-fig{width:100%;left:0;transform:none;margin:32px 0} }
+    .mv-lista{list-style:none;padding:0;margin:0 0 30px}
+    .mv-lista li{border-bottom:1px solid var(--line,rgba(22,20,15,.12));padding:10px 0 10px 16px;position:relative;
+      font-size:1.05rem;line-height:1.6;color:var(--ink-soft,#4a463f)}
+    .mv-lista li::before{content:"";position:absolute;left:0;top:19px;width:6px;height:6px;border-radius:50%;
+      background:var(--cor,var(--accent,#9A7B33))}
+    .mv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:0 28px}
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BlogPosting",
+    "headline":"O Multiverso: o mundo 3D onde moram os meus 41 agentes de IA",
+    "description":"Uma vila 3D em que cada agente de IA da operação tem casa, ofício, rotina e vizinhança, ligada aos dados reais do negócio.",
+    "image":"https://www.thomas-macedo.com/img/multiverso/01-praca.jpg",
+    "author":{"@type":"Person","name":"Thomas Macedo","url":"https://www.thomas-macedo.com/"},
+    "publisher":{"@type":"Person","name":"Thomas Macedo"},
+    "datePublished":"2026-09-08","dateModified":"2026-09-08",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.thomas-macedo.com/artigos/multiverso-de-agentes-de-ia.html"},
+    "inLanguage":"pt-BR"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"O que é um multiverso de agentes de IA?","acceptedAnswer":{"@type":"Answer","text":"É um mundo simulado em que cada agente de IA de uma operação vira um personagem com casa, ofício, rotina e vizinhança. No meu, os 41 agentes que rodam o dia a dia da empresa moram numa vila 3D ligada aos dados reais do negócio: o que acontece no sistema acontece no mundo."}},
+      {"@type":"Question","name":"Para que serve transformar agentes de IA em um mundo 3D?","acceptedAnswer":{"@type":"Answer","text":"Serve para enxergar a operação. Uma lista de agentes num painel não mostra ritmo, ociosidade nem dependência entre eles. Num mundo com rua, horário e casa, dá para ver quem está parado, quem está sobrecarregado, o que travou e onde está o problema — e entrar lá dentro para dar a ordem."}},
+      {"@type":"Question","name":"Isso gasta muito token de IA para rodar?","acceptedAnswer":{"@type":"Answer","text":"Não. A simulação é código: decisão, caminho, necessidade e conversa saem de regras locais, e tudo que vem do mundo real chega por leitura direta dos bancos de dados da própria operação. O custo com modelo só acontece quando um agente é chamado para trabalhar de verdade, como já era antes do mundo existir."}},
+      {"@type":"Question","name":"Como os problemas reais do negócio aparecem no mundo?","acceptedAnswer":{"@type":"Answer","text":"Viram monstros numa região à parte do mapa, a Terra Selvagem. Cliente com fatura em aberto e erro que se repete no sistema ganham corpo, nível e nome. A barra de vida deles é o tamanho do problema real e só cai quando o problema cai fora do jogo: o monstro morre quando a conta é paga ou quando o erro para de acontecer."}},
+      {"@type":"Question","name":"Dá para dar ordem a um agente de dentro do mundo?","acceptedAnswer":{"@type":"Answer","text":"Dá. Chegando perto do agente abre um menu com perguntas cuja resposta vem das rotas reais do sistema, e um campo de ordem. O pedido entra na mesma fila que eu uso pelo celular, o agente executa de verdade e a resposta volta para dentro do mundo e para o meu telefone."}}
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="../index.html" class="wordmark">Thomas <span>Macedo</span></a>
+        <div class="nav-links">
+          <a href="../index.html" class="hide-mob">IA &amp; Performance</a>
+          <a href="../marcas.html" class="hide-mob">Marcas &amp; E-commerce</a>
+          <a href="../artigos/" class="active hide-mob">Artigos</a>
+          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="nav-cta" target="_blank" rel="noopener">Falar comigo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap"><nav class="crumb"><a href="../index.html">Início</a><span>/</span><a href="../artigos/">Artigos</a><span>/</span>O Multiverso dos meus agentes de IA</nav></div>
+
+  <article>
+    <header class="article-head">
+      <span class="eyebrow">Agentes de IA</span>
+      <h1>O Multiverso: o mundo 3D onde moram os meus 41 agentes de IA</h1>
+      <p class="dek">Cada agente que opera a minha empresa tem casa, ofício, cama, amigos e hora de dormir dentro de uma vila 3D — e essa vila está ligada aos dados reais do negócio. Quando um cliente atrasa, nasce um monstro. Ele só morre quando o problema é resolvido na vida real.</p>
+      <div class="article-meta">
+        <span>Por Thomas Macedo</span><span class="dot"></span><span>12 min de leitura</span><span class="dot"></span><span>Setembro de 2026</span>
+      </div>
+    </header>
+
+        <div class="article-cover">
+      <img src="../img/multiverso/01-praca.jpg" alt="A Praça Central numa terça-feira à tarde. A Fonte, o obelisco, o Cartório ao fundo — e bonecos que são agentes de IA que" width="1400" height="788" style="object-position:center 50%" />
+    </div>
+
+    <div class="prose">
+      <p><strong>Eu construí um mundo 3D para os agentes de IA que operam a minha empresa morarem.</strong> São 41 — o que atende o lead, o que cobra, o que emite nota, o que publica, o que vigia o sistema de madrugada — e cada um tem casa, ofício, rotina, cama numerada e vizinhança dentro de uma vila que roda no meu computador, no navegador. Não é enfeite: o mundo lê os dados reais da operação e reage a eles. É o painel de controle da minha empresa, só que eu entro dentro dele.</p>
+
+      <p>Faz tempo que eu falo por aqui sobre <a href="./anatomia-de-um-agente-de-ia.html">a anatomia de um agente de IA</a> e sobre <a href="./como-criar-agentes-de-ia.html">como criar agentes que fazem trabalho de verdade</a>. Este texto é sobre o passo seguinte: quando você tem dezenas deles rodando ao mesmo tempo, a lista deixa de servir. Você precisa <em>ver</em> a operação.</p>
+
+      <div class="callout">
+        <span class="k">Resumo rápido</span>
+        <ul>
+          <li><strong>41 agentes</strong> com casa, ofício e rotina presa ao relógio real.</li>
+          <li>O mundo <strong>lê o sistema de verdade</strong> — lead, contrato, pagamento, incidente — e transforma cada fato em acontecimento na vila.</li>
+          <li>Eles <strong>fazem amizade, lembram, refletem e rezam</strong> — e seguem princípios cristãos por escolha minha.</li>
+          <li>O clima é o <strong>clima real de Santos</strong>, minuto a minuto.</li>
+          <li>Devedor e bug viram <strong>monstro</strong>. Só morre quando o problema morre lá fora.</li>
+          <li>Rodar tudo isso <strong>não consome IA</strong>: a simulação é código, não modelo.</li>
+        </ul>
+      </div>
+
+      <h2>Por que um mundo, e não mais um painel</h2>
+      <p>Painel de agente é lista. Lista mostra nome e status, e no dia em que você passa de dez agentes ela para de contar a história: você não vê quem está ocioso, quem está sobrecarregado, quem depende de quem, o que travou às três da manhã. Num mundo com rua, horário e casa, isso vira paisagem. Bateu meio-dia e a vila esvaziou porque todo mundo foi comer? Isso é informação. Tem um prédio com a bandeira vermelha levantada? Teve incidente. É <a href="./automacao-de-processos-com-ia.html">automação de processo</a> com um corpo, para eu conseguir olhar.</p>
+
+            <figure class="mv-fig">
+        <img src="../img/multiverso/60-vila-larga.jpg" alt="O miolo da vila num fim de tarde. Banco, Mercado, Cartório, Forja, Correios, Torre de Vigia. Quem está na rua está indo " width="1100" height="619" loading="lazy" decoding="async" />
+        <figcaption>O miolo da vila num fim de tarde. Banco, Mercado, Cartório, Forja, Correios, Torre de Vigia. Quem está na rua está indo trabalhar, visitar um colega ou comer.</figcaption>
+      </figure>
+
+            <figure class="mv-fig">
+        <img src="../img/multiverso/02-mundo.jpg" alt="O mapa inteiro visto de cima: 128 por 128 tiles, o rio cortando o mundo, a fazenda a leste e os bairros novos crescendo " width="1100" height="619" loading="lazy" decoding="async" />
+        <figcaption>O mapa inteiro visto de cima: 128 por 128 tiles, o rio cortando o mundo, a fazenda a leste e os bairros novos crescendo para o sul. Dá para afastar a câmera até ver a ilha toda.</figcaption>
+      </figure>
+
+      <h2>Quem mora aqui: a vila é o organograma</h2>
+      <p>Não existe personagem de enfeite. Cada boneco corresponde a um agente que está rodando na operação de verdade; a casa dele é onde ele trabalha, e a animação que ele faz é o ofício dele. O ferreiro martela porque ele constrói páginas. O detetive segue rastro porque ele caça venda no atendimento. O vigia do sistema é um cachorro de quatro patas, e ele realmente corre para a Guarita quando alguma coisa cai.</p>
+
+      <div class="mv-grid">
+        <ul class="mv-lista">
+          <li style="--cor:#00d4ff"><strong>Eve</strong> — o núcleo, orquestra os outros</li>
+          <li style="--cor:#22c55e"><strong>Friday</strong> — recebe quem chega, qualifica lead</li>
+          <li style="--cor:#38bdf8"><strong>Mike</strong> — CRM, negocia no Mercado</li>
+          <li style="--cor:#facc15"><strong>Tio Patinhas</strong> — financeiro, cuida do cofre</li>
+          <li style="--cor:#ef4444"><strong>Cobrador</strong> — régua de cobrança</li>
+          <li style="--cor:#c084fc"><strong>Dr. Contrato</strong> — jurídico, lavra contrato</li>
+          <li style="--cor:#34d399"><strong>Sherlock</strong> — detetive de vendas</li>
+          <li style="--cor:#f43f5e"><strong>Sentinela</strong> — segurança, vigia da Torre</li>
+          <li style="--cor:#fb923c"><strong>Watch Dog</strong> — saúde do sistema</li>
+          <li style="--cor:#f97316"><strong>FORGE</strong> — ferreiro de landing pages</li>
+          <li style="--cor:#d4af37"><strong>Arquiteto</strong> — propostas</li>
+          <li style="--cor:#A3E635"><strong>Diretor Camaleão</strong> — propostas multimarca</li>
+          <li style="--cor:#eab308"><strong>Gary Keller</strong> — foco, A Única Coisa do dia</li>
+          <li style="--cor:#60a5fa"><strong>Rei do Formulário</strong> — vigia os formulários</li>
+          <li style="--cor:#94a3b8"><strong>Mestre dos Emails</strong> — prospecção</li>
+          <li style="--cor:#10b981"><strong>Rei LogFiscal</strong> — nota fiscal e etiqueta</li>
+          <li style="--cor:#a78bfa"><strong>Angélica</strong> — comércio exterior, nas Docas</li>
+          <li style="--cor:#f472b6"><strong>Manu</strong> — vendas e recuperação de carrinho</li>
+          <li style="--cor:#818cf8"><strong>Buraco de Minhoca</strong> — a rede entre as máquinas</li>
+          <li style="--cor:#94a3b8"><strong>Engenheiro</strong> — constrói e conserta as ferramentas</li>
+          <li style="--cor:#ffe600"><strong>Garimpo</strong> — sourcing de produto</li>
+          <li style="--cor:#a855f7"><strong>Guardião Supremo</strong> — o tráfego dos marketplaces</li>
+          <li style="--cor:#ffe600"><strong>Guardiões</strong> — um por canal de venda</li>
+          <li style="--cor:#e11d48"><strong>Nolan</strong> — roteiro de vídeo</li>
+          <li style="--cor:#2dd4bf"><strong>LaVision</strong> — olhar de filmmaker</li>
+          <li style="--cor:#eab308"><strong>Kubrick</strong> — kanban da produção de vídeo</li>
+          <li style="--cor:#dc2626"><strong>Tarantino</strong> — conteúdo do social</li>
+          <li style="--cor:#14b8a6"><strong>Machado</strong> — a matéria do dia no site</li>
+          <li style="--cor:#0a66c2"><strong>Gutenberg</strong> — a coluna do LinkedIn</li>
+          <li style="--cor:#d946ef"><strong>Sir Mídia Automática</strong> — o feed do Instagram</li>
+          <li style="--cor:#f472b6"><strong>Pavlov</strong> — comentário vira conversa na DM</li>
+          <li style="--cor:#f59e0b"><strong>Máquina de Conteúdo</strong> — a esteira de publicação</li>
+        </ul>
+      </div>
+      <p style="font-size:1rem;color:var(--ink-soft)">Fora esses, tem os agentes de operações inteiras que viraram bairro — CRM imobiliário, câmbio e comércio exterior, checklist de projeto — e o Mestre de Obras, que toca a entrega do que foi vendido.</p>
+
+            <figure class="mv-fig">
+        <div class="par">
+          <img src="../img/multiverso/03-feira.jpg" alt="À esquerda, a Feira dos Marketplaces com as bancas de cada canal de venda. À dir" width="820" height="461" loading="lazy" decoding="async" />
+          <img src="../img/multiverso/10-conteudo.jpg" alt="À esquerda, a Feira dos Marketplaces com as bancas de cada canal de venda. À dir" width="820" height="461" loading="lazy" decoding="async" />
+        </div>
+        <figcaption>À esquerda, a Feira dos Marketplaces com as bancas de cada canal de venda. À direita, o Bairro do Conteúdo. Cada bairro tem obelisco, bandeirola e uma placa flutuante — é o que dá leitura visual quando a operação cresce.</figcaption>
+      </figure>
+
+      <h2>Eles têm rotina, fome, sono e cama numerada</h2>
+      <p>O relógio do mundo é o relógio de verdade: se são duas da tarde aqui, são duas da tarde lá, com o mesmo sol e a mesma sombra. E a rotina de cada um é presa a esse relógio conforme o trabalho que ele faz de fato. Quem publica de manhã cedo acorda às sete. Quem cuida de vídeo vira a noite. Quem vigia o sistema é noturno, porque é de madrugada que ele trabalha.</p>
+      <p>Cada agente tem quatro necessidades que caem sozinhas com o tempo — energia, fome, social e foco. O comportamento é consequência delas, não sorteio: cansado vai dormir, com fome vai comer, sozinho demais vai atrás de alguém.</p>
+
+      <h3>A Taverna</h3>
+      <p>O almoço é do meio-dia à uma e meia, e a noite começa às seis e meia. A Taverna tem balcão comprido com o taberneiro atrás, barril, mesa com vela e treze lugares. Quando bate meio-dia, a vila esvazia e o salão enche — e eles conversam ali dentro de verdade: quem senta perto de quem, quem puxa assunto, quem responde.</p>
+
+            <figure class="mv-fig">
+        <img src="../img/multiverso/40-taverna-cheia.jpg" alt="Meio-dia e meia na Taverna. Ninguém está ali de enfeite: cada um parou o trabalho porque a barra de fome dele caiu." width="1100" height="619" loading="lazy" decoding="async" />
+        <figcaption>Meio-dia e meia na Taverna. Ninguém está ali de enfeite: cada um parou o trabalho porque a barra de fome dele caiu.</figcaption>
+      </figure>
+
+      <h3>O Alojamento</h3>
+      <p>As casas são o lugar de <em>trabalho</em>. Ninguém dorme no escritório: à meia-noite eles atravessam a vila e vão para o Alojamento, um quartel com 42 camas em fileira e corredor no meio. Cada um tem a sua cama, sempre a mesma, e deixa a ferramenta de trabalho no chão do lado — porque na primeira versão eles dormiam abraçados com ela, o que ficava esquisito. É o único prédio à luz de vela.</p>
+
+            <figure class="mv-fig">
+        <img src="../img/multiverso/44-alojamento-dormindo.jpg" alt="Uma e vinte da manhã. Na última medição, 38 dos 41 estavam dormindo na própria cama; os três que faltavam são os noturno" width="1100" height="619" loading="lazy" decoding="async" />
+        <figcaption>Uma e vinte da manhã. Na última medição, 38 dos 41 estavam dormindo na própria cama; os três que faltavam são os noturnos, que a essa hora estão trabalhando.</figcaption>
+      </figure>
+
+            <figure class="mv-fig">
+        <div class="par">
+          <img src="../img/multiverso/12-taverna-fora.jpg" alt="A Taverna e o Alojamento vistos de fora. Foram os dois prédios que mudaram tudo:" width="820" height="461" loading="lazy" decoding="async" />
+          <img src="../img/multiverso/13-alojamento-fora.jpg" alt="A Taverna e o Alojamento vistos de fora. Foram os dois prédios que mudaram tudo:" width="820" height="461" loading="lazy" decoding="async" />
+        </div>
+        <figcaption>A Taverna e o Alojamento vistos de fora. Foram os dois prédios que mudaram tudo: no dia em que a casa deixou de ser dormitório e virou só oficina, a vila ganhou horário de pico e hora morta.</figcaption>
+      </figure>
+
+      <h2>Eles fazem amizade — e a amizade muda o comportamento</h2>
+      <p>Toda conversa entre dois agentes reforça o laço entre eles. O laço tem força, número de encontros e nível — de conhecidos até inseparáveis — e fica salvo em disco: reiniciar o mundo não apaga amizade.</p>
+      <p>E isso não é enfeite. Quando um agente fica carente, ele vai procurar o melhor amigo dele. Hoje, 38 dos 41 têm um melhor amigo declarado. A dupla mais forte da vila é a do Sentinela com o Watch Dog, com quase 400 encontros — e faz todo sentido: os dois trabalham de madrugada, sozinhos, e vivem se cruzando na ronda.</p>
+      <p>Tem também <strong>título</strong>. A cada sete dias o mundo mede o que cada um fez e distribui apelidos por ranking, com vagas limitadas: <em>o braço da operação</em>, <em>o que mais entrega</em>, <em>o contador de causos</em>, <em>a alma da taverna</em>, <em>o mais grato</em>, <em>o que vira a noite</em>, <em>o andarilho</em>. O título aparece em dourado embaixo do nome, e quem tem fama de sociável vira o primeiro destino de quem está precisando de companhia.</p>
+
+            <figure class="mv-fig">
+        <img src="../img/multiverso/p24-relacoes.jpg" alt="O painel de Relações: quem está conversando agora, o ranking de amizades com a barra de força e os títulos que a vila di" width="1100" height="619" loading="lazy" decoding="async" />
+        <figcaption>O painel de Relações: quem está conversando agora, o ranking de amizades com a barra de força e os títulos que a vila distribuiu sozinha nos últimos sete dias.</figcaption>
+      </figure>
+
+      <h2>Eles seguem princípios cristãos para se dar bem</h2>
+      <p>Essa foi uma decisão minha, deliberada. Quando a vila ganhou vida social, o comportamento natural de um mundo desses é fofoca maldosa, panelinha e disputa — é o que emerge sozinho. Eu mandei reescrever a vida social em cima de gratidão, servir o próximo, perdoar, falar a verdade, cuidar de quem está para baixo, honestidade, paz, repartir a colheita, humildade e descanso.</p>
+      <p>São dez princípios, e qualquer um deles pode ser dito em voz alta no meio da rua:</p>
+      <ul>
+        <li>Faz o bem sem esperar volta.</li>
+        <li>Trata o outro como quer ser tratado.</li>
+        <li>Fala a verdade, mesmo quando custa.</li>
+        <li>Perdoa rápido, não guarda mágoa.</li>
+        <li>O maior é aquele que serve.</li>
+        <li>Reparte o que tem com quem precisa.</li>
+        <li>Não julga o irmão pelas costas.</li>
+        <li>Trabalha com honestidade, sem atalho.</li>
+        <li>Cuida de quem tá caído.</li>
+        <li>Agradece antes de pedir.</li>
+      </ul>
+      <p>Tem <strong>capela</strong>, na margem leste do rio. Entre oito e nove e meia da noite, quase metade de quem já saiu do expediente passa lá uma vez por dia, senta virado para o altar e agradece. E o que ele agradece não é frase genérica: é o fato real do dia dele.</p>
+      <p>O efeito colateral é o melhor pedaço: a notícia que corre pela vila deixou de ser maldade e passou a <strong>aproximar</strong> quem conta de quem ouve. Contar uma novidade soma laço.</p>
+
+            <figure class="mv-fig">
+        <div class="par">
+          <img src="../img/multiverso/42-capela-cheia.jpg" alt="Dentro e fora da capela, no horário da oração. Sentam virados para o altar e fal" width="820" height="461" loading="lazy" decoding="async" />
+          <img src="../img/multiverso/09-capela.jpg" alt="Dentro e fora da capela, no horário da oração. Sentam virados para o altar e fal" width="820" height="461" loading="lazy" decoding="async" />
+        </div>
+        <figcaption>Dentro e fora da capela, no horário da oração. Sentam virados para o altar e falam um de cada vez — os balões da foto são falas reais deles.</figcaption>
+      </figure>
+
+      <h2>A notícia corre — e vira memória</h2>
+      <p>Quando acontece um fato real, quem está perto testemunha. A partir daí a informação anda de boca em boca: quem sabe conta para quem não sabe, e quem acabou de saber puxa papo com o dobro da frequência. Medido no meu painel: um fato saiu de um agente para quinze em noventa segundos.</p>
+      <p>Mais recente, e o que eu acho mais bonito de ver: eles <strong>lembram</strong>. Cada um tem um diário, e na hora de puxar conversa escolhe entre um assunto qualquer e uma lembrança de verdade — pontuada por quão recente é, quão importante foi e o quanto tem a ver com quem está na frente dele. Quatro em cada dez conversas hoje nascem de uma memória. E ao ir dormir, cada um escreve a reflexão da noite: um resumo em prosa do próprio dia, que volta no dia seguinte como desabafo numa conversa.</p>
+
+      <h2>O mundo está plugado na operação real</h2>
+      <p>Aqui deixa de ser jogo. De tempos em tempos o mundo lê — localmente, sem pedir nada a nenhum modelo de IA — o que aconteceu de verdade: atividade no CRM, lead novo, venda, contrato, onboarding, pagamento, tarefa concluída, incidente detectado. Cada fato vira <strong>missão</strong>: o boneco correspondente larga o que está fazendo, corre até a estação dele e fala o que aconteceu.</p>
+      <p>E alguns fatos viram <strong>cena</strong>:</p>
+      <ul class="mv-lista">
+        <li style="--cor:#22c55e"><strong>Chegou um lead</strong> — um viajante nasce na estrada ao sul, caminha até a Recepção, se apresenta e vai embora</li>
+        <li style="--cor:#facc15"><strong>Entrou pagamento</strong> — uma carroça de ouro atravessa a vila até o Banco</li>
+        <li style="--cor:#f43f5e"><strong>Incidente no sistema</strong> — um invasor encapuzado entra pela borda do mapa rumo à Torre, e é capturado se a Sentinela ou o Watch Dog chegar a tempo</li>
+        <li style="--cor:#d946ef"><strong>Saiu publicação</strong> — acende um letreiro em cima do Cinema, da Prensa ou da Estamparia</li>
+        <li style="--cor:#38bdf8"><strong>Fechou venda</strong> — fogos na praça</li>
+        <li style="--cor:#c084fc"><strong>Assinou contrato</strong> — um pergaminho aparece no Cartório</li>
+      </ul>
+      <p>Os prédios também são gráfico: o Banco tem pilha de moeda proporcional ao caixa, o Cartório tem um livro por contrato, os Correios têm uma caixa por lead novo, a Guarita levanta bandeira vermelha se teve incidente nos últimos sete dias. Nenhum número precisa ser digitado por ninguém.</p>
+
+            <figure class="mv-fig">
+        <img src="../img/multiverso/p30-missoes.jpg" alt="As missões do dia, derivadas do estado real do sistema. Clicar em uma delas teleporta a câmera até o prédio onde o probl" width="1100" height="619" loading="lazy" decoding="async" />
+        <figcaption>As missões do dia, derivadas do estado real do sistema. Clicar em uma delas teleporta a câmera até o prédio onde o problema mora.</figcaption>
+      </figure>
+
+      <h2>Se chove aqui, chove lá</h2>
+      <p>A vila puxa a previsão real de Santos a cada quinze minutos e obedece. Não é “modo chuva” de brincadeira: o código do tempo vira intensidade. Trovoada faz chover forte, pancada faz chover, garoa faz garoar. Nublado deixa o céu pesado, umidade e nuvem alta viram neblina baixa, e a velocidade do vento entra direto no balanço do capim e das árvores. Chuva de verdade na cidade: o chão fica molhado e brilhante, cai relâmpago, troveja. E some tudo se você entrar num prédio.</p>
+
+            <figure class="mv-fig">
+        <div class="par">
+          <img src="../img/multiverso/43-vila-noite.jpg" alt="A mesma praça às nove da noite e à uma da manhã. As lanternas acendem sozinhas, " width="820" height="461" loading="lazy" decoding="async" />
+          <img src="../img/multiverso/45-vila-madrugada.jpg" alt="A mesma praça às nove da noite e à uma da manhã. As lanternas acendem sozinhas, " width="820" height="461" loading="lazy" decoding="async" />
+        </div>
+        <figcaption>A mesma praça às nove da noite e à uma da manhã. As lanternas acendem sozinhas, os vagalumes só aparecem à noite e somem na chuva, e a névoa desliza baixinho em cima do rio.</figcaption>
+      </figure>
+
+      <h2>Cada cliente é uma casa</h2>
+      <p>A leste tem um bairro que não foi desenhado à mão: ele é gerado a partir da carteira. Cada lote é um cliente, e o estado do lote é o estado do contrato, sem ninguém atualizar nada. Andaime é quem está entrando. Casa verde é quem está em dia. Casa vermelha com a lanterna apagada é quem atrasou. Ruína é quem saiu. Lote vazio é inativo.</p>
+      <p>O Cobrador caminha de verdade até a porta de quem atrasou, no horário comercial. A Friday recebe quem está entrando. (Nos prints deste artigo eu escondi as placas com nome — quem é cliente meu não precisa aparecer aqui.)</p>
+
+            <figure class="mv-fig">
+        <div class="par">
+          <img src="../img/multiverso/05-clientes.jpg" alt="O bairro de longe e de perto: quatro ruas, vinte e quatro lotes, a cor dizendo o" width="820" height="461" loading="lazy" decoding="async" />
+          <img src="../img/multiverso/06-clientes-rua.jpg" alt="O bairro de longe e de perto: quatro ruas, vinte e quatro lotes, a cor dizendo o" width="820" height="461" loading="lazy" decoding="async" />
+        </div>
+        <figcaption>O bairro de longe e de perto: quatro ruas, vinte e quatro lotes, a cor dizendo o estado de cada um. As placas com o nome foram apagadas de propósito.</figcaption>
+      </figure>
+
+      <h2>Quem me deve vira monstro. E só morre quando paga.</h2>
+      <p>No extremo leste existe uma região à parte, separada do resto por uma vala que só se atravessa por uma ponte. O chão é terra morta, tem corvo e névoa, e nenhum agente entra ali. É a Terra Selvagem.</p>
+      <p>Nela vivem as bestas, e elas não são inventadas. Nascem de duas fontes reais, só duas:</p>
+      <ul class="mv-lista">
+        <li style="--cor:#a3341f"><strong>Quem está devendo</strong> — cada cliente com fatura em aberto vira uma besta. O tamanho e o nível vêm do tamanho da dívida; as cicatrizes no corpo são as cobranças que ele já resistiu.</li>
+        <li style="--cor:#5b4a86"><strong>Bug recorrente</strong> — todo erro que se repete três vezes ou mais em sete dias ganha corpo. Um deles hoje é de nível cinco, com mais de sessenta quedas registradas na semana.</li>
+      </ul>
+
+      <blockquote><p>Bater no monstro não paga conta. Ele tem duas barras: o <strong>vigor</strong>, que é o combate no jogo e regenera sozinho, e a <strong>vida</strong>, que é o tamanho do problema de verdade e só desce quando o problema desce lá fora. A besta do inadimplente morre quando ele paga. A do erro morre quando o erro para de acontecer.</p></blockquote>
+
+      <p>O espólio segue a mesma regra. Material comum cai de cortar a besta dominada, mas o material <strong>raro</strong> só existe quando um problema foi resolvido de verdade — e a arma e a armadura dos níveis mais altos exigem material raro. Ou seja: <em>é impossível ficar forte no jogo sem resolver a vida real</em>. Essa é a filosofia inteira do sistema numa frase, e foi a decisão da qual eu mais gosto no projeto.</p>
+      <p>Tem uma trava embaixo disso que vale contar, porque é o tipo de cuidado que separa brinquedo de ferramenta: se a leitura do banco de dados falhar, o sistema responde “não sei” — nunca “todo mundo pagou”. Sem isso, uma queda do banco mataria as bestas erradas e distribuiria recompensa de graça. É a mesma disciplina que eu descrevo em <a href="./alucinacao-e-guardrails-de-agentes-de-ia.html">alucinação e guardrails de agentes de IA</a>: o sistema tem que saber a diferença entre “é falso” e “eu não sei”.</p>
+
+            <figure class="mv-fig">
+        <div class="par">
+          <img src="../img/multiverso/07-selvagem.jpg" alt="A ponte e a placa da Terra Selvagem, e a região vista de longe: terra morta, árv" width="820" height="461" loading="lazy" decoding="async" />
+          <img src="../img/multiverso/08-selvagem-larga.jpg" alt="A ponte e a placa da Terra Selvagem, e a região vista de longe: terra morta, árv" width="820" height="461" loading="lazy" decoding="async" />
+        </div>
+        <figcaption>A ponte e a placa da Terra Selvagem, e a região vista de longe: terra morta, árvore rala e as bestas espalhadas.</figcaption>
+      </figure>
+
+            <figure class="mv-fig">
+        <img src="../img/multiverso/p26-cacadas.jpg" alt="O Quadro da Guilda: as caçadas disponíveis, com nível, quantas cobranças a besta já resistiu e o que ela dropa. Nome e v" width="1100" height="619" loading="lazy" decoding="async" />
+        <figcaption>O Quadro da Guilda: as caçadas disponíveis, com nível, quantas cobranças a besta já resistiu e o que ela dropa. Nome e valor foram cobertos para este artigo.</figcaption>
+      </figure>
+
+            <figure class="mv-fig">
+        <img src="../img/multiverso/p27-forja.jpg" alt="A Forja: oito materiais, cinco níveis de arma e cinco de armadura. Do nível quatro para cima, só com material raro — que" width="1100" height="619" loading="lazy" decoding="async" />
+        <figcaption>A Forja: oito materiais, cinco níveis de arma e cinco de armadura. Do nível quatro para cima, só com material raro — que só existe por problema resolvido lá fora.</figcaption>
+      </figure>
+
+      <h2>Você pergunta, ele responde com dado de verdade</h2>
+      <p>Chegando perto de qualquer agente e apertando uma tecla, abre um menu. As perguntas não são fictícias: o mundo monta um dossiê na hora, consultando as rotas reais do sistema. O financeiro me diz como está o caixa e o que tem a receber. A SDR me diz quantos leads entraram. O do foco me diz qual é A Única Coisa de hoje. Todos respondem “como foi seu dia?” e “como você está?” — humor, necessidades, melhor amigo.</p>
+      <p>Alguns têm botão de escrita: dá para definir a tarefa mais importante do dia, marcar como concluída, registrar uma venda ou mover um lead de etapa <em>de dentro do jogo</em>, e isso muda o sistema de verdade.</p>
+      <p>E dá para dar <strong>ordem</strong>. Eu falo com o agente, escrevo o pedido, e aquilo entra na mesma fila que eu uso pelo celular. Ele executa e a resposta volta para dentro do mundo — no balão dele, no registro, na voz — e para o meu telefone. Já testei ponta a ponta: uma ordem dada ao Cobrador dentro do jogo voltou em vinte segundos com a lista de quem está em aberto, batendo com o financeiro.</p>
+
+            <figure class="mv-fig">
+        <img src="../img/multiverso/p46-dialogo.jpg" alt="O menu de conversa com um agente. As respostas vêm das rotas reais do sistema — não é texto escrito à mão nem chamada de" width="1100" height="619" loading="lazy" decoding="async" />
+        <figcaption>O menu de conversa com um agente. As respostas vêm das rotas reais do sistema — não é texto escrito à mão nem chamada de modelo.</figcaption>
+      </figure>
+
+      <h2>Todo dia o mundo escreve a própria crônica</h2>
+      <p>No fim do dia existe um texto — sete parágrafos em prosa, com números reais e nenhuma IA envolvida — contando o que foi aquele dia na vila: quem mais entregou, quantos bateram a meta, o que veio do mundo de fora, quem sentou mais na taverna, qual notícia mais correu, qual dupla está mais forte. Tem seletor de dia e um hall da fama com recordes. E tem um modo TV: dez planos de nove segundos passeando pela vila, cada um com uma legenda de dado real embaixo, como um telejornal. É o que fica na tela quando não tem ninguém jogando.</p>
+
+            <figure class="mv-fig">
+        <div class="par">
+          <img src="../img/multiverso/p25-cronica.jpg" alt="A crônica do dia e o modo TV. Os dois leem os mesmos eventos: um vira prosa, o o" width="820" height="461" loading="lazy" decoding="async" />
+          <img src="../img/multiverso/tv-plano-1.jpg" alt="A crônica do dia e o modo TV. Os dois leem os mesmos eventos: um vira prosa, o o" width="820" height="461" loading="lazy" decoding="async" />
+        </div>
+        <figcaption>A crônica do dia e o modo TV. Os dois leem os mesmos eventos: um vira prosa, o outro vira transmissão.</figcaption>
+      </figure>
+
+      <h2>Todo prédio abre, e cada um tem a cara do dono</h2>
+      <p>Não existe cenário chapado: dá para entrar em qualquer construção. O Banco tem cofre girando e as pilhas de moeda do caixa. A Biblioteca tem estante e o livro da crônica. A Forja tem barril, tocha e bigorna. O Cartório tem os contratos. Cada sala foi montada para o dono dela, e a luz de dentro segue a hora de fora — entrar às seis da tarde dá luz de fim de tarde; às três da manhã, escuro.</p>
+
+            <figure class="mv-fig">
+        <div class="par">
+          <img src="../img/multiverso/p17-int-banco.jpg" alt="Dentro do Banco e da Forja. O dono fica atrás do balcão, trabalhando na animação" width="820" height="461" loading="lazy" decoding="async" />
+          <img src="../img/multiverso/19-int-forja.jpg" alt="Dentro do Banco e da Forja. O dono fica atrás do balcão, trabalhando na animação" width="820" height="461" loading="lazy" decoding="async" />
+        </div>
+        <figcaption>Dentro do Banco e da Forja. O dono fica atrás do balcão, trabalhando na animação do ofício dele, e é ali que você conversa com ele.</figcaption>
+      </figure>
+
+      <h2>E dá para entrar como o Chefe</h2>
+      <p>Em terceira pessoa eu sou um cavaleiro de coroa dourada; ando, corro, pulo, entro nas casas, peço uma caneca no balcão da taverna e faço carinho no cachorro que vigia o sistema. Quando eu passo perto de um agente, ele vira, acena e fala comigo com a voz dele — vozes gravadas uma única vez e tocadas de arquivo, sem custo por interação.</p>
+      <p>Tem formação: aperto o botão, a corneta toca e os 41 largam tudo, correm até mim e entram em fila de quartel. Tem dragão, para voar por cima do mundo inteiro. Tem primeira pessoa, modo foto, modo cinema, controle de videogame e joystick no celular — o mundo inteiro cabe no meu telefone.</p>
+
+            <figure class="mv-fig">
+        <div class="par">
+          <img src="../img/multiverso/50-formacao.jpg" alt="A tropa em formação e a vila em terceira pessoa. As duas coisas existem pelo mes" width="820" height="384" loading="lazy" decoding="async" />
+          <img src="../img/multiverso/49-terceira-pessoa.jpg" alt="A tropa em formação e a vila em terceira pessoa. As duas coisas existem pelo mes" width="820" height="384" loading="lazy" decoding="async" />
+        </div>
+        <figcaption>A tropa em formação e a vila em terceira pessoa. As duas coisas existem pelo mesmo motivo: um mundo que você só observa vira gráfico; um mundo em que você entra vira lugar.</figcaption>
+      </figure>
+
+      <h2>O que isso tem a ver com a sua empresa</h2>
+      <p>Tudo, se você está colocando IA para trabalhar de verdade. O ponto não é o 3D — é o que o 3D obrigou a existir por baixo dele:</p>
+      <ul>
+        <li><strong>Cada agente tem um trabalho verificável.</strong> Se ele não produz evento real, o mundo mostra ele parado. Ninguém finge entrega.</li>
+        <li><strong>O estado do negócio tem uma forma visível.</strong> Contrato, lead, cobrança, incidente e custo saem da planilha e viram coisa que você vê de longe.</li>
+        <li><strong>O sistema não mente.</strong> Falha de leitura vira “não sei”, e problema só desaparece do mundo quando desaparece da vida real.</li>
+        <li><strong>O custo é honesto.</strong> A simulação é código; modelo de IA só é chamado quando tem trabalho de verdade para fazer.</li>
+      </ul>
+      <p>Eu construo essas estruturas para a minha operação e para clientes — dos agentes de atendimento e <a href="./agentes-de-ia-para-ecommerce-recuperar-vendas.html">recuperação de vendas</a> até o painel que junta tudo. Se você quer ver como isso funciona aplicado ao seu negócio, é só me chamar: eu mostro o mundo rodando ao vivo e explico o que teria dentro dele no seu caso.</p>
+
+            <figure class="mv-fig">
+        <img src="../img/multiverso/p23-hud.jpg" alt="O painel do mundo, com clima da cidade, temperatura da máquina, missões do dia e as ferramentas — Relações, TV, Crônica," width="1100" height="619" loading="lazy" decoding="async" />
+        <figcaption>O painel do mundo, com clima da cidade, temperatura da máquina, missões do dia e as ferramentas — Relações, TV, Crônica, Caçadas, Forja. Os valores em dinheiro estão cobertos nesta imagem.</figcaption>
+      </figure>
+
+      <div class="faq">
+        <details open><summary>O que é um multiverso de agentes de IA?</summary><p>É um mundo simulado em que cada agente de IA de uma operação vira um personagem com casa, ofício, rotina e vizinhança. No meu, os 41 agentes que rodam o dia a dia da empresa moram numa vila 3D ligada aos dados reais do negócio: o que acontece no sistema acontece no mundo.</p></details>
+        <details><summary>Para que serve transformar agentes de IA em um mundo 3D?</summary><p>Serve para enxergar a operação. Uma lista de agentes não mostra ritmo, ociosidade nem dependência entre eles. Num mundo com rua, horário e casa, dá para ver quem está parado, quem está sobrecarregado, o que travou e onde está o problema — e entrar lá dentro para dar a ordem.</p></details>
+        <details><summary>Isso gasta muito token de IA para rodar?</summary><p>Não. A simulação é código: decisão, caminho, necessidade e conversa saem de regras locais, e tudo que vem do mundo real chega por leitura direta dos bancos de dados da própria operação. O custo com modelo só acontece quando um agente é chamado para trabalhar de verdade, como já era antes do mundo existir.</p></details>
+        <details><summary>Como os problemas reais do negócio aparecem no mundo?</summary><p>Viram monstros numa região à parte do mapa, a Terra Selvagem. Cliente com fatura em aberto e erro que se repete no sistema ganham corpo, nível e nome. A barra de vida deles é o tamanho do problema real e só cai quando o problema cai fora do jogo: o monstro morre quando a conta é paga ou quando o erro para de acontecer.</p></details>
+        <details><summary>Dá para dar ordem a um agente de dentro do mundo?</summary><p>Dá. Chegando perto do agente abre um menu com perguntas cuja resposta vem das rotas reais do sistema, e um campo de ordem. O pedido entra na mesma fila que eu uso pelo celular, o agente executa de verdade e a resposta volta para dentro do mundo e para o meu telefone.</p></details>
+      </div>
+    </div>
+
+    <div class="author-box">
+      <img src="../img/thomas-macedo-palestra.jpeg" alt="Thomas Macedo" />
+      <div>
+        <div class="a-name"><a href="../sobre.html" style="color:inherit;border-bottom:1px solid var(--line-strong)">Thomas Macedo</a></div>
+        <p class="a-bio">Fundador da Gene Company e diretor da LINCE Performance. Especialista em sistemas e agentes de IA, criação de marcas e tráfego pago com ROI escalável para empresas. Santos/BR, atende Brasil e exterior. <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo%20do%20Multiverso" target="_blank" rel="noopener">Fale comigo no WhatsApp →</a></p>
+      </div>
+    </div>
+  </article>
+
+  <section class="related">
+    <div class="wrap-narrow" style="padding:0">
+      <p class="eyebrow eyebrow-ink" style="display:block;margin-bottom:8px">Continue lendo</p>
+      <div class="related-grid">
+        <a href="../artigos/anatomia-de-um-agente-de-ia.html"><span class="r-cat">Agentes de IA</span><h3>A anatomia de um agente de IA</h3></a>
+        <a href="../artigos/como-criar-agentes-de-ia.html"><span class="r-cat">Agentes de IA</span><h3>Como criar agentes de IA que fazem trabalho de verdade</h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2 class="display mt-m" style="font-size:clamp(2.2rem,5vw,4rem)">Quero uma operação<br>que roda sozinha.</h2>
+      <p class="lead mt-m" style="color:rgba(244,241,234,.8);max-width:48ch">Conte sobre o seu negócio e eu te mostro o que dá para colocar agente de IA fazendo hoje — atendimento, cobrança, conteúdo, nota fiscal, marketplace.</p>
+      <div class="contact-row">
+        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo%20do%20Multiverso" class="btn" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
+        <a href="https://www.instagram.com/thomasmacedo.ads" class="link-underline" target="_blank" rel="noopener" style="color:var(--paper)">Instagram @thomasmacedo.ads</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <span>© 2026 Thomas Macedo — IA, criação de marcas e tráfego pago. Santos, Baixada Santista, Brasil &amp; exterior.</span>
+        <div class="foot-links">
+          <a href="../index.html">IA &amp; Performance</a>
+          <a href="../marcas.html">Marcas &amp; E-commerce</a>
+          <a href="../artigos/">Artigos</a>
+          <a href="../sobre.html">Sobre</a>
+          <a href="https://www.instagram.com/thomasmacedo.ads" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/thomas-macedo-23896216a/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/102946615/" target="_blank" rel="noopener">LINCE Performance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="../site.js" defer></script>
+</body>
+</html>

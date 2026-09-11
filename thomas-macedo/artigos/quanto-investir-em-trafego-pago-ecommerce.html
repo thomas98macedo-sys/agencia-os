@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"Quanto preciso investir por dia para começar tráfego pago no e-commerce?","acceptedAnswer":{"@type":"Answer","text":"Não existe número mágico, mas existe um piso lógico: a verba diária precisa gerar conversões suficientes para o algoritmo aprender. Como referência, o Meta indica que um conjunto de anúncios sai da fase de aprendizado por volta de 50 conversões em 7 dias. Se o seu ticket e a sua taxa de conversão exigem, por exemplo, gastar R$ 100 por venda, um orçamento muito abaixo disso não dá dados suficientes para otimizar. Comece com o valor que gere pelo menos algumas conversões por dia e que você aguente manter por 30 dias sem apertar o caixa."}},{"@type":"Question","name":"Como saber se meu orçamento de anúncio está dando resultado?","acceptedAnswer":{"@type":"Answer","text":"Olhe para margem de contribuição, não só para ROAS. Some tudo que sai por venda (produto, frete, taxas, imposto e o próprio anúncio) e veja se ainda sobra. Se o custo de aquisição (CAC) é menor que a margem que a venda deixa, a verba está saudável e pode escalar. Se o CAC come toda a margem, o problema raramente é a verba: é oferta, criativo, preço ou conversão da loja."}},{"@type":"Question","name":"Devo colocar toda a verba em prospecção ou em remarketing?","acceptedAnswer":{"@type":"Answer","text":"A maior parte da verba deve ir para prospecção (público novo), porque é ela que enche o topo do funil. O remarketing converte mais barato, mas só existe se houver gente entrando antes. Um ponto de partida comum é destinar a maior fatia à prospecção e uma fatia menor ao remarketing de quem visitou, viu produto ou abandonou o carrinho. Se você joga tudo em remarketing, escala trava rápido porque o público acaba."}},{"@type":"Question","name":"Quanto tempo leva para o tráfego pago dar resultado no e-commerce?","acceptedAnswer":{"@type":"Answer","text":"Os primeiros sinais aparecem em dias, mas a leitura confiável exige de duas a quatro semanas — tempo para as campanhas saírem da fase de aprendizado, acumularem conversões e você testar criativos. Trocar tudo a cada 48 horas reinicia o aprendizado e queima verba. Dê tempo, mas com teto de perda definido."}},{"@type":"Question","name":"Vale a pena começar com pouca verba?","acceptedAnswer":{"@type":"Answer","text":"Vale, desde que a expectativa seja realista. Com verba pequena você aprende o que funciona (criativo, público, oferta) e prova a operação antes de escalar. O erro é esperar volume de loja grande com orçamento de teste. Comece pequeno para validar, meça a margem por venda e só aumente a verba quando o número fechar."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -218,5 +226,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

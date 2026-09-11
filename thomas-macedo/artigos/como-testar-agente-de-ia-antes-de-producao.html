@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"Como testar um agente de IA antes de colocar em produção?","acceptedAnswer":{"@type":"Answer","text":"Monte um conjunto de conversas reais (perguntas fáceis, casos difíceis e casos-armadilha), rode o agente contra elas em ambiente controlado, e avalie cada resposta por acerto, tom, alucinação e se ele acionou o handoff quando devia. Só libere para produção quando o agente passar nos cenários que mais custam caro se ele errar."}},{"@type":"Question","name":"Quantos casos de teste um agente de IA precisa antes de ir ao ar?","acceptedAnswer":{"@type":"Answer","text":"Não é o número que importa, é a cobertura. Comece com 30 a 50 conversas que representem os pedidos mais frequentes e os erros mais caros. Melhor 40 casos que cobrem preço, política de troca, dado inventado e cliente irritado do que 300 variações da mesma pergunta fácil."}},{"@type":"Question","name":"O que medir no teste de um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Taxa de resposta correta, taxa de alucinação (inventar informação), aderência ao tom e às políticas, taxa de handoff correto (passar para humano na hora certa) e tempo até resolver. Métrica de vaidade como número de mensagens não diz se o agente está pronto."}},{"@type":"Question","name":"Posso testar o agente de IA direto com clientes reais?","acceptedAnswer":{"@type":"Answer","text":"Só depois de passar no teste controlado. O caminho seguro é liberar para uma fração pequena do tráfego, com um humano monitorando as conversas em tempo real e podendo assumir a qualquer momento. Ir direto para 100% dos clientes sem homologação é onde o erro sai caro."}},{"@type":"Question","name":"Preciso testar o agente de novo depois que ele já está no ar?","acceptedAnswer":{"@type":"Answer","text":"Sim. Toda vez que você muda a instrução, atualiza a base de conhecimento, troca o modelo ou adiciona uma ferramenta, é preciso rodar o conjunto de testes de novo para garantir que a mudança não quebrou o que já funcionava."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -238,5 +246,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

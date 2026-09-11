@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que são Core Web Vitals?","acceptedAnswer":{"@type":"Answer","text":"São três métricas do Google que medem a experiência real de quem usa a página: LCP (quanto tempo até o maior elemento visível aparecer), INP (quanto tempo a página leva para responder a um toque ou clique) e CLS (o quanto o layout se mexe sozinho durante o carregamento). O Google considera boa a página que entrega LCP até 2,5 segundos, INP até 200 milissegundos e CLS até 0,1, medidos no percentil 75 dos acessos reais."}},{"@type":"Question","name":"Velocidade da loja afeta o custo do tráfego pago?","acceptedAnswer":{"@type":"Answer","text":"Afeta o resultado do investimento por dois caminhos. O direto: quem clica no anúncio e desiste antes da página carregar é um clique pago que virou nada, então o custo por venda sobe mesmo com o CPC igual. O indireto: tanto o Google Ads quanto o Meta consideram a qualidade da experiência de destino nos seus sistemas de leilão e entrega, o que tende a encarecer o alcance de páginas ruins."}},{"@type":"Question","name":"Qual é a velocidade ideal para uma loja Shopify?","acceptedAnswer":{"@type":"Answer","text":"O alvo prático é a página de produto abrir e ficar utilizável em até 2,5 segundos no celular, em rede móvel comum, medido com dados de campo. Nota de PageSpeed é bússola, não meta — o que decide é o tempo real que o cliente espera antes de ver preço, foto e botão de comprar."}},{"@type":"Question","name":"O que mais deixa uma loja Shopify lenta?","acceptedAnswer":{"@type":"Answer","text":"Na ordem que eu mais encontro: imagens pesadas e sem dimensão definida, excesso de aplicativos que injetam scripts em todas as páginas, carrossel ou vídeo no topo da home, fontes e ícones carregados de vários lugares e scripts de terceiros como chats, popups, avaliações e pixels duplicados. O checkout é hospedado pelo Shopify e raramente é o gargalo; o gargalo quase sempre está no tema e nos apps."}},{"@type":"Question","name":"Vale a pena usar landing page separada em vez da loja para campanha?","acceptedAnswer":{"@type":"Answer","text":"Vale quando a campanha é de um produto só, com oferta e público específicos: a landing carrega leve, tem uma única decisão e evita o peso do tema completo. Para catálogo, remarketing e campanhas de compra do Google, o melhor caminho continua sendo levar o tráfego para a loja e deixá-la rápida, porque é a loja que sustenta a recompra e o pixel."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -260,5 +268,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

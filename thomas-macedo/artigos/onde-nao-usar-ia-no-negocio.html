@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"Onde a IA não deve ser usada em uma empresa?","acceptedAnswer":{"@type":"Answer","text":"A IA não deve ser usada onde o custo do erro é alto e irreversível, onde a relação humana é o produto e onde o processo ainda está quebrado. Na prática isso significa: reclamação grave e crise, decisão jurídica, médica ou financeira, negociação e desconto sem trava, dado sensível sem governança, fechamento de venda de ticket alto e qualquer processo cuja regra ninguém consegue escrever em uma página."}},{"@type":"Question","name":"Automatizar o atendimento faz perder cliente?","acceptedAnswer":{"@type":"Answer","text":"Faz quando a automação vira parede. Os três padrões que mais derrubam receita são não ter saída para falar com uma pessoa, fazer o cliente repetir tudo de novo no momento do repasse e responder com tom de robô em situação de irritação. Automação bem feita acelera o começo da conversa e entrega o histórico pronto para o humano assumir."}},{"@type":"Question","name":"Posso usar IA para negociar preço e dar desconto?","acceptedAnswer":{"@type":"Answer","text":"Só dentro de uma tabela fechada e com teto travado. O agente pode apresentar condições já autorizadas, mas não deve improvisar desconto, prazo ou exceção contratual. Preço improvisado vira precedente: o cliente registra, compartilha e cobra depois — e a margem cai sem que ninguém tenha decidido isso."}},{"@type":"Question","name":"Quando vale mais deixar o humano no lugar da IA?","acceptedAnswer":{"@type":"Answer","text":"Quando o valor por interação é alto e o volume é baixo. Ticket alto, venda consultiva, conta estratégica e retenção de cliente prestes a cancelar: nesses casos, poucos minutos de uma pessoa valem mais do que qualquer economia de automação. A IA continua útil ali como copiloto do humano — preparando contexto, resumo e proposta — sem falar com o cliente."}},{"@type":"Question","name":"IA pode usar dados de clientes? O que a LGPD exige?","acceptedAnswer":{"@type":"Answer","text":"Pode, desde que haja base legal, finalidade definida e controle de acesso, conforme a Lei Geral de Proteção de Dados (Lei 13.709/2018). O erro comum não é usar IA: é jogar bases inteiras de clientes em ferramentas sem contrato, sem saber onde o dado fica e sem registro de quem acessou. Trate dado de cliente em IA com o mesmo rigor que você trata acesso ao sistema financeiro."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -253,5 +261,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

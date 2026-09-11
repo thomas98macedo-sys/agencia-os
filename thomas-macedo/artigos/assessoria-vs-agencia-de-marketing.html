@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"Qual a diferença entre assessoria e agência de marketing?","acceptedAnswer":{"@type":"Answer","text":"A assessoria de marketing atua como estrategista dentro do negócio: decide para onde ir, define oferta, canais e prioridades e cobra pela inteligência e pela direção. A agência executa entregas contratadas — campanhas, criativos, gestão de tráfego — e cobra por serviço prestado. Assessoria pensa e direciona; agência produz e opera. Muitas operações maduras combinam os dois."}},{"@type":"Question","name":"Assessoria de marketing vale a pena para empresa pequena?","acceptedAnswer":{"@type":"Answer","text":"Vale quando a empresa já vende, mas gasta em marketing sem clareza de estratégia ou de números. A assessoria organiza oferta, funil e métricas antes de escalar verba, o que evita queimar dinheiro em anúncio sem direção. Para quem ainda não tem produto validado, o foco deve ser validar a oferta primeiro."}},{"@type":"Question","name":"Quanto custa uma assessoria de marketing e vendas online no Brasil?","acceptedAnswer":{"@type":"Answer","text":"Os modelos mais comuns são fee mensal fixo pela estratégia e acompanhamento, percentual sobre a verba de mídia gerida, ou um híbrido de fee mais performance atrelada a metas. O valor depende do tamanho da operação e do escopo. O que define o preço não é a quantidade de posts, e sim o nível de responsabilidade sobre o resultado de vendas."}},{"@type":"Question","name":"O que uma boa assessoria de marketing e vendas entrega?","acceptedAnswer":{"@type":"Answer","text":"Diagnóstico do negócio, definição de oferta e posicionamento, estruturação do funil do anúncio ao fechamento, plano de tráfego pago com meta de ROI, criativos de alta estética e atendimento com IA para não perder lead. Acima de tudo, entrega decisão baseada em número, não em achismo."}},{"@type":"Question","name":"Preciso escolher entre assessoria e agência ou posso ter as duas?","acceptedAnswer":{"@type":"Answer","text":"Pode ter as duas, e operações que escalam costumam ter. A assessoria define a estratégia e cobra o resultado; a agência (ou o time interno) executa a operação no dia a dia. O erro comum é contratar execução sem estratégia: muita entrega, pouca direção e nenhum dono do número de vendas."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -220,5 +228,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

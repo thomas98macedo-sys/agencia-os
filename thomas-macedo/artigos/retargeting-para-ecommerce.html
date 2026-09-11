@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que é retargeting no e-commerce?","acceptedAnswer":{"@type":"Answer","text":"Retargeting (ou remarketing) é anunciar de novo para pessoas que já interagiram com a sua loja — visitaram o site, viram um produto, adicionaram ao carrinho ou já compraram. Em vez de buscar gente nova, você fala com quem já demonstrou interesse, e por isso costuma converter mais barato do que o público frio."}},{"@type":"Question","name":"Qual a diferença entre retargeting e prospecção?","acceptedAnswer":{"@type":"Answer","text":"Prospecção (público frio) é encontrar gente nova que ainda não conhece a marca. Retargeting (público quente) é reengajar quem já passou pela loja. A prospecção enche o topo do funil; o retargeting fecha o que ficou aberto. Um alimenta o outro: sem prospecção o público de retargeting seca."}},{"@type":"Question","name":"Quanto da verba deve ir para retargeting?","acceptedAnswer":{"@type":"Answer","text":"Não existe número fixo, mas a maior parte da verba deve ir para prospecção, porque é ela que gera novos visitantes. O retargeting costuma ficar com uma fatia menor, já que o público é limitado ao tamanho do seu tráfego. Se você jogar verba demais em retargeting, satura o público e o custo dispara."}},{"@type":"Question","name":"Por quanto tempo devo perseguir quem abandonou o carrinho?","acceptedAnswer":{"@type":"Answer","text":"O interesse esfria rápido. A janela mais forte de recuperação é nas primeiras 24 a 72 horas, com a mensagem mais direta logo no início. Depois disso o retorno cai. Sempre exclua quem já comprou para não gastar anúncio com quem já é cliente."}},{"@type":"Question","name":"Preciso do Pixel e da API de Conversões para fazer retargeting?","acceptedAnswer":{"@type":"Answer","text":"Sim. O retargeting depende de rastreamento confiável para saber quem visitou, quem viu produto e quem abandonou o carrinho. Sem o Pixel e a API de Conversões bem instalados, os públicos ficam pequenos e imprecisos, e você deixa de alcançar boa parte de quem deveria reengajar."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -229,5 +237,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

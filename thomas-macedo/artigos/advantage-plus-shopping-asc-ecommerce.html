@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que é Advantage+ Shopping (ASC) da Meta?","acceptedAnswer":{"@type":"Answer","text":"É a campanha de vendas automatizada da Meta para e-commerce, que usa inteligência artificial para escolher público, posicionamento e criativo dentro de uma única estrutura. Ela junta aquisição de cliente novo e remarketing na mesma campanha, deixando o algoritmo decidir onde gastar a verba para maximizar as compras."}},{"@type":"Question","name":"Advantage+ Shopping é melhor que campanha manual?","acceptedAnswer":{"@type":"Answer","text":"Depende do momento da conta. A ASC costuma vencer quando você tem pixel bem rastreado, catálogo organizado e volume de vendas para o algoritmo aprender. Contas novas, com pouca conversão ou verba baixa, muitas vezes performam melhor em campanhas manuais até acumular dados. O certo é testar a ASC contra a estrutura manual medindo ROAS e CAC reais."}},{"@type":"Question","name":"Quanto investir para a Advantage+ Shopping funcionar?","acceptedAnswer":{"@type":"Answer","text":"A ASC precisa de volume de conversão para sair da fase de aprendizado, então funciona melhor quando o orçamento permite gerar dezenas de compras por semana. Não existe valor mágico universal: o parâmetro é ter verba suficiente para acumular resultado de compra no pixel, não só cliques. Comece com o que sua margem permite e escale por degraus."}},{"@type":"Question","name":"Preciso desligar minhas campanhas manuais ao usar ASC?","acceptedAnswer":{"@type":"Answer","text":"Não necessariamente. Muitas contas rodam ASC como campanha principal de aquisição e mantêm campanhas manuais para públicos ou produtos específicos que a ASC não prioriza. O risco é sobreposição de público inflando o custo. A decisão deve vir do teste: se a manual entrega ROAS melhor num nicho, ela fica."}},{"@type":"Question","name":"A Advantage+ Shopping funciona bem no Shopify?","acceptedAnswer":{"@type":"Answer","text":"Sim, desde que o rastreamento esteja correto. A ASC depende de eventos de compra confiáveis chegando à Meta, então o Pixel e a API de Conversões precisam estar bem configurados e o catálogo sincronizado. Loja Shopify com rastreamento vazando entrega dados ruins ao algoritmo e a automação decide errado."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -224,5 +232,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

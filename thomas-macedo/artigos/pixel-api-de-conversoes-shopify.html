@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que é a API de Conversões da Meta e para que ela serve?","acceptedAnswer":{"@type":"Answer","text":"A API de Conversões é o canal server-side da Meta: em vez de o evento sair do navegador do cliente, ele sai do servidor da loja direto para a Meta. Isso recupera eventos que o Pixel perde por bloqueador de anúncios, restrições de cookies do navegador, aba fechada antes do carregamento ou falha de rede. No Shopify, ela é ativada pelo canal de vendas da Meta escolhendo o nível máximo de compartilhamento de dados."}},{"@type":"Question","name":"A API de Conversões substitui o Pixel da Meta?","acceptedAnswer":{"@type":"Answer","text":"Não. As duas trabalham juntas. O Pixel captura sinais do navegador que o servidor não tem, como o cookie de clique no anúncio (_fbc), o identificador do navegador (_fbp) e o comportamento na página. A API garante a entrega do evento mesmo quando o navegador falha. A configuração correta é enviar os mesmos eventos pelos dois canais e deixar a Meta desduplicar."}},{"@type":"Question","name":"Como funciona a desduplicação de eventos entre Pixel e API de Conversões?","acceptedAnswer":{"@type":"Answer","text":"A Meta compara o par event_name e event_id. Quando o mesmo evento chega pelos dois canais com o mesmo event_id, ela conta uma vez só e mantém a versão mais completa. Para conferir, abra o Gerenciador de Eventos, clique no evento de compra e veja se ele aparece como recebido por navegador e servidor com desduplicação ativa. Se aparecerem duas contagens separadas, o event_id não está sendo compartilhado."}},{"@type":"Question","name":"Por que o número de vendas da Meta é diferente do Shopify?","acceptedAnswer":{"@type":"Answer","text":"Porque os três sistemas medem coisas diferentes. A Meta atribui a venda ao dia do clique ou da impressão do anúncio, dentro da janela configurada (o padrão é 7 dias após clique e 1 dia após visualização). O GA4 usa sessões e, por padrão, atribui ao último canal não direto. O Shopify registra o pedido no dia em que ele foi pago. Diferença sempre vai existir; o que importa é que ela seja estável e explicável. Na minha operação, o Shopify é a fonte da verdade para faturamento e as plataformas servem para decisão de mídia."}},{"@type":"Question","name":"O que é a Qualidade da Correspondência de Eventos e como melhorar?","acceptedAnswer":{"@type":"Answer","text":"É a nota de 0 a 10 que a Meta dá para a capacidade de casar seus eventos com pessoas reais. Ela sobe quando você envia mais parâmetros de identificação com hash: e-mail, telefone com código do país, nome, sobrenome, cidade, estado, CEP, país, ID externo do cliente, além de IP, user agent, _fbp e _fbc. No Shopify, a maior parte disso vem automaticamente ao ativar o compartilhamento máximo de dados; o que costuma faltar é o telefone no checkout e o consentimento configurado corretamente."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -292,5 +300,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

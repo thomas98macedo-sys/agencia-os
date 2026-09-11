@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"Com quanto tempo de antecedência preciso preparar o e-commerce para a Black Friday?","acceptedAnswer":{"@type":"Answer","text":"Comece de 6 a 8 semanas antes. As primeiras semanas são para estoque, negociação com fornecedor e aquecimento de público (retargeting e captação de lista). A semana anterior é só de congelamento: nada de mudança grande em site, checkout ou campanha em cima da data."}},{"@type":"Question","name":"Quanto devo aumentar o investimento em tráfego pago na Black Friday?","acceptedAnswer":{"@type":"Answer","text":"Não existe número fixo. Aumente a verba por degraus a partir do que já é lucrativo no ano, respeitando o estoque disponível e a capacidade de entrega. Escalar anúncio para vender o que você não consegue despachar destrói reputação em vez de faturamento."}},{"@type":"Question","name":"Como não perder venda no checkout durante o pico da Black Friday?","acceptedAnswer":{"@type":"Answer","text":"Teste antes: velocidade de página, Pix e cartão funcionando, parcelamento claro e antifraude calibrado. No pico, um checkout lento ou uma recusa indevida de pagamento tira venda que você já pagou para atrair. Meça a taxa de aprovação e o tempo de carregamento na semana anterior."}},{"@type":"Question","name":"Vale a pena usar IA na Black Friday do e-commerce?","acceptedAnswer":{"@type":"Answer","text":"Sim, principalmente em dois pontos: atendimento no WhatsApp, que multiplica o volume nesses dias, e recuperação de vendas (carrinho abandonado, Pix e boleto não pagos). Um agente de IA responde na hora e não deixa pedido quase fechado esfriar durante o pico."}},{"@type":"Question","name":"O que fazer depois da Black Friday para não perder o cliente novo?","acceptedAnswer":{"@type":"Answer","text":"Trate a Black Friday como aquisição, não como fim. Cumpra o prazo de entrega, ative uma régua de pós-venda e recompra e prepare a Cyber Monday e o Natal para o público que acabou de comprar. O lucro real vem do segundo pedido, não só do primeiro."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -235,5 +243,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

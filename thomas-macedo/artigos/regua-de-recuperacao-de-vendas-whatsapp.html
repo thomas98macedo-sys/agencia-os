@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"Quantas mensagens de recuperação devo enviar?","acceptedAnswer":{"@type":"Answer","text":"Para carrinho abandonado, de 3 a 4 mensagens ao longo de até 48 a 72 horas costuma capturar quase toda a venda recuperável. Para Pix e boleto não pagos, 2 a 3 mensagens dentro do prazo de vencimento. Passar muito disso raramente traz venda nova e aumenta o risco de bloqueio e descadastro."}},{"@type":"Question","name":"Quanto tempo esperar para enviar a primeira mensagem?","acceptedAnswer":{"@type":"Answer","text":"No carrinho abandonado, a primeira mensagem funciona melhor entre 15 e 60 minutos após o abandono, enquanto a intenção de compra ainda está quente. Para Pix, o lembrete inicial pode sair em minutos, já que o código expira rápido. Para boleto, o primeiro toque no mesmo dia e um reforço perto do vencimento."}},{"@type":"Question","name":"Quando o agente de IA deve parar de enviar mensagens?","acceptedAnswer":{"@type":"Answer","text":"O agente para na hora em que a pessoa compra, pede para não receber mais, responde que não tem interesse, ou quando a régua chega ao fim sem resposta. Parar no sinal certo protege a reputação do número e evita queimar um cliente que pode voltar por outro canal."}},{"@type":"Question","name":"Enviar muitas mensagens de recuperação queima a base?","acceptedAnswer":{"@type":"Answer","text":"Sim. Cadência agressiva gera bloqueios, denúncias de spam e descadastro, e ainda pode derrubar a reputação do número de WhatsApp. O objetivo da régua é recuperar venda com o mínimo de toques necessário, não perseguir quem já disse não."}},{"@type":"Question","name":"A mesma régua serve para carrinho, Pix e boleto?","acceptedAnswer":{"@type":"Answer","text":"Não. Cada gatilho tem um prazo e uma urgência diferentes. Carrinho abandonado trabalha janela curta de intenção; Pix tem expiração de minutos; boleto tem vencimento de dias. O agente de IA precisa de uma régua específica para cada um, com intervalos e mensagens próprios."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -229,5 +237,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

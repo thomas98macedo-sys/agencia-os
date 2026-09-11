@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que precisa estar pronto na loja Shopify antes de investir em tráfego pago?","acceptedAnswer":{"@type":"Answer","text":"Antes do primeiro real investido, a loja precisa de quatro coisas prontas: oferta clara (produto, preço, frete e garantia definidos e visíveis), página de produto que responde as objeções de compra, checkout sem atrito no celular e rastreamento validado — Pixel da Meta com API de Conversões, tag do Google Ads com conversões aprimoradas e GA4 recebendo os eventos. Sem esses quatro, o anúncio só acelera a perda de dinheiro."}},{"@type":"Question","name":"Quantos produtos preciso ter para começar a anunciar no Shopify?","acceptedAnswer":{"@type":"Answer","text":"Não é o número de produtos que decide, é a força da oferta. Uma loja com um único produto campeão e uma página bem construída vende mais do que um catálogo de duzentos itens sem prioridade. O que eu faço na prática é escolher de um a três produtos de entrada, com margem que suporte mídia, e colocar toda a verba inicial neles."}},{"@type":"Question","name":"Qual ROAS eu preciso para não ter prejuízo?","acceptedAnswer":{"@type":"Answer","text":"O ROAS de equilíbrio é 1 dividido pela sua margem de contribuição. Com 40% de margem, o equilíbrio é 2,5 — abaixo disso você paga para vender. Com 50% de margem, é 2,0. Calcule esse número antes de subir a campanha e use-o como piso, não como meta: a meta precisa cobrir também os custos fixos da operação."}},{"@type":"Question","name":"Quanto investir na primeira campanha de uma loja Shopify nova?","acceptedAnswer":{"@type":"Answer","text":"Investir o suficiente para gerar aprendizado dentro de sete dias, não o mínimo que cabe no bolso. A Meta orienta que um conjunto de anúncios precisa de cerca de 50 conversões por semana para sair da fase de aprendizado. Se o seu custo por compra estimado é R$ 40, isso significa aproximadamente R$ 280 por dia no evento de compra — ou otimizar por um evento mais barato, como iniciar checkout, até acumular volume."}},{"@type":"Question","name":"Preciso de aplicativos pagos no Shopify para começar a anunciar?","acceptedAnswer":{"@type":"Answer","text":"Não. O essencial já está na plataforma: canal de vendas da Meta com API de Conversões, tag do Google Ads e GA4, feed de produtos para o Google Merchant Center e Advantage+ Catálogo, e a Customer Privacy API para o consentimento. Aplicativo pago só depois que a loja vender — cada app extra pesa no carregamento e pode custar mais em conversão perdida do que entrega em funcionalidade."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -306,5 +314,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

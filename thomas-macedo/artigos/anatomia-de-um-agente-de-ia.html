@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"Quais são as partes de um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Um agente de IA tem quatro camadas: a instrução, que define quem ele é, o que pode e o que nunca faz; a memória, que guarda o contexto da conversa, os fatos do cliente e a base de conhecimento da empresa; as ferramentas, que permitem agir no mundo real (consultar estoque, marcar reunião, registrar no CRM, emitir cobrança); e os limites, que dizem onde ele para e chama um humano. Falhou uma camada, falhou o agente."}},{"@type":"Question","name":"Por que um agente de IA alucina?","acceptedAnswer":{"@type":"Answer","text":"Na prática das implantações, quase sempre porque ele foi obrigado a responder algo que não sabia. As causas mais comuns são: base de conhecimento incompleta ou desatualizada, instrução que não permite dizer 'não sei', ausência de ferramenta para consultar o dado real (preço, estoque, prazo) e falta de limite claro sobre o que está fora do escopo. Alucinação, na maioria dos casos, é sintoma de projeto malfeito, não defeito do modelo."}},{"@type":"Question","name":"Qual a diferença entre memória e base de conhecimento em um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Base de conhecimento é o que a empresa sabe e não muda a cada conversa: preços, políticas, prazos, objeções, diferenciais. Memória é o que o agente lembra daquela pessoa: o que ela já perguntou, o que já comprou, em que ponto do processo ela está. A base evita que ele invente; a memória evita que ele repita perguntas e trate um cliente antigo como estranho."}},{"@type":"Question","name":"Como evitar que o agente de IA invente preço ou prazo?","acceptedAnswer":{"@type":"Answer","text":"Tire preço, prazo e disponibilidade do texto e coloque em ferramenta. O agente não deve 'saber' o preço; ele deve consultar a fonte oficial na hora de responder. Junto disso, a instrução precisa autorizar explicitamente a resposta 'vou confirmar isso com o time' e proibir estimativas. Dado sensível que muda com o tempo nunca deve viver dentro do prompt."}},{"@type":"Question","name":"Como testar um agente de IA antes de colocar no ar?","acceptedAnswer":{"@type":"Answer","text":"Monte um banco com 30 a 50 conversas reais do seu histórico e rode todas no agente, comparando a resposta dele com a resposta correta. Depois faça o teste adversarial: cliente confuso, pedido de desconto, reclamação, pergunta fora do escopo, tentativa de tirar o agente do papel. Em seguida rode em modo sombra, com o agente sugerindo e o humano aprovando, e só então libere para uma fatia pequena de clientes reais."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -308,5 +316,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

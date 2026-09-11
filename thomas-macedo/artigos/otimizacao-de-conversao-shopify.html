@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que é otimização de conversão no Shopify?","acceptedAnswer":{"@type":"Answer","text":"É o trabalho de aumentar a porcentagem de visitantes que compram, mexendo na página de produto, no carrinho e no checkout da loja — sem aumentar o investimento em anúncio. Na prática, significa remover atrito, antecipar informação decisiva (preço final, frete, prazo, troca) e reduzir o número de passos até o pagamento."}},{"@type":"Question","name":"Qual é uma boa taxa de conversão para uma loja Shopify no Brasil?","acceptedAnswer":{"@type":"Answer","text":"Depende do ticket, do nicho e da temperatura do tráfego, então não existe um número universal. O jeito honesto de avaliar é comparar a loja com ela mesma: taxa por dispositivo, por fonte de tráfego e por campanha. Uma loja de tráfego frio no Meta converte bem abaixo de uma loja que recebe busca de marca no Google, e comparar as duas com a mesma régua leva a decisão errada."}},{"@type":"Question","name":"O que mais causa abandono de carrinho?","acceptedAnswer":{"@type":"Answer","text":"O Baymard Institute, que estuda usabilidade de e-commerce há mais de uma década, aponta os custos extras que aparecem só no fim — frete, taxas e acréscimos — como o motivo campeão de abandono, seguido por exigência de criar conta e por checkout longo ou confuso. A conclusão prática é simples: quanto mais cedo o cliente souber o preço final, menos ele abandona."}},{"@type":"Question","name":"Dá para personalizar o checkout do Shopify?","acceptedAnswer":{"@type":"Answer","text":"Em parte. Qualquer plano permite ajustar marca, logo, cores e tipografia do checkout. Personalizações mais profundas — blocos extras, campos, regras de frete e desconto, upsell pós-compra nativo — dependem das extensões de checkout e, dependendo do que se quer, do plano Shopify Plus. Para a maioria das lojas, o ganho maior não está em customizar o checkout, e sim em chegar nele com menos dúvidas em aberto."}},{"@type":"Question","name":"Qual mudança devo testar primeiro na página de produto?","acceptedAnswer":{"@type":"Answer","text":"A primeira dobra no celular. É lá que o visitante decide se continua: foto que mostra o produto em uso, título que diz o que é e para quem, preço com parcelamento, prazo de entrega e um botão de compra visível sem rolagem. Antes de testar cor de botão, garanta que essas cinco informações existem e são legíveis em um aparelho comum."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -254,5 +262,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

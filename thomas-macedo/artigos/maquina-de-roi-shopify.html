@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que é uma máquina de ROI no Shopify?","acceptedAnswer":{"@type":"Answer","text":"É uma operação em que o tráfego pago alimenta um funil estruturado de aquisição, recuperação de vendas e recompra, de forma que cada real investido retorne com previsibilidade. O Shopify é a plataforma; a máquina é a estrutura montada em cima dele."}},{"@type":"Question","name":"Só ter uma loja no Shopify é suficiente para vender?","acceptedAnswer":{"@type":"Answer","text":"Não. O Shopify resolve catálogo, checkout e pagamento, mas uma loja publicada não vende sozinha. É preciso trazer o cliente (tráfego + criativo), recuperar o que vaza (carrinho e follow-up) e gerar recompra para o retorno fechar."}},{"@type":"Question","name":"Como recuperar vendas perdidas numa loja Shopify?","acceptedAnswer":{"@type":"Answer","text":"Com recuperação de carrinho abandonado, follow-up de quem demonstrou interesse e resposta imediata a dúvidas na hora da compra — cada vez mais feito por agentes de IA que atuam em segundos, 24 horas por dia."}},{"@type":"Question","name":"Como aumentar o retorno sem gastar mais em anúncio?","acceptedAnswer":{"@type":"Answer","text":"Investindo na recompra: e-mail, WhatsApp, remarketing e automações de reativação aumentam o número de compras por cliente (LTV) sem custo de aquisição novo, o que amplia a margem para escalar."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -202,5 +210,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"Posso mandar mensagem de recuperação de venda a qualquer hora no WhatsApp oficial?","acceptedAnswer":{"@type":"Answer","text":"Não. No WhatsApp Business Platform (API oficial), você só pode enviar mensagens livres dentro da janela de 24 horas contada a partir da última mensagem do cliente. Passado esse prazo, a única forma de reabrir a conversa é com uma mensagem de template previamente aprovada pela Meta. Por isso a recuperação de carrinho, Pix e boleto quase sempre começa por um template."}},{"@type":"Question","name":"O que é a janela de 24 horas do WhatsApp?","acceptedAnswer":{"@type":"Answer","text":"É o período de 24 horas após a última mensagem enviada pelo cliente em que a empresa pode responder com texto livre, imagens e botões sem restrição. Fora dessa janela, só mensagens de template aprovadas podem ser enviadas. A janela existe para proteger o usuário de spam e é a regra que mais impacta a recuperação de vendas."}},{"@type":"Question","name":"Preciso de opt-in para recuperar venda por WhatsApp?","acceptedAnswer":{"@type":"Answer","text":"Sim. A Meta exige que o cliente tenha dado consentimento para receber mensagens da empresa no WhatsApp, e a LGPD reforça essa obrigação no Brasil. Sem opt-in válido, o risco não é só de multa: número que recebe muitos bloqueios perde qualidade e passa a entregar menos. O opt-in é coletado no checkout, no cadastro ou numa conversa anterior."}},{"@type":"Question","name":"Qual a diferença entre WhatsApp oficial e um número comum para recuperar vendas?","acceptedAnswer":{"@type":"Answer","text":"O número comum (WhatsApp ou WhatsApp Business no celular) não tem envio em massa autorizado, não integra bem com sistemas e é bloqueado com facilidade quando dispara muitas mensagens. O WhatsApp oficial (API) permite templates aprovados, integração com loja e CRM, múltiplos atendentes e escala — mas obriga a seguir as regras de janela, template e opt-in."}},{"@type":"Question","name":"Template de recuperação de carrinho é marketing ou utility?","acceptedAnswer":{"@type":"Answer","text":"Depende do conteúdo. Um lembrete direto de um pedido em andamento ou de um pagamento pendente (Pix/boleto) costuma se enquadrar como utility. Uma mensagem que oferece desconto, novidade ou reengaja quem abandonou tende a ser classificada como marketing. A categoria muda a política de aprovação e o custo — por isso vale escrever o template pensando na intenção real da mensagem."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -229,5 +237,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

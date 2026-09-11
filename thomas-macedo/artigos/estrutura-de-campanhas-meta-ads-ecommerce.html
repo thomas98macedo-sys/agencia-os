@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"Qual é a melhor estrutura de campanhas de Meta Ads para e-commerce?","acceptedAnswer":{"@type":"Answer","text":"A estrutura que mais sustenta escala em e-commerce é enxuta: uma campanha de aquisição consolidada (público amplo ou Advantage+ Shopping), uma campanha de remarketing com catálogo para quem já visitou ou abandonou carrinho, e uma campanha separada só para testar criativo novo. Poucas campanhas, poucos conjuntos e muitos criativos — porque no Meta o criativo virou a principal variável de segmentação, e conta fragmentada divide dados de conversão e atrasa a saída da fase de aprendizado."}},{"@type":"Question","name":"Quantos conjuntos de anúncios devo ter por campanha?","acceptedAnswer":{"@type":"Answer","text":"O menor número possível — em geral de um a três por campanha. A própria Meta documenta que um conjunto precisa de cerca de 50 eventos de otimização por semana para sair da fase de aprendizado. Se a verba é dividida entre muitos conjuntos, nenhum atinge esse volume, todos ficam em aprendizado permanente e o custo por compra sobe. Consolidar verba é o jeito mais barato de estabilizar o ROAS."}},{"@type":"Question","name":"Quanto posso aumentar a verba por dia sem derrubar o ROAS?","acceptedAnswer":{"@type":"Answer","text":"Para escala vertical, aumentos de 15% a 20% sobre o orçamento atual, com 48 a 72 horas de estabilização entre um aumento e outro, costumam manter o resultado. Saltos grandes reabrem a fase de aprendizado e devolvem o leilão a um público mais caro. Quando preciso subir mais rápido, escalo na horizontal: novos criativos, novo ângulo de oferta, nova geografia ou nova campanha de topo — em vez de dobrar o orçamento de um conjunto que já está no ponto."}},{"@type":"Question","name":"Devo separar campanhas por produto ou por coleção?","acceptedAnswer":{"@type":"Answer","text":"Só quando a economia dos produtos é diferente — margem, ticket ou estoque. Separar por produto por gosto pessoal fragmenta a verba e mata o aprendizado. O caminho melhor é rodar uma campanha de aquisição consolidada e usar criativos por produto dentro dela; se um produto tem margem muito diferente, aí sim ele merece campanha e meta de ROAS próprias."}},{"@type":"Question","name":"Como saber se a estrutura está errada e não o criativo?","acceptedAnswer":{"@type":"Answer","text":"Sintomas de estrutura errada: conjuntos permanentemente em fase de aprendizado, sobreposição alta de público entre conjuntos, custo por compra que oscila muito de um dia para o outro e resultado que despenca sempre que a verba sobe. Sintoma de criativo errado é diferente: CTR e taxa de retenção do vídeo baixos com custo por clique alto desde o primeiro dia. Estrutura quebra a estabilidade; criativo quebra a atenção."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -265,5 +273,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

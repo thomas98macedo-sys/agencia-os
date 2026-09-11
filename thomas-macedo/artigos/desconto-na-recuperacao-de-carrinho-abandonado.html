@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"Devo oferecer desconto para recuperar carrinho abandonado?","acceptedAnswer":{"@type":"Answer":false ,"text":"Nem sempre. O desconto só deve entrar quando o motivo do abandono é preço ou frete, e nunca na primeira mensagem. A maioria dos carrinhos volta por lembrete, ajuda ou prova de confiança — sem cupom nenhum. Oferecer desconto de largada ensina o cliente a abandonar de propósito para ganhar o cupom, e corrói a margem de quem compraria pelo preço cheio."}},{"@type":"Question","name":"Quando vale a pena dar cupom na recuperação de vendas?","acceptedAnswer":{"@type":"Answer","text":"Vale quando: o cliente já disse que o preço ou o frete travou a compra; é a última mensagem da régua e ele não respondeu a nada; ou o carrinho tem margem que suporta o desconto. Fora disso, o desconto é dinheiro que você entregaria sem precisar."}},{"@type":"Question","name":"Qual o desconto ideal para recuperar carrinho?","acceptedAnswer":{"@type":"Answer","text":"O menor desconto que resolve a objeção. Frete grátis costuma converter melhor que percentual porque o frete é a dor mais citada e custa menos que um desconto no produto. Se for percentual, comece baixo e limite o cupom no tempo. O que importa é preservar a margem de contribuição do pedido."}},{"@type":"Question","name":"Como um agente de IA decide se oferece desconto ou não?","acceptedAnswer":{"@type":"Answer","text":"O agente conversa antes de oferecer: pergunta o que travou a compra, identifica se é preço, frete, dúvida ou confiança, e só libera o cupom quando a objeção é de preço e as regras da loja permitem. Ele segue limites definidos — valor máximo, quando pode dar e para quem — em vez de jogar desconto para todo mundo."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -224,5 +232,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

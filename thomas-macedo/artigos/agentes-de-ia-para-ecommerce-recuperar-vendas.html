@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"Como a IA recupera carrinho abandonado?","acceptedAnswer":{"@type":"Answer","text":"O agente de IA detecta o carrinho não finalizado e inicia uma conversa contextual no momento certo, respondendo a objeção provável (frete, prazo, pagamento) e conduzindo o cliente de volta ao checkout — de forma personalizada, não um disparo genérico."}},{"@type":"Question","name":"Agente de IA serve para e-commerce pequeno?","acceptedAnswer":{"@type":"Answer","text":"Sim. Como ele automatiza a primeira resposta, o follow-up e a recuperação de carrinho, um e-commerce pequeno ganha a capacidade de atendimento de uma equipe grande, sem o custo — e captura vendas que hoje vazam pela demora."}},{"@type":"Question","name":"A IA ajuda a vender de novo para quem já comprou?","acceptedAnswer":{"@type":"Answer","text":"Sim. O agente reengaja a base pelo histórico: sugere produtos complementares, avisa de reposição e retoma clientes inativos. Como recomprar é mais barato que conquistar cliente novo, é um dos maiores ganhos de ROI."}},{"@type":"Question","name":"Preciso trocar minha plataforma de e-commerce para usar IA?","acceptedAnswer":{"@type":"Answer","text":"Não necessariamente. O agente se conecta às plataformas mais comuns (como Shopify) e ao WhatsApp via integração, aproveitando a operação que você já tem."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -199,5 +207,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

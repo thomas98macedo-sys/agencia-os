@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que é branding para e-commerce?","acceptedAnswer":{"@type":"Answer","text":"É o conjunto de decisões — posicionamento, identidade visual, criativos, experiência de compra e consistência — que faz uma loja ser escolhida pela marca e não só pelo menor preço, permitindo vender com mais margem e gerar recompra."}},{"@type":"Question","name":"Por que branding importa numa loja virtual?","acceptedAnswer":{"@type":"Answer","text":"Porque no e-commerce o concorrente está a um clique e a comparação de preço é instantânea. Sem marca, a loja é intercambiável e só compete por desconto; com marca, o cliente procura, confia e aceita pagar pelo que ela representa."}},{"@type":"Question","name":"Branding aumenta as vendas ou só a imagem?","acceptedAnswer":{"@type":"Answer","text":"Aumenta as vendas de forma concreta: marca reconhecível eleva a taxa de conversão e reduz o custo de aquisição, porque as pessoas clicam e compram mais de quem confiam. Branding e tráfego juntos formam a máquina de vendas."}},{"@type":"Question","name":"Dá para fazer branding com orçamento pequeno?","acceptedAnswer":{"@type":"Answer","text":"Sim. Posicionamento claro, identidade consistente e criativos com estética própria têm mais a ver com estratégia e coerência do que com orçamento alto. O essencial é ser reconhecível e consistente em cada ponto de contato."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -206,5 +214,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que é taxa de aprovação no e-commerce?","acceptedAnswer":{"@type":"Answer","text":"É o percentual de tentativas de pagamento que são efetivamente aprovadas. Se 100 pessoas tentam pagar com cartão e 85 passam, sua taxa de aprovação é de 85%. Os 15% recusados são vendas que você já pagou para conquistar (tráfego, checkout) e perdeu na última etapa — muitas vezes por antifraude mal calibrado, dados incompletos ou um gateway ruim."}},{"@type":"Question","name":"Pix aprova mais que cartão no e-commerce?","acceptedAnswer":{"@type":"Answer","text":"Sim. O Pix não passa por análise de crédito nem antifraude de emissor, então a aprovação é praticamente total quando o cliente conclui o pagamento. O ponto fraco do Pix é o abandono: parte das pessoas gera o código e não paga. Por isso a estratégia é oferecer Pix com destaque (às vezes com desconto) e ter uma régua de recuperação para quem gera e não conclui."}},{"@type":"Question","name":"Como aumentar a taxa de aprovação de cartão?","acceptedAnswer":{"@type":"Answer","text":"As alavancas principais são: usar um gateway com boa taxa de aprovação e retentativa automática, enviar dados completos ao antifraude (nome, CPF, e-mail, endereço), calibrar as regras antifraude para não recusar cliente bom, oferecer parcelamento adequado ao ticket e reprocessar recusas por saldo. Testar mais de um adquirente também costuma recuperar pontos percentuais."}},{"@type":"Question","name":"Qual a diferença entre gateway, adquirente e subadquirente?","acceptedAnswer":{"@type":"Answer","text":"O gateway é a ponte técnica que leva o pagamento do seu checkout até o processamento. A adquirente (como Cielo, Rede, Getnet) é quem processa a transação com as bandeiras e liquida o dinheiro. A subadquirente (como Pagar.me, PagSeguro, Mercado Pago) junta as duas pontas num pacote mais simples de contratar, geralmente com taxa maior em troca de menos burocracia."}},{"@type":"Question","name":"Vale a pena usar mais de um meio de pagamento?","acceptedAnswer":{"@type":"Answer","text":"Vale. Oferecer Pix, cartão de crédito e, dependendo do público, boleto amplia a base de quem consegue comprar. E ter mais de um adquirente por trás permite rotear a transação e reprocessar recusas em outra rota, o que recupera vendas que um único processador rejeitaria."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -225,5 +233,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

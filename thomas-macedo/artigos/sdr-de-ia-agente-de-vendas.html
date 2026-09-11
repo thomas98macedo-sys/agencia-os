@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que é um SDR de IA?","acceptedAnswer":{"@type":"Answer","text":"SDR de IA é um agente de inteligência artificial que faz o trabalho de pré-vendas: aborda o lead, responde dúvidas, qualifica pelo perfil e pela intenção e agenda a reunião direto na agenda do time comercial. Ele atua 24h por dia, em escala, e entrega ao vendedor humano apenas os leads prontos para fechar."}},{"@type":"Question","name":"Qual a diferença entre SDR de IA e chatbot?","acceptedAnswer":{"@type":"Answer","text":"O chatbot responde perguntas dentro de um roteiro fixo. O SDR de IA conduz a conversa com objetivo comercial: entende a intenção, faz as perguntas de qualificação certas, contorna objeções, marca a reunião e registra tudo no CRM. O chatbot informa; o SDR de IA move o lead pelo funil."}},{"@type":"Question","name":"O SDR de IA substitui o vendedor humano?","acceptedAnswer":{"@type":"Answer","text":"Não. Ele substitui a parte repetitiva e escalável: primeiro contato, resposta imediata, qualificação e agendamento. O vendedor humano recebe o lead já aquecido e foca no que exige relação e negociação — que é onde ele realmente fecha."}},{"@type":"Question","name":"Por que responder rápido aumenta a conversão?","acceptedAnswer":{"@type":"Answer","text":"Porque o interesse do lead cai rápido depois do primeiro contato. Um estudo publicado pela Harvard Business Review mostrou que empresas que respondem a um lead dentro de uma hora têm chance muito maior de qualificá-lo do que as que demoram mais. Um SDR de IA responde em segundos, a qualquer hora, e não deixa lead esfriar."}},{"@type":"Question","name":"Que tipo de empresa se beneficia de um SDR de IA?","acceptedAnswer":{"@type":"Answer","text":"Qualquer negócio que gera leads por anúncios, formulário ou WhatsApp e depende de agendamento: clínicas, imobiliárias, prestadores de serviço, infoprodutos, agências e e-commerces com ticket alto. Onde há volume de contato e vendedor sobrecarregado, o SDR de IA paga rápido o investimento."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -225,5 +233,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

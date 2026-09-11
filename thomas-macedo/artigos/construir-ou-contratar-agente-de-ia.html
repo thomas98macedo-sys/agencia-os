@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"É mais barato construir ou contratar um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Depende do custo total, não só do preço de tela. Construir internamente parece barato porque você só vê a API, mas some o custo escondido: salário de quem desenvolve, tempo até funcionar e manutenção contínua. Contratar tem preço mais visível e previsível, e entrega mais rápido. Para a maioria das PMEs, contratar um primeiro agente sai mais barato no primeiro ano; construir só compensa quando o agente vira parte central do produto."}},{"@type":"Question","name":"Quanto tempo leva para construir um agente de IA do zero?","acceptedAnswer":{"@type":"Answer","text":"Um protótipo simples sai em dias, mas um agente confiável em produção — com integrações, guardrails, testes e escalonamento para humano — costuma levar de dois a quatro meses com um time dedicado. A parte difícil não é fazer o agente responder: é fazer ele parar de errar em produção, o que consome a maior parte do tempo."}},{"@type":"Question","name":"Quando vale a pena desenvolver um agente de IA internamente?","acceptedAnswer":{"@type":"Answer","text":"Quando o agente é vantagem competitiva direta (faz parte do seu produto), quando você tem dados e regras muito específicos que nenhuma solução pronta cobre, e quando já existe um time técnico capaz de manter o sistema no ar. Se não é nenhum desses três, contratar entrega mais rápido e com menos risco."}},{"@type":"Question","name":"Qual o maior risco de construir um agente de IA por conta própria?","acceptedAnswer":{"@type":"Answer","text":"Subestimar a manutenção. O agente que funciona no lançamento quebra quando o modelo é atualizado, quando uma integração muda ou quando o cliente pergunta algo fora do previsto. Sem alguém responsável por monitorar, testar e corrigir, o agente começa a errar caro em silêncio — e ninguém percebe até um cliente reclamar."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -226,5 +234,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

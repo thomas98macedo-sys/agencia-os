@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que é um funil de vendas online?","acceptedAnswer":{"@type":"Answer","text":"É o caminho que uma pessoa percorre desde o primeiro contato com a sua marca até a compra e a recompra. Ele costuma ter quatro etapas: topo (descoberta), meio (consideração), fundo (decisão) e pós-venda (recompra). Cada etapa tem um objetivo diferente e exige uma mensagem, um criativo e uma oferta diferentes."}},{"@type":"Question","name":"Quais são as etapas do funil de vendas?","acceptedAnswer":{"@type":"Answer","text":"Topo de funil: a pessoa descobre que tem um problema e conhece a sua marca. Meio de funil: ela compara soluções e ganha confiança. Fundo de funil: ela decide comprar e precisa de um empurrão (oferta, prova, urgência). Pós-venda: ela recebe, usa e volta a comprar. Vender online sem tratar as quatro etapas é depender só de quem já estava pronto para comprar."}},{"@type":"Question","name":"Preciso de funil se já faço tráfego pago?","acceptedAnswer":{"@type":"Answer","text":"Sim. O tráfego pago só entrega gente na porta; o funil é o que transforma essa gente em venda. Sem funil, você paga por clique de pessoas que ainda não confiam na marca e desiste no meio do caminho. Com funil, você aquece, responde e recupera quem não comprou de primeira — o que baixa o custo por venda."}},{"@type":"Question","name":"Onde a IA entra no funil de vendas?","acceptedAnswer":{"@type":"Answer","text":"Principalmente no fundo do funil e no pós-venda: um agente de IA no WhatsApp responde na hora, qualifica o lead, tira a última dúvida antes da compra, recupera carrinho e pedido não pago e reengaja o cliente para a recompra. É onde mais venda vaza por demora ou por falta de acompanhamento."}},{"@type":"Question","name":"Como saber se meu funil está funcionando?","acceptedAnswer":{"@type":"Answer","text":"Meça a taxa de conversão de cada etapa, não só a venda final. Olhe quantos clicam no anúncio, quantos chegam ao checkout, quantos finalizam e quantos voltam a comprar. A etapa com a maior queda é o gargalo — é ali que ajustar rende mais do que aumentar a verba de anúncio."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -230,5 +238,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"TikTok Ads funciona para e-commerce no Brasil?","acceptedAnswer":{"@type":"Answer","text":"Sim, quando o produto tem apelo visual e o criativo parece conteúdo nativo, não anúncio. O TikTok é forte em descoberta e topo de funil: gera demanda para produtos que a pessoa nem sabia que queria. Funciona melhor para ticket baixo e médio, com margem que suporte um CAC de aquisição fria e uma esteira de vídeos constante."}},{"@type":"Question","name":"Qual a verba mínima para começar no TikTok Ads?","acceptedAnswer":{"@type":"Answer","text":"O ideal é ter verba para o algoritmo sair do aprendizado — na prática, orçamento suficiente para gerar em torno de 50 conversões por semana por conjunto de anúncios. Para ticket baixo, começa-se com um teste diário modesto por várias semanas; o que trava um teste no TikTok quase nunca é a verba, é a falta de criativos novos para rodar."}},{"@type":"Question","name":"Preciso de vídeo profissional para anunciar no TikTok?","acceptedAnswer":{"@type":"Answer","text":"Não. Vídeo de estúdio costuma performar pior do que vídeo que parece gravado no celular. O que converte no TikTok é UGC: conteúdo estilo criador, com gancho nos 3 primeiros segundos, demonstração real do produto e chamada natural. Produção cara não substitui um bom gancho e uma esteira de variações."}},{"@type":"Question","name":"TikTok Ads ou Meta Ads: qual escolher para uma loja Shopify?","acceptedAnswer":{"@type":"Answer","text":"Não é ou — os dois se complementam. O Meta costuma ser a base pela previsibilidade e pelo retargeting; o TikTok abre um canal de descoberta que gera demanda nova e alcança um público que o Meta satura. O caminho seguro é firmar a operação no Meta e testar o TikTok como canal de expansão com verba separada e meta de CAC própria."}},{"@type":"Question","name":"Como rastrear as vendas do TikTok na minha loja Shopify?","acceptedAnswer":{"@type":"Answer","text":"Instale o TikTok Pixel e ative a Events API (rastreamento pelo servidor) para não perder eventos com bloqueadores e iOS. No Shopify, a integração oficial do TikTok facilita a conexão. Mesmo assim, confira sempre o número real de pedidos contra o painel do TikTok: a plataforma tende a se superatribuir, então a régua final é o faturamento no Shopify, não o ROAS de dentro do gerenciador."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -232,5 +240,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

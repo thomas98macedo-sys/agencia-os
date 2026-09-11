@@ -72,6 +72,14 @@
     "mainEntity":[{"@type":"Question","name":"Qual ROAS é bom para e-commerce?","acceptedAnswer":{"@type":"Answer","text":"Não existe ROAS bom universal: o número certo sai da sua margem de contribuição. O ROAS de equilíbrio é 1 dividido pela margem de contribuição percentual. Uma loja com 40% de margem empata em ROAS 2,5; com 25% de margem, precisa de ROAS 4 só para não perder dinheiro. Comparar o seu ROAS com o de outra loja, sem comparar a margem, não significa nada."}},{"@type":"Question","name":"Como calcular o CAC de um e-commerce?","acceptedAnswer":{"@type":"Answer","text":"CAC é todo o custo de aquisição do período dividido pelo número de clientes novos do mesmo período. Entram mídia paga, ferramentas de aquisição, agência, comissão de influenciador e cupom de primeira compra. Não entram os pedidos de clientes que já eram seus: se você dividir pelo total de pedidos, o que sai é CPA, não CAC — e o número fica artificialmente baixo."}},{"@type":"Question","name":"Qual a diferença entre ROAS e margem de contribuição?","acceptedAnswer":{"@type":"Answer","text":"ROAS mede quanta receita cada real de anúncio gerou. Margem de contribuição mede quanto sobra de cada venda depois de todos os custos variáveis (produto, frete, taxa de pagamento, imposto, embalagem). ROAS é velocímetro; margem é o tanque de combustível. Um ROAS alto em cima de uma margem pequena continua dando prejuízo, porque a receita não é sua — a margem é."}},{"@type":"Question","name":"Como calcular o LTV de um e-commerce?","acceptedAnswer":{"@type":"Answer","text":"Multiplique a margem de contribuição média por pedido pelo número médio de pedidos que um cliente faz numa janela definida — normalmente 12 meses. LTV em receita infla a conta e engana: o correto é LTV em margem, porque é isso que sobra para pagar o CAC, os custos fixos e o lucro."}},{"@type":"Question","name":"Qual relação entre LTV e CAC indica que dá para escalar?","acceptedAnswer":{"@type":"Answer","text":"A régua que eu uso é LTV em margem de pelo menos 3 vezes o CAC em janela de 12 meses, com a primeira compra pagando ou quase pagando a aquisição. Se o LTV só cobre o CAC no segundo ano, escalar vira problema de caixa antes de virar problema de mídia: você paga o anúncio hoje e recebe a margem no ano que vem."}},{"@type":"Question","name":"Por que o ROAS da plataforma é diferente do faturamento real?","acceptedAnswer":{"@type":"Answer","text":"Porque Meta Ads e Google Ads reportam conversões pelo modelo de atribuição de cada plataforma, com janelas e critérios diferentes, e somam vendas entre si. A receita da loja é uma só. Por isso eu decido pelo ROAS geral do negócio — faturamento real do período dividido pelo investimento total em mídia — e uso o número da plataforma apenas para comparar campanhas dentro dela."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -317,5 +325,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

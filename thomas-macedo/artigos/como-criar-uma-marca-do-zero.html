@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"Qual o primeiro passo para criar uma marca?","acceptedAnswer":{"@type":"Answer","text":"O posicionamento: definir para quem a marca existe, contra quem compete e por que alguém deveria escolhê-la. Nome, narrativa e identidade visual vêm depois dessa decisão de estratégia — o logo é o último passo, não o primeiro."}},{"@type":"Question","name":"Marca é a mesma coisa que logo?","acceptedAnswer":{"@type":"Answer","text":"Não. Logo é um símbolo visual; marca é a percepção que existe na cabeça das pessoas, construída por posicionamento, experiência consistente e repetição. Dá para ter um logo bonito sem ter marca, e uma marca forte com um símbolo simples."}},{"@type":"Question","name":"Quanto tempo leva para criar uma marca?","acceptedAnswer":{"@type":"Answer","text":"A definição estratégica (posicionamento, narrativa, nome, identidade) pode ser feita em algumas semanas. Mas a marca em si se constrói ao longo do tempo, pela consistência de aplicação em todos os pontos de contato."}},{"@type":"Question","name":"Como uma marca justifica preço mais alto?","acceptedAnswer":{"@type":"Answer","text":"Por meio de posicionamento claro e de uma narrativa que gera pertencimento. Quando as pessoas se identificam com o que a marca representa e confiam na consistência da experiência, passam a pagar pelo significado, não só pelo produto."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -200,5 +208,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

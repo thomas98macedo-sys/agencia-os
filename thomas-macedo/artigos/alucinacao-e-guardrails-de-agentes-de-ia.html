@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que é alucinação de um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Alucinação é quando o agente de IA gera uma resposta que parece correta e segura, mas é falsa — um preço que não existe, um prazo que ninguém prometeu, uma política inventada. Acontece porque o modelo de linguagem completa texto pela probabilidade das palavras, não por consultar a verdade. Quando não tem o dado, ele preenche a lacuna com a resposta mais plausível."}},{"@type":"Question","name":"Por que o agente de IA inventa preço, prazo ou política?","acceptedAnswer":{"@type":"Answer","text":"Porque foi perguntado sobre algo que não está na base de conhecimento dele. Sem acesso ao dado real e sem instrução para dizer 'não sei', o modelo gera a continuação mais provável — que soa convincente, mas não veio dos seus sistemas. A correção é dar a fonte oficial e proibir o agente de responder de cabeça sobre valores e regras."}},{"@type":"Question","name":"O que são guardrails em um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Guardrails são as regras e travas que limitam o que o agente pode dizer e fazer: obrigar a consultar a fonte real antes de falar preço, proibir promessas que a empresa não cumpre, escalar para um humano em casos sensíveis e nunca expor dados de outro cliente. São o que separa um agente confiável de um risco solto na operação."}},{"@type":"Question","name":"Como impedir que o agente de IA fale o que não deve?","acceptedAnswer":{"@type":"Answer","text":"Conectando o agente à fonte oficial de cada informação (catálogo, tabela de preços, política), instruindo-o a dizer que vai verificar quando não tiver o dado, definindo limites de ação claros e testando com perguntas difíceis antes de colocar no ar. Sem essas quatro camadas, ele vai improvisar na primeira pergunta fora do script."}},{"@type":"Question","name":"Agente de IA que atende cliente pode violar a LGPD?","acceptedAnswer":{"@type":"Answer","text":"Pode, se não for construído com cuidado. O risco maior é o agente expor dado de um cliente para outro ou registrar informação sensível sem base legal. A proteção vem de isolar o contexto de cada conversa, restringir quais dados o agente consegue acessar e registrar o que ele faz — tratando dado pessoal com o mesmo rigor que qualquer sistema da empresa."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -234,5 +242,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

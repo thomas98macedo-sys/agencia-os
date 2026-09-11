@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"Qual a diferença entre chatbot, automação e agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Chatbot responde dentro de um roteiro fixo: você desenha as perguntas e as respostas possíveis. Automação executa uma sequência de passos definida por você quando um gatilho acontece, sem interpretar nada. Agente de IA decide: ele lê a situação em linguagem natural, escolhe qual passo dar, usa ferramentas (agenda, CRM, catálogo, pagamento) e sabe quando parar e chamar um humano. O chatbot conversa, a automação executa, o agente conduz."}},{"@type":"Question","name":"Quando usar automação em vez de agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Use automação sempre que o processo for repetitivo, previsível e com regra clara: emitir nota fiscal, mover card no CRM, enviar comprovante, sincronizar planilha, disparar mensagem de confirmação. Se você consegue escrever o processo como um fluxograma sem 'depende', automação resolve — mais barata, mais rápida e mais previsível que um agente de IA."}},{"@type":"Question","name":"Agente de IA é mais caro que chatbot?","acceptedAnswer":{"@type":"Answer","text":"O custo por conversa costuma ser maior, porque o agente consome processamento do modelo a cada mensagem, enquanto o chatbot roda um fluxo pronto. Mas o custo que importa é o custo por resultado: se o agente resolve sozinho o que o chatbot mandava para o humano, ele reduz o custo total de atendimento. Compare custo por atendimento resolvido e por venda recuperada, nunca custo por mensagem."}},{"@type":"Question","name":"Dá para começar com chatbot e evoluir para agente de IA depois?","acceptedAnswer":{"@type":"Answer","text":"Dá, e muitas vezes é o caminho certo. O chatbot serve para mapear as perguntas reais dos seus clientes e provar o canal. Esse histórico vira matéria-prima do agente: você já sabe as 30 dúvidas mais frequentes, as objeções e os pontos de escalada. O erro é ficar preso ao chatbot quando a taxa de escalada para humano parou de cair."}},{"@type":"Question","name":"Como saber se meu problema pede chatbot, automação ou agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Faça três perguntas. A entrada é texto livre de gente? Se não for, é automação. A resposta exige julgamento, contexto ou consulta a vários sistemas? Se não exigir, é chatbot ou automação. O processo tem exceções que você não consegue listar? Se tiver, é agente de IA. Na prática, a maioria das operações precisa dos três em camadas, não de um deles sozinho."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -258,5 +266,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que é um manual de marca?","acceptedAnswer":{"@type":"Answer","text":"É o documento oficial que reúne todas as regras de uso da marca — logo, cores, tipografia, tom de voz e aplicações permitidas e proibidas. Serve para que qualquer pessoa (equipe, agência, gráfica, fornecedor) use a marca de forma consistente, sem depender de improviso ou de quem a criou."}},{"@type":"Question","name":"Qual a diferença entre manual de marca e identidade visual?","acceptedAnswer":{"@type":"Answer","text":"A identidade visual é o conjunto de elementos gráficos da marca (logo, cores, tipografia). O manual de marca é o documento que ensina como usar esses elementos: tamanhos mínimos, áreas de respiro, versões permitidas, o que não fazer e o tom de voz. Um é a peça; o outro é o regulamento."}},{"@type":"Question","name":"O que precisa ter em um brand book?","acceptedAnswer":{"@type":"Answer","text":"Um brand book completo tem: essência da marca (propósito, posicionamento, personalidade), logo e suas versões, área de proteção e tamanho mínimo, paleta de cores com códigos, tipografia, usos proibidos, tom de voz e exemplos de aplicação (embalagem, redes sociais, anúncios)."}},{"@type":"Question","name":"Empresa pequena precisa de manual de marca?","acceptedAnswer":{"@type":"Answer","text":"Sim. Mesmo uma versão enxuta de poucas páginas evita que a marca apareça de dez jeitos diferentes conforme quem faz a arte. Quanto antes existir o documento, menos retrabalho e mais consistência — o que faz a marca ser reconhecida mais rápido."}},{"@type":"Question","name":"O manual de marca protege minha marca juridicamente?","acceptedAnswer":{"@type":"Answer","text":"Não. Quem protege a marca juridicamente é o registro no INPI. O manual protege a consistência do uso. São dois documentos complementares: o registro garante o direito sobre o nome e o sinal; o manual garante que a marca seja aplicada sempre da mesma forma."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -239,5 +247,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

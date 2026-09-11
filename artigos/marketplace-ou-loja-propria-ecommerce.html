@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"É melhor vender em marketplace ou em loja própria?","acceptedAnswer":{"@type":"Answer","text":"Depende do objetivo. Marketplace (Mercado Livre, Amazon, Shopee) dá acesso imediato a milhões de compradores e prova social, mas cobra comissão e não te entrega os dados do cliente. Loja própria custa mais para atrair tráfego, mas devolve margem, dados e marca. Quem escala usa os dois: marketplace como vitrine de aquisição e loja própria como canal-âncora de margem e recompra."}},{"@type":"Question","name":"Quanto o marketplace cobra de comissão no Brasil?","acceptedAnswer":{"@type":"Answer","text":"A comissão varia por plataforma e categoria, geralmente entre cerca de 10% e 20% do valor da venda, somada a tarifas de frete, publicidade interna e, em alguns casos, taxa fixa por pedido. Por isso a margem de contribuição precisa ser calculada canal por canal antes de decidir preço e volume."}},{"@type":"Question","name":"Dá para ter marca própria vendendo em marketplace?","acceptedAnswer":{"@type":"Answer","text":"Dá, mas com limite. No marketplace você controla ficha de produto, fotos e loja oficial, porém a experiência, o checkout e o relacionamento pertencem à plataforma. Para construir marca de verdade, a loja própria é onde você controla design, dados e recompra — o marketplace vira o canal que apresenta a marca a quem ainda não te conhece."}},{"@type":"Question","name":"Por onde começar: marketplace ou loja própria?","acceptedAnswer":{"@type":"Answer","text":"Se você precisa validar produto e gerar caixa rápido, começar pelo marketplace faz sentido pela demanda pronta. Se o objetivo é marca e margem desde o início, comece pela loja própria com tráfego pago estruturado. O erro é depender de um só canal — o ideal é ter os dois ativos antes de escalar verba."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -223,5 +231,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

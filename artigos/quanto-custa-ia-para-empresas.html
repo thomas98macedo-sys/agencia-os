@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"Quanto custa um agente de IA para empresa?","acceptedAnswer":{"@type":"Answer","text":"Depende da complexidade do processo, das integrações necessárias e do volume de uso. Um agente focado num único processo tem custo de implementação mais uma mensalidade de operação; sistemas com muitas integrações custam mais. O certo é partir de um diagnóstico e comparar com o retorno esperado."}},{"@type":"Question","name":"Vale a pena investir em IA para uma empresa pequena?","acceptedAnswer":{"@type":"Answer","text":"Sim, quando o investimento é direcionado a um processo com dor clara. Se o agente recupera vendas ou economiza horas suficientes para se pagar no curto prazo, o retorno justifica — por isso começar enxuto e medir é o caminho mais seguro."}},{"@type":"Question","name":"Como calcular o ROI de um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Compare o custo mensal com o ganho mensal: horas economizadas do time, vendas recuperadas (carrinho e follow-up) e leads que deixaram de esfriar. Medir o processo antes de implementar é o que permite provar o retorno depois."}},{"@type":"Question","name":"Começar pequeno é realmente mais barato?","acceptedAnswer":{"@type":"Answer","text":"Sim. Automatizar um processo por vez reduz o investimento inicial e o risco, e gera a métrica que justifica escalar. Tentar automatizar tudo de uma vez é o caminho mais caro e mais sujeito a falhar."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -200,5 +208,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

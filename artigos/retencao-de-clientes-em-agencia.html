@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que é churn em uma agência de marketing?","acceptedAnswer":{"@type":"Answer","text":"Churn é a taxa de clientes que cancelam o contrato num período. Numa agência, ele é a métrica que mais limita o crescimento: se você perde a mesma quantidade de clientes que fecha, o faturamento fica parado mesmo com o time trabalhando no limite. Reduzir churn vale mais do que aumentar a captação, porque cliente retido gera receita recorrente e reduz o custo de aquisição diluído no tempo."}},{"@type":"Question","name":"Por que os clientes cancelam a agência?","acceptedAnswer":{"@type":"Answer","text":"Na prática, três motivos concentram a maioria dos cancelamentos: expectativa desalinhada na venda (prometeu-se resultado que a operação não sustenta), ausência de resultado percebido no primeiro ciclo (o cliente não vê progresso claro nos primeiros 60 a 90 dias) e falha de comunicação (o cliente não sabe o que está sendo feito nem por quê). Quase nunca o motivo é só 'o resultado ruim' — é o resultado ruim somado ao silêncio."}},{"@type":"Question","name":"Qual é uma taxa de churn saudável para agência?","acceptedAnswer":{"@type":"Answer","text":"Não existe número mágico universal, mas o que importa é a relação entre tempo médio de permanência do cliente (lifetime) e o custo de aquisição. Se o cliente médio fica poucos meses, a agência vive refazendo a base e nunca escala. O caminho é medir a permanência média, atacar os motivos de saída do primeiro trimestre e alongar o ciclo de vida do contrato com resultado e relacionamento."}},{"@type":"Question","name":"Como a IA ajuda a reter clientes na agência?","acceptedAnswer":{"@type":"Answer","text":"A IA reduz churn ao garantir consistência: agentes e automações mantêm o ritmo de atualização do cliente, geram relatórios claros, organizam o pós-venda e liberam o time humano para a conversa estratégica — que é o que de fato retém. Ela não substitui o relacionamento; ela remove a inconsistência operacional que faz o cliente se sentir abandonado."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -232,5 +240,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

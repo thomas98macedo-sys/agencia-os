@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que é logística de e-commerce?","acceptedAnswer":{"@type":"Answer","text":"É todo o caminho do produto até o cliente: gestão de estoque, embalagem, escolha de frete e transportadora, prazo de entrega, rastreamento e devolução. No e-commerce, a logística não é só custo operacional — ela influencia diretamente a taxa de conversão no checkout e a recompra, porque frete caro e prazo longo derrubam pedidos e destroem a confiança."}},{"@type":"Question","name":"Frete grátis vale a pena no e-commerce?","acceptedAnswer":{"@type":"Answer","text":"Vale quando o custo do frete está embutido na margem ou condicionado a um valor mínimo de pedido que aumenta o ticket médio. Frete grátis sem cálculo destrói a margem de contribuição. O certo é tratar o frete como parte do preço e da estratégia, não como um custo separado que se absorve no prejuízo."}},{"@type":"Question","name":"Como o prazo de entrega afeta as vendas?","acceptedAnswer":{"@type":"Answer","text":"O prazo aparece no checkout e é um dos maiores motivos de abandono de carrinho no Brasil. Prazo longo ou imprevisível reduz a conversão na hora e aumenta a ansiedade pós-compra, gerando reclamações e pedidos de cancelamento. Encurtar e cumprir o prazo prometido é uma das alavancas mais baratas de conversão."}},{"@type":"Question","name":"Como a IA ajuda na operação de e-commerce?","acceptedAnswer":{"@type":"Answer","text":"Um agente de IA no WhatsApp responde status de pedido, código de rastreio e dúvidas de entrega na hora, 24h, tirando esse volume do time humano. Também recupera vendas travadas por frete alto ou prazo, e reduz cancelamentos ao dar informação de entrega antes do cliente se estressar. É a camada de atendimento que sustenta a operação quando o volume cresce."}},{"@type":"Question","name":"Qual erro de logística mais quebra e-commerce em escala?","acceptedAnswer":{"@type":"Answer","text":"Escalar o tráfego sem preparar estoque e expedição. Quando o volume de pedidos cresce mais rápido que a capacidade de embalar e despachar, o prazo estoura, as reclamações explodem e o dinheiro investido em anúncio vira reembolso e cliente perdido. A operação precisa aguentar a verba antes de você pisar no acelerador."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -229,5 +237,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

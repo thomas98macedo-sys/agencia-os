@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que é arquitetura de marca?","acceptedAnswer":{"@type":"Answer","text":"Arquitetura de marca é a forma como uma empresa organiza e relaciona suas marcas, submarcas e produtos sob uma estrutura clara. Ela define se tudo vive sob um único nome (marca única), se cada produto tem sua própria marca (casa de marcas) ou se existem submarcas ligadas a uma marca-mãe. O objetivo é crescer sem confundir o cliente nem diluir o valor do nome principal."}},{"@type":"Question","name":"Qual a diferença entre marca única e casa de marcas?","acceptedAnswer":{"@type":"Answer","text":"Na marca única (branded house), todos os produtos usam o mesmo nome — como Google e Apple —, então cada lançamento reforça a marca principal. Na casa de marcas (house of brands), a empresa cria marcas independentes para cada produto ou público — como a Unilever com Dove, Omo e Kibon —, o que permite atacar nichos diferentes sem que uma marca contamine a outra."}},{"@type":"Question","name":"Quando devo criar uma nova marca em vez de estender a atual?","acceptedAnswer":{"@type":"Answer","text":"Crie uma nova marca quando o novo produto fala com um público diferente, tem posicionamento de preço muito distinto ou traz um risco de imagem que você não quer ligado à marca principal. Se o produto reforça a mesma promessa e o mesmo público, quase sempre é melhor estendê-lo dentro da marca atual — é mais barato e aproveita a reputação já construída."}},{"@type":"Question","name":"Qual arquitetura de marca é melhor para quem está começando?","acceptedAnswer":{"@type":"Answer","text":"Para quem está começando, a marca única quase sempre vence. Concentrar todo o investimento, o tráfego e a reputação em um só nome faz a marca crescer mais rápido e custa menos. Casa de marcas só se justifica quando você já tem caixa e estrutura para sustentar várias marcas ao mesmo tempo."}},{"@type":"Question","name":"O que é uma submarca e quando usá-la?","acceptedAnswer":{"@type":"Answer","text":"Submarca é uma marca ligada visível e explicitamente à marca-mãe, como PlayStation (Sony) ou Amazon Prime. Use uma submarca quando quer lançar uma linha ou produto com identidade própria, mas ainda apoiado na confiança da marca principal. É o meio-termo entre marca única e casa de marcas."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -237,5 +245,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

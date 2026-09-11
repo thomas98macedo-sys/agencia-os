@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que significa escalar uma agência de marketing?","acceptedAnswer":{"@type":"Answer","text":"Escalar uma agência é aumentar o número de clientes e a receita sem que a qualidade da entrega caia e sem que o custo suba na mesma proporção. Isso só acontece quando o resultado depende de processos padronizados e ferramentas — não da memória e da energia de uma pessoa específica."}},{"@type":"Question","name":"Como uma agência usa IA para escalar sem demitir o time?","acceptedAnswer":{"@type":"Answer","text":"A IA assume o trabalho repetitivo e de baixo valor: primeira versão de copy, cortes de vídeo, relatórios, triagem de atendimento, organização de briefing. Isso libera o time humano para estratégia, criatividade e relacionamento — as partes que realmente diferenciam a entrega e não devem ser automatizadas."}},{"@type":"Question","name":"Por que ter produção própria de conteúdo em vez de terceirizar tudo?","acceptedAnswer":{"@type":"Answer","text":"Produção própria dá controle sobre prazo, qualidade e volume. Quando a agência depende de freelancers externos para todo criativo, ela perde previsibilidade e margem. Uma esteira interna de criativos e conteúdo permite testar mais, mais rápido e mais barato — que é o que sustenta o tráfego pago."}},{"@type":"Question","name":"Qual o maior erro ao tentar escalar uma agência?","acceptedAnswer":{"@type":"Answer","text":"Vender antes de ter operação. Fechar muitos contratos sem processo, sem time e sem capacidade de produção leva a atrasos, retrabalho e cancelamento. Escala saudável começa pela operação: primeiro o método entrega resultado repetível, depois se acelera a venda."}},{"@type":"Question","name":"Quantos clientes uma agência consegue atender por pessoa?","acceptedAnswer":{"@type":"Answer","text":"Não existe número universal — depende de quão padronizado é o serviço. Quanto mais o processo estiver documentado e apoiado por IA e templates, mais contas cada gestor consegue tocar sem perder qualidade. É essa razão entre resultado entregue e horas humanas que define se a agência escala ou trava."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -215,5 +223,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

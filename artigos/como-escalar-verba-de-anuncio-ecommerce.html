@@ -72,6 +72,14 @@
     "mainEntity":[{"@type":"Question","name":"Quanto posso aumentar o orçamento de anúncio por vez?","acceptedAnswer":{"@type":"Answer","text":"A régua que eu uso é de 20% a 30% por degrau, com 48 a 72 horas de leitura entre um degrau e o seguinte. Esse ritmo permite que a campanha reencontre o público certo sem voltar à fase de aprendizado, e dá tempo de a operação absorver o volume novo. Saltos maiores que 50% de uma vez costumam derrubar a eficiência e estourar o CAC antes de qualquer ganho aparecer."}},{"@type":"Question","name":"Por que o CAC sobe quando eu aumento a verba?","acceptedAnswer":{"@type":"Answer","text":"Porque mais verba significa comprar públicos progressivamente menos qualificados e disputar leilões mais caros pelo mesmo criativo. Os primeiros compradores são os mais fáceis; os seguintes são mais caros. Isso é normal e previsível — o problema não é o CAC subir, é ele passar do CAC teto que a sua margem de contribuição suporta."}},{"@type":"Question","name":"Qual a diferença entre escala vertical e escala horizontal?","acceptedAnswer":{"@type":"Answer","text":"Escala vertical é colocar mais verba na mesma campanha que já funciona. Escala horizontal é abrir novas frentes: novos criativos, novos públicos, novos canais e novos formatos. A vertical é mais rápida e satura mais rápido; a horizontal é mais lenta e sustenta o crescimento. Escala saudável usa as duas: vertical até o CAC teto, horizontal para levantar o teto."}},{"@type":"Question","name":"O que precisa estar pronto antes de escalar verba de anúncio?","acceptedAnswer":{"@type":"Answer","text":"Cinco coisas: margem de contribuição calculada e CAC teto definido; rastreamento confiável com API de conversões e checagem contra o faturamento real; estoque com cobertura para o volume do próximo degrau; atendimento capaz de responder o aumento de mensagens; e caixa para bancar a diferença entre pagar mídia hoje e receber a venda em trinta dias ou mais."}},{"@type":"Question","name":"Quando devo parar de escalar ou descer o orçamento?","acceptedAnswer":{"@type":"Answer","text":"Desça um degrau quando o CAC passar do teto por três dias seguidos, quando a margem por pedido cair por desconto ou frete, quando o prazo de envio começar a atrasar, quando o atendimento acumular fila, ou quando o caixa não cobrir mais o ciclo de recebimento. Descer um degrau não é derrota: é o que preserva a conta para você subir de novo na semana seguinte."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -296,5 +304,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que é handoff humano em um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Handoff (ou transbordo) é a passagem da conversa do agente de IA para um atendente humano. Ele acontece quando o agente detecta que não deve ou não consegue resolver sozinho — por regra de negócio, por risco ou por não ter confiança na resposta — e transfere o contexto para uma pessoa continuar do ponto exato onde parou."}},{"@type":"Question","name":"Quando o agente de IA deve passar para um humano?","acceptedAnswer":{"@type":"Answer","text":"Nos gatilhos definidos: cliente irritado ou pedindo humano, assunto sensível (jurídico, reclamação, reembolso acima de um valor), decisão fora das regras do agente, baixa confiança na resposta e negociação de alto ticket. Fora desses casos, o agente resolve sozinho."}},{"@type":"Question","name":"O cliente percebe quando está falando com IA ou com humano?","acceptedAnswer":{"@type":"Answer","text":"O ideal é ser transparente: o agente se identifica como assistente e, ao transferir, avisa que uma pessoa vai continuar. A transição some quando o humano recebe todo o histórico e não obriga o cliente a repetir nada — é a repetição, não a troca, que irrita."}},{"@type":"Question","name":"O que acontece se o agente de IA não tiver handoff configurado?","acceptedAnswer":{"@type":"Answer","text":"Ele tenta responder tudo, inclusive o que não deveria — inventa política, promete o que a empresa não cumpre, trava numa reclamação. O resultado é venda perdida, cliente irritado e, em casos sensíveis, risco jurídico. O handoff é o que protege a operação nos casos caros."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -214,5 +222,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

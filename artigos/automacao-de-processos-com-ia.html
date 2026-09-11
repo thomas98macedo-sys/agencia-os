@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que é automação de processos com IA?","acceptedAnswer":{"@type":"Answer","text":"É o uso de inteligência artificial para executar tarefas repetitivas de forma autônoma — como triagem de mensagens, geração de documentos, atualização de CRM e follow-up de vendas — inclusive tarefas que envolvem interpretar texto e tomar decisões, não só regras fixas."}},{"@type":"Question","name":"Automação com IA vai substituir meus funcionários?","acceptedAnswer":{"@type":"Answer","text":"O objetivo é tirar o trabalho repetitivo do caminho, não as pessoas. A automação libera o time para o que exige julgamento e relacionamento humano, enquanto a IA cuida do volume repetitivo — normalmente aumentando a capacidade da equipe, não reduzindo-a."}},{"@type":"Question","name":"Por onde começar a automatizar?","acceptedAnswer":{"@type":"Answer","text":"Pelo processo que é ao mesmo tempo de alto volume e de alta dor (muito tempo gasto ou muita venda perdida). Esse dá o retorno mais rápido e visível, que justifica automatizar os próximos."}},{"@type":"Question","name":"Como saber se a automação deu certo?","acceptedAnswer":{"@type":"Answer","text":"Medindo antes e depois: tempo de execução, taxa de erro, horas economizadas, vendas recuperadas. Rodar a automação em paralelo com o processo antigo por um período mostra o ganho real antes de desligar o manual."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -206,5 +214,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que é ROI escalável em tráfego pago?","acceptedAnswer":{"@type":"Answer","text":"É a capacidade de aumentar o investimento em anúncios mantendo ou melhorando o retorno, em vez de ver a rentabilidade cair conforme o orçamento sobe. Depende de criativo, oferta, CAC e LTV construídos para crescer — não de sorte."}},{"@type":"Question","name":"Por que meu retorno cai quando aumento o orçamento?","acceptedAnswer":{"@type":"Answer","text":"Porque a conta foi otimizada para um volume pequeno: ao escalar, o público bom satura, o clique encarece e o criativo cansa. Sem novos criativos, oferta forte e um LTV que ganha do CAC, o custo de aquisição dispara e o retorno derrete."}},{"@type":"Question","name":"Qual a diferença entre ROAS e ROI escalável?","acceptedAnswer":{"@type":"Answer","text":"ROAS mede o retorno sobre o gasto num dado momento e pode ser alto com orçamento pequeno. ROI escalável é sobre sustentar o retorno quando você multiplica o investimento — é o que realmente indica que a operação cresce com lucro."}},{"@type":"Question","name":"Como aumentar o ROI de forma sustentável?","acceptedAnswer":{"@type":"Answer","text":"Ampliando a folga entre LTV e CAC: produzir criativos em volume para segurar o custo de aquisição e investir em recompra e retenção para elevar o valor do cliente. Essa folga é o que permite escalar o tráfego frio sem perder rentabilidade."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -204,5 +212,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

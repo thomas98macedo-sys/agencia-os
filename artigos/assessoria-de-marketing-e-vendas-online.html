@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que é uma assessoria de marketing e vendas online?","acceptedAnswer":{"@type":"Answer","text":"É um serviço que assume a estratégia e a execução de aquisição de clientes pela internet de ponta a ponta — tráfego pago, criativos, funil, página de venda e atendimento — com o compromisso de gerar vendas, não só de rodar anúncios. Diferente de um freelancer de tráfego, ela cuida da operação inteira e responde por número de faturamento e retorno sobre o investimento."}},{"@type":"Question","name":"Qual a diferença entre assessoria e agência de marketing?","acceptedAnswer":{"@type":"Answer","text":"A agência tradicional costuma vender entregáveis (posts, campanhas, relatórios) e trabalhar com muitos clientes em escala. A assessoria orientada a vendas trabalha próxima, com poucos clientes, e é medida pelo resultado comercial: quanto entrou, a que custo e com qual margem. Na prática, a assessoria age como um sócio de crescimento, não como fornecedor de peças."}},{"@type":"Question","name":"Quando vale a pena contratar uma assessoria de marketing e vendas online?","acceptedAnswer":{"@type":"Answer","text":"Quando o negócio já tem oferta validada e margem para investir em mídia, mas não consegue escalar sozinho — seja por falta de tempo, de método ou de time. Também vale quando o dono já testou anúncios, gastou e não teve retorno claro: nesse caso o problema quase sempre está no conjunto (criativo, oferta, página, atendimento), e não só na campanha."}},{"@type":"Question","name":"Assessoria de marketing dá garantia de resultado?","acceptedAnswer":{"@type":"Answer","text":"Nenhum profissional sério garante um número exato de vendas, porque parte das variáveis (preço, estoque, atendimento, produto) está fora do controle dele. O que uma boa assessoria garante é método, transparência de métricas e melhoria contínua. Desconfie de quem promete faturamento fixo antes de conhecer sua operação."}},{"@type":"Question","name":"Quanto custa uma assessoria de marketing e vendas online no Brasil?","acceptedAnswer":{"@type":"Answer","text":"O modelo mais comum é um fee mensal de gestão, às vezes somado a um variável sobre performance. O valor depende da complexidade da operação e da verba de mídia — que é um custo à parte, pago às plataformas. O que importa não é o fee isolado, e sim a conta final: quanto a operação fatura contra tudo o que ela custa."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -237,5 +245,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

@@ -72,6 +72,14 @@
     "mainEntity":[{"@type":"Question","name":"Marca forte realmente reduz o custo do tráfego pago?","acceptedAnswer":{"@type":"Answer","text":"Sim, e o mecanismo é matemático, não subjetivo. O leilão do Meta Ads considera lance, taxas de ação estimadas e qualidade do anúncio; o Google Ads calcula o Ad Rank usando lance e Índice de Qualidade, que inclui CTR esperado, relevância do anúncio e experiência na página. Marca conhecida e desejada aumenta o CTR e a taxa de conversão, o que melhora esses sinais e derruba o custo por clique e o custo por aquisição com o mesmo lance."}},{"@type":"Question","name":"Qual a relação entre CTR e custo por aquisição?","acceptedAnswer":{"@type":"Answer","text":"O CTR determina quantos cliques a mesma verba compra. Com CPM fixo, dobrar o CTR corta o CPC pela metade. Como o custo por aquisição é o investimento dividido pelas vendas, e as vendas dependem de cliques multiplicados pela taxa de conversão, CTR e conversão se multiplicam: subir os dois em 80% cada derruba o CAC em cerca de dois terços."}},{"@type":"Question","name":"Quanto tempo leva para a marca aparecer no custo da mídia?","acceptedAnswer":{"@type":"Answer","text":"Os primeiros sinais aparecem em semanas, no CTR e na taxa de conversão dos criativos que carregam identidade e prova social. O efeito grande, que é o público chegar já querendo comprar, costuma levar de seis a doze meses de consistência. Marca não é campanha: é um investimento que devolve juros no CAC ao longo do tempo."}},{"@type":"Question","name":"Como medir se a marca está baixando o meu CAC?","acceptedAnswer":{"@type":"Answer","text":"Acompanhe cinco indicadores em série histórica: CTR de saída dos anúncios de topo, taxa de conversão da página, volume de busca pelo nome da marca no Google, custo por resultado do remarketing e o percentual de vendas que chega por canal direto ou orgânico. Quando a marca cresce, esses cinco melhoram juntos, mesmo com a verba parada."}},{"@type":"Question","name":"Investir em marca ou em performance primeiro?","acceptedAnswer":{"@type":"Answer","text":"Os dois ao mesmo tempo, com pesos diferentes. Performance paga o caixa de agora e ensina, com dados reais, qual promessa converte. Marca reduz o custo dessa mesma performance daqui a alguns meses. Na minha operação, a campanha roda desde o primeiro dia, mas o criativo, a embalagem e a linguagem já saem no padrão da marca que a empresa quer ser."}},{"@type":"Question","name":"Marca forte resolve tráfego pago que dá prejuízo?","acceptedAnswer":{"@type":"Answer","text":"Não. Marca reduz o custo de aquisição, mas não conserta margem de contribuição baixa, oferta fraca, checkout ruim ou atendimento lento. Se a conta não fecha nem com CAC baixo, o problema é de modelo de negócio, não de desejo. Primeiro se arruma a margem e o funil, depois a marca multiplica o resultado."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -302,5 +310,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

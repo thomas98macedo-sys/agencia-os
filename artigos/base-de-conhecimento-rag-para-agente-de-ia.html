@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que é RAG (Retrieval-Augmented Generation) em palavras simples?","acceptedAnswer":{"@type":"Answer","text":"RAG é uma técnica que, antes de o agente de IA responder, faz ele buscar a informação certa dentro dos documentos e dados da sua empresa e usa esse trecho como base da resposta. Em vez de o modelo responder de cabeça, ele responde consultando a sua fonte oficial — como um atendente que confere o manual antes de falar."}},{"@type":"Question","name":"Qual a diferença entre treinar um modelo e usar RAG?","acceptedAnswer":{"@type":"Answer","text":"Treinar (fine-tuning) muda o comportamento e o estilo do modelo, é caro e envelhece rápido: se o preço muda, você teria que treinar de novo. RAG deixa o conhecimento fora do modelo, numa base que você atualiza a qualquer hora. Para a maioria das empresas, RAG é o caminho: mais barato, mais rápido de atualizar e mais fácil de auditar."}},{"@type":"Question","name":"O RAG impede a IA de inventar resposta (alucinação)?","acceptedAnswer":{"@type":"Answer","text":"Reduz muito, mas não elimina sozinho. Ao amarrar a resposta a um trecho real da sua base, o RAG dá contexto verdadeiro ao modelo. Combinado com guardrails — instrução para só responder o que está na fonte e admitir quando não sabe — ele derruba a maior parte das invenções."}},{"@type":"Question","name":"O que precisa ter na base de conhecimento de um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Tabela de preços e condições, políticas (troca, garantia, prazo, frete), catálogo e ficha dos produtos, perguntas frequentes reais, procedimentos internos e um documento de tom de voz. O segredo não é volume: é ter conteúdo correto, atualizado e organizado, porque a IA responde exatamente o que estiver ali."}},{"@type":"Question","name":"Preciso de muitos documentos para começar?","acceptedAnswer":{"@type":"Answer","text":"Não. Começa pelo processo que mais gera dúvida ou perde venda e monte a base só com o que responde aquelas perguntas. Uma base pequena e correta funciona melhor do que um monte de arquivos desatualizados e contraditórios."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -242,5 +250,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

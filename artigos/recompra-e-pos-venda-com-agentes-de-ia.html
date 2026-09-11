@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que é recompra com agente de IA?","acceptedAnswer":{"@type":"Answer","text":"É uma régua de pós-venda automática operada por um agente de inteligência artificial conectado ao histórico de pedidos. Ele identifica quem já comprou, calcula quando aquele cliente deveria comprar de novo (o ciclo do produto) e inicia a conversa no WhatsApp na janela certa, com contexto do que a pessoa levou. Não é disparo em massa: cada mensagem é individual e baseada no comportamento daquele cliente."}},{"@type":"Question","name":"Qual o melhor momento para pedir a recompra?","acceptedAnswer":{"@type":"Answer","text":"Entre 60% e 80% do ciclo de consumo do produto. Se o cliente costuma comprar de novo a cada 60 dias, a conversa começa por volta do dia 40. Para descobrir o seu número, exporte os pedidos, calcule a diferença em dias entre a primeira e a segunda compra de cada cliente e use a mediana — não a média, que fica distorcida por casos extremos."}},{"@type":"Question","name":"Preciso contratar uma equipe de pós-venda para fazer isso?","acceptedAnswer":{"@type":"Answer","text":"Não para o volume repetitivo. O agente cobre o que é previsível: confirmação de entrega, checagem de uso, lembrete de reposição, oferta de recompra e reativação. A equipe humana entra em três situações — cliente insatisfeito, negociação fora da política e pedido de alto valor. Na prática, o agente não substitui o time: ele evita que você precise contratar mais gente conforme a base cresce."}},{"@type":"Question","name":"Quantas mensagens de pós-venda são demais?","acceptedAnswer":{"@type":"Answer","text":"O limite prático é de quatro a seis contatos por ciclo de compra, com pelo menos uma delas sendo útil e sem oferta. A regra que eu uso: se o cliente não respondeu a dois contatos seguidos, o agente pausa aquele cliente por um ciclo inteiro. Quem parou de responder e continua recebendo mensagem vira descadastro, e descadastro é perda permanente de canal."}},{"@type":"Question","name":"O agente de recompra pode mandar mensagem a qualquer hora?","acceptedAnswer":{"@type":"Answer","text":"Não. Na WhatsApp Business Platform da Meta, quando passam mais de 24 horas desde a última mensagem do cliente, só é possível iniciar a conversa com um modelo de mensagem aprovado previamente. Como a maior parte da régua de recompra acontece semanas depois da compra, quase toda ela depende de modelos aprovados — e o agente precisa respeitar horário comercial e opt-out."}},{"@type":"Question","name":"Como sei se a recompra veio do agente e não aconteceria de qualquer jeito?","acceptedAnswer":{"@type":"Answer","text":"Deixando um grupo de controle de fora. Separe entre 10% e 20% dos clientes elegíveis para não receber nenhuma mensagem e compare a taxa de recompra dos dois grupos na mesma janela. A diferença entre eles é o resultado real do agente. Sem esse controle, você está contando como vitória vendas que já iriam acontecer."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -353,5 +361,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

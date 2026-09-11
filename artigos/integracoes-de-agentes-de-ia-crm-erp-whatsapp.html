@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que significa integrar um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Integrar um agente de IA é dar a ele acesso controlado aos sistemas onde a empresa guarda dados e executa ações — WhatsApp, CRM, ERP, catálogo, agenda, plataforma de e-commerce. Sem integração, o agente só conversa; com integração, ele consulta um pedido de verdade, atualiza um cadastro e agenda um horário. É o que separa uma demonstração bonita de uma operação que resolve."}},{"@type":"Question","name":"Qual a diferença entre API e webhook na integração de um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"A API é o caminho pelo qual o agente pede algo a um sistema (consultar estoque, criar um lead). O webhook é o contrário: o sistema avisa o agente quando algo acontece (um carrinho foi abandonado, um pagamento caiu). Na prática, os dois trabalham juntos — o webhook dispara o agente e a API deixa ele agir."}},{"@type":"Question","name":"Preciso de um sistema com API para usar agente de IA?","acceptedAnswer":{"@type":"Answer","text":"O ideal é que os sistemas principais tenham API, porque é a integração mais estável. Mas dá para começar mesmo sem API completa usando conectores como n8n, Zapier ou Make, planilhas e a própria API oficial do WhatsApp. O que não funciona é integração por robô que clica em tela: quebra a cada atualização."}},{"@type":"Question","name":"Quanto tempo leva para integrar um agente de IA aos sistemas da empresa?","acceptedAnswer":{"@type":"Answer","text":"Uma integração de um processo só — por exemplo, agente no WhatsApp consultando pedidos do e-commerce — costuma ficar pronta em poucas semanas quando os sistemas têm API documentada. O que estende o prazo não é a IA, é a bagunça dos dados: cadastros duplicados, campos sem padrão e permissões que ninguém sabe quem controla."}},{"@type":"Question","name":"Integração de IA é segura para os dados da empresa?","acceptedAnswer":{"@type":"Answer","text":"Pode e deve ser. A integração segura usa credenciais próprias com permissão mínima (o agente só acessa o que precisa), registra tudo o que ele faz e mantém dados sensíveis fora do que não é necessário. Isso está diretamente ligado à LGPD e é um requisito de projeto, não um detalhe deixado para depois."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -244,5 +252,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

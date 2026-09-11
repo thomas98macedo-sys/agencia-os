@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"Quais funções não podem faltar no time de uma agência de marketing?","acceptedAnswer":{"@type":"Answer","text":"Atendimento (gestão de conta), gestão de tráfego, criativo (design e edição) e produção de conteúdo. Conforme a agência cresce, entram coordenação/head, dados/BI e uma função de operações que cuida de processo. Vendas e financeiro sustentam o negócio por trás da entrega."}},{"@type":"Question","name":"Quantos clientes um gestor de tráfego consegue atender bem?","acceptedAnswer":{"@type":"Answer","text":"Depende da complexidade da conta e do apoio que ele tem. Contas de e-commerce com muitas campanhas e alto investimento pedem menos clientes por gestor; contas simples de negócio local permitem mais. A regra é medir a qualidade da entrega e o tempo por conta: quando a qualidade cai ou o gestor vive apagando incêndio, o time está no limite."}},{"@type":"Question","name":"Quando contratar mais gente na agência?","acceptedAnswer":{"@type":"Answer","text":"Contrate por gargalo medido, não por sensação. Se o time está no limite de clientes por pessoa, a qualidade começou a cair ou você está recusando bons clientes por falta de mão de obra, é hora. O ideal é contratar um pouco antes de estourar, mantendo caixa para bancar a pessoa até ela se pagar."}},{"@type":"Question","name":"Vale a pena ter produção própria (estúdio interno) na agência?","acceptedAnswer":{"@type":"Answer","text":"Sim, quando o volume de criativos justifica. Produção própria dá velocidade, padrão de qualidade e controle da esteira de conteúdo — que é o que mais move resultado no tráfego. Enquanto o volume é baixo, freelancers resolvem; ao escalar, trazer a produção para dentro reduz custo por peça e prazo."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -235,5 +243,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

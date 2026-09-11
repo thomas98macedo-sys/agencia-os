@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"Qual a diferença entre Performance Max e Google Shopping?","acceptedAnswer":{"@type":"Answer","text":"Google Shopping é o formato de anúncio de produto alimentado pelo feed do Merchant Center. Performance Max é um tipo de campanha que usa esse mesmo feed e distribui os anúncios em todas as superfícies do Google ao mesmo tempo — Busca, Shopping, YouTube, Display, Gmail, Discover e Maps — com lances automáticos. Na prática: Shopping é o formato, PMax é a campanha que orquestra o formato junto com o resto do inventário do Google. Uma campanha Shopping padrão dá mais controle e transparência; a PMax dá mais alcance e depende de dados de conversão para funcionar bem."}},{"@type":"Question","name":"Quando NÃO usar Performance Max no e-commerce?","acceptedAnswer":{"@type":"Answer","text":"Não use PMax quando a loja ainda não tem histórico de conversão confiável, quando o feed de produtos está incompleto ou com erros no Merchant Center, quando o rastreamento de conversão não está com valor de compra correto, e quando o orçamento diário é pequeno demais para gerar volume de aprendizado. Também evito PMax como primeira campanha de marcas com muita busca por nome próprio, porque ela tende a capturar tráfego de marca que já converteria de graça e inflar o ROAS aparente."}},{"@type":"Question","name":"Como estruturar o feed de produtos para Performance Max?","acceptedAnswer":{"@type":"Answer","text":"Título com a lógica marca + produto + atributo decisivo (cor, tamanho, material) nos primeiros caracteres; GTIN e brand preenchidos; product_type com a sua própria taxonomia de categorias; google_product_category correta; imagem limpa e de alta resolução; preço, disponibilidade e frete sempre sincronizados. E o passo que quase ninguém dá: usar os cinco custom labels para marcar margem, faixa de preço, giro de estoque, sazonalidade e best-sellers — é com eles que você separa produtos em campanhas com metas de ROAS diferentes."}},{"@type":"Question","name":"Devo separar campanha de marca da Performance Max?","acceptedAnswer":{"@type":"Answer","text":"Sim, na maioria das lojas com marca conhecida. Sem separar, a PMax abocanha as buscas pelo nome da sua loja, que converteriam com custo baixo de qualquer jeito, e o relatório mostra um ROAS excelente que não corresponde a crescimento real. O caminho é manter uma campanha de Busca de marca dedicada e aplicar exclusões de marca na PMax, medindo o desempenho dela pelo que traz de novo cliente."}},{"@type":"Question","name":"Quanto tempo leva para a Performance Max estabilizar?","acceptedAnswer":{"@type":"Answer","text":"Na minha operação, considero as primeiras duas a três semanas como período de aprendizado, e não tomo decisão estrutural antes disso. Mudanças bruscas de orçamento ou de tROAS reiniciam o aprendizado; o certo é ajustar em degraus pequenos e esperar o ciclo de conversão da loja passar antes de julgar o resultado."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -295,5 +303,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

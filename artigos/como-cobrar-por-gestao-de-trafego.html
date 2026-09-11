@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"Quanto uma agência cobra por gestão de tráfego?","acceptedAnswer":{"@type":"Answer","text":"Depende do modelo. No fee fixo, a agência cobra um valor mensal pela gestão, independente da verba. No percentual, cobra uma fração do investimento em mídia (comum entre 10% e 20%). Na performance, cobra sobre o resultado gerado (faturamento, leads ou vendas). Não existe tabela única: o preço tem que caber na margem do cliente e cobrir o custo de operação da agência."}},{"@type":"Question","name":"Qual a diferença entre fee fixo e percentual da verba?","acceptedAnswer":{"@type":"Answer","text":"No fee fixo, o cliente paga o mesmo valor todo mês pela gestão, o que traz previsibilidade para os dois lados. No percentual da verba, a agência recebe uma fração do que é investido em anúncio — então quando o cliente escala a verba, a agência ganha mais, e quando corta, ganha menos. O fee protege a operação; o percentual amarra a receita da agência ao orçamento de mídia do cliente."}},{"@type":"Question","name":"Cobrar por performance vale a pena para a agência?","acceptedAnswer":{"@type":"Answer","text":"Vale quando a agência controla as variáveis que geram o resultado e o cliente tem operação pronta para vender (site, estoque, atendimento). Se a agência é remunerada por venda mas o time comercial do cliente não fecha, ou o produto não converte, ela trabalha de graça. Performance funciona melhor como bônus sobre um fee, não como única forma de pagamento."}},{"@type":"Question","name":"Qual modelo de cobrança sustenta melhor a escala de uma agência?","acceptedAnswer":{"@type":"Answer","text":"O fee fixo (ou fee mais bônus de performance) é o que sustenta a escala, porque dá previsibilidade de caixa para contratar, treinar e manter processo. Modelos 100% percentual ou 100% performance deixam a receita da agência refém de fatores fora do seu controle, o que torna o crescimento instável."}},{"@type":"Question","name":"O tráfego é cobrado à parte da verba de anúncio?","acceptedAnswer":{"@type":"Answer","text":"Sim. A verba de anúncio é o dinheiro que vai para Meta, Google ou TikTok e some na plataforma. O honorário da agência é o que você paga pelo trabalho de estratégia, gestão e otimização. São duas coisas separadas: confundir as duas é o erro mais comum de quem está começando a contratar."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -216,5 +224,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

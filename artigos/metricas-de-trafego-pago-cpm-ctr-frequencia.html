@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que significam CPM, CTR, CPC e frequência no anúncio?","acceptedAnswer":{"@type":"Answer","text":"CPM é o custo para mostrar o anúncio mil vezes (o preço do leilão). CTR é a taxa de cliques sobre impressões (o interesse que o criativo gera). CPC é o custo por clique (CPM dividido pelos cliques). Frequência é quantas vezes, em média, a mesma pessoa viu seu anúncio no período. Juntas, elas mostram onde a campanha ganha ou perde dinheiro antes mesmo da venda."}},{"@type":"Question","name":"Qual é um bom CTR para e-commerce?","acceptedAnswer":{"@type":"Answer","text":"Não existe número mágico universal, porque varia por nicho, oferta e etapa do funil. O que importa é a leitura relativa: um CTR de link muito abaixo dos seus outros anúncios sinaliza criativo ou público fracos, e um CTR alto com poucas vendas empurra o problema para a landing page ou o checkout. Compare sempre contra o seu próprio histórico, não contra prints da internet."}},{"@type":"Question","name":"Frequência alta é ruim?","acceptedAnswer":{"@type":"Answer","text":"Frequência alta em público frio costuma indicar desgaste: o mesmo criativo aparecendo demais para as mesmas pessoas faz o CPM subir e o CTR cair. Em remarketing, uma frequência mais alta é normal e até esperada. O sinal de alerta é frequência subindo enquanto CTR cai e CPA sobe ao mesmo tempo — aí é hora de renovar o criativo ou abrir o público."}},{"@type":"Question","name":"Por que meu anúncio tem muito clique e nenhuma venda?","acceptedAnswer":{"@type":"Answer","text":"Quando CTR e CPC estão saudáveis mas a venda não vem, o problema quase nunca é o anúncio: é o que acontece depois do clique. Página de produto lenta, preço ou frete que surpreendem, poucas provas e um checkout com atrito derrubam a conversão. O tráfego pago só entrega o clique — a página precisa fechar a venda."}},{"@type":"Question","name":"Quais métricas olhar primeiro para diagnosticar um anúncio?","acceptedAnswer":{"@type":"Answer","text":"Siga a ordem do funil: CPM (o leilão está caro?), CTR (o criativo interessa?), taxa de conversão da página (o clique vira compra?) e, por fim, CPA e ROAS (o resultado paga a conta?). Ler nessa sequência isola a etapa que trava em vez de olhar só o ROAS e chutar o que mudar."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -218,5 +226,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

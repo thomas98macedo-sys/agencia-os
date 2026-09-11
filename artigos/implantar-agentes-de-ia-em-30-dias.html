@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"Dá mesmo para implantar um agente de IA em 30 dias?","acceptedAnswer":{"@type":"Answer","text":"Dá, desde que o escopo seja um único processo com dor clara — atendimento e qualificação no WhatsApp, recuperação de carrinho, triagem de mensagens. O que não cabe em 30 dias é reformar todos os sistemas da empresa ao mesmo tempo. O prazo de 30 dias é para colocar um agente em produção atendendo casos reais, não para digitalizar a companhia inteira."}},{"@type":"Question","name":"Qual processo automatizar primeiro com um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Escolha o processo que tem alto volume, regras estáveis, dado disponível e custo baixo de erro. Na prática, quase sempre é o primeiro contato comercial: responder e qualificar quem chega, 24 horas por dia. É onde a empresa mais perde venda por demora e onde o resultado aparece já na primeira semana de operação."}},{"@type":"Question","name":"O que medir em cada semana da implantação de IA?","acceptedAnswer":{"@type":"Answer","text":"Semana 1: linha de base (tempo de resposta, taxa de resposta, conversão, horas gastas). Semana 2: cobertura de intenções e taxa de acerto em testes. Semana 3: taxa de escalonamento para humano e correções por 100 conversas. Semana 4: conversão do agente contra a linha de base, custo por conversa e receita influenciada."}},{"@type":"Question","name":"Preciso trocar de CRM ou de WhatsApp para usar um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Não. Trocar de sistema no meio da implantação é o erro mais caro que existe, porque mistura dois projetos e some com a causa do resultado. O agente deve se conectar às ferramentas que a empresa já usa. Se algum sistema realmente for um gargalo, troque depois que o agente estiver em produção e medido."}},{"@type":"Question","name":"Quantas pessoas são necessárias para implantar um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Três papéis, não três departamentos: um dono do processo dentro da empresa (quem conhece as regras e responde dúvidas), quem constrói e integra o agente, e um revisor que lê as conversas todo dia nas primeiras semanas. Projetos sem dono do processo interno são os que mais atrasam."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -278,5 +286,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

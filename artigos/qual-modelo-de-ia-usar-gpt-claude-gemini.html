@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"Qual é o melhor modelo de IA: GPT, Claude ou Gemini?","acceptedAnswer":{"@type":"Answer","text":"Não existe um melhor para tudo. Cada família de modelo (GPT da OpenAI, Claude da Anthropic, Gemini do Google) tem forças diferentes em custo, raciocínio, seguir instruções, tamanho de contexto e integração. O melhor modelo é o que resolve a sua tarefa específica com a qualidade necessária pelo menor custo — e muitas vezes um agente usa mais de um."}},{"@type":"Question","name":"Preciso escolher só um modelo para minha empresa?","acceptedAnswer":{"@type":"Answer","text":"Não. O padrão mais eficiente é usar modelos diferentes para tarefas diferentes: um modelo mais barato e rápido para triagem e respostas simples, e um modelo mais forte só quando a tarefa exige raciocínio ou risco maior. Isso reduz custo sem perder qualidade onde ela importa."}},{"@type":"Question","name":"O modelo mais caro é sempre o melhor para o agente?","acceptedAnswer":{"@type":"Answer","text":"Não. Modelo mais caro costuma raciocinar melhor em tarefas difíceis, mas em atendimento e respostas rotineiras ele desperdiça dinheiro. A escolha certa é por tarefa: use o modelo forte só onde o erro custa caro e o modelo barato no volume."}},{"@type":"Question","name":"Trocar de modelo depois é difícil?","acceptedAnswer":{"@type":"Answer","text":"Se o agente foi bem construído, não. Um bom projeto isola o modelo do resto do sistema, então trocar de GPT para Claude, ou vice-versa, é uma questão de reconfigurar e testar — não de reconstruir tudo. Por isso vale evitar depender de um único fornecedor de forma amarrada."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -222,5 +230,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

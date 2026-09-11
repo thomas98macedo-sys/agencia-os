@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"O que é um fornecedor de marca própria (private label)?","acceptedAnswer":{"@type":"Answer","text":"É a fábrica que produz um produto já pronto e o entrega com a sua marca — embalagem, rótulo e identidade visual seus. Você não monta uma fábrica: contrata a produção. É o modelo private label, base de boa parte das marcas de cosméticos, suplementos, moda e acessórios vendidas no Brasil."}},{"@type":"Question","name":"O que é MOQ e por que ele importa na marca própria?","acceptedAnswer":{"@type":"Answer","text":"MOQ (Minimum Order Quantity) é a quantidade mínima que a fábrica aceita produzir por pedido. Ele define quanto capital você trava em estoque no primeiro lote. Quanto menor o MOQ, menor o risco para validar a marca; quanto maior, melhor tende a ser o preço unitário. Negociar o MOQ do primeiro pedido é uma das conversas mais importantes com o fornecedor."}},{"@type":"Question","name":"É melhor produzir no Brasil ou importar da China para marca própria?","acceptedAnswer":{"@type":"Answer","text":"Depende do produto e do estágio. O Brasil costuma dar prazo curto, reposição rápida e menos risco regulatório e cambial — bom para validar. A China costuma dar custo unitário menor em escala, mais opções de customização e MOQ competitivo, ao custo de prazo longo, frete, impostos de importação e mais risco de qualidade. Muitas marcas começam no Brasil e migram parte da produção depois."}},{"@type":"Question","name":"Como avaliar se um fornecedor é confiável?","acceptedAnswer":{"@type":"Answer","text":"Peça amostra paga antes de qualquer pedido, verifique CNPJ e certificações exigidas para o seu produto (por exemplo, ANVISA para cosméticos e suplementos), confira tempo de mercado e referências de outros clientes, e faça um pedido-piloto pequeno antes de comprar volume. Nunca escale o pedido em cima de uma amostra: escale em cima de um lote real que você já vendeu."}},{"@type":"Question","name":"Preciso registrar a marca antes de fechar com o fornecedor?","acceptedAnswer":{"@type":"Answer","text":"Registrar no INPI não é obrigatório para produzir, mas é o que protege o nome que você vai estampar na embalagem. O ideal é iniciar o registro em paralelo ao desenvolvimento do produto, para não investir em rótulo, identidade e tráfego sobre um nome que outra empresa pode reivindicar."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -223,5 +231,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

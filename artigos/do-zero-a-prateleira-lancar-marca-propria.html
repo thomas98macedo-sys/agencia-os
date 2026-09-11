@@ -72,6 +72,14 @@
     "mainEntity":[{"@type":"Question","name":"Quanto custa lançar uma marca própria no Brasil?","acceptedAnswer":{"@type":"Answer","text":"O investimento se divide em quatro blocos: o primeiro lote de produto (o maior deles, definido pelo lote mínimo do fornecedor), a identidade e a arte de embalagem, as adequações legais e o código de barras, e a verba da primeira campanha. Não existe um número único porque o lote mínimo muda por categoria, mas a regra de segurança é sempre a mesma: comece pelo menor lote que o fornecedor aceitar e reserve verba de mídia suficiente para descobrir o seu custo por aquisição antes de recomprar estoque."}},{"@type":"Question","name":"Como encontrar um fornecedor para marca própria?","acceptedAnswer":{"@type":"Answer","text":"Há três caminhos: fabricantes nacionais que já produzem para terceiros na sua categoria, feiras e rodadas de negócios do setor, e importação direta da Ásia em eventos como a Canton Fair. Qualifique sempre pelo menos três fornecedores com o mesmo briefing, peça amostra paga antes de qualquer pedido, exija ficha técnica e laudos, confirme capacidade e prazo por escrito, e nunca pague cem por cento adiantado — o padrão de mercado é um sinal na assinatura e o restante contra inspeção ou embarque."}},{"@type":"Question","name":"Como precificar um produto de marca própria?","acceptedAnswer":{"@type":"Answer","text":"Nunca multiplicando o custo por um número mágico. Monte a margem de contribuição de baixo para cima: preço menos custo do produto, embalagem, frete subsidiado, taxa de pagamento, imposto e operação do pedido. O que sobra precisa pagar o seu custo de aquisição de cliente e ainda deixar lucro. Se o CAC que a sua categoria exige não cabe nessa margem, o preço está errado, não a campanha."}},{"@type":"Question","name":"Preciso de registro na ANVISA para vender marca própria?","acceptedAnswer":{"@type":"Answer","text":"Depende da categoria. Cosméticos, alimentos e suplementos têm exigências específicas de regularização junto à ANVISA, geralmente com responsável técnico e rótulo em regra. Produtos elétricos e brinquedos podem exigir certificação INMETRO. Vestuário, acessórios e itens de casa costumam ser bem mais simples. O código de barras é emitido pela GS1 Brasil. Antes de fechar o primeiro lote, confirme a exigência da sua categoria com um responsável técnico ou consultor regulatório — refazer rótulo depois de imprimir dez mil unidades é o erro mais caro do lançamento."}},{"@type":"Question","name":"Quanto investir na primeira campanha de uma marca nova?","acceptedAnswer":{"@type":"Answer","text":"O suficiente para gerar dados, não para lucrar. Eu trabalho com duas semanas de teste, verba diária estável, uma campanha de vendas, cinco criativos diferentes entre si e público amplo. O objetivo dessa fase é descobrir três números: custo por clique, taxa de conversão da página e custo por aquisição real. Só depois desses três números na mão faz sentido falar em escala de verba."}},{"@type":"Question","name":"Quanto tempo leva para lançar uma marca própria do zero?","acceptedAnswer":{"@type":"Answer","text":"Um lançamento bem conduzido leva de 90 a 120 dias em categorias simples, e mais quando há exigência regulatória ou importação. O cronograma típico é: 30 dias para produto e fornecedor, 30 para marca, embalagem e adequação legal, 15 para loja, fotos e estoque, e 15 para a campanha de teste. Quem tenta comprimir isso costuma pagar a diferença em retrabalho de rótulo ou em estoque parado."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -355,5 +363,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"Qual canal recupera mais carrinho abandonado: WhatsApp, e-mail ou SMS?","acceptedAnswer":{"@type":"Answer","text":"Na prática, o WhatsApp costuma recuperar mais porque é aberto e respondido em minutos, permite conversa de mão dupla e tira a objeção do cliente na hora. O e-mail tem alcance e custo baixo, mas abertura muito menor e nenhuma conversa. O SMS é direto, mas curto e sem contexto. O ideal não é escolher um só: é usar o WhatsApp com IA como canal principal e o e-mail como reforço."}},{"@type":"Question","name":"Por que o WhatsApp converte mais que o e-mail na recuperação de venda?","acceptedAnswer":{"@type":"Answer","text":"Porque a mensagem é lida quase sempre e quase na hora, e porque o cliente pode responder. Uma dúvida sobre frete, prazo ou pagamento vira uma conversa em vez de um e-mail ignorado. Com um agente de IA, essa conversa acontece 24h, na hora, e resolve a objeção que travava a compra."}},{"@type":"Question","name":"O e-mail de recuperação de carrinho ainda vale a pena?","acceptedAnswer":{"@type":"Answer","text":"Sim, como reforço. O e-mail tem custo por envio praticamente zero e alcança quem não deixou telefone ou não deu opt-in no WhatsApp. Ele não substitui a conversa do WhatsApp, mas cobre o restante da base e mantém a marca presente. O erro é depender só dele."}},{"@type":"Question","name":"Posso mandar mensagem de recuperação no WhatsApp para qualquer cliente?","acceptedAnswer":{"@type":"Answer","text":"Não. Você precisa de base legal sob a LGPD e, para envios ativos, de opt-in e de templates aprovados dentro das regras da plataforma. O caminho certo é coletar consentimento no checkout, oferecer saída fácil e falar só com quem demonstrou interesse real — carrinho, Pix ou boleto gerado."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -247,5 +255,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

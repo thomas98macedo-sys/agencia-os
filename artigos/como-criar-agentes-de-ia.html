@@ -65,6 +65,14 @@
     "mainEntity":[{"@type":"Question","name":"Preciso saber programar para ter um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Não. O dono do negócio precisa clareza sobre o processo e os dados; a parte técnica (integração e configuração) é feita por quem constrói o sistema. O mais importante é o desenho do processo, não o código."}},{"@type":"Question","name":"Quanto tempo leva para criar um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Um agente focado em um processo específico pode sair em poucas semanas. O que estende o prazo é a falta de clareza sobre o processo e a base de conhecimento — por isso começar enxuto é mais rápido e mais barato."}},{"@type":"Question","name":"Qual a diferença entre criar um agente e usar um chatbot pronto?","acceptedAnswer":{"@type":"Answer","text":"Um chatbot pronto segue um roteiro genérico. Um agente construído sob medida conhece seus dados, se conecta aos seus sistemas e executa ações reais — é a diferença entre responder mensagem e resolver o problema do cliente."}},{"@type":"Question","name":"Como garantir que o agente não invente informação?","acceptedAnswer":{"@type":"Answer","text":"Com uma base de conhecimento bem montada e limites claros: o agente só responde o que sabe e encaminha o resto para um humano. Nunca deve chutar preço, prazo ou política — isso quebra a confiança do cliente."}}]
   }
   </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
 </head>
 <body>
 
@@ -202,5 +210,35 @@
   </a>
 
   <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
 </body>
 </html>

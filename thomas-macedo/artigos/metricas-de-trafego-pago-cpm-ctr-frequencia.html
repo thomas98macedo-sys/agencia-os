@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>CPM, CTR, CPC e frequência: como ler as métricas do anúncio e achar onde ele trava | Thomas Macedo</title>
+  <meta name="description" content="CPM mostra o preço do leilão, CTR o interesse no criativo, CPC o custo do clique e frequência o desgaste. Aprenda a ler cada métrica do anúncio e diagnosticar exatamente onde sua campanha de e-commerce está travando." />
+  <meta name="keywords" content="métricas de tráfego pago, CPM CTR CPC frequência, como ler gerenciador de anúncios, diagnóstico de anúncio ecommerce, métricas Meta Ads, Thomas Macedo" />
+  <meta name="author" content="Thomas Macedo" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://www.thomas-macedo.com/artigos/metricas-de-trafego-pago-cpm-ctr-frequencia.html" />
+  <meta name="theme-color" content="#FAF8F3" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Thomas Macedo" />
+  <meta property="og:title" content="CPM, CTR, CPC e frequência: como achar onde seu anúncio trava" />
+  <meta property="og:description" content="Pare de chutar por que o anúncio não vende. Aprenda a ler CPM, CTR, CPC e frequência e diagnostique exatamente onde a campanha de e-commerce está travando." />
+  <meta property="og:url" content="https://www.thomas-macedo.com/artigos/metricas-de-trafego-pago-cpm-ctr-frequencia.html" />
+  <meta property="og:image" content="https://www.thomas-macedo.com/img/thomas-macedo-conteudo-escala.jpeg" />
+  <meta property="article:author" content="Thomas Macedo" />
+  <meta property="article:published_time" content="2026-09-11" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="CPM, CTR, CPC e frequência: como achar onde seu anúncio trava" />
+  <meta name="twitter:description" content="Pare de chutar por que o anúncio não vende. Aprenda a ler CPM, CTR, CPC e frequência e diagnostique exatamente onde a campanha de e-commerce está travando." />
+  <meta name="twitter:image" content="https://www.thomas-macedo.com/img/thomas-macedo-conteudo-escala.jpeg" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BlogPosting",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.thomas-macedo.com/artigos/metricas-de-trafego-pago-cpm-ctr-frequencia.html"},
+    "headline":"CPM, CTR, CPC e frequência: como ler as métricas do anúncio e achar onde ele trava",
+    "description":"CPM mostra o preço do leilão, CTR o interesse no criativo, CPC o custo do clique e frequência o desgaste. Aprenda a ler cada métrica e diagnosticar onde sua campanha de e-commerce está travando.",
+    "image":"https://www.thomas-macedo.com/img/thomas-macedo-conteudo-escala.jpeg",
+    "datePublished":"2026-09-11","dateModified":"2026-09-11",
+    "inLanguage":"pt-BR",
+    "author":{"@type":"Person","name":"Thomas Macedo","url":"https://www.thomas-macedo.com/","jobTitle":"Especialista em IA, Criação de Marcas e Tráfego Pago","worksFor":{"@type":"Organization","name":"Gene Company"},"sameAs":["https://www.instagram.com/thomasmacedo.ads","https://www.linkedin.com/in/thomas-macedo-23896216a/"]},
+    "publisher":{"@id":"https://www.thomas-macedo.com/#thomas-macedo"},
+    "keywords":"métricas de tráfego pago, CPM CTR CPC frequência, como ler gerenciador de anúncios, diagnóstico de anúncio ecommerce, métricas Meta Ads, Thomas Macedo"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.thomas-macedo.com/"},
+      {"@type":"ListItem","position":2,"name":"Artigos","item":"https://www.thomas-macedo.com/artigos/"},
+      {"@type":"ListItem","position":3,"name":"CPM, CTR, CPC e frequência: como ler as métricas do anúncio","item":"https://www.thomas-macedo.com/artigos/metricas-de-trafego-pago-cpm-ctr-frequencia.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[{"@type":"Question","name":"O que significam CPM, CTR, CPC e frequência no anúncio?","acceptedAnswer":{"@type":"Answer","text":"CPM é o custo para mostrar o anúncio mil vezes (o preço do leilão). CTR é a taxa de cliques sobre impressões (o interesse que o criativo gera). CPC é o custo por clique (CPM dividido pelos cliques). Frequência é quantas vezes, em média, a mesma pessoa viu seu anúncio no período. Juntas, elas mostram onde a campanha ganha ou perde dinheiro antes mesmo da venda."}},{"@type":"Question","name":"Qual é um bom CTR para e-commerce?","acceptedAnswer":{"@type":"Answer","text":"Não existe número mágico universal, porque varia por nicho, oferta e etapa do funil. O que importa é a leitura relativa: um CTR de link muito abaixo dos seus outros anúncios sinaliza criativo ou público fracos, e um CTR alto com poucas vendas empurra o problema para a landing page ou o checkout. Compare sempre contra o seu próprio histórico, não contra prints da internet."}},{"@type":"Question","name":"Frequência alta é ruim?","acceptedAnswer":{"@type":"Answer","text":"Frequência alta em público frio costuma indicar desgaste: o mesmo criativo aparecendo demais para as mesmas pessoas faz o CPM subir e o CTR cair. Em remarketing, uma frequência mais alta é normal e até esperada. O sinal de alerta é frequência subindo enquanto CTR cai e CPA sobe ao mesmo tempo — aí é hora de renovar o criativo ou abrir o público."}},{"@type":"Question","name":"Por que meu anúncio tem muito clique e nenhuma venda?","acceptedAnswer":{"@type":"Answer","text":"Quando CTR e CPC estão saudáveis mas a venda não vem, o problema quase nunca é o anúncio: é o que acontece depois do clique. Página de produto lenta, preço ou frete que surpreendem, poucas provas e um checkout com atrito derrubam a conversão. O tráfego pago só entrega o clique — a página precisa fechar a venda."}},{"@type":"Question","name":"Quais métricas olhar primeiro para diagnosticar um anúncio?","acceptedAnswer":{"@type":"Answer","text":"Siga a ordem do funil: CPM (o leilão está caro?), CTR (o criativo interessa?), taxa de conversão da página (o clique vira compra?) e, por fim, CPA e ROAS (o resultado paga a conta?). Ler nessa sequência isola a etapa que trava em vez de olhar só o ROAS e chutar o que mudar."}}]
+  }
+  </script>
+</head>
+<body>
+
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="../index.html" class="wordmark">Thomas <span>Macedo</span></a>
+        <div class="nav-links">
+          <a href="../index.html" class="hide-mob">IA &amp; Performance</a>
+          <a href="../marcas.html" class="hide-mob">Marcas &amp; E-commerce</a>
+          <a href="../artigos/" class="active hide-mob">Artigos</a>
+          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="nav-cta" target="_blank" rel="noopener">Falar comigo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap"><nav class="crumb"><a href="../index.html">Início</a><span>/</span><a href="../artigos/">Artigos</a><span>/</span>CPM, CTR, CPC e frequência</nav></div>
+
+  <article>
+    <header class="article-head">
+      <span class="eyebrow">E-commerce</span>
+      <h1>CPM, CTR, CPC e frequência: como ler as métricas do anúncio e achar onde ele trava</h1>
+      <p class="dek">A maioria só olha o ROAS e chuta o que mudar. Aqui eu mostro a ordem certa de ler as métricas para diagnosticar exatamente onde a campanha de e-commerce está perdendo dinheiro — do leilão ao checkout.</p>
+      <div class="article-meta">
+        <span>Por Thomas Macedo</span><span class="dot"></span><span>9 min de leitura</span><span class="dot"></span><span>Atualizado em 2026</span>
+      </div>
+    </header>
+
+    <div class="article-cover">
+      <img src="../img/thomas-macedo-conteudo-escala.jpeg" alt="Painel de métricas de tráfego pago para e-commerce: CPM, CTR, CPC e frequência" width="1000" height="500" style="object-position:center 40%" />
+    </div>
+
+    <div class="prose">
+      <p><strong>CPM, CTR, CPC e frequência são as quatro métricas que mostram onde um anúncio ganha ou perde dinheiro antes mesmo da venda acontecer.</strong> O CPM é o preço do leilão (quanto custa mostrar o anúncio mil vezes), o CTR é o interesse que o criativo gera (cliques sobre impressões), o CPC é o custo de cada clique e a frequência é quantas vezes a mesma pessoa viu o anúncio. Lidas na ordem do funil, elas isolam a etapa exata que está travando — em vez de você olhar só o ROAS e chutar o que mudar.</p>
+
+      <p>Eu gerencio verba de e-commerce todos os dias, e a maior parte dos anúncios ruins não morre por falta de dinheiro: morre porque ninguém sabia ler onde estava o furo. Vou te dar essa leitura.</p>
+
+      <div class="callout">
+        <span class="k">Resumo rápido</span>
+        <ul>
+          <li><strong>CPM caro?</strong> Problema de leilão, público ou sazonalidade.</li>
+          <li><strong>CTR baixo?</strong> Problema de criativo ou oferta — as pessoas veem e não clicam.</li>
+          <li><strong>Muito clique e nenhuma venda?</strong> O furo está na página ou no checkout, não no anúncio.</li>
+          <li><strong>Frequência subindo + CTR caindo?</strong> Criativo desgastado — hora de renovar.</li>
+        </ul>
+      </div>
+
+      <h2>Por que olhar só o ROAS te deixa cego</h2>
+      <p>O ROAS (retorno sobre o investimento em anúncio) é o placar final. Ele te diz <em>se</em> está dando certo, mas nunca te diz <em>por quê</em>. Quando o ROAS cai, você tem dezenas de causas possíveis: leilão mais caro, criativo cansado, público errado, página lenta, frete que assusta no checkout. Trocar de criativo quando o problema era a página é queimar verba com a solução errada. As métricas de meio de funil existem justamente para apontar o culpado. Se você quer o mapa completo das métricas de dinheiro, eu detalho <a href="../artigos/roas-cac-ltv-margem-de-contribuicao.html">ROAS, CAC, LTV e margem de contribuição</a> em outro artigo — aqui o foco é o diagnóstico dentro do gerenciador.</p>
+
+      <h2>CPM: o preço que você paga para aparecer</h2>
+      <p>O CPM (custo por mil impressões) é o termômetro do leilão. Ele sobe quando há mais anunciantes disputando o mesmo público (Black Friday, Dia das Mães), quando seu público está estreito demais ou quando a qualidade percebida do anúncio cai. Um CPM alto encarece tudo o que vem depois: mesmo com um bom CTR, você paga mais caro por cada clique.</p>
+      <p>O que fazer quando o CPM dispara: abrir o público (deixar a Meta encontrar quem converte em vez de segmentar demais), revisar a qualidade do criativo e checar a sazonalidade. Em datas de pico, CPM alto é esperado — o erro é reagir a ele como se fosse um problema estrutural. Falo mais sobre isso no guia de <a href="../artigos/preparar-ecommerce-para-black-friday.html">preparar o e-commerce para a Black Friday</a>.</p>
+
+      <h2>CTR: o criativo interessa ou não?</h2>
+      <p>O CTR (taxa de cliques) é a métrica mais honesta sobre o seu criativo. Ela responde uma pergunta simples: das pessoas que viram, quantas se interessaram o suficiente para clicar? Sempre olhe o <strong>CTR de link</strong> (cliques no link, não curtidas ou expansões), porque é ele que leva para a loja.</p>
+      <p>CTR baixo em relação ao seu histórico significa uma de duas coisas: o criativo não segura a atenção ou a oferta não é clara. É o sinal mais barato de detectar, porque acontece antes de a pessoa chegar na loja. Segundo o <a href="https://www.thinkwithgoogle.com/intl/pt-br/" target="_blank" rel="noopener nofollow">Think with Google</a>, o vídeo e o conteúdo autêntico têm papel central na decisão de compra do consumidor brasileiro — por isso criativo fraco custa caro em qualquer nível de verba. Se o CTR está te preocupando, comece pelo criativo: eu explico por que <a href="../artigos/criativos-de-alta-estetica.html">o criativo é o que mais vende</a> e como o <a href="../artigos/ugc-conteudo-gerado-pelo-usuario.html">UGC converte mais</a>.</p>
+
+      <blockquote><p>CTR mede o interesse. Taxa de conversão mede a venda. Confundir os dois faz você trocar o criativo quando o problema estava no checkout.</p></blockquote>
+
+      <h2>CPC: onde CPM e CTR se encontram</h2>
+      <p>O CPC (custo por clique) não é uma métrica independente — ele é a consequência das outras duas. CPC = CPM ÷ (CTR). Ou seja: se o clique está caro, é porque o leilão está caro (CPM alto) <em>ou</em> porque poucas pessoas clicam (CTR baixo). Por isso, não adianta "tentar baixar o CPC" diretamente. Você baixa o CPC melhorando o criativo (sobe o CTR) ou ajustando público e timing (baixa o CPM). O CPC é útil para comparar anúncios rápido, mas para agir você sempre volta para as duas causas.</p>
+
+      <h2>Frequência: quando o mesmo anúncio começa a cansar</h2>
+      <p>A frequência é quantas vezes, em média, a mesma pessoa viu seu anúncio no período. Em público frio, frequência alta costuma ser desgaste: as pessoas já viram, não clicaram, e a Meta continua mostrando para elas — o CPM sobe, o CTR cai e o custo por resultado sobe junto. O sinal clássico de fadiga de criativo é <strong>frequência subindo enquanto o CTR cai e o CPA sobe ao mesmo tempo</strong>.</p>
+      <p>Em remarketing é diferente: frequência mais alta é normal e até desejável, porque você quer lembrar quem já demonstrou interesse. O erro é aplicar a mesma régua nos dois casos. Se o assunto é reengajar quem já visitou, veja como estruturar o <a href="../artigos/retargeting-para-ecommerce.html">retargeting para e-commerce</a>.</p>
+
+      <h2>Muito clique e nenhuma venda: o furo depois do clique</h2>
+      <p>Este é o cenário que mais confunde. CPM ok, CTR bom, CPC saudável — e a venda não vem. Quando as métricas do anúncio estão boas mas a conversão não acontece, o problema quase nunca está no tráfego pago. Está no que acontece depois do clique: página de produto lenta, preço ou frete que surpreendem, falta de provas (avaliações, garantias), checkout com atrito.</p>
+      <p>O tráfego pago entrega o clique qualificado; quem fecha a venda é a loja. Por isso eu sempre trato a página como parte da campanha — não como algo separado. Vale revisar a <a href="../artigos/otimizacao-de-conversao-shopify.html">otimização de conversão no Shopify</a> e a estrutura de uma <a href="../artigos/landing-page-que-converte.html">landing page que converte</a>. E, para confiar nos números, o <a href="../artigos/pixel-api-de-conversoes-shopify.html">rastreamento via Pixel e API de Conversões</a> precisa estar certo — senão você diagnostica em cima de dado furado.</p>
+
+      <h2>A ordem certa de leitura (o diagnóstico em 4 passos)</h2>
+      <p>Diagnosticar não é olhar tudo ao mesmo tempo. É seguir o funil, de trás do leilão até a venda, e parar na primeira métrica que estiver fora do padrão:</p>
+      <ol>
+        <li><strong>CPM</strong> — o leilão está caro? Se sim: público estreito, sazonalidade ou qualidade do anúncio.</li>
+        <li><strong>CTR de link</strong> — o criativo interessa? Se está baixo: criativo ou oferta fracos. Pare aqui e troque o criativo.</li>
+        <li><strong>Taxa de conversão da página</strong> — o clique vira compra? Se está baixa com CTR bom: o furo é na página/checkout.</li>
+        <li><strong>CPA e ROAS</strong> — o resultado paga a conta? Só faz sentido julgar depois de entender os três acima.</li>
+      </ol>
+      <p>Lendo nessa sequência, você isola a etapa que trava em vez de mexer em tudo de uma vez. E, importante: sempre compare contra o <strong>seu próprio histórico</strong>, não contra prints da internet. Não existe CTR ou CPM "bom" universal — existe o que é normal para o seu nicho, sua oferta e sua conta.</p>
+
+      <h2>Quando essas métricas liberam a escala</h2>
+      <p>Só faz sentido subir verba quando o diagnóstico está limpo: CPM sob controle, CTR saudável, página convertendo e CPA dentro da margem. Escalar um anúncio com furo na página é multiplicar o prejuízo. Quando os fundamentos estão certos, aí sim você sobe verba por degraus — e eu explico esse método em <a href="../artigos/como-escalar-verba-de-anuncio-ecommerce.html">como escalar verba sem quebrar a operação</a> e em <a href="../artigos/estrutura-de-campanhas-meta-ads-ecommerce.html">estrutura de campanhas de Meta Ads para e-commerce</a>. Métrica boa não é enfeite de relatório: é o que te dá segurança para apertar o acelerador.</p>
+
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details open><summary>O que significam CPM, CTR, CPC e frequência no anúncio?</summary><p>CPM é o custo para mostrar o anúncio mil vezes (o preço do leilão). CTR é a taxa de cliques sobre impressões (o interesse que o criativo gera). CPC é o custo por clique (CPM dividido pelos cliques). Frequência é quantas vezes, em média, a mesma pessoa viu seu anúncio no período. Juntas, elas mostram onde a campanha ganha ou perde dinheiro antes mesmo da venda.</p></details>
+        <details><summary>Qual é um bom CTR para e-commerce?</summary><p>Não existe número mágico universal, porque varia por nicho, oferta e etapa do funil. O que importa é a leitura relativa: um CTR de link muito abaixo dos seus outros anúncios sinaliza criativo ou público fracos, e um CTR alto com poucas vendas empurra o problema para a landing page ou o checkout. Compare sempre contra o seu próprio histórico, não contra prints da internet.</p></details>
+        <details><summary>Frequência alta é ruim?</summary><p>Frequência alta em público frio costuma indicar desgaste: o mesmo criativo aparecendo demais para as mesmas pessoas faz o CPM subir e o CTR cair. Em remarketing, uma frequência mais alta é normal e até esperada. O sinal de alerta é frequência subindo enquanto CTR cai e CPA sobe ao mesmo tempo — aí é hora de renovar o criativo ou abrir o público.</p></details>
+        <details><summary>Por que meu anúncio tem muito clique e nenhuma venda?</summary><p>Quando CTR e CPC estão saudáveis mas a venda não vem, o problema quase nunca é o anúncio: é o que acontece depois do clique. Página de produto lenta, preço ou frete que surpreendem, poucas provas e um checkout com atrito derrubam a conversão. O tráfego pago só entrega o clique — a página precisa fechar a venda.</p></details>
+        <details><summary>Quais métricas olhar primeiro para diagnosticar um anúncio?</summary><p>Siga a ordem do funil: CPM (o leilão está caro?), CTR (o criativo interessa?), taxa de conversão da página (o clique vira compra?) e, por fim, CPA e ROAS (o resultado paga a conta?). Ler nessa sequência isola a etapa que trava em vez de olhar só o ROAS e chutar o que mudar.</p></details>
+      </div>
+    </div>
+
+    <div class="author-box">
+      <img src="../img/thomas-macedo-palestra.jpeg" alt="Thomas Macedo" />
+      <div>
+        <div class="a-name"><a href="../sobre.html" style="color:inherit;border-bottom:1px solid var(--line-strong)">Thomas Macedo</a></div>
+        <p class="a-bio">Fundador da Gene Company e diretor da LINCE Performance. Especialista em tráfego pago com ROI escalável, criação de marcas e sistemas de IA para empresas. Santos/BR, atende Brasil e exterior. <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" target="_blank" rel="noopener">Fale comigo no WhatsApp →</a></p>
+      </div>
+    </div>
+  </article>
+
+  <section class="related">
+    <div class="wrap-narrow" style="padding:0">
+      <p class="eyebrow eyebrow-ink" style="display:block;margin-bottom:8px">Continue lendo</p>
+      <div class="related-grid">
+        <a href="../artigos/roas-cac-ltv-margem-de-contribuicao.html"><span class="r-cat">E-commerce</span><h3>ROAS, CAC, LTV e margem de contribuição: as 4 métricas do e-commerce</h3></a>
+        <a href="../artigos/estrutura-de-campanhas-meta-ads-ecommerce.html"><span class="r-cat">E-commerce</span><h3>Estrutura de campanhas de Meta Ads para e-commerce</h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2 class="display mt-m" style="font-size:clamp(2.2rem,5vw,4rem)">Quero vender<br>mais com tráfego.</h2>
+      <p class="lead mt-m" style="color:rgba(244,241,234,.8);max-width:48ch">Conte sobre o seu negócio e receba um diagnóstico do seu tráfego, criativos, marca e atendimento com IA.</p>
+      <div class="contact-row">
+        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" class="btn" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
+        <a href="https://www.instagram.com/thomasmacedo.ads" class="link-underline" target="_blank" rel="noopener" style="color:var(--paper)">Instagram @thomasmacedo.ads</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <span>© 2026 Thomas Macedo — IA, criação de marcas e tráfego pago. Santos, Baixada Santista, Brasil &amp; exterior.</span>
+        <div class="foot-links">
+          <a href="../index.html">IA &amp; Performance</a>
+          <a href="../marcas.html">Marcas &amp; E-commerce</a>
+          <a href="../artigos/">Artigos</a>
+          <a href="../sobre.html">Sobre</a>
+          <a href="https://www.instagram.com/thomasmacedo.ads" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/thomas-macedo-23896216a/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/102946615/" target="_blank" rel="noopener">LINCE Performance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="../site.js" defer></script>
+</body>
+</html>

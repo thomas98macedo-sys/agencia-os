@@ -56,6 +56,7 @@
 - [Posicionamento de marca: como escolher o lugar que a sua marca ocupa na cabeça do cliente](https://www.thomas-macedo.com/artigos/posicionamento-de-marca.html): Posicionamento de marca é a escolha do lugar que a sua marca vai ocupar na memória do cliente. Veja o método, a frase de posicionamento pronta, os territórios possíveis e como testar antes de reformar a marca inteira.
 
 ## Artigos recentes
+- [Observabilidade de agentes de IA: como monitorar e depurar um agente em produção](https://www.thomas-macedo.com/artigos/observabilidade-de-agentes-de-ia.html): O que logar, quais métricas acompanhar e como achar onde um agente de IA erra antes que o erro custe caro.
 - [Orçamento enviado e o cliente sumiu: como a IA recupera a venda que travou na proposta](https://www.thomas-macedo.com/artigos/recuperar-orcamento-enviado-cliente-sumiu.html): O silêncio depois do orçamento não é um "não", é um "ainda não". Veja como um agente de IA reabre a conversa e recupera a venda.
 - [CPM, CTR, CPC e frequência: como ler as métricas do anúncio e achar onde ele trava](https://www.thomas-macedo.com/artigos/metricas-de-trafego-pago-cpm-ctr-frequencia.html): O guia para diagnosticar por que seu anúncio de e-commerce não vende — lendo CPM, CTR, CPC, frequência e ROAS em vez de chutar.
 - [Arquitetura de marca: uma marca só ou várias? (casa de marcas vs. marca única)](https://www.thomas-macedo.com/artigos/arquitetura-de-marca-uma-ou-varias.html): Marca única, casa de marcas ou submarca? Como organizar suas marcas e produtos para crescer sem confundir o cliente nem diluir o nome.
@@ -65,7 +66,6 @@
 - [Onboarding de cliente em agência: o processo dos primeiros 30 dias](https://www.thomas-macedo.com/artigos/onboarding-de-cliente-em-agencia-de-marketing.html): O processo de onboarding — kickoff, acessos, briefing, metas e primeira entrega — que reduz churn e faz o cliente ver resultado antes do 1º mês fechar.
 - [Integrações de agentes de IA: como conectar ao WhatsApp, CRM e ERP](https://www.thomas-macedo.com/artigos/integracoes-de-agentes-de-ia-crm-erp-whatsapp.html): API, webhook ou n8n? Como ligar o agente de IA aos sistemas da empresa — a parte que separa demo de operação que resolve.
 - [Como testar um agente de IA antes de colocar em produção](https://www.thomas-macedo.com/artigos/como-testar-agente-de-ia-antes-de-producao.html): Cenários, dados reais e as métricas que dizem se o agente está pronto — para o erro sair barato na sua tela, não caro na frente do cliente.
-- [Recuperação de vendas no WhatsApp oficial: janela de 24h, templates e opt-in](https://www.thomas-macedo.com/artigos/recuperacao-de-vendas-whatsapp-oficial-janela-24-horas.html): Por que sua mensagem de recuperação não chega — e como a janela de 24h, os templates aprovados e o opt-in do WhatsApp oficial decidem quanto você recupera.
 
 ## Prova social
 - Marcas que passaram pelo processo de escala com Thomas Macedo: China Link Trading, China Link na Estrada, Lincoln Fracari, Tuyo Brasil, Apex Performance, LM Woodwork, Friga Store, Laser Rosa, Relive Med Clinic, Moby Dick Santos, Texas Firearms, entre centenas de outras operações.

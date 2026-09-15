@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TXSF2K6K');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Observabilidade de agentes de IA: como monitorar, logar e auditar um agente em produção | Thomas Macedo</title>
+  <meta name="description" content="Observabilidade de agente de IA é conseguir ver o que ele fez, por que fez e onde errou. Veja o que logar, quais métricas acompanhar e como depurar um agente em produção sem quebrar a operação." />
+  <meta name="keywords" content="observabilidade de agentes de IA, monitorar agente de IA, logs de agente de IA, depurar agente de IA, métricas de agente de IA, agente de IA em produção, Thomas Macedo" />
+  <meta name="author" content="Thomas Macedo" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://www.thomas-macedo.com/artigos/observabilidade-de-agentes-de-ia.html" />
+  <meta name="theme-color" content="#FAF8F3" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Thomas Macedo" />
+  <meta property="og:title" content="Observabilidade de agentes de IA: como monitorar e depurar um agente em produção" />
+  <meta property="og:description" content="Sem enrolação: o que logar, quais métricas acompanhar e como achar onde um agente de IA está errando antes que o erro custe caro." />
+  <meta property="og:url" content="https://www.thomas-macedo.com/artigos/observabilidade-de-agentes-de-ia.html" />
+  <meta property="og:image" content="https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg" />
+  <meta property="article:author" content="Thomas Macedo" />
+  <meta property="article:published_time" content="2026-09-15" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Observabilidade de agentes de IA: como monitorar e depurar um agente em produção" />
+  <meta name="twitter:description" content="Sem enrolação: o que logar, quais métricas acompanhar e como achar onde um agente de IA está errando antes que o erro custe caro." />
+  <meta name="twitter:image" content="https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BlogPosting",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.thomas-macedo.com/artigos/observabilidade-de-agentes-de-ia.html"},
+    "headline":"Observabilidade de agentes de IA: como monitorar, logar e auditar um agente em produção",
+    "description":"Observabilidade de agente de IA é conseguir ver o que ele fez, por que fez e onde errou. Veja o que logar, quais métricas acompanhar e como depurar um agente em produção sem quebrar a operação.",
+    "image":"https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg",
+    "datePublished":"2026-09-15","dateModified":"2026-09-15",
+    "inLanguage":"pt-BR",
+    "author":{"@type":"Person","name":"Thomas Macedo","url":"https://www.thomas-macedo.com/","jobTitle":"Especialista em IA, Criação de Marcas e Tráfego Pago","worksFor":{"@type":"Organization","name":"Gene Company"},"sameAs":["https://www.instagram.com/thomasmacedo.ads","https://www.linkedin.com/in/thomas-macedo-23896216a/"]},
+    "publisher":{"@id":"https://www.thomas-macedo.com/#thomas-macedo"},
+    "keywords":"observabilidade de agentes de IA, monitorar agente de IA, logs de agente de IA, depurar agente de IA, métricas de agente de IA, agente de IA em produção, Thomas Macedo"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.thomas-macedo.com/"},
+      {"@type":"ListItem","position":2,"name":"Artigos","item":"https://www.thomas-macedo.com/artigos/"},
+      {"@type":"ListItem","position":3,"name":"Observabilidade de agentes de IA","item":"https://www.thomas-macedo.com/artigos/observabilidade-de-agentes-de-ia.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[{"@type":"Question","name":"O que é observabilidade de um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"É a capacidade de enxergar, a qualquer momento, o que o agente fez, por que decidiu daquele jeito e onde errou. Na prática, significa registrar cada conversa, cada ferramenta que ele acionou e cada resposta, com métricas de qualidade, custo e latência, para que a operação consiga auditar e corrigir sem depender de sorte."}},{"@type":"Question","name":"O que registrar nos logs de um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"A mensagem do cliente, a resposta do agente, qual ferramenta ou integração foi chamada e o resultado dela, o número de tokens e o custo daquela interação, o tempo de resposta, e um sinalizador de handoff ou erro. Guardar apenas a resposta final não permite depurar: é preciso ver o caminho que levou até ela."}},{"@type":"Question","name":"Quais métricas acompanhar em um agente de IA em produção?","acceptedAnswer":{"@type":"Answer","text":"As principais são: taxa de resolução sem humano, taxa de handoff, tempo médio de resposta, custo por conversa, taxa de erro ou de resposta fora de escopo e a satisfação do cliente. Métricas de negócio (vendas recuperadas, leads qualificados) ficam acima das métricas técnicas, mas as duas precisam ser lidas juntas."}},{"@type":"Question","name":"Como saber se um agente de IA está alucinando em produção?","acceptedAnswer":{"@type":"Answer","text":"Você não descobre pela resposta isolada, e sim pelo rastro: amostragem diária de conversas reais, alertas quando o agente responde algo fora da base de conhecimento e revisão dos casos que terminaram em reclamação ou handoff. Um agente sem logs auditáveis pode estar alucinando há semanas sem ninguém perceber."}},{"@type":"Question","name":"Preciso de ferramenta paga para monitorar meu agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Não para começar. Um painel simples com os logs em uma planilha ou banco de dados e uma revisão manual diária já resolve os primeiros meses. Ferramentas dedicadas de observabilidade ajudam quando o volume cresce, mas a disciplina de registrar e revisar vale mais que a ferramenta."}}]
+  }
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXSF2K6K"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="../index.html" class="wordmark">Thomas <span>Macedo</span></a>
+        <div class="nav-links">
+          <a href="../index.html" class="hide-mob">IA &amp; Performance</a>
+          <a href="../marcas.html" class="hide-mob">Marcas &amp; E-commerce</a>
+          <a href="../artigos/" class="active hide-mob">Artigos</a>
+          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="nav-cta" target="_blank" rel="noopener">Falar comigo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap"><nav class="crumb"><a href="../index.html">Início</a><span>/</span><a href="../artigos/">Artigos</a><span>/</span>Observabilidade de agentes de IA</nav></div>
+
+  <article>
+    <header class="article-head">
+      <span class="eyebrow">Inteligência Artificial</span>
+      <h1>Observabilidade de agentes de IA: como monitorar, logar e auditar um agente em produção</h1>
+      <p class="dek">Colocar o agente no ar é a parte fácil. O que separa um projeto que dá certo de um erro caro é conseguir ver o que ele está fazendo — e achar onde ele erra antes do cliente achar.</p>
+      <div class="article-meta">
+        <span>Por Thomas Macedo</span><span class="dot"></span><span>9 min de leitura</span><span class="dot"></span><span>Atualizado em 2026</span>
+      </div>
+    </header>
+
+    <div class="article-cover">
+      <img src="../img/thomas-macedo-ia-robo.jpeg" alt="Painel de observabilidade de um agente de IA em produção mostrando logs e métricas" width="1000" height="500" style="object-position:center 40%" />
+    </div>
+
+    <div class="prose">
+      <p><strong>Observabilidade de um agente de IA é a sua capacidade de ver, a qualquer momento, o que o agente fez, por que decidiu daquele jeito e onde errou.</strong> Na prática, é registrar cada conversa, cada ferramenta que ele acionou e cada resposta — com métricas de qualidade, custo e tempo — para que a operação consiga auditar e corrigir sem depender de sorte. Um agente sem observabilidade não é um agente autônomo: é uma caixa-preta rodando dinheiro seu, e você só descobre o problema quando o cliente reclama.</p>
+
+      <p>Eu opero dezenas de agentes em produção todos os dias. Aprendi na prática que o dia em que o agente entra no ar é o dia em que o trabalho de verdade começa. Aqui está o que você precisa enxergar, o que medir e como depurar sem quebrar a operação.</p>
+
+      <div class="callout">
+        <span class="k">Resumo rápido</span>
+        <ul>
+          <li>Observabilidade = <strong>ver o que o agente fez, por quê e onde errou</strong>.</li>
+          <li>Logue o <strong>caminho inteiro</strong>, não só a resposta final: mensagem, ferramenta, resultado, custo, tempo.</li>
+          <li>Métricas que importam: <strong>resolução sem humano, handoff, custo por conversa, erro e satisfação</strong>.</li>
+          <li>Sem revisão de amostras diária, um agente pode <strong>alucinar por semanas</strong> sem ninguém ver.</li>
+        </ul>
+      </div>
+
+      <h2>Por que observabilidade não é opcional em agente de IA</h2>
+      <p>Um sistema tradicional é previsível: mesma entrada, mesma saída. Um agente de IA não é. Ele interpreta linguagem, decide qual ferramenta usar e redige a resposta na hora — então dois clientes com o mesmo problema podem receber caminhos diferentes. Isso é o que torna o agente poderoso e, ao mesmo tempo, o que torna o monitoramento inegociável.</p>
+      <p>Sem observabilidade, você não sabe se o agente está resolvendo ou empurrando cliente para longe. Ele pode estar dando um desconto que ninguém autorizou, prometendo um prazo que não existe ou respondendo com confiança total uma informação errada. Tudo isso com uma naturalidade que engana. O erro de um agente é silencioso — e é exatamente por isso que ele fica caro: quando aparece, já rodou em escala.</p>
+
+      <h2>O que registrar nos logs de um agente de IA</h2>
+      <p>O erro mais comum é guardar só a resposta final. Isso não serve para depurar, porque não mostra o caminho que levou até ela. Para conseguir investigar de verdade, cada interação precisa registrar:</p>
+      <ul>
+        <li><strong>A mensagem do cliente</strong> — a entrada exata, sem edição.</li>
+        <li><strong>O raciocínio e a decisão</strong> — qual intenção o agente entendeu e o que decidiu fazer.</li>
+        <li><strong>A ferramenta acionada e o resultado</strong> — consultou o estoque? Abriu o pedido no CRM? O que voltou dessa chamada?</li>
+        <li><strong>A resposta enviada</strong> — o texto final que o cliente recebeu.</li>
+        <li><strong>Custo e tokens</strong> — quanto aquela conversa consumiu, para não ter surpresa na fatura.</li>
+        <li><strong>Latência</strong> — quanto tempo o cliente esperou.</li>
+        <li><strong>Sinalizadores</strong> — houve erro? Houve handoff para humano? A resposta ficou fora da base de conhecimento?</li>
+      </ul>
+      <p>Quando você tem esse rastro completo, depurar deixa de ser adivinhação. Você abre a conversa problemática, lê o caminho e vê exatamente em que passo o agente saiu do trilho — se foi a instrução, se foi a base de conhecimento ou se foi uma integração que devolveu dado errado. Esse é o mesmo princípio de <a href="../artigos/anatomia-de-um-agente-de-ia.html">como um bom agente é montado por dentro</a>: instrução, memória, ferramentas e limites, cada camada rastreável.</p>
+
+      <blockquote><p>Se você não consegue abrir uma conversa específica e explicar por que o agente respondeu aquilo, você não tem um agente em produção. Você tem um palpite em produção.</p></blockquote>
+
+      <h2>Quais métricas acompanhar em um agente em produção</h2>
+      <p>Log é o detalhe; métrica é o panorama. Você não vai ler mil conversas por dia, então precisa de números que mostrem a saúde do agente de relance. Divido em duas camadas.</p>
+
+      <h3>Métricas de operação (a saúde do agente)</h3>
+      <ul>
+        <li><strong>Taxa de resolução sem humano:</strong> quantas conversas o agente fecha sozinho, sem passar para uma pessoa. É o principal indicador de autonomia real.</li>
+        <li><strong>Taxa de handoff:</strong> quantas ele passou para humano. Subiu de repente? Algo mudou — no produto, na base ou no comportamento do cliente.</li>
+        <li><strong>Tempo médio de resposta:</strong> latência alta derruba conversão, principalmente em recuperação de venda no WhatsApp.</li>
+        <li><strong>Custo por conversa:</strong> o número que mantém o projeto sustentável. Um agente que resolve, mas custa caro demais por interação, precisa de ajuste.</li>
+        <li><strong>Taxa de erro e de resposta fora de escopo:</strong> quantas vezes ele travou, respondeu bobagem ou saiu do assunto.</li>
+      </ul>
+
+      <h3>Métricas de negócio (o que paga a conta)</h3>
+      <ul>
+        <li><strong>Vendas recuperadas, leads qualificados, atendimentos concluídos</strong> — o resultado que justifica o agente existir.</li>
+        <li><strong>Satisfação do cliente</strong> — de um CSAT simples a uma leitura do tom das conversas.</li>
+      </ul>
+      <p>A regra: métrica de negócio manda, métrica de operação explica. Se as vendas recuperadas caíram, você vai nos logs e nas métricas técnicas descobrir <em>por quê</em>. É por isso que defendo sempre medir o agente pelo resultado, e não por número de mensagens enviadas — o mesmo raciocínio que aplico em <a href="../artigos/como-medir-agente-de-recuperacao-de-vendas.html">como medir um agente de recuperação de vendas sem métrica de vaidade</a>.</p>
+
+      <h2>Como depurar um agente de IA sem quebrar a operação</h2>
+      <p>Achou um problema numa métrica. E agora? O caminho que funciona é sempre o mesmo:</p>
+      <ol>
+        <li><strong>Isole o caso:</strong> filtre pelas conversas com o sinalizador de erro ou handoff e leia o rastro completo.</li>
+        <li><strong>Ache a camada:</strong> o problema está na instrução (o agente não sabia o que fazer), na base de conhecimento (a informação estava errada ou faltava) ou na ferramenta (a integração devolveu dado furado)?</li>
+        <li><strong>Corrija na origem, não no sintoma:</strong> reescrever a instrução para tapar um buraco específico costuma criar dois novos. Vá na raiz.</li>
+        <li><strong>Teste antes de subir:</strong> rode a correção contra os casos reais que falharam e contra os que já funcionavam, para não regredir. Esse cuidado é o que descrevo em <a href="../artigos/como-testar-agente-de-ia-antes-de-producao.html">como testar um agente de IA antes de colocar em produção</a>.</li>
+        <li><strong>Suba e observe:</strong> acompanhe as mesmas métricas por alguns dias para confirmar que a correção pegou.</li>
+      </ol>
+      <p>Boa parte dos erros que você vai caçar são alucinações — o agente afirmando com convicção algo que não está na base. Prevenir isso é um assunto por si só, e vale ler sobre <a href="../artigos/alucinacao-e-guardrails-de-agentes-de-ia.html">por que a alucinação acontece e como impedir com guardrails</a>. Observabilidade é como você <em>flagra</em> a alucinação; guardrail é como você a <em>impede</em>. Você precisa dos dois.</p>
+
+      <h2>Alertas e handoff: o agente precisa saber pedir ajuda</h2>
+      <p>Monitoramento bom não é só olhar painel depois do fato. É ter alerta que avisa na hora: pico de handoff, custo por conversa fora da curva, latência subindo, ou uma palavra sensível na conversa (reclamação, jurídico, cancelamento). E o próprio agente precisa ter o gatilho de passar para um humano quando sai da zona de segurança — que é o tema de <a href="../artigos/handoff-humano-em-agentes-de-ia.html">quando o agente deve passar para uma pessoa</a>. Um agente que nunca chama humano não é confiável: é teimoso.</p>
+
+      <h2>Você precisa de ferramenta paga para isso?</h2>
+      <p>Para começar, não. Um registro estruturado das conversas num banco de dados ou até numa planilha, um painel simples com as métricas do dia e uma rotina de ler uma amostra de conversas reais toda manhã já resolvem os primeiros meses. Ferramentas dedicadas de observabilidade de IA ajudam quando o volume cresce e a revisão manual não dá conta — mas a disciplina de registrar tudo e revisar todo dia vale mais que qualquer ferramenta. Já vi operação com a ferramenta cara e ninguém olhando; não adianta.</p>
+
+      <p>É assim que eu trato agente em produção: com o mesmo rigor de quem acompanha uma conta de tráfego pago. Você não deixa a verba rodar sozinha sem olhar as métricas — com agente de IA é igual. Quem monta bem, mede bem e corrige rápido é quem colhe ROI de verdade, sem o susto do erro caro que só apareceu tarde demais.</p>
+
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details open><summary>O que é observabilidade de um agente de IA?</summary><p>É a capacidade de enxergar, a qualquer momento, o que o agente fez, por que decidiu daquele jeito e onde errou. Na prática, significa registrar cada conversa, cada ferramenta que ele acionou e cada resposta, com métricas de qualidade, custo e latência, para que a operação consiga auditar e corrigir sem depender de sorte.</p></details>
+        <details><summary>O que registrar nos logs de um agente de IA?</summary><p>A mensagem do cliente, a resposta do agente, qual ferramenta ou integração foi chamada e o resultado dela, o número de tokens e o custo daquela interação, o tempo de resposta, e um sinalizador de handoff ou erro. Guardar apenas a resposta final não permite depurar: é preciso ver o caminho que levou até ela.</p></details>
+        <details><summary>Quais métricas acompanhar em um agente de IA em produção?</summary><p>As principais são: taxa de resolução sem humano, taxa de handoff, tempo médio de resposta, custo por conversa, taxa de erro ou de resposta fora de escopo e a satisfação do cliente. Métricas de negócio (vendas recuperadas, leads qualificados) ficam acima das métricas técnicas, mas as duas precisam ser lidas juntas.</p></details>
+        <details><summary>Como saber se um agente de IA está alucinando em produção?</summary><p>Você não descobre pela resposta isolada, e sim pelo rastro: amostragem diária de conversas reais, alertas quando o agente responde algo fora da base de conhecimento e revisão dos casos que terminaram em reclamação ou handoff. Um agente sem logs auditáveis pode estar alucinando há semanas sem ninguém perceber.</p></details>
+        <details><summary>Preciso de ferramenta paga para monitorar meu agente de IA?</summary><p>Não para começar. Um painel simples com os logs em uma planilha ou banco de dados e uma revisão manual diária já resolve os primeiros meses. Ferramentas dedicadas de observabilidade ajudam quando o volume cresce, mas a disciplina de registrar e revisar vale mais que a ferramenta.</p></details>
+      </div>
+    </div>
+
+    <div class="author-box">
+      <img src="../img/thomas-macedo-palestra.jpeg" alt="Thomas Macedo" />
+      <div>
+        <div class="a-name"><a href="../sobre.html" style="color:inherit;border-bottom:1px solid var(--line-strong)">Thomas Macedo</a></div>
+        <p class="a-bio">Fundador da Gene Company. Especialista em sistemas e agentes de IA, criação de marcas e tráfego pago com ROI escalável para empresas. Santos/BR, atende Brasil e exterior. <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" target="_blank" rel="noopener">Fale comigo no WhatsApp →</a></p>
+      </div>
+    </div>
+  </article>
+
+  <section class="related">
+    <div class="wrap-narrow" style="padding:0">
+      <p class="eyebrow eyebrow-ink" style="display:block;margin-bottom:8px">Continue lendo</p>
+      <div class="related-grid">
+        <a href="../artigos/como-testar-agente-de-ia-antes-de-producao.html"><span class="r-cat">Inteligência Artificial</span><h3>Como testar um agente de IA antes de colocar em produção</h3></a>
+        <a href="../artigos/alucinacao-e-guardrails-de-agentes-de-ia.html"><span class="r-cat">Inteligência Artificial</span><h3>Alucinação de agentes de IA: por que acontece e como impedir com guardrails</h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2 class="display mt-m" style="font-size:clamp(2.2rem,5vw,4rem)">Quero IA<br>na minha empresa.</h2>
+      <p class="lead mt-m" style="color:rgba(244,241,234,.8);max-width:48ch">Conte sobre o seu negócio e receba um diagnóstico do seu tráfego, criativos, marca e atendimento com IA.</p>
+      <div class="contact-row">
+        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" class="btn" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
+        <a href="https://www.instagram.com/thomasmacedo.ads" class="link-underline" target="_blank" rel="noopener" style="color:var(--paper)">Instagram @thomasmacedo.ads</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <span>© 2026 Thomas Macedo — IA, criação de marcas e tráfego pago. Santos, Baixada Santista, Brasil &amp; exterior.</span>
+        <div class="foot-links">
+          <a href="../index.html">IA &amp; Performance</a>
+          <a href="../marcas.html">Marcas &amp; E-commerce</a>
+          <a href="../artigos/">Artigos</a>
+          <a href="../sobre.html">Sobre</a>
+          <a href="https://www.instagram.com/thomasmacedo.ads" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/thomas-macedo-23896216a/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/102946615/" target="_blank" rel="noopener">LINCE Performance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
+</body>
+</html>

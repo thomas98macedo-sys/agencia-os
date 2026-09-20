@@ -20,24 +20,34 @@ afiliados/creators; do primeiro vídeo à primeira venda.
 ## CTA e link (obrigatório em todo artigo)
 - Link oficial a usar no CTA: **https://getstartedtiktok.partnerlinks.io/6x6ko7wz5c2m**
 - O CTA leva a pessoa a **criar a loja no TikTok Shop e começar a anunciar** por esse link.
-- Incentivo (usar SEM prometer valor fixo como garantia): novos anunciantes podem receber
-  **crédito de boas-vindas do TikTok que pode dobrar o primeiro investimento em anúncios,
-  conforme a oferta vigente na página.** Enquadrar sempre como oferta DO TIKTOK e condicional
-  ("pode", "conforme a oferta atual"), nunca como promessa garantida do Thomas.
-- Texto-modelo do CTA (PT): *"Crie sua loja no TikTok Shop e comece a anunciar por aqui —
-  novos anunciantes podem receber crédito do TikTok que pode dobrar o primeiro investimento
-  em Ads (conforme a oferta vigente): [Começar agora](https://getstartedtiktok.partnerlinks.io/6x6ko7wz5c2m)."*
-- Texto-modelo do CTA (EN): *"Start your TikTok Shop and launch your first ads here — new
-  advertisers may get TikTok ad credit that can double your first ad investment (subject to
-  the current offer): [Get started](https://getstartedtiktok.partnerlinks.io/6x6ko7wz5c2m)."*
+- Incentivo REAL (oferta oficial do TikTok for Business — "New Advertiser Coupon",
+  **somente para novos anunciantes**): o TikTok dá crédito de anúncio **igual ao valor gasto**
+  — ou seja, **dobra o primeiro investimento em Ads**. Tabela oficial:
+  | Você gasta | Ganha em crédito de Ads |
+  |---|---|
+  | US$ 200 | US$ 200 |
+  | US$ 500 | US$ 500 |
+  | US$ 1.000 | US$ 1.000 |
+  | US$ 4.000 | US$ 4.000 |
+  | US$ 6.000 | US$ 6.000 |
+- Enquadrar SEMPRE como benefício do LEITOR ("você gasta X e ganha +X em créditos") e como
+  oferta DO TIKTOK. Sempre citar a condição "somente para novos anunciantes".
+- NUNCA mencionar comissão/ganho do Thomas. O foco é o benefício de quem cria a loja.
+- Texto-modelo do CTA (PT): *"Crie sua loja no TikTok Shop e comece a anunciar por aqui: como
+  novo anunciante, o TikTok dá um crédito de Ads igual ao que você investe — você gasta e o
+  TikTok dobra (ex.: gaste US$ 500 e ganhe US$ 500 em créditos). [Começar agora](https://getstartedtiktok.partnerlinks.io/6x6ko7wz5c2m)"*
+- Texto-modelo do CTA (EN): *"Start your TikTok Shop and run your first ads here: as a new
+  advertiser, TikTok matches your ad spend with ad credit — spend and TikTok doubles it
+  (e.g., spend US$500 and get US$500 in credits). [Get started](https://getstartedtiktok.partnerlinks.io/6x6ko7wz5c2m)"*
 
 ## Divulgação (OBRIGATÓRIA — protege a conta e a autoridade)
 - Incluir uma linha discreta de divulgação junto ao CTA, em PT e EN. Ex.:
   PT: *"Conteúdo com link de parceiro."* · EN: *"Contains a partner link."*
-- Motivo: os termos do programa do TikTok exigem divulgação; CONAR/CDC (BR) e FTC (EUA)
-  também. Sem isso há risco de banimento da conta de afiliado e de publicidade enganosa.
-  A divulgação é curta e não atrapalha a conversão.
-- Nunca afirmar valores/promoções que não sejam a oferta real e vigente do TikTok.
+- Essa linha apenas sinaliza a relação de parceria (exigido pelo programa do TikTok e por
+  CONAR/CDC e FTC). NÃO menciona comissão nem quanto o Thomas ganha — o foco é sempre o
+  benefício do leitor. Sem essa linha há risco de banimento da conta de afiliado.
+- Só afirmar a oferta do cupom nos valores oficiais da tabela acima (crédito = valor gasto,
+  novos anunciantes). Não inventar outros valores/promoções.
 
 ## Regra de idioma — BILÍNGUE NA MESMA MATÉRIA
 Cada artigo é **uma única página** com o conteúdo em **português E em inglês**:

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TXSF2K6K');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Orquestração de agentes de IA: como vários agentes trabalham juntos numa empresa (sistema multiagente) | Thomas Macedo</title>
+  <meta name="description" content="Orquestração de agentes de IA é fazer vários agentes especializados trabalharem juntos, coordenados por um agente orquestrador, para resolver tarefas complexas. Veja quando usar um sistema multiagente e quando um agente só basta." />
+  <meta name="keywords" content="orquestração de agentes de IA, sistema multiagente, arquitetura multiagente, agente orquestrador, vários agentes de IA, multi-agente empresas, Thomas Macedo" />
+  <meta name="author" content="Thomas Macedo" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://www.thomas-macedo.com/artigos/orquestracao-de-agentes-de-ia-multiagente.html" />
+  <meta name="theme-color" content="#FAF8F3" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Thomas Macedo" />
+  <meta property="og:title" content="Orquestração de agentes de IA: como vários agentes trabalham juntos (multiagente)" />
+  <meta property="og:description" content="Quando um agente só não dá conta, você orquestra vários. Veja como funciona um sistema multiagente, quando vale e quando é só complexidade a mais." />
+  <meta property="og:url" content="https://www.thomas-macedo.com/artigos/orquestracao-de-agentes-de-ia-multiagente.html" />
+  <meta property="og:image" content="https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg" />
+  <meta property="article:author" content="Thomas Macedo" />
+  <meta property="article:published_time" content="2026-09-22" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Orquestração de agentes de IA: como vários agentes trabalham juntos (multiagente)" />
+  <meta name="twitter:description" content="Quando um agente só não dá conta, você orquestra vários. Veja como funciona um sistema multiagente, quando vale e quando é só complexidade a mais." />
+  <meta name="twitter:image" content="https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BlogPosting",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.thomas-macedo.com/artigos/orquestracao-de-agentes-de-ia-multiagente.html"},
+    "headline":"Orquestração de agentes de IA: como vários agentes trabalham juntos numa empresa (sistema multiagente)",
+    "description":"Orquestração de agentes de IA é fazer vários agentes especializados trabalharem juntos, coordenados por um agente orquestrador, para resolver tarefas complexas. Veja quando usar um sistema multiagente e quando um agente só basta.",
+    "image":"https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg",
+    "datePublished":"2026-09-22","dateModified":"2026-09-22",
+    "inLanguage":"pt-BR",
+    "author":{"@type":"Person","name":"Thomas Macedo","url":"https://www.thomas-macedo.com/","jobTitle":"Especialista em IA, Criação de Marcas e Tráfego Pago","worksFor":{"@type":"Organization","name":"Gene Company"},"sameAs":["https://www.instagram.com/thomasmacedo.ads","https://www.linkedin.com/in/thomas-macedo-23896216a/"]},
+    "publisher":{"@id":"https://www.thomas-macedo.com/#thomas-macedo"},
+    "keywords":"orquestração de agentes de IA, sistema multiagente, arquitetura multiagente, agente orquestrador, vários agentes de IA, multi-agente empresas, Thomas Macedo"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.thomas-macedo.com/"},
+      {"@type":"ListItem","position":2,"name":"Artigos","item":"https://www.thomas-macedo.com/artigos/"},
+      {"@type":"ListItem","position":3,"name":"Orquestração de agentes de IA (sistema multiagente)","item":"https://www.thomas-macedo.com/artigos/orquestracao-de-agentes-de-ia-multiagente.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[{"@type":"Question","name":"O que é orquestração de agentes de IA?","acceptedAnswer":{"@type":"Answer","text":"É fazer vários agentes de IA especializados trabalharem juntos numa mesma tarefa, coordenados por um agente orquestrador que recebe o pedido, divide em partes, aciona o agente certo para cada parte e junta o resultado. Em vez de um agente que tenta fazer tudo, você tem um time de agentes com funções claras."}},{"@type":"Question","name":"Qual a diferença entre um agente único e um sistema multiagente?","acceptedAnswer":{"@type":"Answer","text":"Um agente único faz tudo sozinho: bom para tarefas focadas. Um sistema multiagente divide o trabalho entre agentes especializados coordenados por um orquestrador: melhor quando a tarefa tem etapas distintas, precisa de habilidades diferentes ou passa por vários sistemas. Multiagente ganha em qualidade e manutenção, mas custa mais em complexidade e tokens."}},{"@type":"Question","name":"Quando vale a pena usar vários agentes em vez de um só?","acceptedAnswer":{"@type":"Answer","text":"Vale quando a tarefa junta responsabilidades muito diferentes (vender, dar suporte, emitir nota, agendar), quando o agente único está ficando grande e confuso demais para manter, ou quando etapas podem rodar em paralelo. Se um agente resolve com clareza, não crie um time só para parecer moderno."}},{"@type":"Question","name":"Quais os riscos de um sistema multiagente?","acceptedAnswer":{"@type":"Answer","text":"Mais agentes significam mais pontos de falha, mais custo de tokens, mais latência e erros que se propagam de um agente para outro. Sem observabilidade e limites claros, fica difícil saber qual agente errou. Por isso multiagente exige logs, guardrails e handoff humano bem definidos."}},{"@type":"Question","name":"Uma empresa pequena precisa de vários agentes de IA?","acceptedAnswer":{"@type":"Answer","text":"Quase nunca no começo. O caminho certo é resolver um processo com um agente único bem-feito, medir o resultado e só partir para orquestração quando a operação crescer e a tarefa realmente exigir agentes especializados coordenados."}}]
+  }
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXSF2K6K"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="../index.html" class="wordmark">Thomas <span>Macedo</span></a>
+        <div class="nav-links">
+          <a href="../index.html" class="hide-mob">IA &amp; Performance</a>
+          <a href="../marcas.html" class="hide-mob">Marcas &amp; E-commerce</a>
+          <a href="../artigos/" class="active hide-mob">Artigos</a>
+          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="nav-cta" target="_blank" rel="noopener">Falar comigo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap"><nav class="crumb"><a href="../index.html">Início</a><span>/</span><a href="../artigos/">Artigos</a><span>/</span>Orquestração de agentes de IA (sistema multiagente)</nav></div>
+
+  <article>
+    <header class="article-head">
+      <span class="eyebrow">Inteligência Artificial</span>
+      <h1>Orquestração de agentes de IA: como vários agentes trabalham juntos numa empresa (sistema multiagente)</h1>
+      <p class="dek">Um agente resolve muita coisa sozinho. Mas quando a tarefa cresce, você não faz um agente maior — você monta um time. Aqui eu explico como orquestrar vários agentes de IA sem transformar a operação num nó cego.</p>
+      <div class="article-meta">
+        <span>Por Thomas Macedo</span><span class="dot"></span><span>9 min de leitura</span><span class="dot"></span><span>Atualizado em 2026</span>
+      </div>
+    </header>
+
+    <div class="article-cover">
+      <img src="../img/thomas-macedo-ia-robo.jpeg" alt="Sistema multiagente: vários agentes de IA coordenados por um agente orquestrador" width="1000" height="500" style="object-position:center 40%" />
+    </div>
+
+    <div class="prose">
+      <p><strong>Orquestração de agentes de IA é fazer vários agentes especializados trabalharem juntos numa mesma tarefa, coordenados por um agente orquestrador.</strong> Esse orquestrador recebe o pedido, quebra em partes, aciona o agente certo para cada parte (vendas, suporte, financeiro, agenda) e junta tudo numa resposta única. Em vez de um agente que tenta fazer tudo e fica confuso, você tem um time de agentes com funções claras — como uma empresa de verdade, onde cada pessoa cuida do que sabe.</p>
+
+      <p>Eu opero dezenas de agentes de IA no dia a dia, e a lição mais importante é essa: multiagente não é sobre ter mais agentes. É sobre dividir responsabilidade. Vou mostrar quando vale, quando é só complexidade a mais, e como montar isso sem perder o controle.</p>
+
+      <div class="callout">
+        <span class="k">Resumo rápido</span>
+        <ul>
+          <li>Orquestração = um agente <strong>coordenador</strong> comandando agentes especializados.</li>
+          <li>Use quando a tarefa junta <strong>responsabilidades muito diferentes</strong> ou tem etapas distintas.</li>
+          <li>Um agente único bem-feito resolve mais do que parece — <strong>não complique cedo demais</strong>.</li>
+          <li>Multiagente cobra o preço em <strong>custo, latência e pontos de falha</strong>: só com logs e limites.</li>
+        </ul>
+      </div>
+
+      <h2>O que é um sistema multiagente (em palavras simples)</h2>
+      <p>Imagine que você pede num só lugar: “o cliente quer comprar 10 unidades, com nota fiscal, entrega para semana que vem”. Um agente único teria que entender de venda, de emissão de nota, de logística e de agenda ao mesmo tempo — e quanto mais coisas você enfia no mesmo agente, mais ele erra e mais difícil fica de manter. Num sistema multiagente, o <strong>orquestrador</strong> lê o pedido e distribui: o agente de vendas fecha o carrinho, o agente fiscal cuida da nota, o agente de logística calcula o frete e o prazo, o agente de agenda marca a entrega. Cada um faz uma coisa bem-feita, e o orquestrador costura a resposta final.</p>
+      <p>É a mesma lógica de uma empresa organizada: você não quer um funcionário que faz tudo mais ou menos. Quer especialistas coordenados por alguém que sabe quem chamar.</p>
+
+      <h2>Agente único ou multiagente: qual a diferença na prática</h2>
+      <ul>
+        <li><strong>Agente único:</strong> um cérebro, um conjunto de instruções, um conjunto de ferramentas. Rápido de construir, barato de rodar, fácil de entender. É o padrão para 80% dos casos de empresa.</li>
+        <li><strong>Multiagente:</strong> vários agentes especializados + um orquestrador. Ganha em qualidade quando a tarefa é ampla e em manutenção quando cada função pode evoluir sozinha. Perde em simplicidade, custo de tokens e velocidade.</li>
+      </ul>
+      <p>A regra que eu uso: <strong>comece sempre pelo agente único.</strong> Se ele começar a ficar grande, contraditório e difícil de ajustar sem quebrar outra parte, esse é o sinal de que chegou a hora de dividir. Se um agente resolve com clareza, criar um time só para parecer moderno é dar tiro no pé — vira o assunto do artigo sobre <a href="../artigos/onde-nao-usar-ia-no-negocio.html">onde a IA não deve ser usada no seu negócio</a>.</p>
+
+      <h2>Como a orquestração funciona por dentro</h2>
+      <p>Todo sistema multiagente que funciona tem quatro peças bem definidas:</p>
+      <ol>
+        <li><strong>O orquestrador (roteador):</strong> entende a intenção do pedido e decide qual agente aciona. É o gerente do time.</li>
+        <li><strong>Os agentes especializados:</strong> cada um com instrução, memória e ferramentas próprias — o agente de vendas não precisa saber emitir nota, e vice-versa. Isso é a <a href="../artigos/anatomia-de-um-agente-de-ia.html">anatomia de um agente de IA</a> aplicada a cada membro do time.</li>
+        <li><strong>O handoff (a passagem de bastão):</strong> o protocolo de como um agente entrega o trabalho para o próximo — e, quando necessário, para <a href="../artigos/handoff-humano-em-agentes-de-ia.html">uma pessoa de verdade</a>.</li>
+        <li><strong>A memória compartilhada:</strong> o contexto que todos precisam enxergar (quem é o cliente, o que já foi combinado) para não fazer o cliente repetir tudo a cada troca.</li>
+      </ol>
+
+      <blockquote><p>Multiagente não é mágica. É organograma. Se você não sabe desenhar quem faz o quê no papel, o sistema vai refletir essa confusão — só que mais rápido e mais caro.</p></blockquote>
+
+      <h2>Quando vale a pena orquestrar vários agentes</h2>
+      <p>Na minha experiência, a orquestração se paga em três situações claras:</p>
+      <ul>
+        <li><strong>Responsabilidades muito diferentes na mesma jornada:</strong> vender, dar suporte, emitir documento fiscal e agendar são mundos distintos. Juntar tudo num agente só vira um monstro impossível de ajustar.</li>
+        <li><strong>O agente único ficou grande demais:</strong> quando cada mudança na instrução quebra outra parte, dividir devolve o controle. Cada agente vira pequeno, testável e fácil de melhorar.</li>
+        <li><strong>Etapas que podem rodar em paralelo:</strong> enquanto um agente consulta o estoque, outro já calcula o frete. Ganha-se tempo e a resposta chega mais completa.</li>
+      </ul>
+      <p>Fora desses casos, um agente único bem construído — do jeito que descrevo em <a href="../artigos/como-criar-agentes-de-ia.html">como criar agentes de IA para empresas</a> — resolve com menos custo e menos dor de cabeça.</p>
+
+      <h2>Os riscos que ninguém conta sobre multiagente</h2>
+      <p>Mais agentes trazem mais poder, mas também mais coisas para dar errado:</p>
+      <ul>
+        <li><strong>Erro que se propaga:</strong> se o primeiro agente entende errado, ele passa o erro adiante e o time inteiro trabalha em cima de uma premissa furada.</li>
+        <li><strong>Custo e latência:</strong> cada agente é uma chamada de modelo. Cinco agentes conversando entre si custam e demoram mais do que um só — algo que eu detalho em <a href="../artigos/quanto-custa-ia-para-empresas.html">quanto custa implementar IA numa empresa no Brasil</a>.</li>
+        <li><strong>Cegueira de diagnóstico:</strong> quando algo falha, você precisa saber qual agente errou. Sem <a href="../artigos/observabilidade-de-agentes-de-ia.html">observabilidade e logs</a>, vira caça ao fantasma.</li>
+      </ul>
+      <p>Por isso eu nunca coloco um sistema multiagente em produção sem três coisas: logs de cada passagem de bastão, guardrails em cada agente e um caminho claro de escape para o humano quando o time trava.</p>
+
+      <h2>Por onde começar (sem virar um projeto eterno)</h2>
+      <ol>
+        <li><strong>Desenhe o organograma no papel:</strong> quais funções, quem chama quem, onde termina cada uma.</li>
+        <li><strong>Comece com um agente:</strong> resolva o processo mais dolorido primeiro, sozinho.</li>
+        <li><strong>Divida só quando doer:</strong> quando o agente único ficar confuso, quebre a primeira responsabilidade num segundo agente.</li>
+        <li><strong>Meça a cada passo:</strong> tempo de resposta, taxa de acerto, custo por atendimento. Se piorou, você complicou à toa.</li>
+      </ol>
+      <p>É assim que eu construo: começando pelo simples e crescendo só quando o resultado justifica. O meu próprio <a href="../artigos/multiverso-de-agentes-de-ia.html">time de 41 agentes de IA</a> não nasceu grande — nasceu de um agente que funcionava e foi ganhando colegas conforme a operação pedia.</p>
+
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details open><summary>O que é orquestração de agentes de IA?</summary><p>É fazer vários agentes de IA especializados trabalharem juntos numa mesma tarefa, coordenados por um agente orquestrador que recebe o pedido, divide em partes, aciona o agente certo para cada parte e junta o resultado. Em vez de um agente que tenta fazer tudo, você tem um time de agentes com funções claras.</p></details>
+        <details><summary>Qual a diferença entre um agente único e um sistema multiagente?</summary><p>Um agente único faz tudo sozinho: bom para tarefas focadas. Um sistema multiagente divide o trabalho entre agentes especializados coordenados por um orquestrador: melhor quando a tarefa tem etapas distintas, precisa de habilidades diferentes ou passa por vários sistemas. Multiagente ganha em qualidade e manutenção, mas custa mais em complexidade e tokens.</p></details>
+        <details><summary>Quando vale a pena usar vários agentes em vez de um só?</summary><p>Vale quando a tarefa junta responsabilidades muito diferentes (vender, dar suporte, emitir nota, agendar), quando o agente único está ficando grande e confuso demais para manter, ou quando etapas podem rodar em paralelo. Se um agente resolve com clareza, não crie um time só para parecer moderno.</p></details>
+        <details><summary>Quais os riscos de um sistema multiagente?</summary><p>Mais agentes significam mais pontos de falha, mais custo de tokens, mais latência e erros que se propagam de um agente para outro. Sem observabilidade e limites claros, fica difícil saber qual agente errou. Por isso multiagente exige logs, guardrails e handoff humano bem definidos.</p></details>
+        <details><summary>Uma empresa pequena precisa de vários agentes de IA?</summary><p>Quase nunca no começo. O caminho certo é resolver um processo com um agente único bem-feito, medir o resultado e só partir para orquestração quando a operação crescer e a tarefa realmente exigir agentes especializados coordenados.</p></details>
+      </div>
+    </div>
+
+    <div class="author-box">
+      <img src="../img/thomas-macedo-palestra.jpeg" alt="Thomas Macedo" />
+      <div>
+        <div class="a-name"><a href="../sobre.html" style="color:inherit;border-bottom:1px solid var(--line-strong)">Thomas Macedo</a></div>
+        <p class="a-bio">Fundador da Gene Company. Especialista em sistemas e agentes de IA, criação de marcas e tráfego pago com ROI escalável para empresas. Santos/BR, atende Brasil e exterior. <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" target="_blank" rel="noopener">Fale comigo no WhatsApp →</a></p>
+      </div>
+    </div>
+  </article>
+
+  <section class="related">
+    <div class="wrap-narrow" style="padding:0">
+      <p class="eyebrow eyebrow-ink" style="display:block;margin-bottom:8px">Continue lendo</p>
+      <div class="related-grid">
+        <a href="../artigos/anatomia-de-um-agente-de-ia.html"><span class="r-cat">Inteligência Artificial</span><h3>Anatomia de um agente de IA que funciona</h3></a>
+        <a href="../artigos/multiverso-de-agentes-de-ia.html"><span class="r-cat">Inteligência Artificial</span><h3>O Multiverso: onde moram os meus 41 agentes de IA</h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2 class="display mt-m" style="font-size:clamp(2.2rem,5vw,4rem)">Quero IA<br>na minha empresa.</h2>
+      <p class="lead mt-m" style="color:rgba(244,241,234,.8);max-width:48ch">Conte sobre o seu negócio e receba um diagnóstico do seu tráfego, criativos, marca e atendimento com IA.</p>
+      <div class="contact-row">
+        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" class="btn" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
+        <a href="https://www.instagram.com/thomasmacedo.ads" class="link-underline" target="_blank" rel="noopener" style="color:var(--paper)">Instagram @thomasmacedo.ads</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <span>© 2026 Thomas Macedo — IA, criação de marcas e tráfego pago. Santos, Baixada Santista, Brasil &amp; exterior.</span>
+        <div class="foot-links">
+          <a href="../index.html">IA &amp; Performance</a>
+          <a href="../marcas.html">Marcas &amp; E-commerce</a>
+          <a href="../artigos/">Artigos</a>
+          <a href="../sobre.html">Sobre</a>
+          <a href="https://www.instagram.com/thomasmacedo.ads" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/thomas-macedo-23896216a/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/102946615/" target="_blank" rel="noopener">LINCE Performance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
+</body>
+</html>

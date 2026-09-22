@@ -5,8 +5,24 @@
 <link>https://www.thomas-macedo.com/</link>
 <description>Uma matéria por dia sobre agentes de IA, agência escalada, tráfego pago, e-commerce e criação de marcas. Por Thomas Macedo (Gene Company / LINCE Performance).</description>
 <language>pt-BR</language>
-<lastBuildDate>Tue, 15 Sep 2026 10:35:03 +0000</lastBuildDate>
+<lastBuildDate>Tue, 22 Sep 2026 10:36:43 +0000</lastBuildDate>
 <atom:link href="https://www.thomas-macedo.com/feed.xml" rel="self" type="application/rss+xml" />
+<item>
+<title>Orquestração de agentes de IA: como vários agentes trabalham juntos numa empresa (sistema multiagente)</title>
+<link>https://www.thomas-macedo.com/artigos/orquestracao-de-agentes-de-ia-multiagente.html</link>
+<guid isPermaLink="true">https://www.thomas-macedo.com/artigos/orquestracao-de-agentes-de-ia-multiagente.html</guid>
+<description>Orquestração de agentes de IA é fazer vários agentes especializados trabalharem juntos, coordenados por um agente orquestrador, para resolver tarefas complexas. Veja quando usar um sistema multiagente e quando um agente só basta.</description>
+<author>thomas98macedo@gmail.com (Thomas Macedo)</author>
+<pubDate>Tue, 22 Sep 2026 10:00:00 +0000</pubDate>
+</item>
+<item>
+<title>Cupom TikTok Ads: como ganhar crédito de tráfego e começar a vender no TikTok Shop</title>
+<link>https://www.thomas-macedo.com/artigos/cupom-tiktok-ads-comecar-a-vender-tiktok-shop.html</link>
+<guid isPermaLink="true">https://www.thomas-macedo.com/artigos/cupom-tiktok-ads-comecar-a-vender-tiktok-shop.html</guid>
+<description>Cupom TikTok Ads: o TikTok dá crédito de tráfego igual ao que você investe (gasta US$500, ganha US$500) para novos anunciantes. Veja como funciona, como começar a vender no TikTok Shop e por que você precisa gastar no primeiro mês para liberar o crédito.</description>
+<author>thomas98macedo@gmail.com (Thomas Macedo)</author>
+<pubDate>Sun, 20 Sep 2026 10:00:00 +0000</pubDate>
+</item>
 <item>
 <title>Observabilidade de agentes de IA: como monitorar, logar e auditar um agente em produção</title>
 <link>https://www.thomas-macedo.com/artigos/observabilidade-de-agentes-de-ia.html</link>

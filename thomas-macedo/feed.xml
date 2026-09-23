@@ -5,8 +5,16 @@
 <link>https://www.thomas-macedo.com/</link>
 <description>Uma matéria por dia sobre agentes de IA, agência escalada, tráfego pago, e-commerce e criação de marcas. Por Thomas Macedo (Gene Company / LINCE Performance).</description>
 <language>pt-BR</language>
-<lastBuildDate>Tue, 22 Sep 2026 10:36:43 +0000</lastBuildDate>
+<lastBuildDate>Wed, 23 Sep 2026 10:35:06 +0000</lastBuildDate>
 <atom:link href="https://www.thomas-macedo.com/feed.xml" rel="self" type="application/rss+xml" />
+<item>
+<title>Produção própria de criativos em agência: como montar um estúdio interno que escala</title>
+<link>https://www.thomas-macedo.com/artigos/producao-propria-de-criativos-em-agencia.html</link>
+<guid isPermaLink="true">https://www.thomas-macedo.com/artigos/producao-propria-de-criativos-em-agencia.html</guid>
+<description>Uma agência que escala não terceiriza o que mais vende: o criativo. Veja como montar um estúdio interno de produção — funções, esteira, volume e IA — para escalar sem perder qualidade.</description>
+<author>thomas98macedo@gmail.com (Thomas Macedo)</author>
+<pubDate>Wed, 23 Sep 2026 10:00:00 +0000</pubDate>
+</item>
 <item>
 <title>Orquestração de agentes de IA: como vários agentes trabalham juntos numa empresa (sistema multiagente)</title>
 <link>https://www.thomas-macedo.com/artigos/orquestracao-de-agentes-de-ia-multiagente.html</link>

@@ -56,6 +56,7 @@
 - [Posicionamento de marca: como escolher o lugar que a sua marca ocupa na cabeça do cliente](https://www.thomas-macedo.com/artigos/posicionamento-de-marca.html): Posicionamento de marca é a escolha do lugar que a sua marca vai ocupar na memória do cliente. Veja o método, a frase de posicionamento pronta, os territórios possíveis e como testar antes de reformar a marca inteira.
 
 ## Artigos recentes
+- [Frete grátis no e-commerce: quando vale e como não queimar margem](https://www.thomas-macedo.com/artigos/frete-gratis-no-ecommerce.html): Frete grátis converte porque custo extra é a maior causa de abandono — mas só vale quando o ticket cobre o frete. A conta pra decidir.
 - [Plano de marketing para vendas online: como montar um que gera venda (não só post)](https://www.thomas-macedo.com/artigos/plano-de-marketing-para-vendas-online.html): A maioria dos planos é uma lista de posts. Um plano de verdade parte da meta de faturamento e volta em números. A estrutura de 1 página que eu uso.
 - [Produção própria de criativos em agência: o estúdio interno que escala](https://www.thomas-macedo.com/artigos/producao-propria-de-criativos-em-agencia.html): A agência que escala não terceiriza o que mais vende. Como montar produção própria de criativos — funções, esteira e IA.
 - [Orquestração de agentes de IA: como vários agentes trabalham juntos (multiagente)](https://www.thomas-macedo.com/artigos/orquestracao-de-agentes-de-ia-multiagente.html): Quando um agente só não dá conta, você monta um time. Como funciona um sistema multiagente, quando vale e quando é só complexidade a mais.
@@ -65,7 +66,6 @@
 - [Arquitetura de marca: uma marca só ou várias? (casa de marcas vs. marca única)](https://www.thomas-macedo.com/artigos/arquitetura-de-marca-uma-ou-varias.html): Marca única, casa de marcas ou submarca? Como organizar suas marcas e produtos para crescer sem confundir o cliente nem diluir o nome.
 - [Black Friday para e-commerce: como preparar a operação para o pico de vendas](https://www.thomas-macedo.com/artigos/preparar-ecommerce-para-black-friday.html): As 4 frentes que decidem sua Black Friday: tráfego e estoque, checkout, logística e atendimento com IA — com cronograma semana a semana.
 - [O Multiverso: o mundo 3D onde moram os meus 41 agentes de IA](https://www.thomas-macedo.com/artigos/multiverso-de-agentes-de-ia.html): Construí uma vila 3D onde os 41 agentes de IA que operam a minha empresa moram, trabalham, dormem e fazem amizade — e onde os problemas reais do negócio viram monstros.
-- [Como escolher uma assessoria de marketing digital: 7 sinais de que ela vai dar resultado](https://www.thomas-macedo.com/artigos/como-escolher-assessoria-de-marketing-digital.html): Sem cair em promessa vazia: os 7 sinais concretos de que uma assessoria de marketing digital vai gerar vendas — e as bandeiras vermelhas para fugir.
 
 ## Prova social
 - Marcas que passaram pelo processo de escala com Thomas Macedo: China Link Trading, China Link na Estrada, Lincoln Fracari, Tuyo Brasil, Apex Performance, LM Woodwork, Friga Store, Laser Rosa, Relive Med Clinic, Moby Dick Santos, Texas Firearms, entre centenas de outras operações.

@@ -56,6 +56,7 @@
 - [Posicionamento de marca: como escolher o lugar que a sua marca ocupa na cabeça do cliente](https://www.thomas-macedo.com/artigos/posicionamento-de-marca.html): Posicionamento de marca é a escolha do lugar que a sua marca vai ocupar na memória do cliente. Veja o método, a frase de posicionamento pronta, os territórios possíveis e como testar antes de reformar a marca inteira.
 
 ## Artigos recentes
+- [Quanto custa criar uma marca própria no Brasil (do registro à prateleira)](https://www.thomas-macedo.com/artigos/quanto-custa-criar-uma-marca-propria.html): Onde o dinheiro realmente vai: registro no INPI, identidade, produto e embalagem — e o que dá para começar enxuto sem parecer genérico.
 - [Frete grátis no e-commerce: quando vale e como não queimar margem](https://www.thomas-macedo.com/artigos/frete-gratis-no-ecommerce.html): Frete grátis converte porque custo extra é a maior causa de abandono — mas só vale quando o ticket cobre o frete. A conta pra decidir.
 - [Plano de marketing para vendas online: como montar um que gera venda (não só post)](https://www.thomas-macedo.com/artigos/plano-de-marketing-para-vendas-online.html): A maioria dos planos é uma lista de posts. Um plano de verdade parte da meta de faturamento e volta em números. A estrutura de 1 página que eu uso.
 - [Produção própria de criativos em agência: o estúdio interno que escala](https://www.thomas-macedo.com/artigos/producao-propria-de-criativos-em-agencia.html): A agência que escala não terceiriza o que mais vende. Como montar produção própria de criativos — funções, esteira e IA.
@@ -65,7 +66,6 @@
 - [CPM, CTR, CPC e frequência: como ler as métricas do anúncio e achar onde ele trava](https://www.thomas-macedo.com/artigos/metricas-de-trafego-pago-cpm-ctr-frequencia.html): O guia para diagnosticar por que seu anúncio de e-commerce não vende — lendo CPM, CTR, CPC, frequência e ROAS em vez de chutar.
 - [Arquitetura de marca: uma marca só ou várias? (casa de marcas vs. marca única)](https://www.thomas-macedo.com/artigos/arquitetura-de-marca-uma-ou-varias.html): Marca única, casa de marcas ou submarca? Como organizar suas marcas e produtos para crescer sem confundir o cliente nem diluir o nome.
 - [Black Friday para e-commerce: como preparar a operação para o pico de vendas](https://www.thomas-macedo.com/artigos/preparar-ecommerce-para-black-friday.html): As 4 frentes que decidem sua Black Friday: tráfego e estoque, checkout, logística e atendimento com IA — com cronograma semana a semana.
-- [O Multiverso: o mundo 3D onde moram os meus 41 agentes de IA](https://www.thomas-macedo.com/artigos/multiverso-de-agentes-de-ia.html): Construí uma vila 3D onde os 41 agentes de IA que operam a minha empresa moram, trabalham, dormem e fazem amizade — e onde os problemas reais do negócio viram monstros.
 
 ## Prova social
 - Marcas que passaram pelo processo de escala com Thomas Macedo: China Link Trading, China Link na Estrada, Lincoln Fracari, Tuyo Brasil, Apex Performance, LM Woodwork, Friga Store, Laser Rosa, Relive Med Clinic, Moby Dick Santos, Texas Firearms, entre centenas de outras operações.

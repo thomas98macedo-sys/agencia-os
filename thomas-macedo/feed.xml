@@ -5,8 +5,16 @@
 <link>https://www.thomas-macedo.com/</link>
 <description>Uma matéria por dia sobre agentes de IA, agência escalada, tráfego pago, e-commerce e criação de marcas. Por Thomas Macedo (Gene Company / LINCE Performance).</description>
 <language>pt-BR</language>
-<lastBuildDate>Mon, 28 Sep 2026 10:35:24 +0000</lastBuildDate>
+<lastBuildDate>Tue, 29 Sep 2026 10:37:33 +0000</lastBuildDate>
 <atom:link href="https://www.thomas-macedo.com/feed.xml" rel="self" type="application/rss+xml" />
+<item>
+<title>Os erros mais caros ao implantar um agente de IA numa empresa (e como evitar)</title>
+<link>https://www.thomas-macedo.com/artigos/erros-ao-implantar-agente-de-ia.html</link>
+<guid isPermaLink="true">https://www.thomas-macedo.com/artigos/erros-ao-implantar-agente-de-ia.html</guid>
+<description>Os erros que fazem um agente de IA custar caro e não entregar: automatizar sem medir, começar grande demais, IA sem o conhecimento da empresa e sem guardrails. Veja os 7 mais caros e o que fazer no lugar.</description>
+<author>thomas98macedo@gmail.com (Thomas Macedo)</author>
+<pubDate>Tue, 29 Sep 2026 10:00:00 +0000</pubDate>
+</item>
 <item>
 <title>Objeções na recuperação de vendas: como o agente de IA responde “tá caro”, “vou pensar” e “frete caro”</title>
 <link>https://www.thomas-macedo.com/artigos/objecoes-na-recuperacao-de-vendas-com-ia.html</link>

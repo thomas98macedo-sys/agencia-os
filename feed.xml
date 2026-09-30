@@ -5,8 +5,16 @@
 <link>https://www.thomas-macedo.com/</link>
 <description>Uma matéria por dia sobre agentes de IA, agência escalada, tráfego pago, e-commerce e criação de marcas. Por Thomas Macedo (Gene Company / LINCE Performance).</description>
 <language>pt-BR</language>
-<lastBuildDate>Tue, 29 Sep 2026 10:37:33 +0000</lastBuildDate>
+<lastBuildDate>Wed, 30 Sep 2026 10:32:50 +0000</lastBuildDate>
 <atom:link href="https://www.thomas-macedo.com/feed.xml" rel="self" type="application/rss+xml" />
+<item>
+<title>Prompt de agente de IA: como escrever a instrução (system prompt) que define o comportamento</title>
+<link>https://www.thomas-macedo.com/artigos/como-escrever-o-prompt-de-um-agente-de-ia.html</link>
+<guid isPermaLink="true">https://www.thomas-macedo.com/artigos/como-escrever-o-prompt-de-um-agente-de-ia.html</guid>
+<description>O system prompt é o documento que diz ao agente de IA quem ele é, o que pode fazer e onde parar. Veja a estrutura de instrução que faz o agente se comportar de verdade.</description>
+<author>thomas98macedo@gmail.com (Thomas Macedo)</author>
+<pubDate>Wed, 30 Sep 2026 10:00:00 +0000</pubDate>
+</item>
 <item>
 <title>Os erros mais caros ao implantar um agente de IA numa empresa (e como evitar)</title>
 <link>https://www.thomas-macedo.com/artigos/erros-ao-implantar-agente-de-ia.html</link>

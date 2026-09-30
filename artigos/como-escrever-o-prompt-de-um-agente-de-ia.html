@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TXSF2K6K');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Prompt de agente de IA: como escrever a instrução (system prompt) que define o comportamento | Thomas Macedo</title>
+  <meta name="description" content="O system prompt é o documento que diz ao agente de IA quem ele é, o que pode fazer e onde parar. Veja a estrutura de instrução que faz o agente se comportar de verdade." />
+  <meta name="keywords" content="prompt de agente de IA, system prompt, como escrever prompt para IA, instrução de agente de IA, persona de IA, engenharia de prompt, Thomas Macedo" />
+  <meta name="author" content="Thomas Macedo" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://www.thomas-macedo.com/artigos/como-escrever-o-prompt-de-um-agente-de-ia.html" />
+  <meta name="theme-color" content="#FAF8F3" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Thomas Macedo" />
+  <meta property="og:title" content="Prompt de agente de IA: como escrever a instrução que define o comportamento" />
+  <meta property="og:description" content="A instrução (system prompt) é o que separa um agente que resolve de um que enrola. Veja a estrutura completa: papel, objetivo, regras, limites e exemplos." />
+  <meta property="og:url" content="https://www.thomas-macedo.com/artigos/como-escrever-o-prompt-de-um-agente-de-ia.html" />
+  <meta property="og:image" content="https://www.thomas-macedo.com/img/thomas-macedo-conteudo-escala.jpeg" />
+  <meta property="article:author" content="Thomas Macedo" />
+  <meta property="article:published_time" content="2026-09-30" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Prompt de agente de IA: como escrever a instrução que define o comportamento" />
+  <meta name="twitter:description" content="A instrução (system prompt) é o que separa um agente que resolve de um que enrola. Veja a estrutura completa." />
+  <meta name="twitter:image" content="https://www.thomas-macedo.com/img/thomas-macedo-conteudo-escala.jpeg" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BlogPosting",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.thomas-macedo.com/artigos/como-escrever-o-prompt-de-um-agente-de-ia.html"},
+    "headline":"Prompt de agente de IA: como escrever a instrução (system prompt) que define o comportamento",
+    "description":"O system prompt é o documento que diz ao agente de IA quem ele é, o que pode fazer e onde parar. Veja a estrutura de instrução que faz o agente se comportar de verdade.",
+    "image":"https://www.thomas-macedo.com/img/thomas-macedo-conteudo-escala.jpeg",
+    "datePublished":"2026-09-30","dateModified":"2026-09-30",
+    "inLanguage":"pt-BR",
+    "author":{"@type":"Person","name":"Thomas Macedo","url":"https://www.thomas-macedo.com/","jobTitle":"Especialista em IA, Criação de Marcas e Tráfego Pago","worksFor":{"@type":"Organization","name":"Gene Company"},"sameAs":["https://www.instagram.com/thomasmacedo.ads","https://www.linkedin.com/in/thomas-macedo-23896216a/"]},
+    "publisher":{"@id":"https://www.thomas-macedo.com/#thomas-macedo"},
+    "keywords":"prompt de agente de IA, system prompt, como escrever prompt para IA, instrução de agente de IA, persona de IA, engenharia de prompt, Thomas Macedo"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.thomas-macedo.com/"},
+      {"@type":"ListItem","position":2,"name":"Artigos","item":"https://www.thomas-macedo.com/artigos/"},
+      {"@type":"ListItem","position":3,"name":"Prompt de agente de IA: como escrever a instrução que define o comportamento","item":"https://www.thomas-macedo.com/artigos/como-escrever-o-prompt-de-um-agente-de-ia.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[{"@type":"Question","name":"O que é o system prompt de um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"É a instrução fixa que define quem o agente é, qual o objetivo dele, como deve falar, o que pode fazer e onde deve parar. Fica sempre ativa em toda conversa e funciona como o 'contrato de trabalho' do agente: enquanto a mensagem do cliente muda a cada interação, o system prompt permanece igual e guia todo o comportamento."}},{"@type":"Question","name":"Qual a diferença entre prompt e system prompt?","acceptedAnswer":{"@type":"Answer","text":"O prompt comum é a mensagem que o usuário envia a cada interação. O system prompt é a instrução permanente que o desenvolvedor escreve uma vez e que guia todas as respostas do agente. É a diferença entre a pergunta do cliente e o manual que o atendente seguiu para respondê-la."}},{"@type":"Question","name":"O que uma boa instrução de agente de IA precisa ter?","acceptedAnswer":{"@type":"Answer","text":"Papel (quem o agente é), objetivo (o que ele deve alcançar), tom de voz, regras do que fazer e do que nunca fazer, limites e critério de handoff para um humano, além de exemplos de conversas boas e ruins. Sem esses elementos, o agente improvisa e sai do padrão da empresa."}},{"@type":"Question","name":"Escrever um prompt longo deixa o agente melhor?","acceptedAnswer":{"@type":"Answer","text":"Não necessariamente. O que importa é clareza, não tamanho. Instrução boa é objetiva, sem regras contraditórias e com exemplos concretos. Prompt gigante e confuso costuma piorar o comportamento porque o modelo não sabe qual regra priorizar."}},{"@type":"Question","name":"O prompt resolve o problema de alucinação da IA?","acceptedAnswer":{"@type":"Answer","text":"Ajuda, mas não sozinho. O prompt reduz respostas fora do escopo ao definir limites claros, mas para o agente responder com informação correta ele precisa de uma base de conhecimento (RAG) e de guardrails técnicos. Prompt, conhecimento e limites trabalham juntos."}}]
+  }
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXSF2K6K"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="../index.html" class="wordmark">Thomas <span>Macedo</span></a>
+        <div class="nav-links">
+          <a href="../index.html" class="hide-mob">IA &amp; Performance</a>
+          <a href="../marcas.html" class="hide-mob">Marcas &amp; E-commerce</a>
+          <a href="../artigos/" class="active hide-mob">Artigos</a>
+          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="nav-cta" target="_blank" rel="noopener">Falar comigo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap"><nav class="crumb"><a href="../index.html">Início</a><span>/</span><a href="../artigos/">Artigos</a><span>/</span>Prompt de agente de IA: como escrever a instrução</nav></div>
+
+  <article>
+    <header class="article-head">
+      <span class="eyebrow">Inteligência Artificial</span>
+      <h1>Prompt de agente de IA: como escrever a instrução (system prompt) que define o comportamento</h1>
+      <p class="dek">O que separa um agente que resolve de um que enrola raramente é o modelo — é a instrução. Aqui eu mostro como escrever o system prompt que faz o agente se comportar do jeito da sua empresa.</p>
+      <div class="article-meta">
+        <span>Por Thomas Macedo</span><span class="dot"></span><span>8 min de leitura</span><span class="dot"></span><span>Atualizado em 2026</span>
+      </div>
+    </header>
+
+    <div class="article-cover">
+      <img src="../img/thomas-macedo-conteudo-escala.jpeg" alt="Escrevendo a instrução (system prompt) de um agente de IA para empresas" width="1000" height="500" style="object-position:center 40%" />
+    </div>
+
+    <div class="prose">
+      <p><strong>O system prompt é a instrução fixa que define quem o agente de IA é, o que ele deve alcançar, como deve falar, o que pode fazer e onde deve parar.</strong> Ele fica ativo em toda conversa e funciona como o contrato de trabalho do agente: a mensagem do cliente muda a cada interação, mas o system prompt permanece igual e guia todo o comportamento. Uma instrução boa não é a mais longa — é a mais clara, com papel, objetivo, regras, limites e exemplos. É ela que faz o agente parecer parte da sua empresa em vez de um robô genérico.</p>
+
+      <p>Eu escrevo essas instruções todos os dias para os agentes que coloco em produção. Então vou direto ao que funciona — e ao que faz o agente sair do trilho.</p>
+
+      <div class="callout">
+        <span class="k">Resumo rápido</span>
+        <ul>
+          <li>O <strong>system prompt</strong> é a instrução permanente do agente — não a mensagem do cliente.</li>
+          <li>Precisa de <strong>papel, objetivo, tom, regras, limites e exemplos</strong>.</li>
+          <li>Clareza vence tamanho: regra contraditória confunde mais que ajuda.</li>
+          <li>Prompt sozinho não basta — anda junto com <strong>conhecimento e guardrails</strong>.</li>
+        </ul>
+      </div>
+
+      <h2>O que é o system prompt (e por que ele decide tudo)</h2>
+      <p>Todo agente de IA tem dois tipos de texto entrando no modelo: a <strong>mensagem do usuário</strong>, que muda a cada interação, e a <strong>instrução do sistema</strong>, que você escreve uma vez e fica valendo para sempre. Essa instrução é o system prompt. É onde você diz ao modelo qual papel ele assume, qual o objetivo daquela conversa e quais são as regras da casa. Se a mensagem do cliente é a pergunta, o system prompt é o manual que o atendente estudou antes de responder.</p>
+      <p>Por isso ele decide tudo. O mesmo modelo — GPT, Claude ou Gemini — se comporta como um vendedor agressivo ou como um consultor paciente dependendo só do que você escreveu ali. Trocar de modelo raramente resolve um agente ruim; reescrever a instrução quase sempre resolve. Se você ainda está entendendo as peças, vale ler antes a <a href="./anatomia-de-um-agente-de-ia.html">anatomia de um agente de IA</a>, porque o prompt é uma dessas peças — não a única.</p>
+
+      <h2>Qual a diferença entre prompt e system prompt?</h2>
+      <p>Muita gente confunde. O <strong>prompt comum</strong> é o que o usuário digita: "quanto custa o frete pra Santos?". O <strong>system prompt</strong> é o que o desenvolvedor escreveu: "Você é o atendente da loja X, responde em português, consulta o frete no sistema antes de informar valor e nunca promete prazo que não pode cumprir". O primeiro é volátil e você não controla. O segundo é fixo e é 100% seu trabalho. Quem constrói o agente vive no segundo.</p>
+
+      <h2>O que uma boa instrução de agente de IA precisa ter</h2>
+      <p>Uma instrução que funciona tem blocos claros. Não precisa de nome bonito, precisa de estar lá:</p>
+      <ul>
+        <li><strong>Papel:</strong> quem o agente é e para quem ele trabalha. "Você é o assistente de vendas da [empresa], que vende [produto] para [público]".</li>
+        <li><strong>Objetivo:</strong> o que ele deve alcançar naquela conversa. Qualificar? Recuperar uma venda? Agendar? Um objetivo só, bem definido, por agente.</li>
+        <li><strong>Tom de voz:</strong> como a empresa fala. Formal ou próximo, com ou sem emoji, direto ou consultivo. É aqui que a marca aparece na conversa.</li>
+        <li><strong>Regras do que fazer:</strong> os passos que ele sempre segue — consultar o sistema antes de dar preço, confirmar o nome, oferecer o próximo passo.</li>
+        <li><strong>Regras do que nunca fazer:</strong> não inventar preço, não prometer prazo, não falar de concorrente, não dar desconto sem autorização.</li>
+        <li><strong>Limites e handoff:</strong> quando ele para e chama um humano. Esse ponto merece atenção — veja o guia de <a href="./handoff-humano-em-agentes-de-ia.html">handoff humano em agentes de IA</a>.</li>
+        <li><strong>Exemplos:</strong> uma ou duas conversas modelo, mostrando uma resposta boa e uma resposta ruim. Exemplo ensina mais que dez linhas de regra.</li>
+      </ul>
+
+      <blockquote><p>A pergunta certa ao escrever a instrução não é "o que eu quero que ele diga". É "o que eu não quero que ele faça de jeito nenhum". É o limite que protege a operação.</p></blockquote>
+
+      <h2>Os erros mais comuns ao escrever o prompt</h2>
+      <p>Depois de escrever muitos, os erros se repetem:</p>
+      <ul>
+        <li><strong>Regras contraditórias:</strong> "seja breve" e "explique tudo em detalhe" na mesma instrução. O modelo não sabe qual obedecer e escolhe errado na hora errada.</li>
+        <li><strong>Vago demais:</strong> "atenda bem o cliente" não diz nada. "Responda em até 3 frases, sempre termine com uma pergunta" diz.</li>
+        <li><strong>Sem limites:</strong> instrução que só fala do que fazer e nunca do que não fazer produz agente que promete o que a empresa não entrega.</li>
+        <li><strong>Prompt gigante:</strong> tamanho não é qualidade. Instrução enorme e confusa dilui as regras importantes. Corte o que não muda o comportamento.</li>
+        <li><strong>Confundir prompt com conhecimento:</strong> tabela de preços e política de troca não vão dentro da instrução — vão na base de conhecimento. Misturar os dois deixa o prompt impossível de manter.</li>
+      </ul>
+
+      <h2>Como estruturar o prompt na prática (esqueleto)</h2>
+      <p>Uma ordem que costumo seguir, do geral ao específico:</p>
+      <ol>
+        <li><strong>Identidade:</strong> papel, empresa, público, objetivo da conversa.</li>
+        <li><strong>Tom:</strong> como falar, com exemplos de frase.</li>
+        <li><strong>Fluxo:</strong> os passos que ele segue do início ao fim da conversa.</li>
+        <li><strong>Regras rígidas:</strong> o que nunca fazer, em lista curta e sem ambiguidade.</li>
+        <li><strong>Handoff:</strong> os gatilhos que passam a conversa para um humano.</li>
+        <li><strong>Exemplos:</strong> um diálogo bom e um diálogo ruim comentado.</li>
+      </ol>
+      <p>Depois de escrever, teste com conversas reais antes de soltar em produção — instrução no papel parece perfeita e desmorona no primeiro cliente atípico. Eu detalho esse processo em <a href="./como-testar-agente-de-ia-antes-de-producao.html">como testar um agente de IA antes de colocar em produção</a>.</p>
+
+      <h2>O prompt não resolve tudo (e é importante saber disso)</h2>
+      <p>Aqui é onde muita gente se frustra: acha que basta caprichar na instrução e o agente vira perfeito. Não vira. O prompt define <em>comportamento</em>, mas não fornece <em>informação</em>. Para o agente responder o preço certo, ele precisa consultar a sua base — é o papel da <a href="./base-de-conhecimento-rag-para-agente-de-ia.html">base de conhecimento e RAG</a>. E para ele não inventar quando não sabe, você precisa de guardrails técnicos, não só de uma frase pedindo "não alucine" — o assunto de <a href="./alucinacao-e-guardrails-de-agentes-de-ia.html">alucinação e guardrails</a>.</p>
+      <p>A conta é simples: <strong>prompt + conhecimento + limites</strong>. O prompt dá a personalidade e as regras, o conhecimento dá a informação correta, os limites impedem o estrago. Falhou um dos três e o agente decepciona. Se você quer o passo a passo de montar isso do zero, tem o guia de <a href="./como-criar-agentes-de-ia.html">como criar agentes de IA para empresas</a>.</p>
+
+      <p>É assim que eu trabalho: instrução clara e enxuta, conhecimento conectado e limites que protegem a operação. Agente bom não é o que fala bonito — é o que se comporta igual todos os dias, do jeito da empresa. E isso começa no prompt. Se quiser, <a href="../index.html">veja como aplico IA e performance no meu trabalho</a>.</p>
+
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details open><summary>O que é o system prompt de um agente de IA?</summary><p>É a instrução fixa que define quem o agente é, qual o objetivo dele, como deve falar, o que pode fazer e onde deve parar. Fica sempre ativa em toda conversa e funciona como o contrato de trabalho do agente: enquanto a mensagem do cliente muda a cada interação, o system prompt permanece igual e guia todo o comportamento.</p></details>
+        <details><summary>Qual a diferença entre prompt e system prompt?</summary><p>O prompt comum é a mensagem que o usuário envia a cada interação. O system prompt é a instrução permanente que o desenvolvedor escreve uma vez e que guia todas as respostas do agente. É a diferença entre a pergunta do cliente e o manual que o atendente seguiu para respondê-la.</p></details>
+        <details><summary>O que uma boa instrução de agente de IA precisa ter?</summary><p>Papel (quem o agente é), objetivo (o que ele deve alcançar), tom de voz, regras do que fazer e do que nunca fazer, limites e critério de handoff para um humano, além de exemplos de conversas boas e ruins. Sem esses elementos, o agente improvisa e sai do padrão da empresa.</p></details>
+        <details><summary>Escrever um prompt longo deixa o agente melhor?</summary><p>Não necessariamente. O que importa é clareza, não tamanho. Instrução boa é objetiva, sem regras contraditórias e com exemplos concretos. Prompt gigante e confuso costuma piorar o comportamento porque o modelo não sabe qual regra priorizar.</p></details>
+        <details><summary>O prompt resolve o problema de alucinação da IA?</summary><p>Ajuda, mas não sozinho. O prompt reduz respostas fora do escopo ao definir limites claros, mas para o agente responder com informação correta ele precisa de uma base de conhecimento (RAG) e de guardrails técnicos. Prompt, conhecimento e limites trabalham juntos.</p></details>
+      </div>
+    </div>
+
+    <div class="author-box">
+      <img src="../img/thomas-macedo-palestra.jpeg" alt="Thomas Macedo" />
+      <div>
+        <div class="a-name"><a href="../sobre.html" style="color:inherit;border-bottom:1px solid var(--line-strong)">Thomas Macedo</a></div>
+        <p class="a-bio">Fundador da Gene Company. Especialista em sistemas e agentes de IA, criação de marcas e tráfego pago com ROI escalável para empresas. Santos/BR, atende Brasil e exterior. <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" target="_blank" rel="noopener">Fale comigo no WhatsApp →</a></p>
+      </div>
+    </div>
+  </article>
+
+  <section class="related">
+    <div class="wrap-narrow" style="padding:0">
+      <p class="eyebrow eyebrow-ink" style="display:block;margin-bottom:8px">Continue lendo</p>
+      <div class="related-grid">
+        <a href="../artigos/anatomia-de-um-agente-de-ia.html"><span class="r-cat">Inteligência Artificial</span><h3>Anatomia de um agente de IA: instrução, memória, ferramentas e limites</h3></a>
+        <a href="../artigos/alucinacao-e-guardrails-de-agentes-de-ia.html"><span class="r-cat">Inteligência Artificial</span><h3>Alucinação de agentes de IA: por que acontece e como impedir com guardrails</h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2 class="display mt-m" style="font-size:clamp(2.2rem,5vw,4rem)">Quero IA<br>na minha empresa.</h2>
+      <p class="lead mt-m" style="color:rgba(244,241,234,.8);max-width:48ch">Conte sobre o seu negócio e receba um diagnóstico do seu tráfego, criativos, marca e atendimento com IA.</p>
+      <div class="contact-row">
+        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" class="btn" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
+        <a href="https://www.instagram.com/thomasmacedo.ads" class="link-underline" target="_blank" rel="noopener" style="color:var(--paper)">Instagram @thomasmacedo.ads</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <span>© 2026 Thomas Macedo — IA, criação de marcas e tráfego pago. Santos, Baixada Santista, Brasil &amp; exterior.</span>
+        <div class="foot-links">
+          <a href="../index.html">IA &amp; Performance</a>
+          <a href="../marcas.html">Marcas &amp; E-commerce</a>
+          <a href="../artigos/">Artigos</a>
+          <a href="../sobre.html">Sobre</a>
+          <a href="https://www.instagram.com/thomasmacedo.ads" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/thomas-macedo-23896216a/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/102946615/" target="_blank" rel="noopener">LINCE Performance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
+</body>
+</html>

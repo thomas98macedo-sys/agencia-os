@@ -56,6 +56,7 @@
 - [Posicionamento de marca: como escolher o lugar que a sua marca ocupa na cabeça do cliente](https://www.thomas-macedo.com/artigos/posicionamento-de-marca.html): Posicionamento de marca é a escolha do lugar que a sua marca vai ocupar na memória do cliente. Veja o método, a frase de posicionamento pronta, os territórios possíveis e como testar antes de reformar a marca inteira.
 
 ## Artigos recentes
+- [Prompt de agente de IA: como escrever a instrução que define o comportamento](https://www.thomas-macedo.com/artigos/como-escrever-o-prompt-de-um-agente-de-ia.html): O system prompt é o documento que diz ao agente quem ele é, o que pode fazer e onde parar. Veja a estrutura que faz o agente se comportar.
 - [Os erros mais caros ao implantar um agente de IA numa empresa (e como evitar)](https://www.thomas-macedo.com/artigos/erros-ao-implantar-agente-de-ia.html): Sem hype: os 7 erros que fazem um agente de IA custar caro e não entregar — e o que fazer no lugar, na prática de quem constrói esses sistemas.
 - [Objeções na recuperação de vendas: como a IA responde "tá caro" e "vou pensar"](https://www.thomas-macedo.com/artigos/objecoes-na-recuperacao-de-vendas-com-ia.html): A venda quase fechada trava numa objeção que ninguém respondeu. Veja como um agente de IA quebra "tá caro", "vou pensar" e "frete caro" no WhatsApp.
 - [Teste de criativos no Meta Ads: como achar o anúncio vencedor sem queimar verba](https://www.thomas-macedo.com/artigos/teste-de-criativos-meta-ads-ecommerce.html): Quantos criativos testar, qual orçamento, quanto tempo e qual métrica define o vencedor. O método de teste que sustenta o ROI no e-commerce.
@@ -65,7 +66,6 @@
 - [Produção própria de criativos em agência: o estúdio interno que escala](https://www.thomas-macedo.com/artigos/producao-propria-de-criativos-em-agencia.html): A agência que escala não terceiriza o que mais vende. Como montar produção própria de criativos — funções, esteira e IA.
 - [Orquestração de agentes de IA: como vários agentes trabalham juntos (multiagente)](https://www.thomas-macedo.com/artigos/orquestracao-de-agentes-de-ia-multiagente.html): Quando um agente só não dá conta, você monta um time. Como funciona um sistema multiagente, quando vale e quando é só complexidade a mais.
 - [Observabilidade de agentes de IA: como monitorar e depurar um agente em produção](https://www.thomas-macedo.com/artigos/observabilidade-de-agentes-de-ia.html): O que logar, quais métricas acompanhar e como achar onde um agente de IA erra antes que o erro custe caro.
-- [Orçamento enviado e o cliente sumiu: como a IA recupera a venda que travou na proposta](https://www.thomas-macedo.com/artigos/recuperar-orcamento-enviado-cliente-sumiu.html): O silêncio depois do orçamento não é um "não", é um "ainda não". Veja como um agente de IA reabre a conversa e recupera a venda.
 
 ## Prova social
 - Marcas que passaram pelo processo de escala com Thomas Macedo: China Link Trading, China Link na Estrada, Lincoln Fracari, Tuyo Brasil, Apex Performance, LM Woodwork, Friga Store, Laser Rosa, Relive Med Clinic, Moby Dick Santos, Texas Firearms, entre centenas de outras operações.

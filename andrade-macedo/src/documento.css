@@ -1,0 +1,177 @@
+/* ===== Documento (páginas A4 a 96dpi) ===== */
+.documento {
+  --azul: #0A3F73;
+  --azul-2: #11528f;
+  --tinta: #1A2432;
+  --texto: #2B3442;
+  --suave: #6B7280;
+  --creme: #FBF3E6;
+  --creme-2: #F6EEDF;
+  --linha: #E3DACB;
+  font-family: Inter, system-ui, sans-serif;
+  color: var(--texto);
+  font-size: 12px;
+  line-height: 1.5;
+  position: relative;
+}
+.documento * { box-sizing: border-box; }
+.medidor { position: absolute; left: -99999px; top: 0; visibility: hidden; }
+.blk { display: flow-root; }
+.blk > * { margin-top: 0; }
+.blk + .blk { padding-top: 8px; }
+.conteudo > .blk:first-child { padding-top: 0; }
+.documento p { margin: 0 0 7px; text-align: justify; hyphens: auto; }
+.documento p:last-child { margin-bottom: 0; }
+.documento strong, .documento b { color: var(--tinta); font-weight: 600; }
+.pre { white-space: pre-wrap; }
+.ph { color: #B4793A; background: #FDF0DC; padding: 0 3px; border-radius: 2px; font-style: normal; }
+.rot { display: block; font-family: Montserrat, sans-serif; font-size: 8.6px; letter-spacing: .14em; text-transform: uppercase; color: var(--suave); font-weight: 600; margin-bottom: 2px; }
+
+.pagina {
+  width: 794px; height: 1123px; background: #fff; position: relative; overflow: hidden;
+  margin: 0 auto 28px; box-shadow: 0 2px 14px rgba(15, 30, 55, .14);
+}
+.pagina:last-child { margin-bottom: 0; }
+.conteudo { position: absolute; }
+
+/* Cabeçalho / rodapé */
+.cabecalho {
+  position: absolute; left: 64px; right: 64px; top: 34px; height: 46px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--linha); padding-bottom: 12px;
+}
+.cab-l { display: flex; align-items: center; gap: 12px; }
+.cab-nome { font-family: Montserrat, sans-serif; font-weight: 600; color: var(--azul); font-size: 12.5px; letter-spacing: .16em; line-height: 1.1; }
+.cab-sub { font-family: Montserrat, sans-serif; font-size: 8.6px; letter-spacing: .2em; color: var(--tinta); text-transform: uppercase; margin-top: 3px; }
+.cab-r { text-align: right; font-size: 9.5px; color: var(--suave); line-height: 1.4; }
+.cab-r b { color: var(--azul); font-family: Montserrat, sans-serif; font-size: 10.5px; letter-spacing: .04em; }
+
+.rodape {
+  position: absolute; left: 64px; right: 64px; bottom: 30px; height: 24px;
+  border-top: 1px solid var(--linha); padding-top: 9px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 8.4px; letter-spacing: .06em; color: var(--suave);
+}
+.rodape b { color: var(--azul); font-weight: 700; }
+.rodape-pg { font-family: Montserrat, sans-serif; font-weight: 600; color: var(--tinta); }
+
+/* Seções */
+.sec {
+  display: flex; align-items: center; gap: 12px; margin: 10px 0 2px;
+  font-family: Montserrat, sans-serif; font-size: 14.5px; font-weight: 700; color: var(--azul);
+  letter-spacing: .08em; text-transform: uppercase;
+  padding-bottom: 8px; border-bottom: 2px solid var(--azul);
+}
+.sec-n {
+  display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 26px;
+  background: var(--azul); color: #fff; font-size: 12px; letter-spacing: .02em;
+}
+.sub { font-family: Montserrat, sans-serif; font-size: 11.6px; font-weight: 700; color: var(--tinta); margin: 6px 0 5px; letter-spacing: .02em; }
+.nota { font-size: 11px; color: var(--suave); }
+.lista { margin: 2px 0 0; padding: 0; list-style: none; }
+.lista li { position: relative; padding-left: 16px; margin-bottom: 3px; }
+.lista li::before { content: ''; position: absolute; left: 3px; top: .62em; width: 5px; height: 5px; background: var(--azul); }
+
+/* 1. Quadros */
+.quadros { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.quadros-col { display: grid; gap: 12px; align-content: start; }
+.quadro { border: 1px solid var(--linha); border-top: 3px solid var(--azul); background: #FDFAF4; padding: 11px 14px 10px; }
+.quadro-t { font-family: Montserrat, sans-serif; font-size: 9px; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; color: var(--azul); margin-bottom: 5px; }
+.quadro-nome { font-weight: 600; color: var(--tinta); font-size: 12.6px; margin-bottom: 5px; line-height: 1.35; }
+.campo { display: grid; grid-template-columns: 100px 1fr; gap: 6px; font-size: 11px; line-height: 1.45; padding: 1.5px 0; }
+.campo-r { color: var(--suave); }
+.campo-v { color: var(--tinta); word-break: break-word; }
+
+/* 2. Sobre */
+.sobre p { font-size: 11.8px; }
+.difs { background: var(--creme); padding: 12px 14px 6px; }
+.difs-t { font-family: Montserrat, sans-serif; font-size: 9px; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; color: var(--azul); margin-bottom: 9px; }
+.difs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px 14px; }
+.dif { display: flex; gap: 9px; margin-bottom: 8px; }
+.dif-ic { width: 30px; height: 30px; flex: none; background: #fff; border: 1px solid var(--linha); display: flex; align-items: center; justify-content: center; }
+.dif-t { font-weight: 600; color: var(--tinta); font-size: 11px; line-height: 1.3; }
+.dif-x { font-size: 10px; color: var(--suave); line-height: 1.4; margin-top: 1px; }
+
+/* 3. Resumo */
+.resumo { display: grid; grid-template-columns: 1.5fr 1fr; border: 1px solid var(--linha); }
+.resumo > div { padding: 11px 14px; }
+.resumo-l { border-right: 1px solid var(--linha); }
+.resumo-r { background: #FDFAF4; }
+.chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 3px; }
+.chip { background: var(--azul); color: #fff; font-size: 10.4px; padding: 3px 8px; font-weight: 500; }
+
+/* Tabelas */
+.tab { display: grid; gap: 12px; padding: 7px 10px; font-size: 11.4px; align-items: start; }
+.tab-head { background: var(--tinta); color: #fff; font-family: Montserrat, sans-serif; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; padding: 8px 10px; }
+.tab-row { border-left: 1px solid var(--linha); border-right: 1px solid var(--linha); }
+.tab-row.last { border-bottom: 1px solid var(--linha); }
+.tab-row.zebra { background: #FBF7F0; }
+.blk:has(> .tab-row) { padding-top: 0; }
+.tab-escopo { grid-template-columns: 38px 1fr 150px; }
+.tab-item { font-family: Montserrat, sans-serif; font-weight: 700; color: var(--azul); }
+.tab-pag { grid-template-columns: 110px 1fr 130px; }
+.dir { text-align: right; }
+.b { font-weight: 600; color: var(--tinta); }
+
+/* Box premissas */
+.box { border-left: 4px solid var(--azul); background: var(--creme); padding: 11px 16px 9px; }
+.box-t { font-family: Montserrat, sans-serif; font-size: 9px; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; color: var(--azul); margin-bottom: 6px; }
+
+/* 6. Investimento */
+.invest { border: 2px solid var(--azul); }
+.invest-top { background: var(--azul); color: #fff; padding: 16px 20px 15px; text-align: center; }
+.invest-r { font-family: Montserrat, sans-serif; font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; opacity: .8; }
+.invest-v { font-family: Montserrat, sans-serif; font-size: 32px; font-weight: 700; letter-spacing: .01em; margin: 3px 0 2px; }
+.invest-e { font-size: 11px; opacity: .85; font-style: italic; }
+.invest-body { padding: 12px 14px 12px; }
+.invest-body .tab-row:last-of-type { border-bottom: 1px solid var(--linha); }
+.invest-pg { display: grid; grid-template-columns: 1fr 1.4fr; gap: 14px; margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--linha); font-size: 11.4px; color: var(--tinta); }
+
+/* 7. Prazo */
+.fluxo { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin: 2px 0 2px; }
+.fluxo-i { border: 1px solid var(--azul); color: var(--azul); font-size: 10.4px; font-weight: 600; padding: 4px 9px; }
+.fluxo-s { color: var(--suave); font-weight: 700; }
+.previsao { display: grid; grid-template-columns: auto 1fr 1fr; gap: 18px; align-items: center; background: var(--creme); padding: 10px 16px; }
+.previsao-t { font-family: Montserrat, sans-serif; font-weight: 700; color: var(--azul); text-transform: uppercase; letter-spacing: .14em; font-size: 10px; padding-right: 18px; border-right: 1px solid var(--linha); }
+.previsao strong { font-size: 13px; }
+
+/* 8. Responsabilidades */
+.resp { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.resp-col { border: 1px solid var(--linha); padding: 11px 13px 8px; font-size: 11.2px; }
+.resp-t { font-family: Montserrat, sans-serif; font-weight: 700; color: #fff; background: var(--azul); margin: -11px -13px 9px; padding: 7px 13px; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; }
+.resp-col:last-child .resp-t { background: var(--tinta); }
+
+.destaque { border-left: 4px solid var(--tinta); background: #F3F4F6; padding: 9px 14px; font-weight: 500; color: var(--tinta); font-size: 11.6px; }
+
+/* 11. Aceite */
+.aceite { border: 1px solid var(--linha); border-top: 3px solid var(--azul); padding: 14px 18px 16px; background: #FDFAF4; }
+.aceite-t { font-family: Montserrat, sans-serif; font-weight: 700; color: var(--azul); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 6px; }
+.aceite-d { font-size: 11.4px; }
+.ass { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 12px; }
+.ass-h { font-family: Montserrat, sans-serif; font-weight: 700; font-size: 9.4px; letter-spacing: .1em; text-transform: uppercase; color: var(--tinta); margin-bottom: 8px; min-height: 26px; }
+.ass-l { display: flex; gap: 8px; font-size: 10.8px; margin-bottom: 10px; align-items: flex-end; }
+.ass-l span { color: var(--suave); flex: none; }
+.ass-l i { flex: 1; border-bottom: 1px solid #9CA3AF; font-style: normal; color: var(--tinta); min-height: 17px; padding-left: 4px; }
+.ass-l i.ass-data { border-bottom: none; color: var(--suave); }
+.ass-sig { margin-top: 40px; border-top: 1px solid var(--tinta); text-align: center; font-size: 9.6px; color: var(--suave); padding-top: 4px; letter-spacing: .08em; text-transform: uppercase; }
+
+/* ===== Capa ===== */
+.capa { background: var(--creme); }
+.capa-faixa { position: absolute; left: 0; top: 0; bottom: 0; width: 14px; background: var(--azul); }
+.capa-faixa::after { content: ''; position: absolute; left: 14px; top: 0; bottom: 0; width: 5px; background: var(--tinta); }
+.capa-logo { position: absolute; top: 120px; left: 0; right: 0; display: flex; justify-content: center; }
+.capa-titulo { position: absolute; top: 470px; left: 96px; right: 96px; text-align: center; }
+.capa-kicker { font-family: Montserrat, sans-serif; font-size: 13px; letter-spacing: .5em; text-transform: uppercase; color: var(--tinta); padding-left: .5em; }
+.capa h1 { margin: 6px 0 0; font-family: Montserrat, sans-serif; font-size: 34px; font-weight: 700; color: var(--azul); letter-spacing: .06em; text-transform: uppercase; }
+.capa-serv { margin: 16px auto 0; max-width: 520px; font-size: 14px; color: var(--texto); line-height: 1.5; }
+.capa-cliente { position: absolute; top: 660px; left: 120px; right: 120px; text-align: center; padding: 18px 0; border-top: 1px solid #D8CCB6; border-bottom: 1px solid #D8CCB6; }
+.capa-cli-nome { font-family: Montserrat, sans-serif; font-size: 18px; font-weight: 600; color: var(--tinta); margin-top: 4px; }
+.capa-cli-end { font-size: 11.6px; color: var(--suave); margin-top: 4px; }
+.capa-meta { position: absolute; top: 810px; left: 96px; right: 96px; display: grid; grid-template-columns: repeat(4, 1fr); }
+.capa-meta > div { text-align: center; padding: 4px 6px; }
+.capa-meta > div + div { border-left: 1px solid #D8CCB6; }
+.capa-meta b { font-family: Montserrat, sans-serif; font-size: 12.4px; color: var(--azul); }
+.capa-resp { position: absolute; top: 920px; left: 0; right: 0; text-align: center; font-size: 11px; color: var(--suave); line-height: 1.6; }
+.capa-resp-n { font-family: Montserrat, sans-serif; font-weight: 600; color: var(--tinta); font-size: 12.4px; }
+.capa-slogan { margin-top: 8px; font-style: italic; color: var(--azul); font-size: 11.6px; }
+.capa .rodape { border-top-color: #D8CCB6; }

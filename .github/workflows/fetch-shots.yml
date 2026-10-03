@@ -30,7 +30,7 @@ jobs:
       - name: Take screenshots
         run: |
           mkdir -p thomas-macedo/img/marcas
-          node .github/shots/shots.js > thomas-macedo/img/marcas/shots.log 2>&1 || echo "FALHOU exit=$?" >> thomas-macedo/img/marcas/shots.log
+          node .github/shots/shots.cjs > thomas-macedo/img/marcas/shots.log 2>&1 || echo "FALHOU exit=$?" >> thomas-macedo/img/marcas/shots.log
           cat thomas-macedo/img/marcas/shots.log
       - name: Optimize to JPG
         run: |

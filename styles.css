@@ -1287,3 +1287,13 @@ html[data-theme="dark"] .bib-more{color:#6B9BF2}
 h1,h2,h3,.title,.display,.manifesto,.mtd-h,.wa-h,.lnc-h,.fx-h,.rel-name,.mtd-step h3,.mv-text h3,.ig2-handle,.livro-sec h2{
   font-optical-sizing:none;font-variation-settings:"opsz" 28}
 h2.title,.title,.manifesto,.mtd-h,.wa-h,.lnc-h,section h2.display,.hero h1.display{letter-spacing:-.01em}
+
+/* TESTE de fonte dos títulos: ?fonte=tiktok | jakarta | inter  (voltar: ?fonte=serifa) */
+html[data-fonte] :is(h1,h2,h3,.title,.display,.manifesto,.mtd-h,.wa-h,.lnc-h,.fx-h,.rel-name,.mtd-step h3,.mv-text h3,.ttk-h){
+  font-weight:800;font-style:normal;letter-spacing:-.035em;line-height:1.02;text-shadow:none;font-variation-settings:normal}
+html[data-fonte] :is(.title,.display,.manifesto,.mtd-h,.wa-h,.lnc-h,h2.display){font-size:clamp(2rem,4vw,3.3rem)}
+html[data-fonte] :is(.fx-h,.rel-name,.mtd-step h3,.mv-text h3){font-weight:700;letter-spacing:-.025em}
+html[data-fonte] :is(.title em,.display em,.mtd-h em){font-style:normal}
+html[data-fonte="tiktok"] :is(h1,h2,h3,.title,.display,.manifesto,.mtd-h,.wa-h,.lnc-h,.fx-h,.rel-name,.mtd-step h3,.mv-text h3,.ttk-h){font-family:'Hanken Grotesk',sans-serif}
+html[data-fonte="jakarta"] :is(h1,h2,h3,.title,.display,.manifesto,.mtd-h,.wa-h,.lnc-h,.fx-h,.rel-name,.mtd-step h3,.mv-text h3,.ttk-h){font-family:'Plus Jakarta Sans',sans-serif}
+html[data-fonte="inter"] :is(h1,h2,h3,.title,.display,.manifesto,.mtd-h,.wa-h,.lnc-h,.fx-h,.rel-name,.mtd-step h3,.mv-text h3,.ttk-h){font-family:'Inter Tight',sans-serif}

@@ -1306,3 +1306,13 @@ html[data-fonte="inter"] :is(h1,h2,h3,.title,.display,.manifesto,.mtd-h,.wa-h,.l
 .prose tbody tr:hover td{background:var(--paper-2)}
 html[data-theme="dark"] .prose th{color:#6B9BF2}
 @media(max-width:600px){.prose table{font-size:.84rem}.prose th,.prose td{padding:10px 8px}}
+
+/* bloco de serviço no fim dos artigos (liga o artigo à página principal do tema) */
+.svc-hub{margin:44px 0 10px;padding:24px 26px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(160deg,#f6f8fb,#edf1f7);display:grid;gap:6px}
+.svc-hub .svc-k{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:#1d4ed8;font-weight:500}
+.svc-hub b{font-family:var(--serif);font-weight:400;font-size:1.35rem;color:var(--ink)}
+.svc-hub p{margin:0;color:var(--ink-soft);font-size:.92rem;line-height:1.55}
+.svc-hub a{justify-self:start;margin-top:6px;font-weight:600;color:var(--ink);border-bottom:1px solid var(--line-strong);padding-bottom:2px}
+.svc-hub a:hover{color:#1d4ed8;border-color:#1d4ed8}
+html[data-theme="dark"] .svc-hub{background:#111214;border-color:#222327}
+html[data-theme="dark"] .svc-hub .svc-k{color:#6B9BF2}

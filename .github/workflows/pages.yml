@@ -24,6 +24,7 @@ jobs:
           touch thomas-macedo/.nojekyll
           # biblioteca de matérias sempre atualizada (lê thomas-macedo/artigos/*.html)
           python3 .github/build/biblioteca.py
+          python3 .github/build/llms_full.py
       - name: Publish to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:

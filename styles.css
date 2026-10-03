@@ -1085,3 +1085,5 @@ html:not(.pal-classica) .livro-capa img{box-shadow:0 30px 80px rgba(0,0,0,.6),0 
 @media(max-width:1000px){.wa-grid{grid-template-columns:1fr;gap:50px}.wa-phone{max-width:420px;margin:0 auto}}
 @media(max-width:520px){.wa-sec{padding:80px 0}.wa-stats{grid-template-columns:1fr 1fr}.wa-stats b{font-size:1.9rem}.wa-body{min-height:0}}
 .pd-img img[src*="gummy"]{object-fit:cover;padding:0;mix-blend-mode:normal}
+.wa-stats .wa-win{background:linear-gradient(135deg,#ecfdf5,#eff6ff) padding-box,linear-gradient(110deg,#059669,#22d3ee,#2563eb,#059669) border-box;background-size:100% 100%,300% 300%}
+.wa-stats .wa-win b{background:linear-gradient(90deg,#065f46,#059669,#0891b2,#065f46);background-size:300% 100%;-webkit-background-clip:text;background-clip:text}

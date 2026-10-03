@@ -1316,3 +1316,41 @@ html[data-theme="dark"] .prose th{color:#6B9BF2}
 .svc-hub a:hover{color:#1d4ed8;border-color:#1d4ed8}
 html[data-theme="dark"] .svc-hub{background:#111214;border-color:#222327}
 html[data-theme="dark"] .svc-hub .svc-k{color:#6B9BF2}
+
+/* intro no celular: vídeo inteiro (16:9), sem corte; nome e botões numa faixa abaixo */
+@media(max-width:760px){
+  .vintro{height:auto;min-height:0;background:#0b0b0b}
+  .vintro-bg{display:none}
+  .vintro-stage{position:relative;inset:auto;display:block}
+  .vintro-video{width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#000}
+  .vintro-sign{position:static;padding:14px 16px 16px;text-shadow:none}
+  .vintro-sign span{font-size:1.25rem}
+  .vintro-controls{position:absolute;right:12px;bottom:14px;top:auto}
+  .vintro-btn{height:40px;padding:0 13px;font-size:.76rem}
+  .vintro-playpause,.vintro-sound.is-on{width:40px}
+  .vintro-prog{position:absolute;left:0;right:0;top:auto;bottom:auto}
+  .vintro-stage .vintro-prog{top:calc(100vw * 9 / 16 - 2px)}
+}
+@media(max-width:760px){
+  section.vintro{padding:0}
+  .vintro-stage{display:grid;grid-template-columns:1fr auto;align-items:center}
+  .vintro-video{grid-column:1/-1}
+  .vintro-sign{grid-column:1;min-width:0;padding:12px 0 14px 16px}
+  .vintro-sign em{letter-spacing:.16em;font-size:.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .vintro-controls{position:static;grid-column:2;padding:0 12px 0 8px}
+  .vintro-sound .vintro-sound-label{display:none}
+  .vintro-sound{width:40px;padding:0;justify-content:center}
+  .vintro-stage .vintro-prog{top:calc(100vw * 9 / 16 - 2px)}
+}
+@media(max-width:760px){.vintro-sign,.vintro-controls{grid-row:2}}
+@media(max-width:420px){
+  .wordmark{white-space:nowrap}
+  body > header .nav-links{gap:8px}
+  .nav-cta{white-space:nowrap;padding:9px 12px;font-size:.62rem;letter-spacing:.08em}
+  .theme-btn{width:32px;height:32px;margin-right:0}
+}
+@media(max-width:420px){
+  body > header .wrap{padding:0 14px}
+  .wordmark{font-size:1.08rem}
+  .nav-cta{padding:8px 10px;font-size:.58rem;letter-spacing:.06em}
+}

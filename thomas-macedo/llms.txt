@@ -56,6 +56,7 @@
 - [Posicionamento de marca: como escolher o lugar que a sua marca ocupa na cabeça do cliente](https://www.thomas-macedo.com/artigos/posicionamento-de-marca.html): Posicionamento de marca é a escolha do lugar que a sua marca vai ocupar na memória do cliente. Veja o método, a frase de posicionamento pronta, os territórios possíveis e como testar antes de reformar a marca inteira.
 
 ## Artigos recentes
+- [Oferta irresistível: a oferta que faz o tráfego pago vender](https://www.thomas-macedo.com/artigos/oferta-irresistivel-para-vender-no-trafego-pago.html): Não é o anúncio que vende — é a oferta. Os 6 elementos de uma oferta irresistível que convertem tráfego pago em venda e derrubam o custo de aquisição.
 - [Processos e POPs de agência: como padronizar a operação para escalar](https://www.thomas-macedo.com/artigos/processos-e-pops-de-agencia-de-marketing.html): Agência que depende da cabeça das pessoas não escala. Como documentar POPs, por onde começar e onde a IA entra na operação.
 - [Prompt de agente de IA: como escrever a instrução que define o comportamento](https://www.thomas-macedo.com/artigos/como-escrever-o-prompt-de-um-agente-de-ia.html): O system prompt é o documento que diz ao agente quem ele é, o que pode fazer e onde parar. Veja a estrutura que faz o agente se comportar.
 - [Os erros mais caros ao implantar um agente de IA numa empresa (e como evitar)](https://www.thomas-macedo.com/artigos/erros-ao-implantar-agente-de-ia.html): Sem hype: os 7 erros que fazem um agente de IA custar caro e não entregar — e o que fazer no lugar, na prática de quem constrói esses sistemas.
@@ -65,7 +66,6 @@
 - [Frete grátis no e-commerce: quando vale e como não queimar margem](https://www.thomas-macedo.com/artigos/frete-gratis-no-ecommerce.html): Frete grátis converte porque custo extra é a maior causa de abandono — mas só vale quando o ticket cobre o frete. A conta pra decidir.
 - [Plano de marketing para vendas online: como montar um que gera venda (não só post)](https://www.thomas-macedo.com/artigos/plano-de-marketing-para-vendas-online.html): A maioria dos planos é uma lista de posts. Um plano de verdade parte da meta de faturamento e volta em números. A estrutura de 1 página que eu uso.
 - [Produção própria de criativos em agência: o estúdio interno que escala](https://www.thomas-macedo.com/artigos/producao-propria-de-criativos-em-agencia.html): A agência que escala não terceiriza o que mais vende. Como montar produção própria de criativos — funções, esteira e IA.
-- [Orquestração de agentes de IA: como vários agentes trabalham juntos (multiagente)](https://www.thomas-macedo.com/artigos/orquestracao-de-agentes-de-ia-multiagente.html): Quando um agente só não dá conta, você monta um time. Como funciona um sistema multiagente, quando vale e quando é só complexidade a mais.
 
 ## Prova social
 - Marcas que passaram pelo processo de escala com Thomas Macedo: China Link Trading, China Link na Estrada, Lincoln Fracari, Tuyo Brasil, Apex Performance, LM Woodwork, Friga Store, Laser Rosa, Relive Med Clinic, Moby Dick Santos, Texas Firearms, entre centenas de outras operações.

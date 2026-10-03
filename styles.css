@@ -782,7 +782,7 @@ a.brand:hover{color:var(--accent);border-color:var(--accent)}
 /* =====================================================================
    TESTE DE PALETA — branco + preto + azul-marinho (ativar com ?paleta=azul)
    ===================================================================== */
-html.pal-azul{
+html:not(.pal-classica){
   --paper:#FFFFFF;
   --paper-2:#F4F6F9;
   --ink:#0A0C10;
@@ -793,13 +793,13 @@ html.pal-azul{
   --accent:#15294D;        /* azul-marinho */
   --accent-bright:#9DB8E8; /* azul claro p/ fundos escuros */
 }
-html.pal-azul .band,html.pal-azul .tkp{background:#0E1B33}
-html.pal-azul .deck-bar .d-sub{color:var(--accent-bright)}
-html.pal-azul .prose a:hover{background:rgba(21,41,77,.08)}
-html.pal-azul .livro-capa img{box-shadow:0 30px 80px rgba(0,0,0,.55),0 0 0 1px rgba(157,184,232,.25),0 0 60px rgba(157,184,232,.12)}
-html.pal-azul .ig2-avatar{background:conic-gradient(from 200deg,#15294D,#9DB8E8,#15294D,#3D5A8C,#15294D)}
-html.pal-azul .vscrub,html.pal-azul .vscrub-sticky{background:#F2F4F7}
-html.pal-azul .tkp-actions .btn,html.pal-azul .ig2 .ig2-follow{color:#0A0C10}
+html:not(.pal-classica) .band,html:not(.pal-classica) .tkp{background:#0E1B33}
+html:not(.pal-classica) .deck-bar .d-sub{color:var(--accent-bright)}
+html:not(.pal-classica) .prose a:hover{background:rgba(21,41,77,.08)}
+html:not(.pal-classica) .livro-capa img{box-shadow:0 30px 80px rgba(0,0,0,.55),0 0 0 1px rgba(157,184,232,.25),0 0 60px rgba(157,184,232,.12)}
+html:not(.pal-classica) .ig2-avatar{background:conic-gradient(from 200deg,#15294D,#9DB8E8,#15294D,#3D5A8C,#15294D)}
+html:not(.pal-classica) .vscrub,html:not(.pal-classica) .vscrub-sticky{background:#F2F4F7}
+html:not(.pal-classica) .tkp-actions .btn,html:not(.pal-classica) .ig2 .ig2-follow{color:#0A0C10}
 
 /* podcasts com thumb oficial do YouTube */
 .pod{flex-direction:column;align-items:stretch;gap:0;padding:0;overflow:hidden;background:var(--paper)}
@@ -869,3 +869,106 @@ html.pal-azul .tkp-actions .btn,html.pal-azul .ig2 .ig2-follow{color:#0A0C10}
 @media(max-width:1000px){.apps-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.apps-grid{grid-template-columns:1fr}}
 .bframe img{height:auto}
+
+/* ===================== logos na faixa ===================== */
+.broll-logos .broll-set{gap:0}
+.blogo{display:inline-flex;align-items:center;justify-content:center;height:96px;padding:0 46px}
+.blogo img{height:38px;width:auto;max-width:190px;object-fit:contain;display:block;opacity:.82;transition:opacity .3s,transform .4s}
+.blogo.sq img{height:62px}
+.blogo.k img{filter:brightness(0)}
+.blogo.m img{filter:grayscale(1) contrast(1.15);mix-blend-mode:multiply}
+.blogo:hover img{opacity:1;transform:scale(1.06)}
+.broll-row.rev .broll-set span{font-size:clamp(1.5rem,3.2vw,2.6rem)}
+
+/* ===================== fotos do palco passando ===================== */
+.proll{overflow:hidden;margin-top:6px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+.proll-track{display:flex;width:max-content;animation:scrollx 170s linear infinite}
+.proll:hover .proll-track{animation-play-state:paused}
+.proll-set{display:flex;gap:14px;padding-right:14px}
+.proll figure{position:relative;margin:0;height:440px;flex:none;overflow:hidden;border-radius:2px}
+.proll figure img{height:100%;width:auto;display:block;transition:transform 1s cubic-bezier(.19,1,.22,1)}
+.proll figure:hover img{transform:scale(1.04)}
+.proll figcaption{position:absolute;left:14px;bottom:12px;font-size:.72rem;color:#fff;text-shadow:0 1px 12px rgba(0,0,0,.6)}
+@media(max-width:760px){.proll figure{height:300px}}
+@media(prefers-reduced-motion:reduce){.proll-track{animation:none}.proll{overflow-x:auto}}
+
+/* ===================== livro — identidade Amazon ===================== */
+.livro-sec{background:#131921;border-top:0}
+.amz-badge{display:inline-flex;align-items:baseline;gap:6px;padding:9px 16px;border-radius:6px;background:#232F3E;color:#fff;font-size:.82rem;border:1px solid rgba(255,255,255,.08)}
+.amz-badge b{font-family:Arial,Helvetica,sans-serif;font-weight:700;font-size:1.15rem;letter-spacing:-.02em;color:#fff;position:relative}
+.amz-badge b::after{content:"";position:absolute;left:2px;right:4px;bottom:-5px;height:7px;border-bottom:2.5px solid #FF9900;border-radius:0 0 50% 50%}
+.amz-badge i{font-style:normal;color:rgba(255,255,255,.7)}
+.amz-formats{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.amz-fmt{display:flex;flex-direction:column;gap:3px;padding:10px 14px;border:1px solid rgba(255,255,255,.22);border-radius:8px;color:#fff;font-size:.86rem;min-width:170px}
+.amz-fmt small{font-size:.68rem;color:rgba(255,255,255,.6)}
+.amz-fmt.on{border-color:#FF9900;box-shadow:inset 0 0 0 1px #FF9900;background:rgba(255,153,0,.06)}
+.amz-btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 30px;border-radius:100px;background:#FFD814;color:#0F1111;font-weight:600;font-size:.95rem;border:1px solid #FCD200;box-shadow:0 2px 5px rgba(213,217,217,.15);transition:background .2s,transform .2s}
+.amz-btn:hover{background:#F7CA00;transform:translateY(-1px)}
+.livro-sec .livro-frase{color:#FF9900}
+.livro-capa img{box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,153,0,.25)}
+html:not(.pal-classica) .livro-capa img{box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,153,0,.25)}
+
+/* ===================== bloco TikTok — identidade TikTok ===================== */
+.ttk{background:#000;color:#fff;padding:110px 0 80px;overflow:hidden}
+.ttk-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:60px;align-items:center}
+.ttk-k{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:#fff;font-weight:600}
+.ttk-k svg{width:18px;height:18px;fill:#fff;filter:drop-shadow(-1.5px -1.5px 0 #25F4EE) drop-shadow(1.5px 1.5px 0 #FE2C55)}
+.ttk-h{font-family:var(--sans);font-weight:800;font-size:clamp(1.9rem,3.6vw,3rem);line-height:1.05;letter-spacing:-.03em;margin-top:16px;text-shadow:-2px -2px 0 rgba(37,244,238,.85),2px 2px 0 rgba(254,44,85,.85)}
+.ttk-lead{margin-top:18px;color:rgba(255,255,255,.72);line-height:1.6;max-width:52ch}
+.ttk-coupons{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px}
+.ttk-coupon{position:relative;display:flex;flex-direction:column;gap:4px;padding:18px 18px 16px;border-radius:14px;background:linear-gradient(135deg,rgba(254,44,85,.22),rgba(254,44,85,.06));border:1px solid rgba(254,44,85,.55)}
+.ttk-coupon.alt{background:linear-gradient(135deg,rgba(37,244,238,.18),rgba(37,244,238,.04));border-color:rgba(37,244,238,.55)}
+.ttk-coupon::before,.ttk-coupon::after{content:"";position:absolute;top:50%;width:16px;height:16px;border-radius:50%;background:#000;transform:translateY(-50%)}
+.ttk-coupon::before{left:-9px}.ttk-coupon::after{right:-9px}
+.ttk-tag{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.ttk-coupon b{font-size:1.25rem;font-weight:800;letter-spacing:-.01em;margin-top:4px}
+.ttk-coupon em{font-style:normal;font-size:.9rem;color:#FE2C55;font-weight:600}
+.ttk-coupon.alt em{color:#25F4EE}
+.ttk-coupon small{font-size:.72rem;color:rgba(255,255,255,.55);margin-top:6px;line-height:1.45}
+.ttk-list{list-style:none;padding:0;margin:22px 0 0;display:flex;flex-direction:column;gap:9px}
+.ttk-list li{font-size:.9rem;color:rgba(255,255,255,.72);padding-left:18px;position:relative}
+.ttk-list li::before{content:"";position:absolute;left:0;top:.55em;width:7px;height:7px;border-radius:2px;background:#FE2C55;box-shadow:-2px -2px 0 #25F4EE}
+.ttk-list b{color:#fff}
+.ttk-actions{display:flex;gap:22px;align-items:center;flex-wrap:wrap;margin-top:28px}
+.ttk-btn{display:inline-flex;padding:14px 26px;border-radius:6px;background:#FE2C55;color:#fff;font-weight:700;font-size:.95rem;transition:background .2s,transform .2s}
+.ttk-btn:hover{background:#e6214a;transform:translateY(-1px)}
+.ttk-link{color:#fff;border-bottom:1px solid rgba(255,255,255,.35);padding-bottom:2px}
+.ttk-note{margin-top:14px;font-size:.74rem;color:rgba(255,255,255,.42)}
+.ttk-media{position:relative;height:560px}
+.ttk-phone{position:absolute;width:44%;aspect-ratio:9/16;object-fit:cover;border-radius:22px;border:6px solid #111;box-shadow:0 30px 70px rgba(0,0,0,.6)}
+.ttk-phone.p1{left:2%;top:60px;transform:rotate(-7deg);box-shadow:-8px 0 0 -2px rgba(37,244,238,.6),0 30px 70px rgba(0,0,0,.6)}
+.ttk-phone.p2{left:28%;top:0;z-index:2}
+.ttk-phone.p3{right:2%;top:70px;transform:rotate(7deg);box-shadow:8px 0 0 -2px rgba(254,44,85,.6),0 30px 70px rgba(0,0,0,.6)}
+.ttk-official{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:70px}
+.ttk-official a{display:block;color:#fff}
+.ttk-official .bframe{border-color:rgba(255,255,255,.14);background:#000}
+.ttk-official .bbar{background:#161616;border-color:rgba(255,255,255,.08)}
+.ttk-official .bbar i{background:rgba(255,255,255,.2)}
+.ttk-official .bbar em{color:rgba(255,255,255,.55)}
+.ttk-official a:hover .bframe{transform:translateY(-4px)}
+.ttk-cap{display:block;margin-top:10px;font-size:.85rem;color:rgba(255,255,255,.75)}
+.ttk-credit{margin-top:18px;font-size:.68rem;color:rgba(255,255,255,.35)}
+@media(max-width:960px){.ttk-grid{grid-template-columns:1fr}.ttk-media{height:440px;max-width:520px}.ttk-coupons{grid-template-columns:1fr}}
+@media(max-width:600px){.ttk{padding:80px 0 60px}.ttk-official{grid-template-columns:1fr}.ttk-media{height:360px}.ttk-phone{border-width:4px;border-radius:16px}}
+
+/* ===================== LINCE ===================== */
+.lnc{background:#0B0B0D;color:#fff;padding:110px 0}
+.lnc-grid{display:grid;grid-template-columns:420px 1fr;gap:70px;align-items:center}
+.lnc-photo{margin:0;border-radius:3px;overflow:hidden;aspect-ratio:4/5;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,61,127,.25)}
+.lnc-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block}
+.lnc-logo{height:46px;width:auto;display:block}
+.lnc-k{display:block;margin-top:30px;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:#FF3D7F}
+.lnc-h{font-family:var(--serif);font-weight:400;font-size:clamp(1.9rem,3.6vw,3rem);line-height:1.08;margin:12px 0 18px}
+.lnc-text p{color:rgba(255,255,255,.7);line-height:1.7;max-width:54ch;margin-top:10px}
+.lnc-text strong{color:#fff}
+.lnc-actions{display:flex;gap:24px;align-items:center;flex-wrap:wrap;margin-top:30px}
+.lnc-btn{display:inline-flex;gap:8px;padding:14px 26px;border-radius:100px;background:#FF3D7F;color:#fff;font-weight:600;box-shadow:0 0 30px rgba(255,61,127,.35);transition:transform .2s,box-shadow .3s}
+.lnc-btn:hover{transform:translateY(-1px);box-shadow:0 0 44px rgba(255,61,127,.55)}
+.lnc-link{color:#fff;border-bottom:1px solid rgba(255,255,255,.35);padding-bottom:2px}
+@media(max-width:900px){.lnc-grid{grid-template-columns:1fr;gap:40px}.lnc-photo{max-width:420px}.lnc{padding:80px 0}}
+
+/* Instagram com 2 números */
+.ig2-stats{gap:40px}
+.broll-logos .broll-set span.blogo{padding:0 44px;gap:0;font-size:inherit}
+.broll-logos .broll-set span.blogo::after{display:none}
+.blogo img[src*="china-link"]{height:56px}

@@ -771,3 +771,10 @@ a.brand:hover{color:var(--accent);border-color:var(--accent)}
 .tkp-note{grid-column:1/-1;font-size:.78rem;color:rgba(250,248,243,.45)}
 @media(max-width:900px){.tkp{grid-template-columns:1fr;padding:44px 24px}}
 .ig2-verified{width:.62em;height:.62em;fill:#3897f0;margin-left:.22em;vertical-align:.08em}
+/* faixa de prova com 5 números */
+.band-grid{grid-template-columns:repeat(5,1fr);gap:36px}
+.band .lbl a{color:inherit;border-bottom:1px solid rgba(250,248,243,.3)}
+.band .lbl a:hover{color:var(--accent-bright);border-color:var(--accent-bright)}
+@media(max-width:1000px){.band-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:620px){.band-grid{grid-template-columns:1fr 1fr;gap:30px}}
+.band .num{font-size:clamp(2.4rem,4.2vw,3.7rem);white-space:nowrap}

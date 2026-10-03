@@ -38,15 +38,21 @@ jobs:
             -c:v libx264 -crf 18 -preset slow -tune film -profile:v high -pix_fmt yuv420p \
             -c:a aac -b:a 192k -movflags +faststart \
             thomas-macedo/vid/reels-thomas.mp4
+          # versão leve para celular (720p)
+          ffmpeg -y -i /tmp/reels-src.mp4 \
+            -vf "scale=w=1280:h=1280:force_original_aspect_ratio=decrease:force_divisible_by=2:flags=lanczos" \
+            -c:v libx264 -crf 22 -preset slow -tune film -profile:v high -pix_fmt yuv420p \
+            -c:a aac -b:a 128k -movflags +faststart \
+            thomas-macedo/vid/reels-thomas-720.mp4
           # poster a partir de ~1s
           ffmpeg -y -ss 1 -i /tmp/reels-src.mp4 -frames:v 1 \
             -vf "scale=w=1920:h=1920:force_original_aspect_ratio=decrease:force_divisible_by=2:flags=lanczos" \
             -q:v 2 thomas-macedo/img/reels-poster.jpg
-          echo "resultado:"; ls -la thomas-macedo/vid/reels-thomas.mp4 thomas-macedo/img/reels-poster.jpg
+          echo "resultado:"; ls -la thomas-macedo/vid/ thomas-macedo/img/reels-poster.jpg
       - name: Commit assets
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add thomas-macedo/vid/reels-thomas.mp4 thomas-macedo/img/reels-poster.jpg
+          git add thomas-macedo/vid thomas-macedo/img/reels-poster.jpg
           git diff --cached --quiet || git commit -m "Add reels intro video + poster from Drive"
           git push

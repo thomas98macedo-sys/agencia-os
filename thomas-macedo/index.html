@@ -161,8 +161,6 @@
   <!-- End Google Tag Manager (noscript) -->
 
   <div class="scroll-progress" aria-hidden="true"><i></i></div>
-  <div class="cursor-dot" aria-hidden="true"></div>
-  <div class="cursor-ring" aria-hidden="true"></div>
 
   <header>
     <div class="wrap">
@@ -183,6 +181,7 @@
     <div class="vintro-bg" aria-hidden="true"></div>
     <div class="vintro-stage">
       <video class="vintro-video" id="introVideo" playsinline muted loop autoplay preload="auto" poster="./img/reels-poster.jpg">
+        <source src="./vid/reels-thomas-720.mp4" type="video/mp4" media="(max-width: 760px)" />
         <source src="./vid/reels-thomas.mp4" type="video/mp4" />
       </video>
       <div class="vintro-controls">
@@ -196,7 +195,8 @@
           <span class="vintro-sound-label">Tocar com som</span>
         </button>
       </div>
-      <span class="vintro-hint" aria-hidden="true"><i></i>Desça</span>
+      <div class="vintro-sign"><span>Thomas Macedo</span><em>TikTok Shop · Tráfego · Marcas</em></div>
+      <div class="vintro-prog" aria-hidden="true"><i id="introProg"></i></div>
     </div>
   </section>
 
@@ -214,23 +214,13 @@
           </div>
           <span class="scroll-hint reveal d4">Desça</span>
         </div>
-        <figure class="hero-photo img-reveal" data-tilt="4">
-          <span class="chip" style="top:16px;left:14px;animation-delay:.2s"><i></i> TikTok Shop &amp; Ads</span>
-          <span class="chip" style="top:42%;right:12px;animation-delay:1.1s"><i></i> Tráfego · ROI escalável</span>
-          <span class="chip" style="bottom:26px;left:18px;animation-delay:2s"><i></i> Marca própria</span>
+        <figure class="hero-photo img-reveal">
           <img src="./img/thomas-macedo-palco.jpg" alt="Thomas Macedo, especialista em TikTok Shop e tráfego pago, palestrando com microfone no palco" width="1000" height="1500" />
+          <figcaption>No palco · 2026</figcaption>
         </figure>
       </div>
     </div>
   </section>
-
-  <!-- MARQUEE -->
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span>TikTok Shop</span><span>TikTok Ads</span><span>Tráfego Pago</span><span>Escala de Assessorias</span><span>Marca Própria</span><span>Negócios Locais</span><span>IA Aplicada</span><span>Santos · Brasil &amp; Exterior</span>
-      <span>TikTok Shop</span><span>TikTok Ads</span><span>Tráfego Pago</span><span>Escala de Assessorias</span><span>Marca Própria</span><span>Negócios Locais</span><span>IA Aplicada</span><span>Santos · Brasil &amp; Exterior</span>
-    </div>
-  </div>
 
   <!-- FITA DE PROVA -->
   <section class="band">
@@ -244,15 +234,7 @@
     </div>
   </section>
 
-  <!-- KINETIC -->
-  <div class="kinetic" aria-hidden="true">
-    <span class="k-line">TikTok<span class="fill">TikTok</span></span>
-    <span class="k-line">Tráfego<span class="fill">Tráfego</span></span>
-    <span class="k-line">Marcas<span class="fill">Marcas</span></span>
-    <p class="k-cap">— seis frentes, um motor —</p>
-  </div>
-
-  <!-- SEIS FRENTES -->
+  <!-- SEIS FRENTES — índice editorial -->
   <section id="frentes">
     <div class="wrap">
       <div class="sec-head">
@@ -262,54 +244,50 @@
         </div>
         <p class="lead reveal d1">Do TikTok Shop ao negócio do bairro — demanda, margem e operação trabalhando juntas.</p>
       </div>
-      <div class="frentes reveal">
-        <div class="frente">
-          <span class="fn">01 · TikTok Shop &amp; TikTok Ads</span>
-          <h3>A vitrine da nova geração</h3>
-          <p>Loja montada, criativos nativos, lives e campanhas no TikTok Ads. Treinado na sede do TikTok — e novos anunciantes ainda dobram o primeiro investimento com o cupom oficial.</p>
-          <a href="./artigos/tiktok-shop-como-criar-loja.html" class="link-underline">Como começar no TikTok Shop <span class="arrow">→</span></a>
-        </div>
-        <div class="frente">
-          <span class="fn">02 · Escala de assessorias</span>
-          <h3>Assessoria que cresce sem inchar</h3>
-          <p>Processos, POPs, produção própria de criativos e uma operação desenhada pra aumentar a carteira de clientes sem perder margem nem qualidade.</p>
-          <a href="./artigos/como-escalar-agencia-de-marketing.html" class="link-underline">Como escalar uma assessoria <span class="arrow">→</span></a>
-        </div>
-        <div class="frente">
-          <span class="fn">03 · Marca própria</span>
-          <h3>Marcas que nascem vendendo</h3>
-          <p>Marca própria e white label — do posicionamento à prateleira, com tráfego e conteúdo já acoplados pra sair vendendo, não só bonita.</p>
-          <a href="./marcas.html" class="link-underline">Marcas &amp; E-commerce <span class="arrow">→</span></a>
-        </div>
-        <div class="frente">
-          <span class="fn">04 · Negócios locais</span>
-          <h3>A cidade inteira sabendo que você existe</h3>
-          <p>Clínicas, restaurantes, lojas e serviços: tráfego local no Meta e no Google, criativos gravados presencialmente e WhatsApp respondendo na hora.</p>
-          <a href="./artigos/trafego-pago-negocios-locais.html" class="link-underline">Tráfego pago para negócios locais <span class="arrow">→</span></a>
-        </div>
-        <div class="frente">
-          <span class="fn">05 · Tráfego pago</span>
-          <h3>ROI escalável, não vaidade</h3>
-          <p>Meta, Google e TikTok Ads medidos por custo por resultado. ROI de 10,48 apresentado ao vivo no palco do Meta Business Partners.</p>
-          <a href="./artigos/como-escalar-verba-de-anuncio-ecommerce.html" class="link-underline">Como escalar verba sem quebrar <span class="arrow">→</span></a>
-        </div>
-        <div class="frente">
-          <span class="fn">06 · IA aplicada</span>
-          <h3>IA que trabalha, não que posa</h3>
-          <p>Agentes que atendem, qualificam e recuperam vendas no WhatsApp 24h — pra todo o resto escalar sem você responder tudo sozinho.</p>
-          <a href="#sistemas" class="link-underline">Ver os agentes rodando <span class="arrow">↓</span></a>
-        </div>
-      </div>
-      <div class="tag-grid reveal" style="margin-top:34px">
-        <span>TikTok Shop</span>
-        <span>E-commerce</span>
-        <span>Negócios locais</span>
-        <span>Clínicas &amp; Saúde</span>
-        <span>Assessorias &amp; Agências</span>
-        <span>Educação &amp; Info</span>
-        <span>Indústria &amp; Distribuição</span>
-        <span>Marcas próprias</span>
-      </div>
+      <ol class="fx reveal">
+        <li><a class="fx-row" href="./artigos/tiktok-shop-como-criar-loja.html">
+          <span class="fx-n">01</span>
+          <span class="fx-t"><span class="fx-k">TikTok Shop &amp; TikTok Ads</span><span class="fx-h">A vitrine da nova geração</span></span>
+          <span class="fx-d">Loja, criativos nativos, lives e campanhas. Treinado na sede do TikTok — e novos anunciantes dobram o primeiro investimento com o cupom oficial.</span>
+          <span class="fx-go" aria-hidden="true">→</span>
+          <img class="fx-img" src="./img/eventos/evento-38.jpg" alt="" loading="lazy" />
+        </a></li>
+        <li><a class="fx-row" href="./artigos/como-escalar-agencia-de-marketing.html">
+          <span class="fx-n">02</span>
+          <span class="fx-t"><span class="fx-k">Escala de assessorias</span><span class="fx-h">Assessoria que cresce sem inchar</span></span>
+          <span class="fx-d">Processos, POPs e produção própria de criativos pra aumentar a carteira sem perder margem.</span>
+          <span class="fx-go" aria-hidden="true">→</span>
+          <img class="fx-img" src="./img/eventos/evento-35.jpg" alt="" loading="lazy" />
+        </a></li>
+        <li><a class="fx-row" href="./marcas.html">
+          <span class="fx-n">03</span>
+          <span class="fx-t"><span class="fx-k">Marca própria</span><span class="fx-h">Marcas que nascem vendendo</span></span>
+          <span class="fx-d">Marca própria e white label, do posicionamento à prateleira — com tráfego já acoplado.</span>
+          <span class="fx-go" aria-hidden="true">→</span>
+          <img class="fx-img" src="./img/eventos/evento-39.jpg" alt="" loading="lazy" />
+        </a></li>
+        <li><a class="fx-row" href="./artigos/trafego-pago-negocios-locais.html">
+          <span class="fx-n">04</span>
+          <span class="fx-t"><span class="fx-k">Negócios locais</span><span class="fx-h">A cidade inteira sabendo que você existe</span></span>
+          <span class="fx-d">Clínicas, restaurantes, lojas e serviços: tráfego local, criativo gravado presencialmente e WhatsApp respondendo na hora.</span>
+          <span class="fx-go" aria-hidden="true">→</span>
+          <img class="fx-img" src="./img/thomas-macedo-conteudo-escala.jpeg" alt="" loading="lazy" />
+        </a></li>
+        <li><a class="fx-row" href="./artigos/como-escalar-verba-de-anuncio-ecommerce.html">
+          <span class="fx-n">05</span>
+          <span class="fx-t"><span class="fx-k">Tráfego pago</span><span class="fx-h">ROI escalável, não vaidade</span></span>
+          <span class="fx-d">Meta, Google e TikTok Ads medidos por custo por resultado. ROI de 10,48 apresentado ao vivo no Meta Business Partners.</span>
+          <span class="fx-go" aria-hidden="true">→</span>
+          <img class="fx-img" src="./img/eventos/evento-19.jpg" alt="" loading="lazy" />
+        </a></li>
+        <li><a class="fx-row" href="#sistemas">
+          <span class="fx-n">06</span>
+          <span class="fx-t"><span class="fx-k">IA aplicada</span><span class="fx-h">IA que trabalha, não que posa</span></span>
+          <span class="fx-d">Agentes que atendem e recuperam vendas no WhatsApp 24h — pra todo o resto escalar sem você responder tudo.</span>
+          <span class="fx-go" aria-hidden="true">→</span>
+          <img class="fx-img" src="./img/thomas-macedo-ia-robo.jpeg" alt="" loading="lazy" />
+        </a></li>
+      </ol>
     </div>
   </section>
 
@@ -328,12 +306,6 @@
 
   <!-- OS SISTEMAS — releases -->
   <section class="releases" id="sistemas">
-    <div class="dots" aria-hidden="true">
-      <i class="dot-live" style="left:12%;top:18%"></i>
-      <i class="dot-live" style="left:78%;top:30%;animation-delay:2.3s"></i>
-      <i class="dot-live" style="left:44%;top:72%;animation-delay:4.1s"></i>
-      <i class="dot-live" style="left:90%;top:80%;animation-delay:5.6s"></i>
-    </div>
     <div class="wrap" style="position:relative">
       <div class="sec-head">
         <div class="reveal">
@@ -370,6 +342,7 @@
           <div><span class="eyebrow eyebrow-ink">O elenco completo</span></div>
           <p class="lead">Seis áreas, 34 agentes — cada um implantável na operação de qualquer empresa.</p>
         </div>
+        <details class="roster-more"><summary><span>Ver os 34 agentes, área por área</span><i aria-hidden="true">+</i></summary>
         <div class="roster-grid">
           <div class="rgroup"><h3>Vendas &amp; Atendimento</h3><ul>
             <li><b>Friday</b> — SDR de IA: responde, qualifica e agenda 24/7</li>
@@ -417,7 +390,7 @@
             <li><b>Buraco de Minhoca</b> — a rede que liga as máquinas</li>
             <li><b>Gary Keller</b> — foco: a única coisa que importa hoje</li>
           </ul></div>
-        </div>
+        </div></details>
       </div>
     </div>
   </section>
@@ -466,23 +439,6 @@
           <div class="step"><span class="sn">03</span><div><h3>Tráfego Meta, Google &amp; TikTok</h3><p>Campanhas otimizadas por custo por resultado, não por vaidade.</p></div></div>
           <div class="step"><span class="sn">04</span><div><h3>Agentes de IA no atendimento</h3><p>Resposta em segundos, qualificação e reunião marcada — 24h por dia.</p></div></div>
           <div class="step"><span class="sn">05</span><div><h3>Escala &amp; dados</h3><p>O motor roda, reporta e aponta onde dobrar a aposta.</p></div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- DESTAQUE IA -->
-  <section style="padding-top:0">
-    <div class="wrap">
-      <div class="feature reveal">
-        <div class="f-text">
-          <span class="eyebrow">Sem robô de palco</span>
-          <h2 class="title mt-s" style="font-size:clamp(1.8rem,3.2vw,2.6rem)">Levo IA a sério o bastante pra colocar ela pra trabalhar.</h2>
-          <p class="muted mt-m">Não é pose de futuro: são agentes conversando naturalmente no WhatsApp — qualificando, tirando dúvida e recuperando quem ia desistir, enquanto a concorrência responde no dia seguinte.</p>
-          <a href="./artigos/agentes-de-ia-no-whatsapp.html" class="link-underline" style="margin-top:28px">Como funciona na prática <span class="arrow">→</span></a>
-        </div>
-        <div class="f-img img-reveal">
-          <img src="./img/thomas-macedo-ia-robo.jpeg" alt="Thomas Macedo em evento de inteligência artificial ao lado de robô humanoide" loading="lazy" width="1000" height="1777" />
         </div>
       </div>
     </div>
@@ -617,11 +573,12 @@
           <span class="eyebrow eyebrow-ink">O diário</span>
           <h2 class="title mt-s">Escrevo uma matéria nova todo dia</h2>
         </div>
-        <p class="lead reveal d1">IA, tráfego, e-commerce e marcas — sem hype, direto da minha operação. O arquivo completo, sempre atualizado.</p>
+        <p class="lead reveal d1">TikTok, tráfego, marcas e IA — sem hype, direto da minha operação.</p>
       </div>
-      <ol class="diario-list reveal">
+      <ol class="diario-list is-short reveal" id="diarioList">
         <!-- DIARIO:INICIO -->
         <li><time datetime="2026-10-02">02/10</time><a href="./artigos/oferta-irresistivel-para-vender-no-trafego-pago.html">Oferta irresistível: a oferta que faz o tráfego pago vender</a></li>
+        <li><time datetime="2026-10-01">01/10</time><a href="./artigos/tiktok-shop-como-criar-loja.html">TikTok Shop: como criar sua loja do zero e começar a vender</a></li>
         <li><time datetime="2026-10-01">01/10</time><a href="./artigos/processos-e-pops-de-agencia-de-marketing.html">Processos e POPs de agência: como padronizar a operação para escalar</a></li>
         <li><time datetime="2026-09-30">30/09</time><a href="./artigos/como-escrever-o-prompt-de-um-agente-de-ia.html">Prompt de agente de IA: como escrever a instrução que define o comportamento</a></li>
         <li><time datetime="2026-09-29">29/09</time><a href="./artigos/erros-ao-implantar-agente-de-ia.html">Os erros mais caros ao implantar um agente de IA numa empresa (e como evitar)</a></li>
@@ -632,6 +589,7 @@
         <li><time datetime="2026-09-24">24/09</time><a href="./artigos/plano-de-marketing-para-vendas-online.html">Plano de marketing para vendas online: como montar um que gera venda (não só post)</a></li>
         <li><time datetime="2026-09-23">23/09</time><a href="./artigos/producao-propria-de-criativos-em-agencia.html">Produção própria de criativos em agência: o estúdio interno que escala</a></li>
         <li><time datetime="2026-09-22">22/09</time><a href="./artigos/orquestracao-de-agentes-de-ia-multiagente.html">Orquestração de agentes de IA: como vários agentes trabalham juntos (multiagente)</a></li>
+        <li><time datetime="2026-09-20">20/09</time><a href="./artigos/cupom-tiktok-ads-comecar-a-vender-tiktok-shop.html">Cupom TikTok Ads: como ganhar crédito de tráfego e começar a vender no TikTok Shop</a></li>
         <li><time datetime="2026-09-15">15/09</time><a href="./artigos/observabilidade-de-agentes-de-ia.html">Observabilidade de agentes de IA: como monitorar e depurar um agente em produção</a></li>
         <li><time datetime="2026-09-12">12/09</time><a href="./artigos/recuperar-orcamento-enviado-cliente-sumiu.html">Orçamento enviado e o cliente sumiu: como a IA recupera a venda que travou na proposta</a></li>
         <li><time datetime="2026-09-11">11/09</time><a href="./artigos/metricas-de-trafego-pago-cpm-ctr-frequencia.html">CPM, CTR, CPC e frequência: como ler as métricas do anúncio e achar onde ele trava</a></li>
@@ -712,6 +670,7 @@
         <li><time datetime="2026-06-29">29/06</time><a href="./artigos/agentes-de-ia-no-whatsapp.html">Agentes de IA no WhatsApp: Automatize o Atendimento e Recupere Vendas</a></li>
         <!-- DIARIO:FIM -->
       </ol>
+      <button class="diario-more" type="button" aria-controls="diarioList" aria-expanded="false">Ver o arquivo completo <span class="diario-n"></span> <span class="arrow">↓</span></button>
     </div>
   </section>
 
@@ -998,6 +957,38 @@
     v.addEventListener('pause', syncPlay);
     v.addEventListener('volumechange', syncSound);
     syncPlay(); syncSound();
+
+    // tocar no vídeo: 1º toque liga o som; depois pausa/retoma
+    v.addEventListener('click', function(){
+      if(v.muted){ soundBtn.click(); }
+      else if(playBtn){ playBtn.click(); }
+    });
+
+    // linha de progresso
+    var bar = document.getElementById('introProg');
+    if(bar){
+      (function tick(){
+        if(v.duration){ bar.style.transform = 'scaleX(' + (v.currentTime / v.duration) + ')'; }
+        requestAnimationFrame(tick);
+      })();
+    }
+  })();
+  </script>
+
+  <!-- Diário: mostra as recentes, abre o arquivo completo -->
+  <script>
+  (function(){
+    var list = document.getElementById('diarioList');
+    var btn = document.querySelector('.diario-more');
+    if(!list || !btn) return;
+    var total = list.querySelectorAll('li').length;
+    var n = btn.querySelector('.diario-n');
+    if(n) n.textContent = '(' + total + ' matérias)';
+    btn.addEventListener('click', function(){
+      var open = list.classList.toggle('is-short') === false;
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.firstChild.textContent = open ? 'Mostrar só as recentes ' : 'Ver o arquivo completo ';
+    });
   })();
   </script>
 </body>

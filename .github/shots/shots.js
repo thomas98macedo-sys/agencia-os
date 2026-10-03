@@ -12,6 +12,7 @@ const HIDE = `
   iframe[src*="chat" i],[class*="whatsapp" i],[id*="whatsapp" i],[class*="wa-" i]
   { display:none !important; visibility:hidden !important }
   html,body{ overflow:auto !important }`;
+process.on('unhandledRejection', e => { console.log('UNHANDLED', e && e.stack || e); });
 (async () => {
   const browser = await chromium.launch();
   const resolved = {};
@@ -39,4 +40,4 @@ const HIDE = `
   fs.writeFileSync(`${OUT}/resolved.json`, JSON.stringify(resolved, null, 2));
   console.log(resolved);
   await browser.close();
-})();
+})().catch(e => { console.log('FATAL', e && e.stack || e); });

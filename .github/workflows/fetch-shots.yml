@@ -28,13 +28,17 @@ jobs:
           npx playwright install --with-deps chromium
           pip -q install pillow
       - name: Take screenshots
-        run: node .github/shots/shots.js
+        run: |
+          mkdir -p thomas-macedo/img/marcas
+          node .github/shots/shots.js > thomas-macedo/img/marcas/shots.log 2>&1 || echo "FALHOU exit=$?" >> thomas-macedo/img/marcas/shots.log
+          cat thomas-macedo/img/marcas/shots.log
       - name: Optimize to JPG
         run: |
           python3 - << 'PY'
           from PIL import Image
           import glob, os
           for f in glob.glob('thomas-macedo/img/marcas/*.png'):
+              print('otimizando', f)
               im = Image.open(f).convert('RGB')
               im = im.resize((1200, round(im.height * 1200 / im.width)), Image.LANCZOS)
               out = f[:-4] + '.jpg'

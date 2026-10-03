@@ -1,0 +1,15 @@
+tuyo a[href="/"] img img https://tuyo.com.br/cdn/shop/files/logo_tuyo_preto.svg?v=1779473198&width=200 bg=rgb(255, 255, 255)
+apex-performance header a[href="/"] img img https://apx.com.br/cdn/shop/files/logo_preta.webp?v=1765224299&width=250 bg=rgb(255, 255, 255)
+rocket-labz header a[href="/"] img img https://www.rocketlabz.com.br/cdn/shop/files/Rocket_IV_logo_primario_branco_1.png?v=1749648221&width=200 bg=rgb(255, 255, 255)
+lm-woodwork header a[href="/"] img img https://lmwoodwork.com.br/cdn/shop/files/LM_black_b9e69992-1cdf-4c40-93a6-86d393dcd3c7.png?v=1755800918&width=120 bg=rgb(255, 255, 255)
+laser-rosa NAO ACHOU
+friga header a[href="/"] img img https://friga.com.br/cdn/shop/files/logoa.svg?height=72&v=1785939240 bg=rgb(255, 255, 255)
+china-link-trading [class*="logo" i] img img https://chinalinktrading.com.br/wp-content/uploads/2024/07/LOGO-CHINA-LINK.svg bg=rgb(0, 0, 0)
+china-link-na-estrada header img img https://chinalinktrading.com.br/chinalinknaestrada-institucional/assets/logo-china-link-x3-wfVJ8.png bg=rgba(0, 0, 0, 0.8)
+relive [class*="logo" i] img img https://reliveclinic.com.br/wp-content/uploads/2024/05/Logos-Relive-1000-x-540-px.png bg=rgb(250, 250, 250)
+moby-dick ERRO page.goto: net::ERR_CONNECTION_CLOSED at https://moby.com.br/
+Call log:
+  - navigating to "https://moby.com.br/", waiting until "domcontentloaded"
+
+texas-firearms header a[href="/"] img img https://texasfirearms.com.br/cdn/shop/files/LOGO_TEXAS_110x@2x.png?v=1716989087 bg=rgb(255, 255, 255)
+lince header img img https://linceperformance.com/assets/lince-wordmark-white.png bg=rgb(0, 0, 0)

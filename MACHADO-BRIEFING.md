@@ -49,6 +49,9 @@ afiliados/creators; do primeiro vídeo à primeira venda.
 - Só afirmar a oferta do cupom nos valores oficiais da tabela acima (crédito = valor gasto,
   novos anunciantes). Não inventar outros valores/promoções.
 
+## Estilo de escrita
+- NÃO usar travessão (—) no texto. Use vírgula, dois-pontos ou ponto final. Travessão em excesso soa como texto de IA.
+
 ## Regra de idioma — BILÍNGUE NA MESMA MATÉRIA
 Cada artigo é **uma única página** com o conteúdo em **português E em inglês**:
 1. Versão em **português** completa (título, dek, corpo, CTA, FAQ).

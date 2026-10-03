@@ -19,6 +19,7 @@ def info(path):
     m = re.search(r'<h1[^>]*>(.*?)</h1>', s, re.S) or re.search(r'<title>(.*?)</title>', s, re.S)
     titulo = re.sub(r'<[^>]+>', '', m.group(1)).split(' | ')[0].strip() if m else os.path.basename(path)
     titulo = html.unescape(re.sub(r'\s+', ' ', titulo))
+    titulo = re.sub(r'\s*—\s*', ': ', titulo).replace(': :', ':')
     d = re.search(r'article:published_time" content="(\d{4})-(\d{2})-(\d{2})', s)
     dt = date(int(d.group(1)), int(d.group(2)), int(d.group(3))) if d else date(2026, 1, 1)
     slug = os.path.basename(path)
@@ -53,7 +54,7 @@ def gerar():
           <span class="eyebrow eyebrow-ink">Biblioteca</span>
           <h2 class="title mt-s">Todas as matérias publicadas</h2>
         </div>
-        <p class="lead">{len(arts)} matérias sobre TikTok Shop, tráfego pago, marcas, agências e IA — atualizado automaticamente a cada publicação (última: {hoje.day:02d} {MESES[hoje.month-1]} {hoje.year}).</p>
+        <p class="lead">{len(arts)} matérias sobre TikTok Shop, tráfego pago, marcas, agências e IA. Atualizado automaticamente a cada publicação (última: {hoje.day:02d} {MESES[hoje.month-1]} {hoje.year}).</p>
       </div>
       <div class="bib-grid">
 {chr(10).join(cols)}

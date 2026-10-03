@@ -691,3 +691,65 @@ a.brand:hover{color:var(--accent);border-color:var(--accent)}
 @media(max-width:600px){.ig2{padding:72px 0}.ig2-head{gap:18px}.ig2-avatar{width:82px;height:82px}.ig2-stats{gap:0;justify-content:space-between}.ig2-stats b{font-size:1.25rem}.ig2-grid{gap:4px;margin-top:28px}.ig2-tile{border-radius:3px}.ig2-follow{width:100%;justify-content:center}}
 .ig2-print img{object-position:50% 0;transform:scale(1.12);transform-origin:50% 0}
 .ig2-print:hover img{transform:scale(1.18)}
+
+/* =====================================================================
+   V3 — estética editorial (out/2026): menos template, mais revista
+   ===================================================================== */
+/* 1. sem truques de template */
+.cursor-dot,.cursor-ring,.scroll-progress{display:none!important}
+
+/* 2. hero editorial */
+.hero-grid{grid-template-columns:1.2fr 1fr;align-items:center}
+.hero-photo{aspect-ratio:4/5}
+.hero-photo img{filter:none}
+.hero-photo figcaption{left:auto;right:0;bottom:0;background:var(--paper);color:var(--ink-soft);backdrop-filter:none;-webkit-backdrop-filter:none;border-radius:0;padding:10px 0 0 14px;letter-spacing:.16em}
+@media(max-width:880px){.hero-grid{grid-template-columns:1fr}.hero-photo{max-width:none;aspect-ratio:4/5}}
+
+/* 3. frentes — índice editorial */
+.fx{list-style:none;margin:0;padding:0;border-top:1px solid var(--line-strong)}
+.fx li{border-bottom:1px solid var(--line-strong)}
+.fx-row{position:relative;display:grid;grid-template-columns:64px minmax(0,1.1fr) minmax(0,1fr) 40px;gap:30px;align-items:center;padding:34px 0;color:var(--ink);transition:padding .55s cubic-bezier(.19,1,.22,1)}
+.fx-n{font-family:var(--serif);font-size:1rem;color:var(--accent);font-variant-numeric:tabular-nums}
+.fx-k{display:block;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
+.fx-h{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(1.5rem,2.6vw,2.3rem);line-height:1.08;letter-spacing:-.015em;transition:color .3s}
+.fx-d{font-size:.92rem;line-height:1.6;color:var(--ink-soft);max-width:44ch;transition:opacity .3s}
+.fx-go{font-size:1.35rem;justify-self:end;transition:transform .4s cubic-bezier(.19,1,.22,1)}
+.fx-img{position:absolute;right:64px;top:50%;width:210px;aspect-ratio:4/5;object-fit:cover;border-radius:2px;opacity:0;transform:translateY(-50%) scale(.9) rotate(-2.5deg);pointer-events:none;transition:opacity .35s,transform .7s cubic-bezier(.19,1,.22,1);z-index:2;box-shadow:0 30px 70px rgba(20,19,16,.28)}
+@media(hover:hover) and (min-width:901px){
+  .fx-row:hover{padding-left:18px}
+  .fx-row:hover .fx-h{color:var(--accent)}
+  .fx-row:hover .fx-d{opacity:.12}
+  .fx-row:hover .fx-go{transform:translateX(6px)}
+  .fx-row:hover .fx-img{opacity:1;transform:translateY(-50%) scale(1) rotate(-2.5deg)}
+}
+@media(max-width:900px){
+  .fx-row{grid-template-columns:38px 1fr;gap:10px 14px;padding:26px 0}
+  .fx-d{grid-column:2}
+  .fx-go,.fx-img{display:none}
+}
+
+/* 4. sem paredões */
+.roster-more{margin-top:26px;border-top:1px solid var(--line-strong);border-bottom:1px solid var(--line-strong)}
+.roster-more summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:22px 0;font-family:var(--serif);font-size:1.3rem}
+.roster-more summary::-webkit-details-marker{display:none}
+.roster-more summary i{font-style:normal;color:var(--accent);font-size:1.7rem;line-height:1;transition:transform .35s}
+.roster-more[open] summary i{transform:rotate(45deg)}
+.roster-more .roster-grid{margin:4px 0 30px}
+.diario-list.is-short{columns:2}
+.diario-list.is-short li:nth-child(n+7){display:none}
+@media(max-width:640px){.diario-list.is-short{columns:1}}
+.diario-more{margin-top:26px;background:none;border:0;border-bottom:1px solid var(--line-strong);padding:6px 0;font:inherit;font-size:.95rem;color:var(--ink);cursor:pointer;transition:color .25s,border-color .25s}
+.diario-more:hover{color:var(--accent);border-color:var(--accent)}
+.diario-n{color:var(--ink-soft)}
+
+/* 5. intro cinematográfica */
+.vintro-video{cursor:pointer}
+.vintro-sign{position:absolute;z-index:3;left:30px;bottom:32px;color:#fff;display:flex;flex-direction:column;gap:6px;pointer-events:none;text-shadow:0 1px 20px rgba(0,0,0,.5)}
+.vintro-sign span{font-family:var(--serif);font-size:clamp(1.3rem,2.2vw,1.9rem);font-weight:400;letter-spacing:-.01em;line-height:1}
+.vintro-sign em{font-style:normal;font-size:.64rem;letter-spacing:.24em;text-transform:uppercase;opacity:.85}
+.vintro-prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:rgba(255,255,255,.14);z-index:3}
+.vintro-prog i{display:block;height:100%;background:var(--accent-bright);transform-origin:0 50%;transform:scaleX(0)}
+@media(max-width:760px){.vintro-sign{left:16px;bottom:80px}}
+/* intro cabe inteira na primeira tela (desconta o cabeçalho fixo) */
+.vintro{height:calc(100vh - 75px);height:calc(100svh - 75px);min-height:420px}
+.hero .scroll-hint{display:none}

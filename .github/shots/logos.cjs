@@ -8,6 +8,7 @@ const info = {};
 (async () => {
   const browser = await chromium.launch({ channel: 'chrome' });
   for (const s of sites) {
+    if (fs.readdirSync(OUT).some(f => f.startsWith(s.slug + '.'))) continue;
     const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 2, locale: 'pt-BR',
       userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36' });
     const p = await ctx.newPage();
@@ -36,6 +37,11 @@ const info = {};
             return { sel, type: 'img', src: el.currentSrc || el.src, bg, w: r.width, h: r.height };
           }
         }
+        for (const el of document.querySelectorAll('img')) {
+          const k = ((el.currentSrc || el.src || '') + ' ' + (el.alt || '') + ' ' + (el.className || '')).toLowerCase();
+          const r = el.getBoundingClientRect();
+          if (k.includes('logo') && r.width >= 30) { el.setAttribute('data-logo-pick', '1'); return { sel: 'img[*logo*]', type: 'img', src: el.currentSrc || el.src, bg: '', w: r.width, h: r.height }; }
+        }
         return null;
       });
       info[s.slug] = found ? { ...found, svg: found.svg ? '(svg)' : undefined } : null;
@@ -43,7 +49,9 @@ const info = {};
       if (!found) { await ctx.close(); continue; }
       if (found.type === 'svg') fs.writeFileSync(`${OUT}/${s.slug}.svg`, found.svg);
       else if (found.src && !found.src.startsWith('data:')) {
-        const r = await ctx.request.get(found.src, { headers: { referer: s.url } });
+        let big = found.src; try { const u = new URL(found.src); u.searchParams.delete('width'); u.searchParams.delete('height'); big = u.toString().replace(/_(\d+x\d*|x\d+)(@2x)?(?=\.(png|jpe?g|webp))/i, ''); } catch (e) {}
+        info[s.slug].big = big;
+        const r = await ctx.request.get(big, { headers: { referer: s.url } });
         if (r.ok()) {
           const ct = (r.headers()['content-type'] || '').toLowerCase();
           const ext = ct.includes('svg') ? 'svg' : ct.includes('png') ? 'png' : ct.includes('webp') ? 'webp' : ct.includes('avif') ? 'avif' : ct.includes('gif') ? 'gif' : 'jpg';

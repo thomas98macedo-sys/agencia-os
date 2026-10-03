@@ -1,14 +1,9 @@
 [
- {"slug":"tuyo","url":"https://tuyo.com.br/"},
  {"slug":"apex-performance","url":"https://apx.com.br/"},
  {"slug":"rocket-labz","url":"https://www.rocketlabz.com.br/"},
  {"slug":"lm-woodwork","url":"https://lmwoodwork.com.br/"},
- {"slug":"laser-rosa","url":"https://www.laserrosa.com.br/"},
- {"slug":"friga","url":"https://friga.com.br/"},
- {"slug":"china-link-trading","url":"https://chinalinktrading.com.br/"},
- {"slug":"china-link-na-estrada","url":"https://chinalinktrading.com.br/chinalinknaestrada-institucional/"},
- {"slug":"relive","url":"https://reliveclinic.com.br/"},
- {"slug":"moby-dick","url":"https://moby.com.br/"},
  {"slug":"texas-firearms","url":"https://texasfirearms.com.br/"},
- {"slug":"lince","url":"https://linceperformance.com/"}
+ {"slug":"laser-rosa","url":"https://www.laserrosa.com.br/"},
+ {"slug":"moby-dick","url":"https://www.moby.com.br/"},
+ {"slug":"moby-dick","url":"http://moby.com.br/"}
 ]

@@ -39,7 +39,7 @@
   <link rel="icon" type="image/png" sizes="48x48" href="./favicon-48.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="./favicon-192.png" />
   <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
-  <link rel="preload" as="image" href="./img/hero-frames/frame-001.webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="./img/reels-poster.jpg" fetchpriority="high" />
   <link rel="preload" as="image" href="./img/thomas-macedo-palestra.jpeg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -174,16 +174,25 @@
     </div>
   </header>
 
-  <!-- ABERTURA — filme guiado pelo scroll -->
-  <section class="vscrub" id="abertura" data-frames="240" data-path="./img/hero-frames/frame-" data-ext=".webp" data-idle="48" data-focal="0.6" aria-label="Abertura em vídeo: carrinho de compras dourado cheio de dinheiro percorre trilhos enquanto notificações de venda aparecem">
-    <div class="vscrub-sticky">
-      <img class="vscrub-poster" src="./img/hero-frames/frame-001.webp" alt="Carrinho de compras dourado cheio de dinheiro sobre trilhos, em um estúdio off-white" width="1280" height="720" fetchpriority="high" />
-      <canvas class="vscrub-canvas" aria-hidden="true"></canvas>
-      <div class="vscrub-overlay">
-        <p class="vscrub-kicker">Thomas Macedo apresenta</p>
-        <p class="vscrub-title">Cada scroll, <em>uma venda.</em></p>
+  <!-- ABERTURA — vídeo de apresentação (reels, com som) -->
+  <section class="vintro" id="abertura" aria-label="Vídeo de apresentação de Thomas Macedo">
+    <div class="vintro-bg" aria-hidden="true"></div>
+    <div class="vintro-stage">
+      <video class="vintro-video" id="introVideo" playsinline muted loop autoplay preload="auto" poster="./img/reels-poster.jpg">
+        <source src="./vid/reels-thomas.mp4" type="video/mp4" />
+      </video>
+      <div class="vintro-controls">
+        <button class="vintro-btn vintro-playpause" id="introPlay" type="button" aria-label="Pausar vídeo">
+          <svg class="ic ic-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="5" width="3.6" height="14" rx="1.1"/><rect x="13.9" y="5" width="3.6" height="14" rx="1.1"/></svg>
+          <svg class="ic ic-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.2v13.6a.6.6 0 0 0 .92.5l10.6-6.8a.6.6 0 0 0 0-1l-10.6-6.8A.6.6 0 0 0 8 5.2z"/></svg>
+        </button>
+        <button class="vintro-btn vintro-sound is-muted" id="introSound" type="button" aria-label="Tocar com som">
+          <svg class="ic ic-muted" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M15.5 9l5 6m0-6l-5 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg class="ic ic-sound" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <span class="vintro-sound-label">Tocar com som</span>
+        </button>
       </div>
-      <div class="vscrub-hint" aria-hidden="true"><span></span>Role para assistir<i class="vscrub-load"></i></div>
+      <span class="vintro-hint" aria-hidden="true"><i></i>Desça</span>
     </div>
   </section>
 
@@ -910,6 +919,57 @@
       [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
     }
     window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
+
+  <!-- Controles da intro em vídeo (reels, com som) -->
+  <script>
+  (function(){
+    var sec = document.getElementById('abertura');
+    var v = document.getElementById('introVideo');
+    if(!sec || !v) return;
+    var playBtn = document.getElementById('introPlay');
+    var soundBtn = document.getElementById('introSound');
+    var firstUnmute = true;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function syncPlay(){
+      var paused = v.paused;
+      sec.classList.toggle('is-paused', paused);
+      if(playBtn) playBtn.setAttribute('aria-label', paused ? 'Reproduzir vídeo' : 'Pausar vídeo');
+    }
+    function syncSound(){
+      var on = !v.muted;
+      soundBtn.classList.toggle('is-on', on);
+      soundBtn.classList.toggle('is-muted', !on);
+      soundBtn.setAttribute('aria-label', on ? 'Desativar som' : 'Tocar com som');
+    }
+
+    // autoplay mudo ao abrir (se o navegador permitir)
+    if(reduce){ try{ v.pause(); }catch(e){} }
+    else { var p = v.play && v.play(); if(p && p.catch) p.catch(function(){}); }
+
+    if(playBtn) playBtn.addEventListener('click', function(){
+      if(v.paused){ var pr=v.play(); if(pr&&pr.catch) pr.catch(function(){}); }
+      else { v.pause(); }
+    });
+
+    soundBtn.addEventListener('click', function(){
+      if(v.muted){
+        v.muted = false;
+        if(firstUnmute){ firstUnmute=false; try{ v.currentTime = 0; }catch(e){} }
+        var pr=v.play(); if(pr&&pr.catch) pr.catch(function(){});
+        if(typeof ev==='function') ev('intro_sound_on', {location:location.pathname});
+      } else {
+        v.muted = true;
+      }
+      syncSound();
+    });
+
+    v.addEventListener('play', syncPlay);
+    v.addEventListener('pause', syncPlay);
+    v.addEventListener('volumechange', syncSound);
+    syncPlay(); syncSound();
   })();
   </script>
 </body>

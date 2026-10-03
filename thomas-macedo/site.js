@@ -417,3 +417,38 @@
     reel.addEventListener('lostpointercapture', release);
   });
 })();
+
+/* ---------- Modo noite: botão no menu, lembra a escolha ---------- */
+(function () {
+  var nav = document.querySelector('header .nav-links');
+  if (!nav) return;
+  var root = document.documentElement;
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'theme-btn';
+  btn.innerHTML = '<svg class="ic-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>' +
+                  '<svg class="ic-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>';
+  function sync() {
+    var dark = root.getAttribute('data-theme') === 'dark';
+    btn.setAttribute('aria-label', dark ? 'Ativar modo claro' : 'Ativar modo noite');
+    btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+  }
+  btn.addEventListener('click', function () {
+    var dark = root.getAttribute('data-theme') !== 'dark';
+    if (dark) root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
+    try { localStorage.setItem('tema', dark ? 'escuro' : 'claro'); } catch (e) {}
+    sync();
+  });
+  var cta = nav.querySelector('.nav-cta');
+  nav.insertBefore(btn, cta || null);
+  sync();
+})();
+
+/* ---------- Biblioteca: abrir lista completa por categoria ---------- */
+document.addEventListener('click', function (e) {
+  var b = e.target.closest && e.target.closest('.bib-more');
+  if (!b) return;
+  var col = b.closest('.bib-col'); var open = col.classList.toggle('open');
+  b.firstChild.textContent = open ? 'Mostrar menos ' : b.firstChild.textContent.replace('Mostrar menos ', 'Ver todas ');
+  if (!open) b.firstChild.textContent = 'Ver todas as ' + col.querySelectorAll('li').length + ' ';
+});

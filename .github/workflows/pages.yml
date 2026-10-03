@@ -18,7 +18,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Prepare site
-        run: touch thomas-macedo/.nojekyll
+        run: |
+          touch thomas-macedo/.nojekyll
+          # biblioteca de matérias sempre atualizada (lê thomas-macedo/artigos/*.html)
+          python3 .github/build/biblioteca.py
       - name: Publish to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:

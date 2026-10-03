@@ -1282,3 +1282,8 @@ html[data-theme="dark"] body > header{background:rgba(10,10,11,.84);border-botto
 html[data-theme="dark"] .bib-more{color:#6B9BF2}
 @media(max-width:1100px){.bib-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:700px){.bib-grid{grid-template-columns:1fr}}
+
+/* títulos com o mesmo desenho da assinatura "Thomas Macedo" (Fraunces em tamanho óptico pequeno: mais fino e elegante) */
+h1,h2,h3,.title,.display,.manifesto,.mtd-h,.wa-h,.lnc-h,.fx-h,.rel-name,.mtd-step h3,.mv-text h3,.ig2-handle,.livro-sec h2{
+  font-optical-sizing:none;font-variation-settings:"opsz" 28}
+h2.title,.title,.manifesto,.mtd-h,.wa-h,.lnc-h,section h2.display,.hero h1.display{letter-spacing:-.01em}

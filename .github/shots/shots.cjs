@@ -33,7 +33,7 @@ async function clean(p) {
 }
 
 (async () => {
-  const browser = await chromium.launch();
+  const browser = await chromium.launch(process.env.SHOT_CHANNEL ? { channel: process.env.SHOT_CHANNEL } : {});
   for (const s of sites) {
     for (const url of s.urls) {
       const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1, locale: 'pt-BR',
@@ -48,6 +48,9 @@ async function clean(p) {
         // rola pra disparar lazy-load e volta ao topo
         await p.evaluate(async () => { for (let y = 0; y < 2400; y += 400) { scrollTo(0, y); await new Promise(r => setTimeout(r, 250)); } scrollTo(0, 0); });
         await p.waitForTimeout(6000);
+        // garante que vídeos de fundo estejam tocando
+        await p.evaluate(() => document.querySelectorAll('video').forEach(v => { v.muted = true; v.play().catch(() => {}); }));
+        await p.waitForTimeout(3000);
         await clean(p);
         await p.waitForTimeout(1500);
         await clean(p);

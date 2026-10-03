@@ -25,12 +25,12 @@ jobs:
       - name: Install Playwright
         run: |
           npm i --no-save playwright@1.55.0
-          npx playwright install --with-deps chromium
+          npx playwright install --with-deps chromium chrome
           pip -q install pillow
       - name: Take screenshots
         run: |
           mkdir -p thomas-macedo/img/marcas
-          node .github/shots/shots.cjs > thomas-macedo/img/marcas/shots.log 2>&1 || echo "FALHOU exit=$?" >> thomas-macedo/img/marcas/shots.log
+          SHOT_CHANNEL=chrome node .github/shots/shots.cjs > thomas-macedo/img/marcas/shots.log 2>&1 || echo "FALHOU exit=$?" >> thomas-macedo/img/marcas/shots.log
           cat thomas-macedo/img/marcas/shots.log
       - name: Optimize to JPG
         run: |

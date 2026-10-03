@@ -1211,3 +1211,74 @@ h2.title,.title,.manifesto,.mtd-h,.wa-h,.lnc-h,section h2.display{
 .wa-mic{width:38px;height:38px;border-radius:50%;background:#25d366;color:#0b0b0b;display:flex;align-items:center;justify-content:center;flex:none}
 .wa-mic svg{width:20px;height:20px}
 .wa-note{background:none;color:var(--muted);margin-top:12px;padding:0;font-size:.72rem}
+
+/* biblioteca de matérias (gerada no deploy) */
+.bib{padding:100px 0 90px;border-top:1px solid var(--line)}
+.bib-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:34px 40px}
+.bib-col h3{display:flex;align-items:baseline;justify-content:space-between;font-family:var(--sans);font-size:.72rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#1d4ed8;padding-bottom:12px;border-bottom:1px solid var(--line-strong);margin-bottom:6px}
+.bib-col h3 span{color:var(--muted);letter-spacing:0}
+.bib-col ul{list-style:none;margin:0;padding:0}
+.bib-col li{display:flex;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.86rem;line-height:1.4}
+.bib-col a{color:var(--ink-soft);transition:color .2s}
+.bib-col a:hover{color:var(--ink)}
+.bib-col time{flex:none;font-size:.7rem;color:var(--muted);font-variant-numeric:tabular-nums;padding-top:2px}
+
+/* botão da Friday na paleta do site + total contratado */
+.wa-btn{background:var(--ink);color:var(--paper);border-radius:2px;box-shadow:none;font-weight:600;font-size:.9rem;padding:15px 26px}
+.wa-btn:hover{background:#1d4ed8;transform:none}
+.wa-total{margin-top:12px;padding:20px 22px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(160deg,#f6f8fb,#edf1f7);display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.wa-total b{font-family:var(--serif);font-weight:400;font-size:2.4rem;line-height:1;color:var(--ink)}
+.wa-total span{font-size:.86rem;color:var(--ink-soft)}
+
+/* =====================================================================
+   MODO NOITE — preto básico, letras brancas, detalhe azul
+   ===================================================================== */
+html[data-theme="dark"]{
+  --paper:#0A0A0B; --paper-2:#111113;
+  --ink:#F4F4F5; --ink-soft:#C4C7CE; --muted:#8A8F98;
+  --line:#222327; --line-strong:#33353B;
+  --accent:#6B9BF2; --accent-bright:#9DB8E8;
+  color-scheme:dark;
+}
+html[data-theme="dark"] body{background:#0A0A0B;color:#F4F4F5}
+/* detalhe azul legível no preto */
+html[data-theme="dark"] :is(.eyebrow,.eyebrow-ink,.mtd-k,.wa-k,.pd-k,.fx-k,.bib-col h3,.pd-meta small,.ig2-id .eyebrow){color:#6B9BF2}
+html[data-theme="dark"] .mtd-out{color:#6B9BF2;background:#0A0A0B;border-color:#33353B}
+/* seções que já eram escuras continuam escuras (não invertem) */
+html[data-theme="dark"] :is(.band,.ig2,.mv){background:#111214;color:#F4F4F5}
+html[data-theme="dark"] .cta{background:#111214;color:#F4F4F5}
+html[data-theme="dark"] :is(.cta h2.display,.livro-sec h2.display,.lnc-h,.mv-text h3){color:#F4F4F5}
+/* cards claros viram cards escuros */
+html[data-theme="dark"] :is(.mtd-step,.wa-stats div,.wa-stats .wa-win,.wa-total){background:#111214;border-color:#222327}
+html[data-theme="dark"] .mtd-step:hover{background:#15161a;border-color:#33353B;box-shadow:none}
+html[data-theme="dark"] .wa-stats .wa-win b{color:#34d399}
+html[data-theme="dark"] .wa-sec{background:#0A0A0B}
+html[data-theme="dark"] :is(.bframe){background:#111214;border-color:#222327}
+html[data-theme="dark"] .bbar{background:#17181b;border-color:#222327}
+html[data-theme="dark"] .bbar i{background:#33353B}
+html[data-theme="dark"] .pd-img{background:#f1f3f6;border-color:#222327}
+html[data-theme="dark"] .pd-img img{mix-blend-mode:normal}
+html[data-theme="dark"] .fx-row:hover{box-shadow:none}
+html[data-theme="dark"] .rel-card{background:#111214;border-color:#222327}
+/* logos da faixa em branco */
+html[data-theme="dark"] .blogo.k img{filter:brightness(0) invert(1)}
+html[data-theme="dark"] .blogo.m img{filter:grayscale(1) invert(1) contrast(1.1);mix-blend-mode:screen}
+/* botão do tema */
+.theme-btn{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid var(--line-strong);background:transparent;color:var(--ink);cursor:pointer;margin-right:4px;transition:border-color .2s,color .2s}
+.theme-btn:hover{border-color:#1d4ed8;color:#1d4ed8}
+.theme-btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round}
+.theme-btn .ic-moon{fill:currentColor;stroke:none}
+.theme-btn .ic-sun{display:none}
+html[data-theme="dark"] .theme-btn .ic-sun{display:block}
+html[data-theme="dark"] .theme-btn .ic-moon{display:none}
+body > header{background:rgba(255,255,255,.86)}
+html[data-theme="dark"] body > header{background:rgba(10,10,11,.84);border-bottom-color:#222327}
+.bib-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:30px 26px}
+.bib-col li{flex-direction:column;gap:3px}
+.bib-col time{padding-top:0}
+.bib-col:not(.open) li:nth-child(n+9){display:none}
+.bib-more{margin-top:12px;background:none;border:0;padding:0;font:inherit;font-size:.8rem;color:#1d4ed8;cursor:pointer}
+.bib-more:hover{text-decoration:underline}
+html[data-theme="dark"] .bib-more{color:#6B9BF2}
+@media(max-width:1100px){.bib-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:700px){.bib-grid{grid-template-columns:1fr}}

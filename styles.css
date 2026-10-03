@@ -1087,3 +1087,49 @@ html:not(.pal-classica) .livro-capa img{box-shadow:0 30px 80px rgba(0,0,0,.6),0 
 .pd-img img[src*="gummy"]{object-fit:cover;padding:0;mix-blend-mode:normal}
 .wa-stats .wa-win{background:linear-gradient(135deg,#ecfdf5,#eff6ff) padding-box,linear-gradient(110deg,#059669,#22d3ee,#2563eb,#059669) border-box;background-size:100% 100%,300% 300%}
 .wa-stats .wa-win b{background:linear-gradient(90deg,#065f46,#059669,#0891b2,#065f46);background-size:300% 100%;-webkit-background-clip:text;background-clip:text}
+
+/* =====================================================================
+   AJUSTE ESTÉTICO — frentes, método e números da Friday no padrão da vitrine
+   (fundo claro, cards cinza-azulado suave, títulos pretos, etiqueta azul-marinho)
+   ===================================================================== */
+/* frentes */
+.fx{gap:10px}
+.fx-row{animation:none;border:1px solid var(--line);border-radius:14px;padding:28px 28px;
+  background:linear-gradient(160deg,#f6f8fb,#edf1f7);box-shadow:none}
+.fx-n,.fx-h{animation:none;background:none;-webkit-background-clip:border-box;background-clip:border-box}
+.fx-n{color:var(--muted);font-weight:400;font-size:1rem}
+.fx-h{color:var(--ink)}
+.fx-k{color:#1d4ed8;font-weight:500}
+.fx-d{color:var(--ink-soft)}
+.fx-go{color:var(--ink)}
+@media(hover:hover) and (min-width:901px){
+  .fx-row:hover{padding-left:28px;transform:translateY(-3px);border-color:#c9d3e3;box-shadow:0 18px 40px rgba(15,31,77,.08)}
+  .fx-row:hover .fx-h{color:var(--ink)}
+  .fx-row:hover .fx-d{opacity:.15}
+}
+
+/* método */
+.mtd{background:var(--paper);color:var(--ink);padding:110px 0}
+.mtd::before,.mtd::after{display:none}
+.mtd-k{color:var(--ink);font-size:.68rem;letter-spacing:.2em}
+.mtd-h{color:var(--ink)}
+.mtd-h em{animation:none;background:none;-webkit-background-clip:border-box;background-clip:border-box;color:var(--accent)}
+.mtd-lead{color:var(--ink-soft)}
+.mtd-btn{background:var(--ink);color:var(--paper);border-radius:2px;box-shadow:none;font-weight:600;font-size:.9rem;padding:15px 26px}
+.mtd-btn:hover{box-shadow:none;background:var(--accent)}
+.mtd-line{top:84px;background:var(--line-strong)}
+.mtd-line i{background:linear-gradient(90deg,transparent,var(--accent),transparent);filter:none;height:3px;top:-1px}
+.mtd-step{background:linear-gradient(160deg,#f6f8fb,#edf1f7);border:1px solid var(--line);border-radius:14px;backdrop-filter:none}
+.mtd-step:hover{background:linear-gradient(160deg,#f6f8fb,#edf1f7);border-color:#c9d3e3;box-shadow:0 18px 40px rgba(15,31,77,.08)}
+.mtd-n{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:var(--ink);font-weight:300}
+.mtd-dot{background:var(--accent);box-shadow:0 0 0 4px rgba(21,41,77,.08)}
+.mtd-step h3{color:var(--ink)}
+.mtd-step p{color:var(--ink-soft)}
+.mtd-out{color:#1d4ed8;border-color:#c9d3e3;background:#fff}
+
+/* números da Friday */
+.wa-stats div,.wa-stats .wa-win{animation:none;border:1px solid var(--line);background:linear-gradient(160deg,#f6f8fb,#edf1f7);border-radius:14px}
+.wa-stats b,.wa-stats .wa-win b{animation:none;background:none;-webkit-background-clip:border-box;background-clip:border-box;color:var(--ink)}
+.wa-stats .wa-win b{color:#047857}
+.wa-stats span{color:var(--ink-soft)}
+.wa-k{color:#1d4ed8;font-weight:500}

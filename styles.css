@@ -1133,3 +1133,8 @@ html:not(.pal-classica) .livro-capa img{box-shadow:0 30px 80px rgba(0,0,0,.6),0 
 .wa-stats .wa-win b{color:#047857}
 .wa-stats span{color:var(--ink-soft)}
 .wa-k{color:#1d4ed8;font-weight:500}
+/* frentes: mesma tipografia do manifesto (serifa leve) e sem fundo azulado */
+.fx-h{font-family:var(--serif);font-weight:300;letter-spacing:-.015em;line-height:1.12}
+.fx-n{font-family:var(--serif);font-weight:300}
+.fx-row{background:transparent;border-color:var(--line)}
+@media(hover:hover) and (min-width:901px){.fx-row:hover{background:transparent;border-color:var(--line-strong)}}

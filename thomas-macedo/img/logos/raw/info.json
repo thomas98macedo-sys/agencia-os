@@ -1,13 +1,4 @@
 {
- "tuyo": {
-  "sel": "a[href=\"/\"] img",
-  "type": "img",
-  "src": "https://tuyo.com.br/cdn/shop/files/logo_tuyo_preto.svg?v=1779473198&width=200",
-  "bg": "rgb(255, 255, 255)",
-  "w": 100,
-  "h": 19,
-  "file": "tuyo.svg"
- },
  "apex-performance": {
   "sel": "header a[href=\"/\"] img",
   "type": "img",
@@ -15,6 +6,7 @@
   "bg": "rgb(255, 255, 255)",
   "w": 105,
   "h": 40.734375,
+  "big": "https://apx.com.br/cdn/shop/files/logo_preta.webp?v=1765224299",
   "file": "apex-performance.png"
  },
  "rocket-labz": {
@@ -24,6 +16,7 @@
   "bg": "rgb(255, 255, 255)",
   "w": 100,
   "h": 17,
+  "big": "https://www.rocketlabz.com.br/cdn/shop/files/Rocket_IV_logo_primario_branco_1.png?v=1749648221",
   "file": "rocket-labz.png"
  },
  "lm-woodwork": {
@@ -33,44 +26,8 @@
   "bg": "rgb(255, 255, 255)",
   "w": 60,
   "h": 60,
+  "big": "https://lmwoodwork.com.br/cdn/shop/files/LM_black_b9e69992-1cdf-4c40-93a6-86d393dcd3c7.png?v=1755800918",
   "file": "lm-woodwork.png"
- },
- "laser-rosa": null,
- "friga": {
-  "sel": "header a[href=\"/\"] img",
-  "type": "img",
-  "src": "https://friga.com.br/cdn/shop/files/logoa.svg?height=72&v=1785939240",
-  "bg": "rgb(255, 255, 255)",
-  "w": 190,
-  "h": 36,
-  "file": "friga.svg"
- },
- "china-link-trading": {
-  "sel": "[class*=\"logo\" i] img",
-  "type": "img",
-  "src": "https://chinalinktrading.com.br/wp-content/uploads/2024/07/LOGO-CHINA-LINK.svg",
-  "bg": "rgb(0, 0, 0)",
-  "w": 98,
-  "h": 52.40625,
-  "file": "china-link-trading.svg"
- },
- "china-link-na-estrada": {
-  "sel": "header img",
-  "type": "img",
-  "src": "https://chinalinktrading.com.br/chinalinknaestrada-institucional/assets/logo-china-link-x3-wfVJ8.png",
-  "bg": "rgba(0, 0, 0, 0.8)",
-  "w": 61.125,
-  "h": 32,
-  "file": "china-link-na-estrada.png"
- },
- "relive": {
-  "sel": "[class*=\"logo\" i] img",
-  "type": "img",
-  "src": "https://reliveclinic.com.br/wp-content/uploads/2024/05/Logos-Relive-1000-x-540-px.png",
-  "bg": "rgb(250, 250, 250)",
-  "w": 109.203125,
-  "h": 58.96875,
-  "file": "relive.png"
  },
  "texas-firearms": {
   "sel": "header a[href=\"/\"] img",
@@ -79,15 +36,18 @@
   "bg": "rgb(255, 255, 255)",
   "w": 110,
   "h": 101.5,
+  "big": "https://texasfirearms.com.br/cdn/shop/files/LOGO_TEXAS.png?v=1716989087",
   "file": "texas-firearms.png"
  },
- "lince": {
-  "sel": "header img",
+ "laser-rosa": {
+  "sel": "img[*logo*]",
   "type": "img",
-  "src": "https://linceperformance.com/assets/lince-wordmark-white.png",
-  "bg": "rgb(0, 0, 0)",
-  "w": 90.375,
-  "h": 26,
-  "file": "lince.png"
- }
+  "src": "https://www.laserrosa.com.br/wp-content/webp-express/webp-images/uploads/2024/04/lOGOS_vIGENTES_pages-to-jpg-0001-scaled-e1713450113748.jpg.webp",
+  "bg": "",
+  "w": 260.15625,
+  "h": 61.90625,
+  "big": "https://www.laserrosa.com.br/wp-content/webp-express/webp-images/uploads/2024/04/lOGOS_vIGENTES_pages-to-jpg-0001-scaled-e1713450113748.jpg.webp",
+  "file": "laser-rosa.webp"
+ },
+ "moby-dick": null
 }

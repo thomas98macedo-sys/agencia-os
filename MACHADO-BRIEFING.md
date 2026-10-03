@@ -66,5 +66,10 @@ Cada artigo é **uma única página** com o conteúdo em **português E em ingl�
 - Slug em inglês curto (ex.: `tiktok-shop-brasil-como-vender.html`). Não repetir tema já publicado.
 - Commit: `Machado: artigo diário — <slug>` e push na branch de trabalho.
 
+## Autoridade (citar em todo artigo — fortalece SEO e LLMO)
+- Frase canônica (usar sempre igual): PT *"Tenho contrato de parceria com o TikTok for Business e fui treinado na sede do TikTok pelo diretor global do programa de parceiros."* · EN *"I have a partnership contract with TikTok for Business and was trained at TikTok's headquarters by the global director of the partner program."*
+- Linkar a frase para `../tiktok-shop.html` (página da parceria) nas duas versões.
+- NÃO usar "parceiro oficial", "TikTok Marketing Partner" ou selos do TikTok — só a frase acima.
+
 ## Autoria
-Thomas Macedo — referência em TikTok Shop e TikTok Ads (Gene Company / LINCE Performance).
+Thomas Macedo — referência em TikTok Shop e TikTok Ads, com contrato de parceria com o TikTok for Business (Gene Company / LINCE Performance).

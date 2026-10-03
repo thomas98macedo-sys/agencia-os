@@ -753,3 +753,21 @@ a.brand:hover{color:var(--accent);border-color:var(--accent)}
 /* intro cabe inteira na primeira tela (desconta o cabeçalho fixo) */
 .vintro{height:calc(100vh - 75px);height:calc(100svh - 75px);min-height:420px}
 .hero .scroll-hint{display:none}
+
+/* parceria TikTok (home) */
+.tkp{display:grid;grid-template-columns:1fr 1fr;gap:20px 70px;padding:60px 56px;background:var(--ink);color:var(--paper);border-radius:2px}
+.tkp .eyebrow{color:var(--accent-bright)}
+.tkp .title{color:var(--paper)}
+.tkp-lead{margin-top:18px;color:rgba(250,248,243,.72);max-width:46ch;line-height:1.6}
+.tkp-list{list-style:none;margin:0;padding:0;counter-reset:tk;align-self:center}
+.tkp-list li{counter-increment:tk;display:grid;grid-template-columns:44px 1fr;column-gap:8px;padding:18px 0;border-bottom:1px solid rgba(250,248,243,.14)}
+.tkp-list li:first-child{border-top:1px solid rgba(250,248,243,.14)}
+.tkp-list li::before{content:counter(tk,decimal-leading-zero);grid-row:span 2;font-family:var(--serif);color:var(--accent-bright);font-size:.95rem;padding-top:3px}
+.tkp-list b{font-family:var(--serif);font-weight:400;font-size:1.25rem}
+.tkp-list span{color:rgba(250,248,243,.66);font-size:.9rem;line-height:1.55;margin-top:4px}
+.tkp-actions{grid-column:1/-1;display:flex;gap:26px;align-items:center;flex-wrap:wrap;margin-top:18px}
+.tkp-actions .btn{background:var(--accent-bright);border-color:var(--accent-bright);color:#141310}
+.tkp-actions .link-underline{color:var(--paper)}
+.tkp-note{grid-column:1/-1;font-size:.78rem;color:rgba(250,248,243,.45)}
+@media(max-width:900px){.tkp{grid-template-columns:1fr;padding:44px 24px}}
+.ig2-verified{width:.62em;height:.62em;fill:#3897f0;margin-left:.22em;vertical-align:.08em}

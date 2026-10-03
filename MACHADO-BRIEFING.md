@@ -3,21 +3,35 @@
 > Fonte da verdade do foco editorial dos artigos diários do site thomas-macedo.com.
 > Atualizado em 2026-09-20.
 
-## Foco (a partir de agora)
-**Somente TikTok Shop e TikTok Ads.** Todo artigo novo posiciona Thomas Macedo como
-**referência em TikTok Shop e TikTok Ads**, ensina algo prático de verdade e termina
-com um CTA para a pessoa criar a loja e começar a anunciar.
+## Foco (atualizado em 2026-10-03): rodízio de 3 temas
+Os artigos giram entre as **3 frentes** em que Thomas quer ser encontrado no Google e nas IAs.
+Siga a ordem pela data (dia do ano % 3), um tema por dia:
+
+| Dia | Tema | Página do serviço para linkar | CTA |
+|---|---|---|---|
+| 1 | **TikTok Shop e TikTok Ads** | `../tiktok-shop.html` | link de parceiro + cupom (seção "CTA e link") |
+| 2 | **Agentes de IA para empresas** | `../agentes-de-ia.html` | WhatsApp: "quero um agente de IA" |
+| 3 | **Tráfego pago (Meta, Google, TikTok Ads) e negócios locais** | `../trafego-pago.html` | WhatsApp: "quero um diagnóstico de tráfego" |
+
+- **Sempre** linkar a página do serviço do tema pelo menos 2 vezes (no começo e no CTA), com texto descritivo
+  (ex.: "criação de agentes de IA para empresas", não "clique aqui").
+- Em tráfego pago, pode incluir um box curto do cupom de TikTok Ads (novos anunciantes) quando fizer sentido.
+- Prova a usar (só estes números, não inventar outros): Friday atendeu 341 empresários, agendou 41 consultorias
+  sem humano, 19 contratos fechados (ticket R$ 3 mil/mês); ROI de 10,48 no Meta Business Partners; +100 marcas
+  lançadas; +50 agentes de IA autônomos; estudo dos 88 empresários (`o-que-88-empresarios-disseram-a-friday.html`).
+- Linguagem simples: explicar todo termo técnico na primeira vez que aparecer (ex.: "ROI, o quanto volta pra cada R$ 1").
 
 Estrutura de cada matéria: **ENSINAR → PROVAR → CTA.**
-1. Ensina algo acionável (o "algo do dia") sobre TikTok Shop e/ou TikTok Ads.
-2. Mostra autoridade do Thomas (experiência, método, exemplo).
-3. Fecha com o CTA (ver seção "CTA e link" abaixo).
+1. Ensina algo acionável (o "algo do dia") sobre o tema do dia.
+2. Mostra autoridade do Thomas (experiência, método, exemplo, números acima).
+3. Fecha com o CTA do tema.
 
-Exemplos de pautas: vender no TikTok Shop no Brasil; estrutura de campanha no TikTok Ads;
-criativos que vendem (UGC/live/vídeo curto); TikTok Shop + Shopify; métricas (ROAS/CPA/GMV);
-afiliados/creators; do primeiro vídeo à primeira venda.
+Exemplos de pautas:
+- TikTok: vender no TikTok Shop no Brasil; estrutura de campanha no TikTok Ads; criativos que vendem; lives; afiliados.
+- Agentes de IA: agente de atendimento no WhatsApp; SDR de IA; quanto custa; como medir; erros comuns; casos por setor.
+- Tráfego: quanto investir; Meta x Google x TikTok; tráfego para clínica/restaurante/loja em Santos; criativos; métricas.
 
-## CTA e link (obrigatório em todo artigo)
+## CTA e link (obrigatório nos artigos de TikTok)
 - Link oficial a usar no CTA: **https://getstartedtiktok.partnerlinks.io/6x6ko7wz5c2m**
 - O CTA leva a pessoa a **criar a loja no TikTok Shop e começar a anunciar** por esse link.
 - Incentivo REAL (oferta oficial do TikTok for Business — "New Advertiser Coupon",

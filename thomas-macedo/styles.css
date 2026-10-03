@@ -1297,3 +1297,12 @@ html[data-fonte] :is(.title em,.display em,.mtd-h em){font-style:normal}
 html[data-fonte="tiktok"] :is(h1,h2,h3,.title,.display,.manifesto,.mtd-h,.wa-h,.lnc-h,.fx-h,.rel-name,.mtd-step h3,.mv-text h3,.ttk-h){font-family:'Hanken Grotesk',sans-serif}
 html[data-fonte="jakarta"] :is(h1,h2,h3,.title,.display,.manifesto,.mtd-h,.wa-h,.lnc-h,.fx-h,.rel-name,.mtd-step h3,.mv-text h3,.ttk-h){font-family:'Plus Jakarta Sans',sans-serif}
 html[data-fonte="inter"] :is(h1,h2,h3,.title,.display,.manifesto,.mtd-h,.wa-h,.lnc-h,.fx-h,.rel-name,.mtd-step h3,.mv-text h3,.ttk-h){font-family:'Inter Tight',sans-serif}
+
+/* tabelas dentro dos artigos e páginas de serviço */
+.prose table{width:100%;border-collapse:collapse;margin:22px 0 26px;font-size:.92rem}
+.prose th{text-align:left;font-size:.68rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#1d4ed8;padding:10px 14px;border-bottom:1px solid var(--line-strong)}
+.prose td{padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-soft)}
+.prose td strong{color:var(--ink);font-weight:600}
+.prose tbody tr:hover td{background:var(--paper-2)}
+html[data-theme="dark"] .prose th{color:#6B9BF2}
+@media(max-width:600px){.prose table{font-size:.84rem}.prose th,.prose td{padding:10px 8px}}

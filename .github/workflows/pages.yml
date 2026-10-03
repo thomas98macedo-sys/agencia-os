@@ -17,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
       - name: Prepare site
         run: |
           touch thomas-macedo/.nojekyll
@@ -29,3 +31,14 @@ jobs:
           publish_dir: ./thomas-macedo
           publish_branch: gh-pages
           cname: www.thomas-macedo.com
+      - name: Avisar Bing/IndexNow das páginas alteradas
+        continue-on-error: true
+        run: |
+          KEY=06ecf73f437afaf9fa2813e1d323c552
+          URLS=$(git diff --name-only HEAD~1 HEAD -- 'thomas-macedo/*.html' 'thomas-macedo/artigos/*.html' 2>/dev/null \
+            | sed -e 's#^thomas-macedo/##' -e 's#index.html$##' -e 's#^#https://www.thomas-macedo.com/#' | sort -u)
+          URLS=$(printf '%s\nhttps://www.thomas-macedo.com/\n' "$URLS" | grep -v '^$' | sort -u | head -200)
+          echo "$URLS"
+          JSON=$(printf '%s\n' "$URLS" | python3 -c 'import sys,json;print(json.dumps({"host":"www.thomas-macedo.com","key":"06ecf73f437afaf9fa2813e1d323c552","keyLocation":"https://www.thomas-macedo.com/06ecf73f437afaf9fa2813e1d323c552.txt","urlList":[l.strip() for l in sys.stdin if l.strip()]}))')
+          sleep 60   # dá tempo do GitHub Pages publicar
+          curl -sS -o /dev/null -w "IndexNow HTTP %{http_code}\n" -X POST "https://api.indexnow.org/indexnow" -H "Content-Type: application/json; charset=utf-8" -d "$JSON"

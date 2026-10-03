@@ -1,0 +1,69 @@
+[
+ {
+  "slug": "tuyo",
+  "urls": [
+   "https://tuyo.com.br/"
+  ]
+ },
+ {
+  "slug": "apex-performance",
+  "urls": [
+   "https://apx.com.br/"
+  ]
+ },
+ {
+  "slug": "china-link-trading",
+  "urls": [
+   "https://chinalinktrading.com.br/"
+  ]
+ },
+ {
+  "slug": "china-link-na-estrada",
+  "urls": [
+   "https://chinalinktrading.com.br/chinalinknaestrada/",
+   "https://chinalinktrading.com.br/chinalinknaestrada-pr/"
+  ]
+ },
+ {
+  "slug": "friga",
+  "urls": [
+   "https://friga.com.br/"
+  ]
+ },
+ {
+  "slug": "laser-rosa",
+  "urls": [
+   "https://www.laserrosa.com.br/"
+  ]
+ },
+ {
+  "slug": "lm-woodwork",
+  "urls": [
+   "https://lmwoodwork.com.br/"
+  ]
+ },
+ {
+  "slug": "app-meulink",
+  "urls": [
+   "https://meulink-three.vercel.app/"
+  ]
+ },
+ {
+  "slug": "app-nolan",
+  "urls": [
+   "https://nolan-theta.vercel.app/"
+  ]
+ },
+ {
+  "slug": "app-garimpo",
+  "urls": [
+   "https://garimpo.vercel.app/"
+  ]
+ },
+ {
+  "slug": "app-protocolo30",
+  "urls": [
+   "https://protocolo30.vercel.app/"
+  ]
+ }
+]

@@ -46,10 +46,18 @@ jobs:
               os.remove(f)
               print(out, im.size, os.path.getsize(out))
           PY
+      - name: YouTube thumbnails (podcasts)
+        run: |
+          mkdir -p thomas-macedo/img/podcasts
+          for id in Ceip6uu7DlY tKOMmF8MfFE; do
+            curl -sfL "https://i.ytimg.com/vi/$id/maxresdefault.jpg" -o "thomas-macedo/img/podcasts/$id.jpg" \
+              || curl -sfL "https://i.ytimg.com/vi/$id/hqdefault.jpg" -o "thomas-macedo/img/podcasts/$id.jpg"
+            echo "$id: $(stat -c %s thomas-macedo/img/podcasts/$id.jpg) bytes" >> thomas-macedo/img/marcas/shots.log
+          done
       - name: Commit screenshots
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add thomas-macedo/img/marcas
+          git add thomas-macedo/img/marcas thomas-macedo/img/podcasts
           git diff --cached --quiet || git commit -m "Add brand site screenshots"
           git push

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TXSF2K6K');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <script>try{var q=new URLSearchParams(location.search).get("paleta");if(q)localStorage.setItem("paleta",q);if((q||localStorage.getItem("paleta"))==="classica")document.documentElement.classList.add("pal-classica");if(localStorage.getItem("tema")==="escuro")document.documentElement.setAttribute("data-theme","dark");var fq=new URLSearchParams(location.search).get("fonte");if(fq)localStorage.setItem("fonte",fq);var ff=fq||localStorage.getItem("fonte");var FF={tiktok:"Hanken+Grotesk:wght@800",jakarta:"Plus+Jakarta+Sans:wght@800",inter:"Inter+Tight:wght@800"};if(FF[ff]){document.documentElement.setAttribute("data-fonte",ff);var l=document.createElement("link");l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family="+FF[ff]+"&display=swap";document.head.appendChild(l)}}catch(e){}</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Por que o ROAS do Gerenciador não bate com as vendas da Shopify (e qual número seguir) | Thomas Macedo</title>
+  <meta name="description" content="O Gerenciador da Meta mostra um ROAS, a Shopify mostra outro — e isso é normal. Entenda os 3 motivos da diferença (atribuição, visualização e deduplicação) e qual número usar pra decidir." />
+  <meta name="keywords" content="ROAS Meta não bate Shopify, atribuição Meta Ads, ROAS real, MER, janela de atribuição, tráfego pago e-commerce, Thomas Macedo" />
+  <meta name="author" content="Thomas Macedo" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://www.thomas-macedo.com/artigos/roas-meta-nao-bate-com-vendas-shopify.html" />
+  <meta name="theme-color" content="#FAF8F3" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Thomas Macedo" />
+  <meta property="og:title" content="Por que o ROAS do Gerenciador não bate com as vendas da Shopify" />
+  <meta property="og:description" content="ROAS 4 no Gerenciador e o caixa não confirma? Entenda a diferença de atribuição entre Meta e Shopify e descubra qual número seguir pra decidir." />
+  <meta property="og:url" content="https://www.thomas-macedo.com/artigos/roas-meta-nao-bate-com-vendas-shopify.html" />
+  <meta property="og:image" content="https://www.thomas-macedo.com/img/thomas-macedo-conteudo-escala.jpeg" />
+  <meta property="article:author" content="Thomas Macedo" />
+  <meta property="article:published_time" content="2026-10-05" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Por que o ROAS do Gerenciador não bate com as vendas da Shopify" />
+  <meta name="twitter:description" content="ROAS 4 no Gerenciador e o caixa não confirma? Entenda a diferença de atribuição entre Meta e Shopify e descubra qual número seguir pra decidir." />
+  <meta name="twitter:image" content="https://www.thomas-macedo.com/img/thomas-macedo-conteudo-escala.jpeg" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BlogPosting",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.thomas-macedo.com/artigos/roas-meta-nao-bate-com-vendas-shopify.html"},
+    "headline":"Por que o ROAS do Gerenciador não bate com as vendas da Shopify (e qual número seguir)",
+    "description":"O Gerenciador da Meta mostra um ROAS, a Shopify mostra outro — e isso é normal. Entenda os 3 motivos da diferença (atribuição, visualização e deduplicação) e qual número usar pra decidir.",
+    "image":"https://www.thomas-macedo.com/img/thomas-macedo-conteudo-escala.jpeg",
+    "datePublished":"2026-10-05","dateModified":"2026-10-05",
+    "inLanguage":"pt-BR",
+    "author":{"@type":"Person","name":"Thomas Macedo","url":"https://www.thomas-macedo.com/","jobTitle":"Especialista em IA, Criação de Marcas e Tráfego Pago","worksFor":{"@type":"Organization","name":"Gene Company"},"sameAs":["https://www.instagram.com/thomasmacedo.ads","https://www.linkedin.com/in/thomas-macedo-23896216a/"]},
+    "publisher":{"@id":"https://www.thomas-macedo.com/#thomas-macedo"},
+    "keywords":"ROAS Meta não bate Shopify, atribuição Meta Ads, ROAS real, MER, janela de atribuição, tráfego pago e-commerce, Thomas Macedo"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.thomas-macedo.com/"},
+      {"@type":"ListItem","position":2,"name":"Artigos","item":"https://www.thomas-macedo.com/artigos/"},
+      {"@type":"ListItem","position":3,"name":"Por que o ROAS do Gerenciador não bate com as vendas da Shopify","item":"https://www.thomas-macedo.com/artigos/roas-meta-nao-bate-com-vendas-shopify.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[{"@type":"Question","name":"Por que o ROAS do Gerenciador da Meta é maior que as vendas reais da Shopify?","acceptedAnswer":{"@type":"Answer":false,"text":""}}]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[{"@type":"Question","name":"Por que o ROAS do Gerenciador da Meta é maior que as vendas reais da Shopify?","acceptedAnswer":{"@type":"Answer","text":"Porque os dois painéis contam de formas diferentes. A Meta reporta por atribuição: dá crédito de uma venda a todo anúncio que a pessoa clicou ou viu dentro da janela de atribuição, mesmo que ela tenha comprado depois por outro caminho. A Shopify conta por caixa: cada pedido aparece uma vez, de fato. Por isso o Gerenciador quase sempre mostra um ROAS mais otimista que a receita real."}},{"@type":"Question","name":"O que é janela de atribuição no Meta Ads?","acceptedAnswer":{"@type":"Answer","text":"É o período em que a Meta considera que o anúncio influenciou a compra. O padrão atual é 7 dias após o clique e 1 dia após a visualização. Se a pessoa clicou no anúncio hoje e comprou daqui a seis dias, a venda ainda é creditada ao anúncio — por isso o número da Meta inclui vendas que o caixa só vai registrar depois."}},{"@type":"Question","name":"Devo usar atribuição de 7 dias de clique ou 1 dia?","acceptedAnswer":{"@type":"Answer","text":"Para e-commerce com ticket baixo e decisão rápida, a atribuição de 1 dia de clique mostra um ROAS mais perto do caixa e evita superestimar. Para produtos de ticket mais alto, em que a pessoa pensa alguns dias, a janela de 7 dias conta melhor a influência real. O importante é escolher uma janela e comparar sempre pela mesma — não trocar a régua no meio do jogo."}},{"@type":"Question","name":"O que é MER e como calcular?","acceptedAnswer":{"@type":"Answer","text":"MER (Marketing Efficiency Ratio) é o faturamento total da loja dividido por tudo o que você gastou em anúncios no mesmo período. Exemplo: R$ 100 mil de faturamento e R$ 25 mil de verba = MER 4. Ele não depende de pixel nem de atribuição: é caixa contra caixa. Serve para enxergar a saúde real do negócio, acima do ROAS de cada campanha."}},{"@type":"Question","name":"Qual número devo seguir para decidir: o da Meta ou o da Shopify?","acceptedAnswer":{"@type":"Answer","text":"Use os dois, para coisas diferentes. O ROAS do Gerenciador serve para decisões dentro da conta — qual criativo e qual campanha performam melhor entre si. A receita da Shopify e o MER servem para decidir a saúde do negócio e se você pode escalar a verba. Nunca pague suas contas com o ROAS do Gerenciador; pague com o caixa."}}]
+  }
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXSF2K6K"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="../index.html" class="wordmark">Thomas <span>Macedo</span></a>
+        <div class="nav-links">
+          <a href="../index.html" class="hide-mob">TikTok &amp; Performance</a>
+          <a href="../marcas.html" class="hide-mob">Marcas &amp; E-commerce</a>
+          <a href="../artigos/" class="active hide-mob">Artigos</a>
+          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="nav-cta" target="_blank" rel="noopener">Falar comigo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap"><nav class="crumb"><a href="../index.html">Início</a><span>/</span><a href="../artigos/">Artigos</a><span>/</span>Por que o ROAS do Gerenciador não bate com a Shopify</nav></div>
+
+  <article>
+    <header class="article-head">
+      <span class="eyebrow">E-commerce</span>
+      <h1>Por que o ROAS do Gerenciador não bate com as vendas da Shopify (e qual número seguir)</h1>
+      <p class="dek">O Gerenciador diz que você fez 4 de ROAS. O caixa da Shopify não confirma. Quem está mentindo? Nenhum dos dois — eles só contam de formas diferentes. Aqui eu explico a diferença e mostro qual número usar pra decidir.</p>
+      <div class="article-meta">
+        <span>Por Thomas Macedo</span><span class="dot"></span><span>8 min de leitura</span><span class="dot"></span><span>Atualizado em 2026</span>
+      </div>
+    </header>
+
+    <div class="article-cover">
+      <img src="../img/thomas-macedo-conteudo-escala.jpeg" alt="Painel de métricas de tráfego pago: ROAS do Gerenciador da Meta comparado às vendas da Shopify" width="1000" height="500" style="object-position:center 40%" />
+    </div>
+
+    <div class="prose">
+      <p><strong>O ROAS do Gerenciador da Meta quase nunca bate com as vendas da Shopify porque os dois contam de formas diferentes — e isso é esperado, não é bug.</strong> A Meta reporta por <strong>atribuição</strong>: ela dá crédito de uma venda a todo anúncio que a pessoa clicou ou viu dentro de uma janela de tempo, mesmo que a compra tenha vindo depois por outro caminho. A Shopify conta por <strong>caixa</strong>: cada pedido aparece uma vez, de fato. Por isso o Gerenciador costuma mostrar um número mais otimista. A regra prática: use o ROAS da Meta pra comparar campanhas entre si, e o caixa da Shopify (mais o MER) pra decidir a saúde do negócio e se dá pra escalar.</p>
+
+      <p>Essa é uma das dúvidas que mais recebo de quem roda tráfego pra loja própria. A pessoa vê "ROAS 4,2" no Gerenciador, faz a conta do mês e percebe que o banco não concorda. Vou destrinchar por que isso acontece e como parar de se enganar.</p>
+
+      <div class="callout">
+        <span class="k">Resumo rápido</span>
+        <ul>
+          <li>Meta conta por <strong>atribuição</strong>; Shopify conta por <strong>caixa</strong>. Nunca vão bater exatamente.</li>
+          <li>Os 3 motivos: <strong>janela de atribuição</strong>, <strong>crédito por visualização</strong> e <strong>deduplicação entre campanhas</strong>.</li>
+          <li>O ROAS do Gerenciador serve pra <strong>comparar criativos e campanhas</strong> — não pra pagar contas.</li>
+          <li>Pra saúde do negócio, olhe o <strong>MER</strong>: faturamento total ÷ verba total.</li>
+        </ul>
+      </div>
+
+      <h2>Por que os dois números nunca vão bater exatamente</h2>
+      <p>Antes de caçar culpado, aceite a premissa: <strong>Gerenciador e Shopify medem coisas diferentes, com propósitos diferentes</strong>. A Meta quer te mostrar o quanto os anúncios <em>influenciaram</em> vendas. A Shopify quer te mostrar o quanto <em>entrou</em>. Uma é lente de marketing, a outra é lente de contabilidade. Esperar que coincidam é como comparar o velocímetro do carro com o GPS: medem a mesma viagem, mas não da mesma forma.</p>
+      <p>O objetivo não é fazer os dois baterem — é impossível. O objetivo é saber o que cada um diz de verdade e usar cada um na decisão certa.</p>
+
+      <h2>Os 3 motivos da diferença</h2>
+      <h3>1. Janela de atribuição</h3>
+      <p>Essa é a maior fonte de descompasso. A Meta credita uma venda ao anúncio dentro de uma <strong>janela de atribuição</strong> — hoje o padrão é <strong>7 dias após o clique e 1 dia após a visualização</strong>. Traduzindo: se a pessoa clicou no seu anúncio na segunda e só comprou no domingo, a Meta registra essa venda como "da segunda" (o dia do clique). A Shopify registra no domingo, quando o dinheiro entrou. Olhando o mesmo dia nos dois painéis, os números já saem diferentes só por isso — ainda mais quando você está escalando e o volume de ontem ainda não "maturou".</p>
+
+      <h3>2. Crédito por visualização (view-through)</h3>
+      <p>A janela de 1 dia de visualização significa que a Meta pode creditar uma venda a alguém que <strong>só viu o anúncio e nem clicou</strong>, desde que tenha comprado em até 24h. Às vezes essa influência é real; às vezes a pessoa ia comprar de qualquer jeito e o anúncio apenas apareceu no caminho. Esse crédito "de vista" infla o ROAS do Gerenciador sem corresponder a uma venda que o anúncio de fato gerou. Para ticket baixo e decisão rápida, costumo olhar o número de <strong>1 dia de clique</strong>, que fica bem mais perto do caixa.</p>
+
+      <h3>3. Deduplicação entre campanhas</h3>
+      <p>Se a mesma pessoa foi tocada por uma campanha de aquisição e depois por uma de <a href="../artigos/retargeting-para-ecommerce.html">retargeting</a>, <strong>as duas podem reivindicar a mesma venda</strong> nos relatórios por campanha. Somando o ROAS linha a linha, você conta a mesma receita duas vezes. A Shopify, não — lá o pedido é único. Por isso a soma dos ROAS das suas campanhas quase sempre "vende" mais do que a loja inteira faturou.</p>
+
+      <p>Some os três e você tem a explicação completa de por que o Gerenciador é sempre mais generoso. E ainda falta o outro lado: desde a mudança de privacidade da Apple (o <a href="https://www.apple.com/privacy/" target="_blank" rel="noopener nofollow">App Tracking Transparency, da própria Apple</a>), parte dos eventos <em>deixa</em> de ser rastreada — o que às vezes faz o pixel registrar <em>menos</em> vendas do que realmente houve. É por isso que configurar bem o rastreamento importa tanto; eu detalho isso no guia de <a href="../artigos/pixel-api-de-conversoes-shopify.html">Pixel e API de Conversões no Shopify</a>.</p>
+
+      <blockquote><p>O ROAS do Gerenciador é uma opinião da Meta sobre o seu resultado. O caixa da Shopify é um fato. Opinião ajuda a otimizar; fato paga a conta.</p></blockquote>
+
+      <h2>ROAS do Gerenciador vs. ROAS real (de caixa)</h2>
+      <p>Chamo de <strong>ROAS real</strong> o que o dinheiro confirma. A forma mais honesta de enxergar isso não é somar campanha por campanha — é olhar o negócio inteiro de cima. E para isso existe uma métrica melhor que o ROAS: o <strong>MER</strong>.</p>
+
+      <h2>O que é MER e por que ele resolve a briga</h2>
+      <p>MER é a sigla de <em>Marketing Efficiency Ratio</em>. A conta é simples e à prova de atribuição:</p>
+      <ul>
+        <li><strong>MER = faturamento total da loja ÷ tudo que você gastou em anúncios no período.</strong></li>
+        <li>Exemplo: faturou R$ 100 mil no mês e gastou R$ 25 mil em mídia (Meta + Google + o que for) → <strong>MER 4</strong>.</li>
+      </ul>
+      <p>O MER não depende de pixel, de janela nem de qual plataforma reivindicou a venda. É caixa contra caixa. Ele não te diz <em>qual</em> criativo vendeu — mas te diz, sem ilusão, se a sua máquina de aquisição inteira está saudável. Quando o MER sobe, o negócio melhorou de verdade. Quando cai, mesmo com o ROAS do Gerenciador "ótimo", tem algo furando o balde.</p>
+
+      <h2>Como conciliar os dois painéis na prática</h2>
+      <ol>
+        <li><strong>Fixe uma janela de atribuição e não troque.</strong> Escolha 7 dias de clique (ou 1 dia, se o ticket é baixo) e compare sempre pela mesma régua.</li>
+        <li><strong>Olhe períodos fechados, não o dia de hoje.</strong> Compare semana contra semana ou mês contra mês — assim a janela de atribuição já "maturou" e o descompasso diminui.</li>
+        <li><strong>Calcule o MER do período</strong> e acompanhe a tendência dele, não o número isolado de um dia.</li>
+        <li><strong>Use o ROAS do Gerenciador só para decisões internas:</strong> qual criativo escalar, qual público cortar, qual campanha está puxando a conta pra baixo.</li>
+        <li><strong>Decida escala pelo caixa e pelo MER</strong> — nunca libere mais verba só porque uma linha do Gerenciador mostrou ROAS alto.</li>
+      </ol>
+
+      <h2>Qual número seguir pra cada decisão</h2>
+      <ul>
+        <li><strong>"Qual anúncio está vendendo melhor?"</strong> → ROAS do Gerenciador, comparando criativos na mesma janela. (Veja também <a href="../artigos/metricas-de-trafego-pago-cpm-ctr-frequencia.html">como ler CPM, CTR e frequência</a> pra achar onde o anúncio trava.)</li>
+        <li><strong>"Minha operação está saudável?"</strong> → MER e faturamento da Shopify.</li>
+        <li><strong>"Posso escalar a verba?"</strong> → MER estável ou subindo + <a href="../artigos/roas-cac-ltv-margem-de-contribuicao.html">margem de contribuição e CAC</a> dentro do planejado.</li>
+        <li><strong>"Como está a estrutura da conta?"</strong> → o desenho das campanhas importa tanto quanto a leitura; eu mostro isso em <a href="../artigos/estrutura-de-campanhas-meta-ads-ecommerce.html">estrutura de campanhas de Meta Ads para e-commerce</a>.</li>
+      </ul>
+
+      <p>No fim, a leitura madura é essa: o Gerenciador é o seu painel de pilotagem, a Shopify é o seu extrato bancário. Quem confunde os dois escala no número errado e quebra a operação. Se você quer montar essa máquina de aquisição com ROI previsível, é exatamente esse tipo de disciplina de métrica que eu aplico — e você pode ver mais em <a href="../marcas.html">Marcas &amp; E-commerce</a>.</p>
+
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details open><summary>Por que o ROAS do Gerenciador da Meta é maior que as vendas reais da Shopify?</summary><p>Porque os dois painéis contam de formas diferentes. A Meta reporta por atribuição: dá crédito de uma venda a todo anúncio que a pessoa clicou ou viu dentro da janela de atribuição, mesmo que ela tenha comprado depois por outro caminho. A Shopify conta por caixa: cada pedido aparece uma vez, de fato. Por isso o Gerenciador quase sempre mostra um ROAS mais otimista que a receita real.</p></details>
+        <details><summary>O que é janela de atribuição no Meta Ads?</summary><p>É o período em que a Meta considera que o anúncio influenciou a compra. O padrão atual é 7 dias após o clique e 1 dia após a visualização. Se a pessoa clicou no anúncio hoje e comprou daqui a seis dias, a venda ainda é creditada ao anúncio — por isso o número da Meta inclui vendas que o caixa só vai registrar depois.</p></details>
+        <details><summary>Devo usar atribuição de 7 dias de clique ou 1 dia?</summary><p>Para e-commerce com ticket baixo e decisão rápida, a atribuição de 1 dia de clique mostra um ROAS mais perto do caixa e evita superestimar. Para produtos de ticket mais alto, em que a pessoa pensa alguns dias antes de comprar, a janela de 7 dias conta melhor a influência real. O importante é escolher uma janela e comparar sempre pela mesma — não trocar a régua no meio do jogo.</p></details>
+        <details><summary>O que é MER e como calcular?</summary><p>MER (Marketing Efficiency Ratio) é o faturamento total da loja dividido por tudo o que você gastou em anúncios no mesmo período. Exemplo: R$ 100 mil de faturamento e R$ 25 mil de verba = MER 4. Ele não depende de pixel nem de atribuição: é caixa contra caixa. Serve para enxergar a saúde real do negócio, acima do ROAS de cada campanha.</p></details>
+        <details><summary>Qual número devo seguir para decidir: o da Meta ou o da Shopify?</summary><p>Use os dois, para coisas diferentes. O ROAS do Gerenciador serve para decisões dentro da conta — qual criativo e qual campanha performam melhor entre si. A receita da Shopify e o MER servem para decidir a saúde do negócio e se você pode escalar a verba. Nunca pague suas contas com o ROAS do Gerenciador; pague com o caixa.</p></details>
+      </div>
+    </div>
+
+    <aside class="svc-hub">
+      <span class="svc-k">Serviço</span>
+      <b>Tráfego pago com ROI escalável</b>
+      <p>Estrutura de campanha, criativo, rastreamento e leitura de métrica que escala verba sem quebrar a operação.</p>
+      <a href="../trafego-pago.html">Ver como funciona <span class="arrow">→</span></a>
+    </aside>
+
+    <div class="author-box">
+      <img src="../img/thomas-macedo-palestra.jpeg" alt="Thomas Macedo" />
+      <div>
+        <div class="a-name"><a href="../sobre.html" style="color:inherit;border-bottom:1px solid var(--line-strong)">Thomas Macedo</a></div>
+        <p class="a-bio">Fundador da Gene Company e diretor da LINCE Performance. Especialista em tráfego pago com ROI escalável, e-commerce e criação de marcas. Case de ROI 10,48 reconhecido pela Meta Business Partners. Santos/BR, atende Brasil e exterior. <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" target="_blank" rel="noopener">Fale comigo no WhatsApp →</a></p>
+      </div>
+    </div>
+  </article>
+
+  <section class="related">
+    <div class="wrap-narrow" style="padding:0">
+      <p class="eyebrow eyebrow-ink" style="display:block;margin-bottom:8px">Continue lendo</p>
+      <div class="related-grid">
+        <a href="../artigos/pixel-api-de-conversoes-shopify.html"><span class="r-cat">E-commerce</span><h3>Pixel, API de Conversões e rastreamento no Shopify: como parar de perder eventos</h3></a>
+        <a href="../artigos/roas-cac-ltv-margem-de-contribuicao.html"><span class="r-cat">E-commerce</span><h3>ROAS, CAC, LTV e margem de contribuição: as 4 métricas do e-commerce</h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2 class="display mt-m" style="font-size:clamp(2.2rem,5vw,4rem)">Quero escalar<br>com ROI previsível.</h2>
+      <p class="lead mt-m" style="color:rgba(244,241,234,.8);max-width:48ch">Conte sobre o seu e-commerce e receba um diagnóstico do seu tráfego, criativos, rastreamento e leitura de métrica.</p>
+      <div class="contact-row">
+        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" class="btn" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
+        <a href="https://www.instagram.com/thomasmacedo.ads" class="link-underline" target="_blank" rel="noopener" style="color:var(--paper)">Instagram @thomasmacedo.ads</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <span>© 2026 Thomas Macedo — IA, criação de marcas e tráfego pago. Santos, Baixada Santista, Brasil &amp; exterior.</span>
+        <div class="foot-links">
+          <a href="../index.html">TikTok &amp; Performance</a>
+          <a href="../marcas.html">Marcas &amp; E-commerce</a>
+          <a href="../artigos/">Artigos</a>
+          <a href="../tiktok-shop.html">TikTok Shop</a>
+          <a href="../trafego-pago.html">Tráfego pago</a>
+          <a href="../agentes-de-ia.html">Agentes de IA</a>
+          <a href="../sobre.html">Sobre</a>
+          <a href="https://www.instagram.com/thomasmacedo.ads" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/thomas-macedo-23896216a/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/102946615/" target="_blank" rel="noopener">LINCE Performance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
+</body>
+</html>

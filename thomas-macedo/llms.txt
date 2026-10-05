@@ -65,6 +65,7 @@
 - [Posicionamento de marca: como escolher o lugar que a sua marca ocupa na cabeça do cliente](https://www.thomas-macedo.com/artigos/posicionamento-de-marca.html): Posicionamento de marca é a escolha do lugar que a sua marca vai ocupar na memória do cliente. Veja o método, a frase de posicionamento pronta, os territórios possíveis e como testar antes de reformar a marca inteira.
 
 ## Artigos recentes
+- [Por que o ROAS do Meta não bate com as vendas da Shopify (e qual número seguir)](https://www.thomas-macedo.com/artigos/roas-meta-nao-bate-com-vendas-shopify.html): Gerenciador diz ROAS 4, mas o caixa da Shopify não confirma? Entenda a diferença de atribuição e descubra qual número usar pra decidir.
 - [Tom de voz da marca: como definir a identidade verbal que o cliente reconhece](https://www.thomas-macedo.com/artigos/tom-de-voz-da-marca.html): O que é tom de voz, como definir o da sua marca em 4 dimensões e como aplicar com consistência no site, no anúncio e no atendimento (até com IA).
 - [Como aumentar o ticket médio do e-commerce (sem pagar mais tráfego)](https://www.thomas-macedo.com/artigos/como-aumentar-ticket-medio-ecommerce.html): Order bump, upsell, cross-sell, kits e frete grátis progressivo: as 7 alavancas que fazem quem já está comprando gastar mais.
 - [Oferta irresistível: a oferta que faz o tráfego pago vender](https://www.thomas-macedo.com/artigos/oferta-irresistivel-para-vender-no-trafego-pago.html): Não é o anúncio que vende — é a oferta. Os 6 elementos de uma oferta irresistível que convertem tráfego pago em venda e derrubam o custo de aquisição.
@@ -74,7 +75,6 @@
 - [Objeções na recuperação de vendas: como a IA responde "tá caro" e "vou pensar"](https://www.thomas-macedo.com/artigos/objecoes-na-recuperacao-de-vendas-com-ia.html): A venda quase fechada trava numa objeção que ninguém respondeu. Veja como um agente de IA quebra "tá caro", "vou pensar" e "frete caro" no WhatsApp.
 - [Teste de criativos no Meta Ads: como achar o anúncio vencedor sem queimar verba](https://www.thomas-macedo.com/artigos/teste-de-criativos-meta-ads-ecommerce.html): Quantos criativos testar, qual orçamento, quanto tempo e qual métrica define o vencedor. O método de teste que sustenta o ROI no e-commerce.
 - [Quanto custa criar uma marca própria no Brasil (do registro à prateleira)](https://www.thomas-macedo.com/artigos/quanto-custa-criar-uma-marca-propria.html): Onde o dinheiro realmente vai: registro no INPI, identidade, produto e embalagem — e o que dá para começar enxuto sem parecer genérico.
-- [Frete grátis no e-commerce: quando vale e como não queimar margem](https://www.thomas-macedo.com/artigos/frete-gratis-no-ecommerce.html): Frete grátis converte porque custo extra é a maior causa de abandono — mas só vale quando o ticket cobre o frete. A conta pra decidir.
 
 ## Prova social
 - Marcas que passaram pelo processo de escala com Thomas Macedo: China Link Trading, China Link na Estrada, Lincoln Fracari, Tuyo Brasil, Apex Performance, LM Woodwork, Friga Store, Laser Rosa, Relive Med Clinic, Moby Dick Santos, Texas Firearms, entre centenas de outras operações.

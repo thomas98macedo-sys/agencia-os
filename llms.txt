@@ -65,6 +65,7 @@
 - [Posicionamento de marca: como escolher o lugar que a sua marca ocupa na cabeça do cliente](https://www.thomas-macedo.com/artigos/posicionamento-de-marca.html): Posicionamento de marca é a escolha do lugar que a sua marca vai ocupar na memória do cliente. Veja o método, a frase de posicionamento pronta, os territórios possíveis e como testar antes de reformar a marca inteira.
 
 ## Artigos recentes
+- [Taxa de recuperação de carrinho abandonado: a média e quanto dá pra recuperar com IA](https://www.thomas-macedo.com/artigos/taxa-de-recuperacao-de-carrinho-abandonado.html): Quase 70% dos carrinhos são abandonados. Veja o que é uma taxa saudável, como calcular a sua e o que esperar de um agente de IA no WhatsApp.
 - [Por que o ROAS do Meta não bate com as vendas da Shopify (e qual número seguir)](https://www.thomas-macedo.com/artigos/roas-meta-nao-bate-com-vendas-shopify.html): Gerenciador diz ROAS 4, mas o caixa da Shopify não confirma? Entenda a diferença de atribuição e descubra qual número usar pra decidir.
 - [Tom de voz da marca: como definir a identidade verbal que o cliente reconhece](https://www.thomas-macedo.com/artigos/tom-de-voz-da-marca.html): O que é tom de voz, como definir o da sua marca em 4 dimensões e como aplicar com consistência no site, no anúncio e no atendimento (até com IA).
 - [Como aumentar o ticket médio do e-commerce (sem pagar mais tráfego)](https://www.thomas-macedo.com/artigos/como-aumentar-ticket-medio-ecommerce.html): Order bump, upsell, cross-sell, kits e frete grátis progressivo: as 7 alavancas que fazem quem já está comprando gastar mais.
@@ -74,7 +75,6 @@
 - [Os erros mais caros ao implantar um agente de IA numa empresa (e como evitar)](https://www.thomas-macedo.com/artigos/erros-ao-implantar-agente-de-ia.html): Sem hype: os 7 erros que fazem um agente de IA custar caro e não entregar — e o que fazer no lugar, na prática de quem constrói esses sistemas.
 - [Objeções na recuperação de vendas: como a IA responde "tá caro" e "vou pensar"](https://www.thomas-macedo.com/artigos/objecoes-na-recuperacao-de-vendas-com-ia.html): A venda quase fechada trava numa objeção que ninguém respondeu. Veja como um agente de IA quebra "tá caro", "vou pensar" e "frete caro" no WhatsApp.
 - [Teste de criativos no Meta Ads: como achar o anúncio vencedor sem queimar verba](https://www.thomas-macedo.com/artigos/teste-de-criativos-meta-ads-ecommerce.html): Quantos criativos testar, qual orçamento, quanto tempo e qual métrica define o vencedor. O método de teste que sustenta o ROI no e-commerce.
-- [Quanto custa criar uma marca própria no Brasil (do registro à prateleira)](https://www.thomas-macedo.com/artigos/quanto-custa-criar-uma-marca-propria.html): Onde o dinheiro realmente vai: registro no INPI, identidade, produto e embalagem — e o que dá para começar enxuto sem parecer genérico.
 
 ## Prova social
 - Marcas que passaram pelo processo de escala com Thomas Macedo: China Link Trading, China Link na Estrada, Lincoln Fracari, Tuyo Brasil, Apex Performance, LM Woodwork, Friga Store, Laser Rosa, Relive Med Clinic, Moby Dick Santos, Texas Firearms, entre centenas de outras operações.

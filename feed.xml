@@ -5,8 +5,16 @@
 <link>https://www.thomas-macedo.com/</link>
 <description>Uma matéria por dia sobre agentes de IA, agência escalada, tráfego pago, e-commerce e criação de marcas. Por Thomas Macedo (Gene Company / LINCE Performance).</description>
 <language>pt-BR</language>
-<lastBuildDate>Tue, 06 Oct 2026 10:35:34 +0000</lastBuildDate>
+<lastBuildDate>Wed, 07 Oct 2026 10:37:21 +0000</lastBuildDate>
 <atom:link href="https://www.thomas-macedo.com/feed.xml" rel="self" type="application/rss+xml" />
+<item>
+<title>Custo por conversa de um agente de IA: como calcular tokens, modelo e volume (sem susto na fatura)</title>
+<link>https://www.thomas-macedo.com/artigos/custo-por-conversa-de-agente-de-ia.html</link>
+<guid isPermaLink="true">https://www.thomas-macedo.com/artigos/custo-por-conversa-de-agente-de-ia.html</guid>
+<description>O custo de um agente de IA se mede por conversa: tokens consumidos × preço do modelo, multiplicado pelo volume. Veja como calcular, o que infla a conta e como reduzir sem perder qualidade.</description>
+<author>thomas98macedo@gmail.com (Thomas Macedo)</author>
+<pubDate>Wed, 07 Oct 2026 10:00:00 +0000</pubDate>
+</item>
 <item>
 <title>Taxa de recuperação de carrinho abandonado: qual é a média e quanto dá pra recuperar com IA</title>
 <link>https://www.thomas-macedo.com/artigos/taxa-de-recuperacao-de-carrinho-abandonado.html</link>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TXSF2K6K');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <script>try{var q=new URLSearchParams(location.search).get("paleta");if(q)localStorage.setItem("paleta",q);if((q||localStorage.getItem("paleta"))==="classica")document.documentElement.classList.add("pal-classica");if(localStorage.getItem("tema")==="escuro")document.documentElement.setAttribute("data-theme","dark");var fq=new URLSearchParams(location.search).get("fonte");if(fq)localStorage.setItem("fonte",fq);var ff=fq||localStorage.getItem("fonte");var FF={tiktok:"Hanken+Grotesk:wght@800",jakarta:"Plus+Jakarta+Sans:wght@800",inter:"Inter+Tight:wght@800"};if(FF[ff]){document.documentElement.setAttribute("data-fonte",ff);var l=document.createElement("link");l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family="+FF[ff]+"&display=swap";document.head.appendChild(l)}}catch(e){}</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Custo por conversa de um agente de IA: como calcular tokens, modelo e volume (sem susto na fatura) | Thomas Macedo</title>
+  <meta name="description" content="O custo de um agente de IA se mede por conversa: tokens consumidos × preço do modelo, multiplicado pelo volume. Veja como calcular, o que infla a conta e como reduzir sem perder qualidade." />
+  <meta name="keywords" content="custo de agente de IA, custo por conversa IA, quanto custa token IA, preço de agente de IA, custo de LLM em produção, Thomas Macedo" />
+  <meta name="author" content="Thomas Macedo" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://www.thomas-macedo.com/artigos/custo-por-conversa-de-agente-de-ia.html" />
+  <meta name="theme-color" content="#FAF8F3" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Thomas Macedo" />
+  <meta property="og:title" content="Custo por conversa de um agente de IA: como calcular (sem susto na fatura)" />
+  <meta property="og:description" content="Tokens × preço do modelo × volume. O jeito certo de calcular quanto um agente de IA custa por conversa, o que infla a conta e como reduzir." />
+  <meta property="og:url" content="https://www.thomas-macedo.com/artigos/custo-por-conversa-de-agente-de-ia.html" />
+  <meta property="og:image" content="https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg" />
+  <meta property="article:author" content="Thomas Macedo" />
+  <meta property="article:published_time" content="2026-10-07" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Custo por conversa de um agente de IA: como calcular (sem susto na fatura)" />
+  <meta name="twitter:description" content="Tokens × preço do modelo × volume. O jeito certo de calcular quanto um agente de IA custa por conversa, o que infla a conta e como reduzir." />
+  <meta name="twitter:image" content="https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BlogPosting",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.thomas-macedo.com/artigos/custo-por-conversa-de-agente-de-ia.html"},
+    "headline":"Custo por conversa de um agente de IA: como calcular tokens, modelo e volume (sem susto na fatura)",
+    "description":"O custo de um agente de IA se mede por conversa: tokens consumidos × preço do modelo, multiplicado pelo volume. Veja como calcular, o que infla a conta e como reduzir sem perder qualidade.",
+    "image":"https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg",
+    "datePublished":"2026-10-07","dateModified":"2026-10-07",
+    "inLanguage":"pt-BR",
+    "author":{"@type":"Person","name":"Thomas Macedo","url":"https://www.thomas-macedo.com/","jobTitle":"Especialista em IA, Criação de Marcas e Tráfego Pago","worksFor":{"@type":"Organization","name":"Gene Company"},"sameAs":["https://www.instagram.com/thomasmacedo.ads","https://www.linkedin.com/in/thomas-macedo-23896216a/"]},
+    "publisher":{"@id":"https://www.thomas-macedo.com/#thomas-macedo"},
+    "keywords":"custo de agente de IA, custo por conversa IA, quanto custa token IA, preço de agente de IA, custo de LLM em produção, Thomas Macedo"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.thomas-macedo.com/"},
+      {"@type":"ListItem","position":2,"name":"Artigos","item":"https://www.thomas-macedo.com/artigos/"},
+      {"@type":"ListItem","position":3,"name":"Custo por conversa de um agente de IA","item":"https://www.thomas-macedo.com/artigos/custo-por-conversa-de-agente-de-ia.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[{"@type":"Question","name":"Quanto custa rodar um agente de IA por mês?","acceptedAnswer":{"@type":"Answer","text":"O custo mensal é o custo por conversa multiplicado pelo volume de conversas. O custo por conversa vem dos tokens consumidos (entrada mais saída) vezes o preço do modelo escolhido. Em atendimento de texto, a maior parte dos negócios opera na casa de centavos a poucos reais por conversa — o que faz a conta subir é volume alto somado a um modelo caro usado onde não precisava."}},{"@type":"Question","name":"Como calcular o custo por conversa de um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Some os tokens de entrada (instrução do agente, histórico da conversa e dados consultados) e os de saída (as respostas), multiplique cada bloco pelo preço por token do modelo e some. Conversas mais longas, históricos grandes e muitos documentos injetados no contexto aumentam os tokens e, portanto, o custo."}},{"@type":"Question","name":"O que é token e por que ele define o custo?","acceptedAnswer":{"@type":"Answer","text":"Token é o pedaço de texto que o modelo processa — em português, grosso modo, cerca de uma palavra curta ou parte de uma palavra longa. Os provedores de IA cobram por token de entrada e por token de saída. Como tudo que o agente lê e escreve vira token, o total de tokens é o que determina a fatura."}},{"@type":"Question","name":"Vale a pena usar o modelo mais barato para economizar?","acceptedAnswer":{"@type":"Answer","text":"Depende da tarefa. Para triagem, classificação e respostas simples, um modelo mais barato resolve e corta custo. Para raciocínio, objeções de venda e casos sensíveis, o modelo mais capaz costuma pagar o preço maior em conversão e menos erro. O caminho é usar o modelo certo para cada etapa, não o mais barato em tudo."}},{"@type":"Question","name":"Como reduzir o custo de um agente de IA em produção?","acceptedAnswer":{"@type":"Answer","text":"Enxugue a instrução do agente, limite o histórico enviado a cada resposta, injete só os trechos relevantes da base de conhecimento (em vez de documentos inteiros), use modelo mais barato nas etapas simples e cache o que se repete. Antes de cortar, meça o custo por conversa — não dá para reduzir o que não se mede."}}]
+  }
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXSF2K6K"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="../index.html" class="wordmark">Thomas <span>Macedo</span></a>
+        <div class="nav-links">
+          <a href="../index.html" class="hide-mob">TikTok &amp; Performance</a>
+          <a href="../marcas.html" class="hide-mob">Marcas &amp; E-commerce</a>
+          <a href="../artigos/" class="active hide-mob">Artigos</a>
+          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="nav-cta" target="_blank" rel="noopener">Falar comigo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap"><nav class="crumb"><a href="../index.html">Início</a><span>/</span><a href="../artigos/">Artigos</a><span>/</span>Custo por conversa de um agente de IA</nav></div>
+
+  <article>
+    <header class="article-head">
+      <span class="eyebrow">Inteligência Artificial</span>
+      <h1>Custo por conversa de um agente de IA: como calcular tokens, modelo e volume (sem susto na fatura)</h1>
+      <p class="dek">A pergunta não é “quanto custa a IA”. É quanto custa <em>cada conversa</em> — e o que faz esse número subir sem você perceber. Aqui eu abro a conta do jeito que ela aparece na prática.</p>
+      <div class="article-meta">
+        <span>Por Thomas Macedo</span><span class="dot"></span><span>8 min de leitura</span><span class="dot"></span><span>Atualizado em 2026</span>
+      </div>
+    </header>
+
+    <div class="article-cover">
+      <img src="../img/thomas-macedo-ia-robo.jpeg" alt="Custo por conversa de um agente de IA: tokens, modelo e volume" width="1000" height="500" style="object-position:center 40%" />
+    </div>
+
+    <div class="prose">
+      <p><strong>O custo de um agente de IA se mede por conversa, e a fórmula é simples: tokens consumidos × preço do modelo, multiplicado pelo volume de conversas.</strong> Cada palavra que o agente lê (instrução, histórico, dados da empresa) e cada palavra que ele escreve vira token, e o provedor cobra por isso. Na maioria dos atendimentos de texto, uma conversa custa de centavos a poucos reais — o que estoura a fatura não é a IA em si, é volume alto somado a um modelo caro usado onde não precisava.</p>
+
+      <p>Eu opero agentes de IA em produção todos os dias, com conta chegando no fim do mês. Então vou te mostrar como esse custo se forma de verdade, onde ele vaza e como derrubá-lo sem perder qualidade na resposta.</p>
+
+      <div class="callout">
+        <span class="k">Resumo rápido</span>
+        <ul>
+          <li>Custo = <strong>tokens × preço do modelo × volume de conversas</strong>.</li>
+          <li>Token é cada pedaço de texto que o agente <strong>lê e escreve</strong> — tudo conta.</li>
+          <li>O que mais infla a conta: <strong>histórico longo, base inteira no contexto e modelo caro em tarefa simples</strong>.</li>
+          <li>Antes de cortar custo, <strong>meça o custo por conversa</strong>. Sem isso, você corta no escuro.</li>
+        </ul>
+      </div>
+
+      <h2>O que é token (e por que ele define a conta)</h2>
+      <p>Token é a unidade que o modelo processa. Em português, grosso modo, um token é uma palavra curta ou um pedaço de uma palavra longa — “pedido” pode ser um token, “inteligência” pode virar dois ou três. Os provedores de IA cobram de dois jeitos: <strong>tokens de entrada</strong> (tudo que o agente recebe para responder) e <strong>tokens de saída</strong> (tudo que ele gera). A saída costuma custar mais caro que a entrada.</p>
+      <p>Aqui está o detalhe que pega quase todo mundo: a cada nova mensagem numa conversa, o agente reenvia o contexto inteiro — a instrução, o histórico anterior e os dados que ele consultou. Ou seja, numa conversa longa, você paga o começo dela de novo a cada resposta. É por isso que o custo não é por “pergunta”, é por conversa, e conversas arrastadas custam desproporcionalmente mais.</p>
+
+      <h2>Como calcular o custo por conversa</h2>
+      <p>A conta de uma única resposta tem três blocos de tokens de entrada mais um de saída:</p>
+      <ul>
+        <li><strong>Instrução do agente (system prompt):</strong> as regras de comportamento. Vão junto em toda resposta. Veja como escrever a <a href="../artigos/como-escrever-o-prompt-de-um-agente-de-ia.html">instrução de um agente de IA</a> enxuta.</li>
+        <li><strong>Histórico da conversa:</strong> as mensagens trocadas até ali. Cresce a cada turno.</li>
+        <li><strong>Dados consultados:</strong> trechos do catálogo, política de troca, histórico do cliente — o que a <a href="../artigos/base-de-conhecimento-rag-para-agente-de-ia.html">base de conhecimento (RAG)</a> injeta no contexto.</li>
+        <li><strong>Saída:</strong> a resposta que o agente escreve.</li>
+      </ul>
+      <p>Para estimar o mês: multiplique o custo médio por conversa pelo número de conversas. É isso. A matemática é trivial — o difícil é não deixar cada bloco crescer sem controle. Um agente bem construído mantém a instrução curta, corta o histórico antigo e injeta só o trecho relevante da base; um mal construído manda a política inteira de 20 páginas em toda mensagem e paga por isso mil vezes por dia.</p>
+
+      <div class="callout">
+        <span class="k">Exemplo ilustrativo (faça com os preços do seu provedor)</span>
+        <ul>
+          <li>Conversa média de atendimento: ~6 a 10 trocas.</li>
+          <li>Pegue o preço por token de entrada e de saída do seu modelo (na tabela oficial do provedor).</li>
+          <li>Custo da conversa = (total de tokens de entrada × preço entrada) + (total de tokens de saída × preço saída).</li>
+          <li>Custo mensal = custo por conversa × volume de conversas no mês.</li>
+        </ul>
+        <p>Não invente o número: pegue o preço na fonte oficial e rode a sua realidade. O objetivo aqui é você entender <strong>o que</strong> multiplica, não decorar um valor que muda toda hora.</p>
+      </div>
+
+      <h2>O que infla a conta sem você perceber</h2>
+      <p>Na prática, quase todo custo fora de controle vem de quatro lugares:</p>
+      <ul>
+        <li><strong>Instrução inchada:</strong> um system prompt de milhares de palavras que vai em toda resposta. Enxugar aqui reduz custo em cada mensagem, o dia inteiro.</li>
+        <li><strong>Histórico sem limite:</strong> conversas que carregam 50 mensagens de contexto quando as últimas 6 bastavam.</li>
+        <li><strong>Base inteira no contexto:</strong> jogar documentos completos em vez de recuperar só o parágrafo que responde à pergunta. É o erro mais comum e o mais caro.</li>
+        <li><strong>Modelo caro em tarefa boba:</strong> usar o modelo mais potente para classificar “é dúvida ou é reclamação?”. Isso é pagar carro de luxo para ir à padaria.</li>
+      </ul>
+
+      <blockquote><p>O custo de um agente raramente explode por volume de verdade. Explode porque ninguém mediu o custo por conversa — então o desperdício ficou invisível até a fatura chegar.</p></blockquote>
+
+      <h2>Qual modelo usar para não pagar demais</h2>
+      <p>O erro de principiante é escolher um modelo só e usá-lo em tudo. Operação boa usa o <strong>modelo certo para cada etapa</strong>: um modelo barato e rápido para triar, classificar e responder o simples; um modelo mais capaz só onde o raciocínio e a persuasão valem o preço — fechar uma venda, contornar uma objeção, lidar com um caso sensível. A diferença de preço entre modelos é grande, e na etapa simples o barato entrega igual. Se você ainda está decidindo, eu comparo as opções em <a href="../artigos/qual-modelo-de-ia-usar-gpt-claude-gemini.html">GPT, Claude ou Gemini para o agente da sua empresa</a>.</p>
+      <p>Esse roteamento — mandar cada tipo de tarefa para o modelo adequado — é o que separa uma conta saudável de uma conta assustadora com a mesma qualidade de resposta.</p>
+
+      <h2>Como reduzir o custo sem perder qualidade</h2>
+      <ol>
+        <li><strong>Enxugue a instrução:</strong> toda palavra a mais no system prompt é paga em cada resposta. Corte o que não muda o comportamento.</li>
+        <li><strong>Limite o histórico:</strong> mande só as últimas trocas relevantes, não a conversa inteira.</li>
+        <li><strong>Recupere, não despeje:</strong> injete o trecho exato da base que responde — não o documento todo.</li>
+        <li><strong>Roteie por modelo:</strong> barato nas etapas simples, caro só onde o resultado justifica.</li>
+        <li><strong>Use cache:</strong> partes que se repetem (instrução, dados fixos) podem ser cacheadas por vários provedores, barateando a entrada repetida.</li>
+        <li><strong>Meça por conversa:</strong> acompanhe custo por conversa como métrica fixa. É o que torna o desperdício visível — pilar da <a href="../artigos/observabilidade-de-agentes-de-ia.html">observabilidade do agente</a>.</li>
+      </ol>
+
+      <h2>Custo não é despesa — é o denominador do ROI</h2>
+      <p>O número que importa não é o custo por conversa isolado. É ele dividindo o que a conversa gera. Um agente que custa R$ 2 por conversa e recupera uma venda de R$ 300 tem um retorno que nenhuma planilha de “economia de token” captura. Por isso eu sempre olho o custo <strong>contra o resultado</strong>: quanto o agente recupera, agenda ou resolve. Se você quer dimensionar o investimento inteiro — não só o operacional — veja <a href="../artigos/quanto-custa-ia-para-empresas.html">quanto custa implementar IA e agentes numa empresa no Brasil</a>, e se a dúvida é fazer internamente ou contratar, <a href="../artigos/construir-ou-contratar-agente-de-ia.html">build vs. buy para agentes de IA</a>.</p>
+      <p>Cortar token é ótimo. Mas cortar token a ponto de o agente responder pior e perder venda é o pior negócio que existe. A meta é a conta mais enxuta que <em>mantém</em> o resultado — não a mais barata possível. Se quiser ver como isso se conecta à decisão de onde a IA deve (e não deve) entrar, leia também <a href="../artigos/onde-nao-usar-ia-no-negocio.html">onde a IA NÃO deve ser usada no seu negócio</a>.</p>
+
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details open><summary>Quanto custa rodar um agente de IA por mês?</summary><p>O custo mensal é o custo por conversa multiplicado pelo volume de conversas. O custo por conversa vem dos tokens consumidos (entrada mais saída) vezes o preço do modelo escolhido. Em atendimento de texto, a maior parte dos negócios opera na casa de centavos a poucos reais por conversa — o que faz a conta subir é volume alto somado a um modelo caro usado onde não precisava.</p></details>
+        <details><summary>Como calcular o custo por conversa de um agente de IA?</summary><p>Some os tokens de entrada (instrução do agente, histórico da conversa e dados consultados) e os de saída (as respostas), multiplique cada bloco pelo preço por token do modelo e some. Conversas mais longas, históricos grandes e muitos documentos injetados no contexto aumentam os tokens e, portanto, o custo.</p></details>
+        <details><summary>O que é token e por que ele define o custo?</summary><p>Token é o pedaço de texto que o modelo processa — em português, grosso modo, cerca de uma palavra curta ou parte de uma palavra longa. Os provedores de IA cobram por token de entrada e por token de saída. Como tudo que o agente lê e escreve vira token, o total de tokens é o que determina a fatura.</p></details>
+        <details><summary>Vale a pena usar o modelo mais barato para economizar?</summary><p>Depende da tarefa. Para triagem, classificação e respostas simples, um modelo mais barato resolve e corta custo. Para raciocínio, objeções de venda e casos sensíveis, o modelo mais capaz costuma pagar o preço maior em conversão e menos erro. O caminho é usar o modelo certo para cada etapa, não o mais barato em tudo.</p></details>
+        <details><summary>Como reduzir o custo de um agente de IA em produção?</summary><p>Enxugue a instrução do agente, limite o histórico enviado a cada resposta, injete só os trechos relevantes da base de conhecimento (em vez de documentos inteiros), use modelo mais barato nas etapas simples e cache o que se repete. Antes de cortar, meça o custo por conversa — não dá para reduzir o que não se mede.</p></details>
+      </div>
+    </div>
+
+    <aside class="svc-hub">
+      <span class="svc-k">Serviço</span>
+      <b>Agentes de IA para empresas</b>
+      <p>Agentes que atendem, qualificam e agendam no WhatsApp 24h — construídos para dar retorno, com o custo medido por conversa.</p>
+      <a href="../agentes-de-ia.html">Ver como funciona <span class="arrow">→</span></a>
+    </aside>
+
+    <div class="author-box">
+      <img src="../img/thomas-macedo-palestra.jpeg" alt="Thomas Macedo" />
+      <div>
+        <div class="a-name"><a href="../sobre.html" style="color:inherit;border-bottom:1px solid var(--line-strong)">Thomas Macedo</a></div>
+        <p class="a-bio">Fundador da Gene Company. Especialista em sistemas e agentes de IA, criação de marcas e tráfego pago com ROI escalável para empresas. Santos/BR, atende Brasil e exterior. <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" target="_blank" rel="noopener">Fale comigo no WhatsApp →</a></p>
+      </div>
+    </div>
+  </article>
+
+  <section class="related">
+    <div class="wrap-narrow" style="padding:0">
+      <p class="eyebrow eyebrow-ink" style="display:block;margin-bottom:8px">Continue lendo</p>
+      <div class="related-grid">
+        <a href="../artigos/qual-modelo-de-ia-usar-gpt-claude-gemini.html"><span class="r-cat">Inteligência Artificial</span><h3>GPT, Claude ou Gemini: qual modelo usar no agente da sua empresa</h3></a>
+        <a href="../artigos/quanto-custa-ia-para-empresas.html"><span class="r-cat">Inteligência Artificial</span><h3>Quanto custa implementar IA e agentes numa empresa no Brasil</h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2 class="display mt-m" style="font-size:clamp(2.2rem,5vw,4rem)">Quero IA<br>na minha empresa.</h2>
+      <p class="lead mt-m" style="color:rgba(244,241,234,.8);max-width:48ch">Conte sobre o seu negócio e receba um diagnóstico do seu tráfego, criativos, marca e atendimento com IA.</p>
+      <div class="contact-row">
+        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" class="btn" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
+        <a href="https://www.instagram.com/thomasmacedo.ads" class="link-underline" target="_blank" rel="noopener" style="color:var(--paper)">Instagram @thomasmacedo.ads</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <span>© 2026 Thomas Macedo — IA, criação de marcas e tráfego pago. Santos, Baixada Santista, Brasil &amp; exterior.</span>
+        <div class="foot-links">
+          <a href="../index.html">TikTok &amp; Performance</a>
+          <a href="../marcas.html">Marcas &amp; E-commerce</a>
+          <a href="../artigos/">Artigos</a>
+          <a href="../tiktok-shop.html">TikTok Shop</a>
+          <a href="../trafego-pago.html">Tráfego pago</a>
+          <a href="../agentes-de-ia.html">Agentes de IA</a>
+          <a href="../sobre.html">Sobre</a>
+          <a href="https://www.instagram.com/thomasmacedo.ads" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/thomas-macedo-23896216a/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/102946615/" target="_blank" rel="noopener">LINCE Performance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
+</body>
+</html>

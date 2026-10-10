@@ -65,6 +65,7 @@
 - [Posicionamento de marca: como escolher o lugar que a sua marca ocupa na cabeça do cliente](https://www.thomas-macedo.com/artigos/posicionamento-de-marca.html): Posicionamento de marca é a escolha do lugar que a sua marca vai ocupar na memória do cliente. Veja o método, a frase de posicionamento pronta, os territórios possíveis e como testar antes de reformar a marca inteira.
 
 ## Artigos recentes
+- [Marketing in-house ou terceirizado: time interno ou assessoria?](https://www.thomas-macedo.com/artigos/marketing-in-house-ou-terceirizado.html): O custo real de montar um time de marketing interno vs. terceirizar, quando cada um vale a pena e o modelo híbrido que mais funciona para PMEs.
 - [IA na operação de agência de marketing: onde escala (e onde não)](https://www.thomas-macedo.com/artigos/ia-na-operacao-de-agencia-de-marketing.html): A IA escala o trabalho de volume de uma agência — criativo, relatório, atendimento, análise — não a estratégia. Veja onde usar e onde não.
 - [Agente de voz com IA: como funciona o atendimento por telefone feito por IA](https://www.thomas-macedo.com/artigos/agente-de-voz-com-ia.html): A IA já atende no WhatsApp — agora atende o telefone e fala como gente. Como funciona, onde dá retorno e quando ainda não vale usar.
 - [Custo por conversa de um agente de IA: como calcular tokens, modelo e volume](https://www.thomas-macedo.com/artigos/custo-por-conversa-de-agente-de-ia.html): Tokens × preço do modelo × volume. Como calcular quanto um agente de IA custa por conversa, o que infla a conta e como reduzir sem perder resultado.
@@ -74,7 +75,6 @@
 - [Como aumentar o ticket médio do e-commerce (sem pagar mais tráfego)](https://www.thomas-macedo.com/artigos/como-aumentar-ticket-medio-ecommerce.html): Order bump, upsell, cross-sell, kits e frete grátis progressivo: as 7 alavancas que fazem quem já está comprando gastar mais.
 - [Oferta irresistível: a oferta que faz o tráfego pago vender](https://www.thomas-macedo.com/artigos/oferta-irresistivel-para-vender-no-trafego-pago.html): Não é o anúncio que vende — é a oferta. Os 6 elementos de uma oferta irresistível que convertem tráfego pago em venda e derrubam o custo de aquisição.
 - [Processos e POPs de agência: como padronizar a operação para escalar](https://www.thomas-macedo.com/artigos/processos-e-pops-de-agencia-de-marketing.html): Agência que depende da cabeça das pessoas não escala. Como documentar POPs, por onde começar e onde a IA entra na operação.
-- [Prompt de agente de IA: como escrever a instrução que define o comportamento](https://www.thomas-macedo.com/artigos/como-escrever-o-prompt-de-um-agente-de-ia.html): O system prompt é o documento que diz ao agente quem ele é, o que pode fazer e onde parar. Veja a estrutura que faz o agente se comportar.
 
 ## Prova social
 - Marcas que passaram pelo processo de escala com Thomas Macedo: China Link Trading, China Link na Estrada, Lincoln Fracari, Tuyo Brasil, Apex Performance, LM Woodwork, Friga Store, Laser Rosa, Relive Med Clinic, Moby Dick Santos, Texas Firearms, entre centenas de outras operações.

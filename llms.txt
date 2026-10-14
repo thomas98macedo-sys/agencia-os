@@ -65,6 +65,7 @@
 - [Posicionamento de marca: como escolher o lugar que a sua marca ocupa na cabeça do cliente](https://www.thomas-macedo.com/artigos/posicionamento-de-marca.html): Posicionamento de marca é a escolha do lugar que a sua marca vai ocupar na memória do cliente. Veja o método, a frase de posicionamento pronta, os territórios possíveis e como testar antes de reformar a marca inteira.
 
 ## Artigos recentes
+- [Mensagem de recuperação de venda: exemplos prontos de WhatsApp que convertem](https://www.thomas-macedo.com/artigos/mensagem-de-recuperacao-de-venda-exemplos.html): Os textos exatos para recuperar carrinho, Pix e boleto não pago — a estrutura que funciona e os erros que fazem o cliente bloquear.
 - [CBO ou ABO no Meta Ads para e-commerce: qual estrutura de orçamento escala melhor](https://www.thomas-macedo.com/artigos/cbo-ou-abo-meta-ads-ecommerce.html): CBO deixa a Meta distribuir a verba; ABO trava o orçamento por conjunto. Veja quando usar cada um para testar e escalar sem derrubar o ROAS.
 - [Marca própria ou revenda: vale a pena criar a sua marca ou vender produtos de terceiros?](https://www.thomas-macedo.com/artigos/marca-propria-ou-revenda.html): Revenda dá caixa rápido; marca própria constrói margem e patrimônio. Quando vale cada um — e como usar um para financiar o outro.
 - [Devolução e logística reversa no e-commerce: como lidar com trocas sem perder margem](https://www.thomas-macedo.com/artigos/devolucao-e-logistica-reversa-no-ecommerce.html): O cliente tem 7 dias para devolver pelo CDC e a loja paga o frete. Como estruturar trocas e logística reversa sem destruir sua margem.
@@ -74,7 +75,6 @@
 - [Custo por conversa de um agente de IA: como calcular tokens, modelo e volume](https://www.thomas-macedo.com/artigos/custo-por-conversa-de-agente-de-ia.html): Tokens × preço do modelo × volume. Como calcular quanto um agente de IA custa por conversa, o que infla a conta e como reduzir sem perder resultado.
 - [Taxa de recuperação de carrinho abandonado: a média e quanto dá pra recuperar com IA](https://www.thomas-macedo.com/artigos/taxa-de-recuperacao-de-carrinho-abandonado.html): Quase 70% dos carrinhos são abandonados. Veja o que é uma taxa saudável, como calcular a sua e o que esperar de um agente de IA no WhatsApp.
 - [Por que o ROAS do Meta não bate com as vendas da Shopify (e qual número seguir)](https://www.thomas-macedo.com/artigos/roas-meta-nao-bate-com-vendas-shopify.html): Gerenciador diz ROAS 4, mas o caixa da Shopify não confirma? Entenda a diferença de atribuição e descubra qual número usar pra decidir.
-- [Tom de voz da marca: como definir a identidade verbal que o cliente reconhece](https://www.thomas-macedo.com/artigos/tom-de-voz-da-marca.html): O que é tom de voz, como definir o da sua marca em 4 dimensões e como aplicar com consistência no site, no anúncio e no atendimento (até com IA).
 
 ## Prova social
 - Marcas que passaram pelo processo de escala com Thomas Macedo: China Link Trading, China Link na Estrada, Lincoln Fracari, Tuyo Brasil, Apex Performance, LM Woodwork, Friga Store, Laser Rosa, Relive Med Clinic, Moby Dick Santos, Texas Firearms, entre centenas de outras operações.

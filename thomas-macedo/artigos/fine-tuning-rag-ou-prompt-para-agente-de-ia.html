@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TXSF2K6K');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <script>try{var q=new URLSearchParams(location.search).get("paleta");if(q)localStorage.setItem("paleta",q);if((q||localStorage.getItem("paleta"))==="classica")document.documentElement.classList.add("pal-classica");if(localStorage.getItem("tema")==="escuro")document.documentElement.setAttribute("data-theme","dark");var fq=new URLSearchParams(location.search).get("fonte");if(fq)localStorage.setItem("fonte",fq);var ff=fq||localStorage.getItem("fonte");var FF={tiktok:"Hanken+Grotesk:wght@800",jakarta:"Plus+Jakarta+Sans:wght@800",inter:"Inter+Tight:wght@800"};if(FF[ff]){document.documentElement.setAttribute("data-fonte",ff);var l=document.createElement("link");l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family="+FF[ff]+"&display=swap";document.head.appendChild(l)}}catch(e){}</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Fine-tuning, RAG ou prompt: como dar o conhecimento da sua empresa a um agente de IA (e qual escolher) | Thomas Macedo</title>
+  <meta name="description" content="Existem três formas de ensinar uma empresa a um agente de IA: prompt (instrução), RAG (busca no seu conhecimento) e fine-tuning (treino do modelo). Veja a diferença, o custo e qual escolher primeiro." />
+  <meta name="keywords" content="fine-tuning ou RAG, RAG vs fine-tuning, prompt vs RAG vs fine-tuning, como treinar agente de IA, fine-tuning de LLM, treinar IA com dados da empresa, Thomas Macedo" />
+  <meta name="author" content="Thomas Macedo" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://www.thomas-macedo.com/artigos/fine-tuning-rag-ou-prompt-para-agente-de-ia.html" />
+  <meta name="theme-color" content="#FAF8F3" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Thomas Macedo" />
+  <meta property="og:title" content="Fine-tuning, RAG ou prompt: qual usar para ensinar a sua empresa a um agente de IA" />
+  <meta property="og:description" content="Sem hype: a diferença entre prompt, RAG e fine-tuning, quanto cada um custa e qual resolve 90% dos casos de empresa no Brasil." />
+  <meta property="og:url" content="https://www.thomas-macedo.com/artigos/fine-tuning-rag-ou-prompt-para-agente-de-ia.html" />
+  <meta property="og:image" content="https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg" />
+  <meta property="article:author" content="Thomas Macedo" />
+  <meta property="article:published_time" content="2026-10-15" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Fine-tuning, RAG ou prompt: qual usar para ensinar a sua empresa a um agente de IA" />
+  <meta name="twitter:description" content="Sem hype: a diferença entre prompt, RAG e fine-tuning, quanto cada um custa e qual resolve 90% dos casos de empresa no Brasil." />
+  <meta name="twitter:image" content="https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BlogPosting",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.thomas-macedo.com/artigos/fine-tuning-rag-ou-prompt-para-agente-de-ia.html"},
+    "headline":"Fine-tuning, RAG ou prompt: como dar o conhecimento da sua empresa a um agente de IA",
+    "description":"Existem três formas de ensinar uma empresa a um agente de IA: prompt (instrução), RAG (busca no seu conhecimento) e fine-tuning (treino do modelo). Veja a diferença, o custo e qual escolher primeiro.",
+    "image":"https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg",
+    "datePublished":"2026-10-15","dateModified":"2026-10-15",
+    "inLanguage":"pt-BR",
+    "author":{"@type":"Person","name":"Thomas Macedo","url":"https://www.thomas-macedo.com/","jobTitle":"Especialista em IA, Criação de Marcas e Tráfego Pago","worksFor":{"@type":"Organization","name":"Gene Company"},"sameAs":["https://www.instagram.com/thomasmacedo.ads","https://www.linkedin.com/in/thomas-macedo-23896216a/"]},
+    "publisher":{"@id":"https://www.thomas-macedo.com/#thomas-macedo"},
+    "keywords":"fine-tuning ou RAG, RAG vs fine-tuning, prompt vs RAG vs fine-tuning, como treinar agente de IA, fine-tuning de LLM, treinar IA com dados da empresa, Thomas Macedo"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.thomas-macedo.com/"},
+      {"@type":"ListItem","position":2,"name":"Artigos","item":"https://www.thomas-macedo.com/artigos/"},
+      {"@type":"ListItem","position":3,"name":"Fine-tuning, RAG ou prompt para agente de IA","item":"https://www.thomas-macedo.com/artigos/fine-tuning-rag-ou-prompt-para-agente-de-ia.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[{"@type":"Question","name":"Qual a diferença entre RAG e fine-tuning?","acceptedAnswer":{"@type":"Answer","text":"RAG dá conhecimento ao agente buscando a informação certa nos seus documentos na hora da pergunta — sem mexer no modelo. Fine-tuning treina o próprio modelo com exemplos para mudar o jeito dele responder. Regra simples: RAG para o agente SABER fatos atualizados (preços, políticas, catálogo); fine-tuning para ele RESPONDER de um jeito específico que o prompt não consegue reproduzir."}},{"@type":"Question","name":"Preciso fazer fine-tuning para o agente usar os dados da minha empresa?","acceptedAnswer":{"@type":"Answer","text":"Não. Para dados da empresa — preços, catálogo, políticas, histórico do cliente — o caminho é RAG, não fine-tuning. Fine-tuning grava um comportamento no modelo, mas não atualiza fatos: se o preço muda amanhã, você teria que treinar de novo. RAG lê a informação atual a cada pergunta, então basta atualizar o documento."}},{"@type":"Question","name":"Quanto custa fazer fine-tuning de um modelo de IA?","acceptedAnswer":{"@type":"Answer","text":"Fine-tuning custa o treino (processar centenas ou milhares de exemplos), o uso do modelo ajustado (que costuma ser mais caro por token que o modelo base) e, principalmente, o trabalho de montar e curar os exemplos de qualidade. Na maioria das empresas brasileiras, prompt bem escrito mais RAG resolve o caso por uma fração desse custo e sem o retrabalho de re-treinar."}},{"@type":"Question","name":"Quando fine-tuning vale a pena de verdade?","acceptedAnswer":{"@type":"Answer","text":"Quando você precisa de um comportamento ou formato muito específico e repetitivo que o prompt não segura — um tom de voz próprio, uma classificação em alto volume, uma saída em formato rígido — e já tem muitos exemplos reais de qualidade. É otimização de estágio avançado, não o ponto de partida."}},{"@type":"Question","name":"Posso combinar prompt, RAG e fine-tuning no mesmo agente?","acceptedAnswer":{"@type":"Answer","text":"Sim, e normalmente é o cenário ideal. O prompt define o comportamento e os limites, o RAG entrega o conhecimento atualizado da empresa e o fine-tuning (quando usado) fixa um padrão de resposta. Os três resolvem problemas diferentes e se somam."}}]
+  }
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXSF2K6K"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="../index.html" class="wordmark">Thomas <span>Macedo</span></a>
+        <div class="nav-links">
+          <a href="../index.html" class="hide-mob">TikTok &amp; Performance</a>
+          <a href="../marcas.html" class="hide-mob">Marcas &amp; E-commerce</a>
+          <a href="../artigos/" class="active hide-mob">Artigos</a>
+          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="nav-cta" target="_blank" rel="noopener">Falar comigo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap"><nav class="crumb"><a href="../index.html">Início</a><span>/</span><a href="../artigos/">Artigos</a><span>/</span>Fine-tuning, RAG ou prompt para agente de IA</nav></div>
+
+  <article>
+    <header class="article-head">
+      <span class="eyebrow">Inteligência Artificial</span>
+      <h1>Fine-tuning, RAG ou prompt: como dar o conhecimento da sua empresa a um agente de IA (e qual escolher)</h1>
+      <p class="dek">Muita gente acha que “treinar a IA com os dados da empresa” significa fine-tuning. Quase nunca significa. Aqui eu separo as três formas de ensinar um agente — e mostro qual resolve o seu caso sem queimar dinheiro.</p>
+      <div class="article-meta">
+        <span>Por Thomas Macedo</span><span class="dot"></span><span>9 min de leitura</span><span class="dot"></span><span>Atualizado em 2026</span>
+      </div>
+    </header>
+
+    <div class="article-cover">
+      <img src="../img/thomas-macedo-ia-robo.jpeg" alt="Agente de IA aprendendo o conhecimento de uma empresa via prompt, RAG e fine-tuning" width="1000" height="500" style="object-position:center 40%" />
+    </div>
+
+    <div class="prose">
+      <p><strong>Existem três formas de ensinar a sua empresa a um agente de IA: o prompt (a instrução que define o comportamento), o RAG (busca do conhecimento certo nos seus documentos na hora da pergunta) e o fine-tuning (treino do próprio modelo com exemplos).</strong> Elas não competem — resolvem problemas diferentes. Para a maioria das empresas brasileiras, prompt bem escrito somado a RAG resolve 90% dos casos. Fine-tuning é otimização de estágio avançado, cara e lenta de manter, que raramente é o lugar certo para começar.</p>
+
+      <p>Eu construo agentes de IA para empresas todo dia, e a confusão número um que escuto é “quero treinar a IA com os meus dados”. Na quase totalidade das vezes, a pessoa não precisa de treino nenhum — precisa de RAG. Vou explicar a diferença de um jeito que você decide sozinho.</p>
+
+      <div class="callout">
+        <span class="k">Resumo rápido</span>
+        <ul>
+          <li><strong>Prompt</strong> = o <em>comportamento</em> (quem ele é, o que pode e não pode fazer).</li>
+          <li><strong>RAG</strong> = o <em>conhecimento atualizado</em> da empresa (preços, políticas, catálogo).</li>
+          <li><strong>Fine-tuning</strong> = um <em>padrão de resposta</em> gravado no modelo, para casos muito específicos.</li>
+          <li>Comece por prompt + RAG. Fine-tuning só quando esses dois não dão conta.</li>
+        </ul>
+      </div>
+
+      <h2>O que é cada um (sem jargão)</h2>
+      <p>Pensa num funcionário novo. Você pode ensinar ele de três jeitos, e eles equivalem exatamente aos três métodos:</p>
+      <ul>
+        <li><strong>Prompt (a instrução):</strong> é o manual de conduta que você entrega no primeiro dia — “você atende assim, nunca promete prazo, se o cliente pedir desconto você faz X”. Define <em>como</em> ele se comporta. É o <a href="./como-escrever-o-prompt-de-um-agente-de-ia.html">system prompt do agente de IA</a>, e é onde 70% do resultado é decidido.</li>
+        <li><strong>RAG (a consulta ao conhecimento):</strong> é dar a ele acesso à pasta de documentos da empresa para consultar na hora da dúvida — tabela de preços, política de troca, ficha do produto, histórico do cliente. Ele <em>busca</em> a informação certa e responde com base nela. É o jeito de o agente <em>saber</em> fatos da sua empresa.</li>
+        <li><strong>Fine-tuning (o treino):</strong> é pegar centenas de exemplos de “pergunta → resposta ideal” e treinar o modelo até ele incorporar aquele padrão no reflexo. Muda o <em>jeito</em> de responder, não o que ele sabe de fato.</li>
+      </ul>
+
+      <h2>Qual a diferença entre RAG e fine-tuning (a dúvida que mais aparece)</h2>
+      <p>Essa é a confusão central, então vale fixar. <strong>RAG dá fatos. Fine-tuning dá comportamento.</strong></p>
+      <p>Se o seu problema é “o agente precisa saber o preço do produto 15, a política de frete e o prazo de entrega da transportadora” — isso é RAG. Esse tipo de informação muda toda semana, e RAG lê o documento atualizado a cada pergunta. Você edita a planilha, o agente já responde certo no minuto seguinte.</p>
+      <p>Se você tentasse resolver isso com fine-tuning, estaria gravando o preço de hoje dentro do modelo. Quando o preço mudasse amanhã, o agente continuaria repetindo o antigo — e você teria que re-treinar. É por isso que, para conhecimento de empresa, fine-tuning é quase sempre a ferramenta errada. Eu detalho o lado do conhecimento no guia de <a href="./base-de-conhecimento-rag-para-agente-de-ia.html">base de conhecimento e RAG</a>.</p>
+
+      <blockquote><p>Regra que eu uso na prática: se a resposta certa depende de um dado que muda, é RAG. Se depende de um jeito de responder que é sempre igual, aí talvez seja fine-tuning.</p></blockquote>
+
+      <h2>Quando fine-tuning vale a pena de verdade</h2>
+      <p>Fine-tuning não é inútil — é mal posicionado. Ele brilha em casos específicos:</p>
+      <ul>
+        <li><strong>Tom de voz muito particular</strong> que o prompt não consegue reproduzir com consistência em toda resposta.</li>
+        <li><strong>Classificação em alto volume</strong> — por exemplo, triar milhares de mensagens por dia em categorias fixas, onde um modelo menor e ajustado sai mais barato e rápido que mandar tudo para um modelo grande.</li>
+        <li><strong>Saída em formato rígido e repetitivo</strong>, quando o prompt sozinho ainda escorrega de vez em quando.</li>
+      </ul>
+      <p>Repare no padrão: fine-tuning é sobre <em>forma</em> e <em>escala de um comportamento repetido</em> — nunca sobre fatos. E ele só compensa quando você já tem <strong>muitos exemplos reais de qualidade</strong> para treinar. Sem bons exemplos, você grava o lixo que colocou. Não à toa, os próprios fornecedores de modelos, como a <a href="https://platform.openai.com/docs/guides/fine-tuning" target="_blank" rel="noopener nofollow">OpenAI em sua documentação de fine-tuning</a>, recomendam esgotar prompt e busca de contexto antes de partir para o treino.</p>
+
+      <h2>Quanto custa cada caminho</h2>
+      <p>Aqui é onde a decisão fica concreta. O custo não é só a conta da API — é o custo de manter aquilo vivo.</p>
+      <ul>
+        <li><strong>Prompt:</strong> custo de escrever e ajustar. Quase zero de manutenção — você edita o texto e pronto. É o mais barato e o mais rápido de iterar.</li>
+        <li><strong>RAG:</strong> custo de organizar os documentos e montar a busca. A manutenção é só manter os documentos atualizados — algo que a empresa já deveria fazer de qualquer jeito.</li>
+        <li><strong>Fine-tuning:</strong> custo de curar centenas de exemplos, rodar o treino, e depois usar um modelo ajustado que costuma sair mais caro por token. E cada vez que o comportamento precisa mudar, você re-treina. É o mais caro em dinheiro e em tempo de equipe.</li>
+      </ul>
+      <p>Se você quer ver a matemática por trás da operação rodando, eu abro os números em <a href="./custo-por-conversa-de-agente-de-ia.html">custo por conversa de um agente de IA</a> e no panorama de <a href="./quanto-custa-ia-para-empresas.html">quanto custa implementar IA numa empresa no Brasil</a>.</p>
+
+      <h2>Como escolher: o fluxo que eu sigo</h2>
+      <ol>
+        <li><strong>Escreva o prompt primeiro.</strong> Defina comportamento, limites e tom. Teste. A maioria dos “problemas de IA” se resolve aqui, só reescrevendo a instrução.</li>
+        <li><strong>Falta conhecimento da empresa? Adicione RAG.</strong> Se o agente erra preço, política ou catálogo, o buraco é de fatos — ligue-o aos seus documentos.</li>
+        <li><strong>Ainda escorrega num padrão específico de resposta, com alto volume e exemplos reais em mãos? Aí, sim, considere fine-tuning.</strong> E só então.</li>
+      </ol>
+      <p>Na prática, 9 em cada 10 agentes que eu coloco de pé param no passo 2. O passo 3 é exceção, não regra — e desconfie de quem te vende fine-tuning como primeira resposta, porque geralmente é tecnologia por tecnologia, não solução do seu problema. Esse raciocínio de camadas é o mesmo da <a href="./anatomia-de-um-agente-de-ia.html">anatomia de um agente de IA que funciona</a>: instrução, conhecimento e ferramentas, cada um no seu lugar.</p>
+
+      <h2>O erro caro que eu vejo acontecer</h2>
+      <p>O erro clássico é a empresa gastar semanas (e orçamento) tentando fazer fine-tuning para o agente “aprender os produtos”, quando bastava uma base de conhecimento com RAG montada em dias. O resultado do fine-tuning mal feito é pior: um modelo que responde com confiança sobre dados que já estão desatualizados — o que aumenta o risco de o agente inventar resposta. Conhecimento sempre atualizado via RAG, somado a bons limites no prompt, é o que segura isso de pé.</p>
+
+      <p>É assim que eu trabalho com agentes de IA: começando pelo que dá retorno rápido e barato de manter, e subindo a complexidade só quando o problema exige. Quer entender onde a IA encaixa no seu negócio? Dá uma olhada no que faço em <a href="../index.html">performance e IA</a>.</p>
+
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details open><summary>Qual a diferença entre RAG e fine-tuning?</summary><p>RAG dá conhecimento ao agente buscando a informação certa nos seus documentos na hora da pergunta — sem mexer no modelo. Fine-tuning treina o próprio modelo com exemplos para mudar o jeito dele responder. Regra simples: RAG para o agente SABER fatos atualizados (preços, políticas, catálogo); fine-tuning para ele RESPONDER de um jeito específico que o prompt não consegue reproduzir.</p></details>
+        <details><summary>Preciso fazer fine-tuning para o agente usar os dados da minha empresa?</summary><p>Não. Para dados da empresa — preços, catálogo, políticas, histórico do cliente — o caminho é RAG, não fine-tuning. Fine-tuning grava um comportamento no modelo, mas não atualiza fatos: se o preço muda amanhã, você teria que treinar de novo. RAG lê a informação atual a cada pergunta, então basta atualizar o documento.</p></details>
+        <details><summary>Quanto custa fazer fine-tuning de um modelo de IA?</summary><p>Fine-tuning custa o treino (processar centenas ou milhares de exemplos), o uso do modelo ajustado (que costuma ser mais caro por token que o modelo base) e, principalmente, o trabalho de montar e curar os exemplos de qualidade. Na maioria das empresas brasileiras, prompt bem escrito mais RAG resolve o caso por uma fração desse custo e sem o retrabalho de re-treinar.</p></details>
+        <details><summary>Quando fine-tuning vale a pena de verdade?</summary><p>Quando você precisa de um comportamento ou formato muito específico e repetitivo que o prompt não segura — um tom de voz próprio, uma classificação em alto volume, uma saída em formato rígido — e já tem muitos exemplos reais de qualidade. É otimização de estágio avançado, não o ponto de partida.</p></details>
+        <details><summary>Posso combinar prompt, RAG e fine-tuning no mesmo agente?</summary><p>Sim, e normalmente é o cenário ideal. O prompt define o comportamento e os limites, o RAG entrega o conhecimento atualizado da empresa e o fine-tuning (quando usado) fixa um padrão de resposta. Os três resolvem problemas diferentes e se somam.</p></details>
+      </div>
+    </div>
+
+    <aside class="svc-hub">
+      <span class="svc-k">Serviço</span>
+      <b>Agentes de IA para empresas</b>
+      <p>Agentes que atendem, qualificam e agendam no WhatsApp 24h, conectados ao conhecimento real da sua empresa. A Friday agendou 41 consultorias sozinha.</p>
+      <a href="../agentes-de-ia.html">Ver como funciona <span class="arrow">→</span></a>
+    </aside>
+
+    <div class="author-box">
+      <img src="../img/thomas-macedo-palestra.jpeg" alt="Thomas Macedo" />
+      <div>
+        <div class="a-name"><a href="../sobre.html" style="color:inherit;border-bottom:1px solid var(--line-strong)">Thomas Macedo</a></div>
+        <p class="a-bio">Fundador da Gene Company. Especialista em sistemas e agentes de IA, criação de marcas e tráfego pago com ROI escalável para empresas. Santos/BR, atende Brasil e exterior. <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" target="_blank" rel="noopener">Fale comigo no WhatsApp →</a></p>
+      </div>
+    </div>
+  </article>
+
+  <section class="related">
+    <div class="wrap-narrow" style="padding:0">
+      <p class="eyebrow eyebrow-ink" style="display:block;margin-bottom:8px">Continue lendo</p>
+      <div class="related-grid">
+        <a href="../artigos/base-de-conhecimento-rag-para-agente-de-ia.html"><span class="r-cat">Inteligência Artificial</span><h3>Base de conhecimento e RAG: como dar à IA o conhecimento da sua empresa</h3></a>
+        <a href="../artigos/como-escrever-o-prompt-de-um-agente-de-ia.html"><span class="r-cat">Inteligência Artificial</span><h3>Prompt de agente de IA: como escrever a instrução que define o comportamento</h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2 class="display mt-m" style="font-size:clamp(2.2rem,5vw,4rem)">Quero IA<br>na minha empresa.</h2>
+      <p class="lead mt-m" style="color:rgba(244,241,234,.8);max-width:48ch">Conte sobre o seu negócio e receba um diagnóstico do seu tráfego, criativos, marca e atendimento com IA.</p>
+      <div class="contact-row">
+        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" class="btn" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
+        <a href="https://www.instagram.com/thomasmacedo.ads" class="link-underline" target="_blank" rel="noopener" style="color:var(--paper)">Instagram @thomasmacedo.ads</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <span>© 2026 Thomas Macedo — IA, criação de marcas e tráfego pago. Santos, Baixada Santista, Brasil &amp; exterior.</span>
+        <div class="foot-links">
+          <a href="../index.html">TikTok &amp; Performance</a>
+          <a href="../marcas.html">Marcas &amp; E-commerce</a>
+          <a href="../artigos/">Artigos</a>
+          <a href="../tiktok-shop.html">TikTok Shop</a>
+          <a href="../trafego-pago.html">Tráfego pago</a>
+          <a href="../agentes-de-ia.html">Agentes de IA</a>
+          <a href="../sobre.html">Sobre</a>
+          <a href="https://www.instagram.com/thomasmacedo.ads" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/thomas-macedo-23896216a/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/102946615/" target="_blank" rel="noopener">LINCE Performance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
+</body>
+</html>

@@ -5,8 +5,16 @@
 <link>https://www.thomas-macedo.com/</link>
 <description>Uma matéria por dia sobre agentes de IA, agência escalada, tráfego pago, e-commerce e criação de marcas. Por Thomas Macedo (Gene Company / LINCE Performance).</description>
 <language>pt-BR</language>
-<lastBuildDate>Wed, 14 Oct 2026 10:35:08 +0000</lastBuildDate>
+<lastBuildDate>Thu, 15 Oct 2026 10:36:39 +0000</lastBuildDate>
 <atom:link href="https://www.thomas-macedo.com/feed.xml" rel="self" type="application/rss+xml" />
+<item>
+<title>Fine-tuning, RAG ou prompt: como dar o conhecimento da sua empresa a um agente de IA (e qual escolher)</title>
+<link>https://www.thomas-macedo.com/artigos/fine-tuning-rag-ou-prompt-para-agente-de-ia.html</link>
+<guid isPermaLink="true">https://www.thomas-macedo.com/artigos/fine-tuning-rag-ou-prompt-para-agente-de-ia.html</guid>
+<description>Existem três formas de ensinar uma empresa a um agente de IA: prompt (instrução), RAG (busca no seu conhecimento) e fine-tuning (treino do modelo). Veja a diferença, o custo e qual escolher primeiro.</description>
+<author>thomas98macedo@gmail.com (Thomas Macedo)</author>
+<pubDate>Thu, 15 Oct 2026 10:00:00 +0000</pubDate>
+</item>
 <item>
 <title>Mensagem de recuperação de venda: exemplos prontos de WhatsApp que trazem o cliente de volta</title>
 <link>https://www.thomas-macedo.com/artigos/mensagem-de-recuperacao-de-venda-exemplos.html</link>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TXSF2K6K');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <script>try{var q=new URLSearchParams(location.search).get("paleta");if(q)localStorage.setItem("paleta",q);if((q||localStorage.getItem("paleta"))==="classica")document.documentElement.classList.add("pal-classica");if(localStorage.getItem("tema")==="escuro")document.documentElement.setAttribute("data-theme","dark");var fq=new URLSearchParams(location.search).get("fonte");if(fq)localStorage.setItem("fonte",fq);var ff=fq||localStorage.getItem("fonte");var FF={tiktok:"Hanken+Grotesk:wght@800",jakarta:"Plus+Jakarta+Sans:wght@800",inter:"Inter+Tight:wght@800"};if(FF[ff]){document.documentElement.setAttribute("data-fonte",ff);var l=document.createElement("link");l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family="+FF[ff]+"&display=swap";document.head.appendChild(l)}}catch(e){}</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Ferramentas para criar agentes de IA: no-code, low-code ou código (e qual escolher) | Thomas Macedo</title>
+  <meta name="description" content="n8n, Make, Dify, plataforma pronta ou código próprio? Veja as ferramentas para criar um agente de IA, as vantagens e limites de cada uma e como escolher sem travar na hora de escalar." />
+  <meta name="keywords" content="ferramentas para criar agente de IA, criar agente de IA no-code, n8n agente de IA, plataforma de agente de IA, como criar agente de IA, Thomas Macedo" />
+  <meta name="author" content="Thomas Macedo" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://www.thomas-macedo.com/artigos/ferramentas-para-criar-agente-de-ia.html" />
+  <meta name="theme-color" content="#FAF8F3" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Thomas Macedo" />
+  <meta property="og:title" content="Ferramentas para criar agentes de IA: no-code, low-code ou código" />
+  <meta property="og:description" content="n8n, Make, Dify, plataforma pronta ou código próprio? Como escolher a ferramenta certa para o agente de IA da sua empresa — sem travar na hora de escalar." />
+  <meta property="og:url" content="https://www.thomas-macedo.com/artigos/ferramentas-para-criar-agente-de-ia.html" />
+  <meta property="og:image" content="https://www.thomas-macedo.com/img/thomas-macedo-conteudo-escala.jpeg" />
+  <meta property="article:author" content="Thomas Macedo" />
+  <meta property="article:published_time" content="2026-10-16" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ferramentas para criar agentes de IA: no-code, low-code ou código" />
+  <meta name="twitter:description" content="n8n, Make, Dify, plataforma pronta ou código próprio? Como escolher a ferramenta certa para o agente de IA da sua empresa." />
+  <meta name="twitter:image" content="https://www.thomas-macedo.com/img/thomas-macedo-conteudo-escala.jpeg" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BlogPosting",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.thomas-macedo.com/artigos/ferramentas-para-criar-agente-de-ia.html"},
+    "headline":"Ferramentas para criar agentes de IA: no-code, low-code ou código (e qual escolher)",
+    "description":"n8n, Make, Dify, plataforma pronta ou código próprio? Veja as ferramentas para criar um agente de IA, as vantagens e limites de cada uma e como escolher sem travar na hora de escalar.",
+    "image":"https://www.thomas-macedo.com/img/thomas-macedo-conteudo-escala.jpeg",
+    "datePublished":"2026-10-16","dateModified":"2026-10-16",
+    "inLanguage":"pt-BR",
+    "author":{"@type":"Person","name":"Thomas Macedo","url":"https://www.thomas-macedo.com/","jobTitle":"Especialista em IA, Criação de Marcas e Tráfego Pago","worksFor":{"@type":"Organization","name":"Gene Company"},"sameAs":["https://www.instagram.com/thomasmacedo.ads","https://www.linkedin.com/in/thomas-macedo-23896216a/"]},
+    "publisher":{"@id":"https://www.thomas-macedo.com/#thomas-macedo"},
+    "keywords":"ferramentas para criar agente de IA, criar agente de IA no-code, n8n agente de IA, plataforma de agente de IA, como criar agente de IA, Thomas Macedo"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.thomas-macedo.com/"},
+      {"@type":"ListItem","position":2,"name":"Artigos","item":"https://www.thomas-macedo.com/artigos/"},
+      {"@type":"ListItem","position":3,"name":"Ferramentas para criar agentes de IA","item":"https://www.thomas-macedo.com/artigos/ferramentas-para-criar-agente-de-ia.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[{"@type":"Question","name":"Qual a melhor ferramenta para criar um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Não existe uma melhor para todos os casos. Para começar rápido e validar um processo, ferramentas no-code e low-code como n8n, Make e Dify resolvem. Quando o agente vira peça central da operação, precisa de integrações profundas ou volume alto, compensa migrar para código próprio. A regra é: ferramenta que entrega o resultado de hoje sem travar o de amanhã."}},{"@type":"Question","name":"Dá para criar um agente de IA sem saber programar?","acceptedAnswer":{"@type":"Answer","text":"Sim. Plataformas no-code e low-code permitem montar um agente conectando blocos visuais — modelo de linguagem, base de conhecimento e integrações — sem escrever código. O limite não é técnico, é de profundidade: quando o fluxo fica complexo ou o volume cresce, o no-code encarece e trava, e aí entra o código."}},{"@type":"Question","name":"Qual a diferença entre no-code, low-code e código para agentes de IA?","acceptedAnswer":{"@type":"Answer","text":"No-code monta o agente por blocos visuais, sem programar. Low-code é visual mas aceita trechos de código para casos que a interface não cobre. Código próprio é construir do zero com frameworks e APIs — máximo controle, integração e escala, em troca de precisar de um desenvolvedor."}},{"@type":"Question","name":"Quanto custa a ferramenta para criar um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"A ferramenta em si costuma custar de nada (versões open-source como o n8n self-hosted) a algumas centenas de reais por mês nas plataformas gerenciadas. O custo relevante não é a ferramenta: é o uso do modelo de IA (tokens) por conversa e o tempo de quem constrói e mantém o agente."}}]
+  }
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXSF2K6K"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="../index.html" class="wordmark">Thomas <span>Macedo</span></a>
+        <div class="nav-links">
+          <a href="../index.html" class="hide-mob">TikTok &amp; Performance</a>
+          <a href="../marcas.html" class="hide-mob">Marcas &amp; E-commerce</a>
+          <a href="../artigos/" class="active hide-mob">Artigos</a>
+          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="nav-cta" target="_blank" rel="noopener">Falar comigo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap"><nav class="crumb"><a href="../index.html">Início</a><span>/</span><a href="../artigos/">Artigos</a><span>/</span>Ferramentas para criar agentes de IA</nav></div>
+
+  <article>
+    <header class="article-head">
+      <span class="eyebrow">Inteligência Artificial</span>
+      <h1>Ferramentas para criar agentes de IA: no-code, low-code ou código (e qual escolher)</h1>
+      <p class="dek">n8n, Make, Dify, plataforma pronta ou código próprio? A escolha da ferramenta define o que o seu agente vai conseguir fazer — e o que vai travar na hora de escalar. Vou separar as opções sem jargão.</p>
+      <div class="article-meta">
+        <span>Por Thomas Macedo</span><span class="dot"></span><span>8 min de leitura</span><span class="dot"></span><span>Atualizado em 2026</span>
+      </div>
+    </header>
+
+    <div class="article-cover">
+      <img src="../img/thomas-macedo-conteudo-escala.jpeg" alt="Ferramentas para criar agentes de IA: no-code, low-code e código" width="1000" height="500" style="object-position:center 40%" />
+    </div>
+
+    <div class="prose">
+      <p><strong>Para criar um agente de IA você tem três caminhos: ferramentas no-code (como n8n e Make, que montam o agente por blocos visuais), plataformas de agente prontas (como Dify e builders de chat) e código próprio (frameworks e APIs).</strong> No-code e low-code servem para começar rápido e validar um processo com baixo custo; código próprio entra quando o agente vira peça central da operação, precisa de integrações profundas ou roda em volume alto. A escolha certa é a que entrega o resultado de hoje sem travar o de amanhã.</p>
+
+      <p>Eu construo esses sistemas no dia a dia e já migrei agentes de uma ferramenta para outra quando a operação cresceu. Então vou direto: o que cada caminho faz bem, onde ele quebra e como decidir.</p>
+
+      <div class="callout">
+        <span class="k">Resumo rápido</span>
+        <ul>
+          <li><strong>No-code</strong> (n8n, Make): monta por blocos, sem programar. Rápido para validar.</li>
+          <li><strong>Plataforma de agente</strong> (Dify e similares): já vem com base de conhecimento e chat prontos.</li>
+          <li><strong>Código próprio</strong>: máximo controle, integração e escala — precisa de dev.</li>
+          <li>Comece no mais simples que resolve. Migre quando a ferramenta começar a travar.</li>
+        </ul>
+      </div>
+
+      <h2>A ferramenta não é o agente — é o andaime</h2>
+      <p>Antes de escolher, entenda uma coisa: a ferramenta é só o lugar onde você monta o agente. O que faz o agente funcionar são as quatro peças de sempre — a instrução (o que ele deve fazer), o conhecimento (os dados da sua empresa), as ferramentas de ação (consultar, agendar, atualizar) e os limites (o que ele não pode fazer). Qualquer plataforma boa precisa dar conta dessas quatro peças. Se você ainda não viu como elas se encaixam, leia a <a href="./anatomia-de-um-agente-de-ia.html">anatomia de um agente de IA</a> antes de decidir a ferramenta — escolher o andaime sem conhecer a construção é como comprar material sem ter a planta.</p>
+
+      <h2>No-code: n8n, Make e similares</h2>
+      <p>São plataformas visuais onde você arrasta blocos e os conecta: "quando chegar mensagem no WhatsApp → consultar o modelo de IA → buscar na base de conhecimento → responder". Não precisa programar. O n8n tem versão open-source que você pode hospedar por conta própria; o Make é totalmente gerenciado na nuvem.</p>
+      <p><strong>Onde brilham:</strong> validar um processo rápido, conectar ferramentas que já têm integração pronta (WhatsApp, planilhas, CRM populares) e manter o custo inicial baixo. É o caminho certo para o primeiro agente de uma PME.</p>
+      <p><strong>Onde travam:</strong> quando o fluxo fica complexo (muitas decisões, muitos caminhos), o painel vira um emaranhado difícil de manter. E em volume alto, o preço por execução sobe. No-code é ótimo para começar, chato para escalar sem cuidado.</p>
+
+      <h2>Plataformas de agente prontas: Dify e os builders de chat</h2>
+      <p>Aqui a plataforma já nasce pensada para agente: você sobe seus documentos, ela monta a base de conhecimento (RAG) sozinha, oferece uma interface de chat e botões para publicar no site ou no WhatsApp. Você configura a instrução e liga os dados. Dify é um exemplo conhecido; há vários builders com a mesma lógica.</p>
+      <p><strong>Onde brilham:</strong> quando o coração do agente é responder com base no conhecimento da empresa — suporte, dúvidas recorrentes, FAQ inteligente. Você sai do zero ao agente respondendo em pouco tempo. Se o seu caso é esse, vale entender como funciona a <a href="./base-de-conhecimento-rag-para-agente-de-ia.html">base de conhecimento e RAG</a>, porque é o que essas plataformas automatizam.</p>
+      <p><strong>Onde travam:</strong> ações mais sofisticadas (integrar com um ERP específico, lógica de negócio própria, orquestrar vários agentes) esbarram no que a plataforma oferece. Você fica no teto do que o produto decidiu entregar.</p>
+
+      <h2>Código próprio: frameworks e APIs</h2>
+      <p>É construir o agente do zero, chamando direto a API do modelo (GPT, Claude, Gemini) com um framework de orquestração. Dá o controle total: qualquer integração, qualquer regra de negócio, qualquer nível de volume. É o caminho de quem leva o agente a sério como parte da operação.</p>
+      <p><strong>Onde brilha:</strong> integrações profundas com sistemas internos, agentes que tomam ações críticas, operação de alto volume onde cada centavo de token importa, e sistemas <a href="./orquestracao-de-agentes-de-ia-multiagente.html">multiagente</a> em que vários agentes trabalham juntos. Também é onde você garante de verdade a <a href="./lgpd-e-seguranca-de-dados-em-agentes-de-ia.html">segurança de dados e a conformidade com a LGPD</a>, porque você controla onde cada dado passa.</p>
+      <p><strong>Onde pesa:</strong> precisa de desenvolvedor e de manutenção. Não é para quem quer testar uma ideia num fim de semana — é para quem já sabe que o agente veio para ficar.</p>
+
+      <blockquote><p>O erro mais caro não é escolher a ferramenta "errada". É escolher a mais complexa antes de ter certeza de que o processo dá retorno. Valide barato, depois invista pesado.</p></blockquote>
+
+      <h2>Low-code: o meio-termo</h2>
+      <p>Entre o no-code puro e o código tem o low-code: ferramentas visuais que deixam você inserir trechos de código quando a interface não cobre o caso. O n8n, por exemplo, permite nós de código dentro do fluxo visual. É o melhor dos dois mundos para quem tem um pouco de time técnico: monta rápido no visual e resolve os casos difíceis com um bloco de código, sem precisar reconstruir tudo do zero.</p>
+
+      <h2>Como escolher sem errar</h2>
+      <ol>
+        <li><strong>Defina o processo primeiro, não a ferramenta.</strong> Qual dor o agente vai resolver? Atendimento? Recuperação de venda? Triagem interna?</li>
+        <li><strong>Comece no mais simples que resolve.</strong> Se no-code dá conta do processo, use no-code. Ferramenta não dá ponto por complexidade.</li>
+        <li><strong>Olhe as integrações que você precisa.</strong> Se o seu CRM ou ERP já tem bloco pronto, no-code acelera. Se não tem, o código pode ser inevitável.</li>
+        <li><strong>Pense no volume e no dado sensível.</strong> Volume alto e dado sensível empurram para código próprio e hospedagem controlada.</li>
+        <li><strong>Não case com a ferramenta.</strong> Migrar de plataforma quando a operação cresce é normal e saudável. Planeje o agente para poder mudar de casa.</li>
+      </ol>
+
+      <p>Essa decisão de montar numa ferramenta pronta ou construir sob medida é a mesma lógica de <a href="./construir-ou-contratar-agente-de-ia.html">construir ou contratar um agente de IA</a> — e, no fundo, de quanto a operação depende disso. Se você quer o passo a passo completo de como sair do zero, independente da ferramenta, veja <a href="./como-criar-agentes-de-ia.html">como criar agentes de IA para empresas</a>.</p>
+
+      <p>É assim que eu trabalho: escolho a ferramenta pelo tamanho do problema, não pela moda. Valido barato no no-code, e só levo para código próprio o que a empresa já provou que dá dinheiro.</p>
+
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details open><summary>Qual a melhor ferramenta para criar um agente de IA?</summary><p>Não existe uma melhor para todos os casos. Para começar rápido e validar um processo, ferramentas no-code e low-code como n8n, Make e Dify resolvem. Quando o agente vira peça central da operação, precisa de integrações profundas ou volume alto, compensa migrar para código próprio. A regra é: ferramenta que entrega o resultado de hoje sem travar o de amanhã.</p></details>
+        <details><summary>Dá para criar um agente de IA sem saber programar?</summary><p>Sim. Plataformas no-code e low-code permitem montar um agente conectando blocos visuais — modelo de linguagem, base de conhecimento e integrações — sem escrever código. O limite não é técnico, é de profundidade: quando o fluxo fica complexo ou o volume cresce, o no-code encarece e trava, e aí entra o código.</p></details>
+        <details><summary>Qual a diferença entre no-code, low-code e código para agentes de IA?</summary><p>No-code monta o agente por blocos visuais, sem programar. Low-code é visual mas aceita trechos de código para casos que a interface não cobre. Código próprio é construir do zero com frameworks e APIs — máximo controle, integração e escala, em troca de precisar de um desenvolvedor.</p></details>
+        <details><summary>Quanto custa a ferramenta para criar um agente de IA?</summary><p>A ferramenta em si costuma custar de nada (versões open-source como o n8n self-hosted) a algumas centenas de reais por mês nas plataformas gerenciadas. O custo relevante não é a ferramenta: é o uso do modelo de IA (tokens) por conversa e o tempo de quem constrói e mantém o agente.</p></details>
+      </div>
+    </div>
+
+    <aside class="svc-hub">
+      <span class="svc-k">Serviço</span>
+      <b>Agentes de IA para empresas</b>
+      <p>Agentes que atendem, qualificam e agendam no WhatsApp 24h. A Friday agendou 41 consultorias sozinha.</p>
+      <a href="../agentes-de-ia.html">Ver como funciona <span class="arrow">→</span></a>
+    </aside>
+
+    <div class="author-box">
+      <img src="../img/thomas-macedo-palestra.jpeg" alt="Thomas Macedo" />
+      <div>
+        <div class="a-name"><a href="../sobre.html" style="color:inherit;border-bottom:1px solid var(--line-strong)">Thomas Macedo</a></div>
+        <p class="a-bio">Fundador da Gene Company. Especialista em sistemas e agentes de IA, criação de marcas e tráfego pago com ROI escalável para empresas. Santos/BR, atende Brasil e exterior. <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" target="_blank" rel="noopener">Fale comigo no WhatsApp →</a></p>
+      </div>
+    </div>
+  </article>
+
+  <section class="related">
+    <div class="wrap-narrow" style="padding:0">
+      <p class="eyebrow eyebrow-ink" style="display:block;margin-bottom:8px">Continue lendo</p>
+      <div class="related-grid">
+        <a href="../artigos/como-criar-agentes-de-ia.html"><span class="r-cat">Inteligência Artificial</span><h3>Como criar agentes de IA para empresas: o passo a passo</h3></a>
+        <a href="../artigos/construir-ou-contratar-agente-de-ia.html"><span class="r-cat">Inteligência Artificial</span><h3>Construir ou contratar um agente de IA: build vs. buy</h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2 class="display mt-m" style="font-size:clamp(2.2rem,5vw,4rem)">Quero IA<br>na minha empresa.</h2>
+      <p class="lead mt-m" style="color:rgba(244,241,234,.8);max-width:48ch">Conte sobre o seu negócio e receba um diagnóstico do seu tráfego, criativos, marca e atendimento com IA.</p>
+      <div class="contact-row">
+        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" class="btn" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
+        <a href="https://www.instagram.com/thomasmacedo.ads" class="link-underline" target="_blank" rel="noopener" style="color:var(--paper)">Instagram @thomasmacedo.ads</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <span>© 2026 Thomas Macedo — IA, criação de marcas e tráfego pago. Santos, Baixada Santista, Brasil &amp; exterior.</span>
+        <div class="foot-links">
+          <a href="../index.html">TikTok &amp; Performance</a>
+          <a href="../marcas.html">Marcas &amp; E-commerce</a>
+          <a href="../artigos/">Artigos</a>
+          <a href="../tiktok-shop.html">TikTok Shop</a>
+          <a href="../trafego-pago.html">Tráfego pago</a>
+          <a href="../agentes-de-ia.html">Agentes de IA</a>
+          <a href="../sobre.html">Sobre</a>
+          <a href="https://www.instagram.com/thomasmacedo.ads" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/thomas-macedo-23896216a/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/102946615/" target="_blank" rel="noopener">LINCE Performance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
+</body>
+</html>

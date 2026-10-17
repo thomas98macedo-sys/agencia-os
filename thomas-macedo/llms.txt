@@ -65,6 +65,7 @@
 - [Posicionamento de marca: como escolher o lugar que a sua marca ocupa na cabeça do cliente](https://www.thomas-macedo.com/artigos/posicionamento-de-marca.html): Posicionamento de marca é a escolha do lugar que a sua marca vai ocupar na memória do cliente. Veja o método, a frase de posicionamento pronta, os territórios possíveis e como testar antes de reformar a marca inteira.
 
 ## Artigos recentes
+- [Como conseguir clientes para agência de marketing: prospecção, indicação e inbound](https://www.thomas-macedo.com/artigos/como-conseguir-clientes-para-agencia-de-marketing.html): Os três canais que enchem o funil comercial de uma agência — indicação, prospecção ativa e inbound — e a ordem certa de montá-los em cada fase.
 - [Ferramentas para criar agentes de IA: no-code, low-code ou código](https://www.thomas-macedo.com/artigos/ferramentas-para-criar-agente-de-ia.html): n8n, Make, Dify, plataformas prontas ou código próprio? O guia para escolher com o que construir o agente de IA da sua empresa — sem travar depois.
 - [Fine-tuning, RAG ou prompt: como dar o conhecimento da sua empresa a um agente de IA](https://www.thomas-macedo.com/artigos/fine-tuning-rag-ou-prompt-para-agente-de-ia.html): As três formas de ensinar uma empresa a um agente de IA — prompt, RAG e fine-tuning. Qual escolher primeiro sem queimar dinheiro.
 - [Mensagem de recuperação de venda: exemplos prontos de WhatsApp que convertem](https://www.thomas-macedo.com/artigos/mensagem-de-recuperacao-de-venda-exemplos.html): Os textos exatos para recuperar carrinho, Pix e boleto não pago — a estrutura que funciona e os erros que fazem o cliente bloquear.
@@ -74,7 +75,6 @@
 - [Marketing in-house ou terceirizado: time interno ou assessoria?](https://www.thomas-macedo.com/artigos/marketing-in-house-ou-terceirizado.html): O custo real de montar um time de marketing interno vs. terceirizar, quando cada um vale a pena e o modelo híbrido que mais funciona para PMEs.
 - [IA na operação de agência de marketing: onde escala (e onde não)](https://www.thomas-macedo.com/artigos/ia-na-operacao-de-agencia-de-marketing.html): A IA escala o trabalho de volume de uma agência — criativo, relatório, atendimento, análise — não a estratégia. Veja onde usar e onde não.
 - [Agente de voz com IA: como funciona o atendimento por telefone feito por IA](https://www.thomas-macedo.com/artigos/agente-de-voz-com-ia.html): A IA já atende no WhatsApp — agora atende o telefone e fala como gente. Como funciona, onde dá retorno e quando ainda não vale usar.
-- [Custo por conversa de um agente de IA: como calcular tokens, modelo e volume](https://www.thomas-macedo.com/artigos/custo-por-conversa-de-agente-de-ia.html): Tokens × preço do modelo × volume. Como calcular quanto um agente de IA custa por conversa, o que infla a conta e como reduzir sem perder resultado.
 
 ## Prova social
 - Marcas que passaram pelo processo de escala com Thomas Macedo: China Link Trading, China Link na Estrada, Lincoln Fracari, Tuyo Brasil, Apex Performance, LM Woodwork, Friga Store, Laser Rosa, Relive Med Clinic, Moby Dick Santos, Texas Firearms, entre centenas de outras operações.

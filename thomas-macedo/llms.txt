@@ -65,6 +65,7 @@
 - [Posicionamento de marca: como escolher o lugar que a sua marca ocupa na cabeça do cliente](https://www.thomas-macedo.com/artigos/posicionamento-de-marca.html): Posicionamento de marca é a escolha do lugar que a sua marca vai ocupar na memória do cliente. Veja o método, a frase de posicionamento pronta, os territórios possíveis e como testar antes de reformar a marca inteira.
 
 ## Artigos recentes
+- [Gestão de estoque no e-commerce: como evitar ruptura e estoque parado](https://www.thomas-macedo.com/artigos/gestao-de-estoque-ecommerce.html): Ruptura derruba venda que o tráfego já pagou; estoque parado trava seu caixa. Giro, curva ABC e previsão de demanda para operar sem furar.
 - [Quanto custa uma assessoria de marketing digital no Brasil](https://www.thomas-macedo.com/artigos/quanto-custa-assessoria-de-marketing-digital.html): Fee fixo, percentual da verba ou performance? Veja os modelos de preço, o que está incluso e como saber se a assessoria se paga.
 - [Como conseguir clientes para agência de marketing: prospecção, indicação e inbound](https://www.thomas-macedo.com/artigos/como-conseguir-clientes-para-agencia-de-marketing.html): Os três canais que enchem o funil comercial de uma agência — indicação, prospecção ativa e inbound — e a ordem certa de montá-los em cada fase.
 - [Ferramentas para criar agentes de IA: no-code, low-code ou código](https://www.thomas-macedo.com/artigos/ferramentas-para-criar-agente-de-ia.html): n8n, Make, Dify, plataformas prontas ou código próprio? O guia para escolher com o que construir o agente de IA da sua empresa — sem travar depois.
@@ -74,7 +75,6 @@
 - [Marca própria ou revenda: vale a pena criar a sua marca ou vender produtos de terceiros?](https://www.thomas-macedo.com/artigos/marca-propria-ou-revenda.html): Revenda dá caixa rápido; marca própria constrói margem e patrimônio. Quando vale cada um — e como usar um para financiar o outro.
 - [Devolução e logística reversa no e-commerce: como lidar com trocas sem perder margem](https://www.thomas-macedo.com/artigos/devolucao-e-logistica-reversa-no-ecommerce.html): O cliente tem 7 dias para devolver pelo CDC e a loja paga o frete. Como estruturar trocas e logística reversa sem destruir sua margem.
 - [Marketing in-house ou terceirizado: time interno ou assessoria?](https://www.thomas-macedo.com/artigos/marketing-in-house-ou-terceirizado.html): O custo real de montar um time de marketing interno vs. terceirizar, quando cada um vale a pena e o modelo híbrido que mais funciona para PMEs.
-- [IA na operação de agência de marketing: onde escala (e onde não)](https://www.thomas-macedo.com/artigos/ia-na-operacao-de-agencia-de-marketing.html): A IA escala o trabalho de volume de uma agência — criativo, relatório, atendimento, análise — não a estratégia. Veja onde usar e onde não.
 
 ## Prova social
 - Marcas que passaram pelo processo de escala com Thomas Macedo: China Link Trading, China Link na Estrada, Lincoln Fracari, Tuyo Brasil, Apex Performance, LM Woodwork, Friga Store, Laser Rosa, Relive Med Clinic, Moby Dick Santos, Texas Firearms, entre centenas de outras operações.

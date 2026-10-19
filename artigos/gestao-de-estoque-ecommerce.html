@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TXSF2K6K');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <script>try{var q=new URLSearchParams(location.search).get("paleta");if(q)localStorage.setItem("paleta",q);if((q||localStorage.getItem("paleta"))==="classica")document.documentElement.classList.add("pal-classica");if(localStorage.getItem("tema")==="escuro")document.documentElement.setAttribute("data-theme","dark");var fq=new URLSearchParams(location.search).get("fonte");if(fq)localStorage.setItem("fonte",fq);var ff=fq||localStorage.getItem("fonte");var FF={tiktok:"Hanken+Grotesk:wght@800",jakarta:"Plus+Jakarta+Sans:wght@800",inter:"Inter+Tight:wght@800"};if(FF[ff]){document.documentElement.setAttribute("data-fonte",ff);var l=document.createElement("link");l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family="+FF[ff]+"&display=swap";document.head.appendChild(l)}}catch(e){}</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Gestão de estoque no e-commerce: como evitar ruptura e estoque parado (giro, curva ABC e previsão de demanda) | Thomas Macedo</title>
+  <meta name="description" content="Gestão de estoque no e-commerce é equilibrar ter o produto quando o cliente compra sem travar o caixa com estoque parado. Veja giro, curva ABC, ponto de reposição e previsão de demanda na prática." />
+  <meta name="keywords" content="gestão de estoque e-commerce, ruptura de estoque, estoque parado, giro de estoque, curva ABC, previsão de demanda e-commerce, ponto de reposição, Thomas Macedo" />
+  <meta name="author" content="Thomas Macedo" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://www.thomas-macedo.com/artigos/gestao-de-estoque-ecommerce.html" />
+  <meta name="theme-color" content="#FAF8F3" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Thomas Macedo" />
+  <meta property="og:title" content="Gestão de estoque no e-commerce: evite ruptura e estoque parado" />
+  <meta property="og:description" content="Ruptura derruba a venda que o tráfego já pagou; estoque parado trava seu caixa. Giro, curva ABC e previsão de demanda para escalar sem furar a operação." />
+  <meta property="og:url" content="https://www.thomas-macedo.com/artigos/gestao-de-estoque-ecommerce.html" />
+  <meta property="og:image" content="https://www.thomas-macedo.com/img/thomas-macedo-conteudo-escala.jpeg" />
+  <meta property="article:author" content="Thomas Macedo" />
+  <meta property="article:published_time" content="2026-10-19" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Gestão de estoque no e-commerce: evite ruptura e estoque parado" />
+  <meta name="twitter:description" content="Ruptura derruba a venda que o tráfego já pagou; estoque parado trava seu caixa. Giro, curva ABC e previsão de demanda para escalar sem furar a operação." />
+  <meta name="twitter:image" content="https://www.thomas-macedo.com/img/thomas-macedo-conteudo-escala.jpeg" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BlogPosting",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.thomas-macedo.com/artigos/gestao-de-estoque-ecommerce.html"},
+    "headline":"Gestão de estoque no e-commerce: como evitar ruptura e estoque parado",
+    "description":"Gestão de estoque no e-commerce é equilibrar ter o produto quando o cliente compra sem travar o caixa com estoque parado. Veja giro, curva ABC, ponto de reposição e previsão de demanda na prática.",
+    "image":"https://www.thomas-macedo.com/img/thomas-macedo-conteudo-escala.jpeg",
+    "datePublished":"2026-10-19","dateModified":"2026-10-19",
+    "inLanguage":"pt-BR",
+    "author":{"@type":"Person","name":"Thomas Macedo","url":"https://www.thomas-macedo.com/","jobTitle":"Especialista em IA, Criação de Marcas e Tráfego Pago","worksFor":{"@type":"Organization","name":"Gene Company"},"sameAs":["https://www.instagram.com/thomasmacedo.ads","https://www.linkedin.com/in/thomas-macedo-23896216a/"]},
+    "publisher":{"@id":"https://www.thomas-macedo.com/#thomas-macedo"},
+    "keywords":"gestão de estoque e-commerce, ruptura de estoque, estoque parado, giro de estoque, curva ABC, previsão de demanda e-commerce, Thomas Macedo"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.thomas-macedo.com/"},
+      {"@type":"ListItem","position":2,"name":"Artigos","item":"https://www.thomas-macedo.com/artigos/"},
+      {"@type":"ListItem","position":3,"name":"Gestão de estoque no e-commerce","item":"https://www.thomas-macedo.com/artigos/gestao-de-estoque-ecommerce.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[{"@type":"Question","name":"O que é gestão de estoque no e-commerce?","acceptedAnswer":{"@type":"Answer","text":"É o controle de quanto de cada produto você tem, compra e vende ao longo do tempo, para equilibrar dois riscos opostos: a ruptura (ficar sem o produto quando o cliente quer comprar) e o estoque parado (dinheiro preso em mercadoria que não gira). Boa gestão garante que o produto esteja disponível na hora da venda sem travar o caixa da operação."}},{"@type":"Question","name":"O que é curva ABC de estoque?","acceptedAnswer":{"@type":"Answer","text":"É a classificação dos produtos por importância no faturamento. A classe A reúne a minoria de itens que gera a maior parte da receita; a B é intermediária; a C é a maioria de itens que gera pouca receita. Serve para focar o controle, a compra e a atenção nos produtos A, que não podem faltar, e enxugar o investimento nos C."}},{"@type":"Question","name":"Como calcular o giro de estoque?","acceptedAnswer":{"@type":"Answer","text":"Giro de estoque é quantas vezes o estoque se renova num período. Uma forma simples: divida as unidades vendidas no período pelo estoque médio do mesmo período. Giro alto significa produto que vende rápido e prende pouco caixa; giro baixo indica item que está parado e consumindo capital."}},{"@type":"Question","name":"O que é ponto de reposição de estoque?","acceptedAnswer":{"@type":"Answer","text":"É o nível de estoque em que você precisa fazer um novo pedido ao fornecedor para não ficar sem produto antes de a mercadoria nova chegar. Ele considera a venda média por dia multiplicada pelo prazo de reposição do fornecedor, somada a um estoque de segurança para cobrir atrasos e picos de demanda."}},{"@type":"Question","name":"Como evitar ruptura de estoque na Black Friday?","acceptedAnswer":{"@type":"Answer","text":"Projete a demanda com base no histórico e na verba de tráfego planejada, antecipe a compra dos produtos classe A com folga no estoque de segurança, alinhe prazos com o fornecedor antes do pico e monitore o estoque em tempo real para pausar anúncios de itens que estão acabando antes de gastar verba numa venda que você não consegue entregar."}}]
+  }
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXSF2K6K"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="../index.html" class="wordmark">Thomas <span>Macedo</span></a>
+        <div class="nav-links">
+          <a href="../index.html" class="hide-mob">TikTok &amp; Performance</a>
+          <a href="../marcas.html" class="hide-mob">Marcas &amp; E-commerce</a>
+          <a href="../artigos/" class="active hide-mob">Artigos</a>
+          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="nav-cta" target="_blank" rel="noopener">Falar comigo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap"><nav class="crumb"><a href="../index.html">Início</a><span>/</span><a href="../artigos/">Artigos</a><span>/</span>Gestão de estoque no e-commerce</nav></div>
+
+  <article>
+    <header class="article-head">
+      <span class="eyebrow">E-commerce</span>
+      <h1>Gestão de estoque no e-commerce: como evitar ruptura e estoque parado</h1>
+      <p class="dek">O tráfego trouxe o cliente, o criativo converteu, e aí o produto estava esgotado — ou pior: você tem o galpão cheio de item que não vende. Estoque é onde o e-commerce ganha ou perde margem no silêncio.</p>
+      <div class="article-meta">
+        <span>Por Thomas Macedo</span><span class="dot"></span><span>9 min de leitura</span><span class="dot"></span><span>Atualizado em 2026</span>
+      </div>
+    </header>
+
+    <div class="article-cover">
+      <img src="../img/thomas-macedo-conteudo-escala.jpeg" alt="Gestão de estoque no e-commerce: equilíbrio entre ruptura e estoque parado" width="1000" height="500" style="object-position:center 40%" />
+    </div>
+
+    <div class="prose">
+      <p><strong>Gestão de estoque no e-commerce é equilibrar dois riscos opostos: a ruptura — ficar sem o produto na hora em que o cliente quer comprar — e o estoque parado — dinheiro preso em mercadoria que não gira.</strong> Ruptura queima a venda que o seu tráfego já pagou. Estoque parado trava o caixa que financiaria a próxima campanha. Boa gestão é ter o produto certo, na quantidade certa, no momento da venda, sem afundar capital. Na prática, isso se faz com três ferramentas simples: curva ABC, giro de estoque e ponto de reposição.</p>
+
+      <p>Eu opero e-commerce e escalo tráfego para marcas próprias há anos. Já vi loja boa derreter margem não por causa do anúncio, mas porque o estoque estava mal gerido. Vou te mostrar como não cair nisso.</p>
+
+      <div class="callout">
+        <span class="k">Resumo rápido</span>
+        <ul>
+          <li><strong>Ruptura</strong> é venda perdida que o tráfego já pagou — o pior desperdício da operação.</li>
+          <li><strong>Estoque parado</strong> é caixa preso: dinheiro que não vira nova venda nem nova campanha.</li>
+          <li><strong>Curva ABC</strong> diz onde focar: os poucos produtos que fazem a maior parte da receita.</li>
+          <li><strong>Ponto de reposição</strong> + estoque de segurança evitam que você compre tarde demais.</li>
+        </ul>
+      </div>
+
+      <h2>Por que estoque é problema de marketing, não só de logística</h2>
+      <p>Muita gente trata estoque como assunto do financeiro ou do galpão. Erro. No e-commerce, estoque e tráfego são o mesmo problema. Você gasta para levar a pessoa até a página de produto; se o item estiver esgotado, você pagou pelo clique e entregou um "produto indisponível". É dinheiro no ralo — e ainda ensina o algoritmo da Meta que aquele público não converte.</p>
+      <p>Do outro lado, estoque parado é igualmente caro, só que de forma invisível. Cada real preso em produto que não gira é um real que não está rodando no anúncio que funciona. Por isso eu digo: antes de escalar verba, olhe o estoque. Não adianta construir um <a href="./roi-escalavel-trafego-pago.html">ROI escalável em tráfego pago</a> se a operação não consegue entregar o volume que o anúncio promete.</p>
+
+      <h2>Curva ABC: onde você deve focar a sua atenção</h2>
+      <p>A curva ABC aplica o princípio de Pareto ao seu catálogo: uma minoria de produtos gera a maioria da receita. Você classifica os itens em três grupos:</p>
+      <ul>
+        <li><strong>Classe A:</strong> os poucos produtos que concentram a maior fatia do faturamento. Esses <em>nunca</em> podem faltar. Controle apertado, reposição antecipada, estoque de segurança maior.</li>
+        <li><strong>Classe B:</strong> itens intermediários. Importam, mas não travam a operação se faltarem por um dia.</li>
+        <li><strong>Classe C:</strong> a maioria dos SKUs, que juntos geram pouca receita. Aqui você enxuga: compra menos, aceita ruptura eventual, ou até corta do catálogo.</li>
+      </ul>
+      <p>O erro clássico é dar a mesma atenção a todos os produtos. Você acaba com o galpão cheio de item C e falta do produto A — que é justamente o que o seu <a href="./teste-de-criativos-meta-ads-ecommerce.html">criativo vencedor</a> está vendendo. Classifique o catálogo e direcione compra, verba e atenção para onde está o dinheiro.</p>
+
+      <h2>Giro de estoque: o produto está vendendo ou dormindo?</h2>
+      <p>Giro de estoque mede quantas vezes o seu estoque se renova num período. De forma simples: unidades vendidas no período divididas pelo estoque médio desse período. Giro alto é produto que vende rápido e prende pouco capital. Giro baixo é dinheiro dormindo na prateleira.</p>
+      <p>Acompanhar o giro por SKU muda a sua tomada de decisão. Produto de giro alto você repõe com folga e nunca deixa faltar. Produto de giro baixo você questiona: vale manter em estoque? Dá para vender em kit, em promoção de queima, ou melhor parar de comprar? Estoque parado não aparece no DRE como prejuízo — ele aparece como "ativo". Mas é o ativo mais perigoso que existe, porque consome caixa e muitas vezes perde valor com o tempo.</p>
+
+      <blockquote><p>A pergunta não é "quanto estoque eu tenho". É "quanto do meu caixa está preso em produto que não gira". Esse número assusta mais do que qualquer CPM.</p></blockquote>
+
+      <h2>Ponto de reposição: o número que impede a ruptura</h2>
+      <p>O ponto de reposição é o nível de estoque em que você <em>precisa</em> fazer um novo pedido ao fornecedor para não ficar sem produto antes de a mercadoria nova chegar. A lógica é direta:</p>
+      <ol>
+        <li><strong>Venda média por dia</strong> daquele produto (olhe o histórico real, não o chute).</li>
+        <li><strong>Prazo de reposição</strong> do fornecedor — quantos dias entre o pedido e a chegada na sua operação.</li>
+        <li><strong>Estoque de segurança</strong> — uma folga para cobrir atraso do fornecedor ou pico inesperado de venda.</li>
+      </ol>
+      <p>Multiplique a venda diária pelo prazo de reposição e some o estoque de segurança. Quando o estoque atinge esse nível, você compra — sem esperar zerar. O erro mais caro do e-commerce brasileiro é comprar "quando acabou": aí o produto A fica indisponível justamente nos dias em que o fornecedor está em prazo de entrega, e você perde venda no auge da demanda. Tudo isso se conecta à <a href="./logistica-de-ecommerce-no-brasil.html">logística de e-commerce no Brasil</a>, onde prazo de fornecedor e prazo de entrega ao cliente definem a experiência.</p>
+
+      <h2>Previsão de demanda: estoque é aposta, mas aposta com dados</h2>
+      <p>Previsão de demanda é projetar quanto você vai vender para comprar na medida certa. Não existe bola de cristal, mas existe histórico. Comece pelo básico: o que você vendeu nos últimos meses, por SKU, considerando a sazonalidade. Depois some a variável que a maioria esquece: <strong>a verba de tráfego planejada</strong>.</p>
+      <p>Essa é a diferença de quem opera e-commerce de verdade. Se você vai dobrar a verba no mês que vem, a sua demanda vai subir — e o estoque precisa acompanhar. Planejar compra olhando só o histórico de vendas, sem olhar o plano de mídia, é receita para ruptura no exato momento em que o anúncio começa a escalar. Estoque e <a href="./quanto-investir-em-trafego-pago-ecommerce.html">investimento em tráfego pago</a> precisam ser planejados na mesma mesa.</p>
+
+      <h2>Black Friday e picos: onde a ruptura dói mais</h2>
+      <p>Em pico de venda, a gestão de estoque deixa de ser rotina e vira risco de operação inteira. Na Black Friday, cada hora de ruptura de um produto A é venda perdida com a verba já rodando. O caminho é projetar a demanda com folga, antecipar a compra dos itens classe A, alinhar prazo com o fornecedor <em>antes</em> do pico e monitorar o estoque em tempo real para pausar anúncios de itens que estão acabando — em vez de gastar verba numa venda que você não vai conseguir entregar. Montei o passo a passo completo em <a href="./preparar-ecommerce-para-black-friday.html">como preparar o e-commerce para a Black Friday</a>.</p>
+
+      <h2>O que a IA já resolve na operação de estoque</h2>
+      <p>A parte repetitiva da gestão de estoque é exatamente o tipo de trabalho que a automação com IA assume bem: cruzar venda diária com prazo de fornecedor, calcular ponto de reposição por SKU, sinalizar quando um item classe A entra em zona de risco e avisar antes de a ruptura acontecer. Não é mágica — é tirar do humano a planilha que ele esquece de atualizar e deixar a decisão de compra baseada em dado atualizado. É a mesma lógica que eu aplico em <a href="./automacao-de-processos-com-ia.html">automação de processos com IA</a>: o sistema monitora, alerta e organiza; a pessoa decide o que importa.</p>
+
+      <h2>Como estruturar isso na sua operação</h2>
+      <ol>
+        <li><strong>Classifique o catálogo em ABC:</strong> saiba quais SKUs fazem a sua receita.</li>
+        <li><strong>Calcule o giro por produto:</strong> encontre o caixa preso em item que dorme.</li>
+        <li><strong>Defina ponto de reposição e estoque de segurança</strong> para cada produto A.</li>
+        <li><strong>Projete demanda com o plano de tráfego junto</strong>, não só com o histórico.</li>
+        <li><strong>Monitore em tempo real</strong> e conecte estoque, anúncio e caixa na mesma decisão.</li>
+      </ol>
+      <p>É assim que eu trato estoque numa operação de marca própria: como um pilar da escala, no mesmo nível do criativo e da verba. Quer entender como marca, operação e tráfego se juntam para escalar um e-commerce no Brasil? Veja a página de <a href="../marcas.html">Marcas &amp; E-commerce</a>.</p>
+
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details open><summary>O que é gestão de estoque no e-commerce?</summary><p>É o controle de quanto de cada produto você tem, compra e vende ao longo do tempo, para equilibrar dois riscos opostos: a ruptura (ficar sem o produto quando o cliente quer comprar) e o estoque parado (dinheiro preso em mercadoria que não gira). Boa gestão garante que o produto esteja disponível na hora da venda sem travar o caixa da operação.</p></details>
+        <details><summary>O que é curva ABC de estoque?</summary><p>É a classificação dos produtos por importância no faturamento. A classe A reúne a minoria de itens que gera a maior parte da receita; a B é intermediária; a C é a maioria de itens que gera pouca receita. Serve para focar o controle, a compra e a atenção nos produtos A, que não podem faltar, e enxugar o investimento nos C.</p></details>
+        <details><summary>Como calcular o giro de estoque?</summary><p>Giro de estoque é quantas vezes o estoque se renova num período. Uma forma simples: divida as unidades vendidas no período pelo estoque médio do mesmo período. Giro alto significa produto que vende rápido e prende pouco caixa; giro baixo indica item que está parado e consumindo capital.</p></details>
+        <details><summary>O que é ponto de reposição de estoque?</summary><p>É o nível de estoque em que você precisa fazer um novo pedido ao fornecedor para não ficar sem produto antes de a mercadoria nova chegar. Ele considera a venda média por dia multiplicada pelo prazo de reposição do fornecedor, somada a um estoque de segurança para cobrir atrasos e picos de demanda.</p></details>
+        <details><summary>Como evitar ruptura de estoque na Black Friday?</summary><p>Projete a demanda com base no histórico e na verba de tráfego planejada, antecipe a compra dos produtos classe A com folga no estoque de segurança, alinhe prazos com o fornecedor antes do pico e monitore o estoque em tempo real para pausar anúncios de itens que estão acabando antes de gastar verba numa venda que você não consegue entregar.</p></details>
+      </div>
+    </div>
+
+    <aside class="svc-hub">
+      <span class="svc-k">Serviço</span>
+      <b>Marcas &amp; E-commerce com ROI escalável</b>
+      <p>Da operação ao tráfego: estrutura de estoque, criativo e mídia para escalar sem furar a margem.</p>
+      <a href="../marcas.html">Ver como funciona <span class="arrow">→</span></a>
+    </aside>
+
+    <div class="author-box">
+      <img src="../img/thomas-macedo-palestra.jpeg" alt="Thomas Macedo" />
+      <div>
+        <div class="a-name"><a href="../sobre.html" style="color:inherit;border-bottom:1px solid var(--line-strong)">Thomas Macedo</a></div>
+        <p class="a-bio">Fundador da Gene Company e diretor da LINCE Performance. Especialista em sistemas e agentes de IA, criação de marcas e tráfego pago com ROI escalável para e-commerce. Santos/BR, atende Brasil e exterior. <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" target="_blank" rel="noopener">Fale comigo no WhatsApp →</a></p>
+      </div>
+    </div>
+  </article>
+
+  <section class="related">
+    <div class="wrap-narrow" style="padding:0">
+      <p class="eyebrow eyebrow-ink" style="display:block;margin-bottom:8px">Continue lendo</p>
+      <div class="related-grid">
+        <a href="../artigos/logistica-de-ecommerce-no-brasil.html"><span class="r-cat">E-commerce</span><h3>Logística de e-commerce no Brasil: frete, prazo e estoque que seguram a venda</h3></a>
+        <a href="../artigos/preparar-ecommerce-para-black-friday.html"><span class="r-cat">E-commerce</span><h3>Black Friday para e-commerce: como preparar a operação para o pico</h3></a>
+        <a href="../artigos/roas-cac-ltv-margem-de-contribuicao.html"><span class="r-cat">E-commerce</span><h3>ROAS, CAC, LTV e margem de contribuição: as 4 métricas do e-commerce</h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2 class="display mt-m" style="font-size:clamp(2.2rem,5vw,4rem)">Quero escalar<br>meu e-commerce.</h2>
+      <p class="lead mt-m" style="color:rgba(244,241,234,.8);max-width:48ch">Conte sobre o seu negócio e receba um diagnóstico do seu tráfego, criativos, marca e operação.</p>
+      <div class="contact-row">
+        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" class="btn" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
+        <a href="https://www.instagram.com/thomasmacedo.ads" class="link-underline" target="_blank" rel="noopener" style="color:var(--paper)">Instagram @thomasmacedo.ads</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <span>© 2026 Thomas Macedo — IA, criação de marcas e tráfego pago. Santos, Baixada Santista, Brasil &amp; exterior.</span>
+        <div class="foot-links">
+          <a href="../index.html">TikTok &amp; Performance</a>
+          <a href="../marcas.html">Marcas &amp; E-commerce</a>
+          <a href="../artigos/">Artigos</a>
+          <a href="../tiktok-shop.html">TikTok Shop</a>
+          <a href="../trafego-pago.html">Tráfego pago</a>
+          <a href="../agentes-de-ia.html">Agentes de IA</a>
+          <a href="../sobre.html">Sobre</a>
+          <a href="https://www.instagram.com/thomasmacedo.ads" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/thomas-macedo-23896216a/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/102946615/" target="_blank" rel="noopener">LINCE Performance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
+</body>
+</html>

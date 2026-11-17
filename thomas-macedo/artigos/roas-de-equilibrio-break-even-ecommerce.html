@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TXSF2K6K');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <script>try{var q=new URLSearchParams(location.search).get("paleta");if(q)localStorage.setItem("paleta",q);if((q||localStorage.getItem("paleta"))==="classica")document.documentElement.classList.add("pal-classica");if(localStorage.getItem("tema")==="escuro")document.documentElement.setAttribute("data-theme","dark");var fq=new URLSearchParams(location.search).get("fonte");if(fq)localStorage.setItem("fonte",fq);var ff=fq||localStorage.getItem("fonte");var FF={tiktok:"Hanken+Grotesk:wght@800",jakarta:"Plus+Jakarta+Sans:wght@800",inter:"Inter+Tight:wght@800"};if(FF[ff]){document.documentElement.setAttribute("data-fonte",ff);var l=document.createElement("link");l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family="+FF[ff]+"&display=swap";document.head.appendChild(l)}}catch(e){}</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>ROAS de equilíbrio: como calcular o ROAS mínimo da sua loja Shopify | Thomas Macedo</title>
+  <meta name="description" content="ROAS de equilíbrio é o retorno mínimo sobre anúncio em que a loja não perde nem ganha dinheiro: 1 dividido pela margem de contribuição. Veja a fórmula, um exemplo e os erros que distorcem o cálculo." />
+  <meta name="keywords" content="ROAS de equilíbrio, ROAS break-even, ROAS mínimo e-commerce, como calcular ROAS de equilíbrio, margem de contribuição, tráfego pago Shopify, Thomas Macedo" />
+  <meta name="author" content="Thomas Macedo" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://www.thomas-macedo.com/artigos/roas-de-equilibrio-break-even-ecommerce.html" />
+  <meta name="theme-color" content="#FAF8F3" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Thomas Macedo" />
+  <meta property="og:title" content="ROAS de equilíbrio: como calcular o ROAS mínimo da sua loja Shopify" />
+  <meta property="og:description" content="A fórmula do ROAS break-even, um exemplo com números e os erros que fazem a loja achar que lucra quando está perdendo." />
+  <meta property="og:url" content="https://www.thomas-macedo.com/artigos/roas-de-equilibrio-break-even-ecommerce.html" />
+  <meta property="og:image" content="https://www.thomas-macedo.com/img/thomas-macedo-conteudo-escala.jpeg" />
+  <meta property="article:author" content="Thomas Macedo" />
+  <meta property="article:published_time" content="2026-11-17" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ROAS de equilíbrio: como calcular o ROAS mínimo da sua loja Shopify" />
+  <meta name="twitter:description" content="A fórmula do ROAS break-even, um exemplo com números e os erros que fazem a loja achar que lucra quando está perdendo." />
+  <meta name="twitter:image" content="https://www.thomas-macedo.com/img/thomas-macedo-conteudo-escala.jpeg" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BlogPosting",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.thomas-macedo.com/artigos/roas-de-equilibrio-break-even-ecommerce.html"},
+    "headline":"ROAS de equilíbrio: como calcular o ROAS mínimo da sua loja Shopify",
+    "description":"ROAS de equilíbrio é o retorno mínimo sobre anúncio em que a loja não perde nem ganha dinheiro: 1 dividido pela margem de contribuição. Veja a fórmula, um exemplo e os erros que distorcem o cálculo.",
+    "image":"https://www.thomas-macedo.com/img/thomas-macedo-conteudo-escala.jpeg",
+    "datePublished":"2026-11-17","dateModified":"2026-11-17",
+    "inLanguage":"pt-BR",
+    "author":{"@type":"Person","@id":"https://www.thomas-macedo.com/#thomas-macedo","name":"Thomas Macedo","url":"https://www.thomas-macedo.com/","jobTitle":"Especialista em IA, Criação de Marcas e Tráfego Pago","worksFor":{"@type":"Organization","name":"Gene Company"},"sameAs":["https://www.instagram.com/thomasmacedo.ads","https://www.linkedin.com/in/thomas-macedo-23896216a/"]},
+    "publisher":{"@id":"https://www.thomas-macedo.com/#thomas-macedo"},
+    "keywords":"ROAS de equilíbrio, ROAS break-even, ROAS mínimo e-commerce, como calcular ROAS de equilíbrio, margem de contribuição, tráfego pago Shopify, Thomas Macedo"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.thomas-macedo.com/"},
+      {"@type":"ListItem","position":2,"name":"Artigos","item":"https://www.thomas-macedo.com/artigos/"},
+      {"@type":"ListItem","position":3,"name":"ROAS de equilíbrio no e-commerce","item":"https://www.thomas-macedo.com/artigos/roas-de-equilibrio-break-even-ecommerce.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[{"@type":"Question","name":"O que é ROAS de equilíbrio (break-even)?","acceptedAnswer":{"@type":"Answer","text":"É o ROAS mínimo em que a venda gerada pelo anúncio cobre todos os custos variáveis do pedido e o próprio gasto com anúncio, deixando o lucro em zero. Abaixo dele a loja perde dinheiro em cada venda; acima, passa a lucrar. Calcula-se dividindo 1 pela margem de contribuição em percentual."}},{"@type":"Question","name":"Como calcular o ROAS de equilíbrio?","acceptedAnswer":{"@type":"Answer","text":"Some os custos variáveis do pedido (produto, impostos, taxa de pagamento, frete, embalagem), subtraia do preço de venda e divida o resultado pelo preço para achar a margem de contribuição. O ROAS de equilíbrio é 1 dividido por essa margem. Com margem de 35%, por exemplo, o ROAS de equilíbrio é cerca de 2,86."}},{"@type":"Question","name":"Qual é um bom ROAS para e-commerce?","acceptedAnswer":{"@type":"Answer","text":"Não existe número universal. Um bom ROAS é o que fica acima do ROAS de equilíbrio da sua loja com folga para o lucro que você quer. Uma loja com margem alta lucra com ROAS baixo; uma com margem apertada precisa de ROAS bem maior para o mesmo resultado."}},{"@type":"Question","name":"Posso aceitar ROAS abaixo do equilíbrio?","acceptedAnswer":{"@type":"Answer","text":"Só de forma planejada: quando o LTV (valor do cliente ao longo do tempo) e a taxa de recompra comprovada compensam o prejuízo na primeira compra, e o caixa aguenta esperar o retorno. Sem dado de recompra, operar abaixo do equilíbrio é apenas perder dinheiro."}},{"@type":"Question","name":"O ROAS do Meta Ads serve para calcular o equilíbrio?","acceptedAnswer":{"@type":"Answer","text":"O ROAS do Gerenciador é um dado de atribuição e pode divergir das vendas reais da Shopify. Use-o para otimizar campanhas, mas confirme o resultado cruzando gasto total em anúncios com a receita real do painel da loja."}}]
+  }
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXSF2K6K"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="../index.html" class="wordmark">Thomas <span>Macedo</span></a>
+        <div class="nav-links">
+          <a href="../index.html" class="hide-mob">TikTok &amp; Performance</a>
+          <a href="../marcas.html" class="hide-mob">Marcas &amp; E-commerce</a>
+          <a href="../artigos/" class="active hide-mob">Artigos</a>
+          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="nav-cta" target="_blank" rel="noopener">Falar comigo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap"><nav class="crumb"><a href="../index.html">Início</a><span>/</span><a href="../artigos/">Artigos</a><span>/</span>ROAS de equilíbrio no e-commerce</nav></div>
+
+  <article>
+    <header class="article-head">
+      <span class="eyebrow">E-commerce</span>
+      <h1>ROAS de equilíbrio: como calcular o ROAS mínimo da sua loja Shopify antes de investir em anúncio</h1>
+      <p class="dek">Muita loja comemora um ROAS de 3 sem saber se 3 paga a conta. Aqui eu mostro a fórmula do ROAS de equilíbrio, um exemplo com números e os erros que fazem a loja achar que lucra quando está perdendo.</p>
+      <div class="article-meta">
+        <span>Por Thomas Macedo</span><span class="dot"></span><span>8 min de leitura</span><span class="dot"></span><span>Atualizado em 2026</span>
+      </div>
+    </header>
+
+    <div class="article-cover">
+      <img src="../img/thomas-macedo-conteudo-escala.jpeg" alt="Thomas Macedo explicando métricas de tráfego pago e escala de e-commerce" width="1000" height="500" style="object-position:center 40%" />
+    </div>
+
+    <div class="prose">
+      <p><strong>ROAS de equilíbrio (ou break-even) é o retorno mínimo sobre o gasto em anúncio em que a loja não ganha nem perde dinheiro. Ele é calculado dividindo 1 pela margem de contribuição do produto.</strong> Se a margem de contribuição é 35%, o ROAS de equilíbrio é cerca de 2,86: abaixo disso, cada venda feita pelo anúncio dá prejuízo; acima, começa o lucro.</p>
+
+      <p>Eu vejo isso toda semana em lojas Shopify: o gestor otimiza para “ROAS 4” ou “ROAS 5” sem que ninguém tenha feito a conta de qual número a operação realmente precisa. Vamos fazer essa conta agora.</p>
+
+      <div class="callout">
+        <span class="k">Resumo rápido</span>
+        <ul>
+          <li><strong>ROAS de equilíbrio = 1 ÷ margem de contribuição</strong> (em decimal).</li>
+          <li>Margem de contribuição é o que sobra do preço depois dos <strong>custos variáveis</strong> do pedido, antes do anúncio.</li>
+          <li>Não existe “ROAS bom” universal: existe o <strong>ROAS acima do seu equilíbrio</strong>.</li>
+          <li>Para ter lucro-alvo, use <strong>1 ÷ (margem − lucro desejado)</strong>.</li>
+        </ul>
+      </div>
+
+      <h2>O que é ROAS e por que o número sozinho não diz nada?</h2>
+      <p>ROAS (return on ad spend) é a receita gerada dividida pelo gasto em anúncio. Gastou R$ 1.000 e vendeu R$ 3.000: ROAS 3. O problema é que receita não é dinheiro no bolso. Do valor vendido saem o custo do produto, imposto, taxa do meio de pagamento, frete e embalagem. O que sobra é a margem de contribuição, e é dela que o anúncio precisa ser pago.</p>
+      <p>Por isso o mesmo ROAS 3 pode ser lucro numa loja de margem alta e prejuízo numa de margem apertada. Se você quer revisar a base dessas métricas, veja <a href="./roas-cac-ltv-margem-de-contribuicao.html">ROAS, CAC, LTV e margem de contribuição: as 4 métricas do e-commerce</a>.</p>
+
+      <h2>Como calcular o ROAS de equilíbrio passo a passo</h2>
+      <ol>
+        <li><strong>Defina o preço médio de venda</strong> do pedido (use o ticket médio real da Shopify).</li>
+        <li><strong>Liste os custos variáveis por pedido:</strong> custo do produto (CMV), impostos, taxa do gateway/meio de pagamento, frete pago pela loja, embalagem e comissões.</li>
+        <li><strong>Subtraia do preço</strong> e divida pelo preço: esse é o percentual de margem de contribuição.</li>
+        <li><strong>Divida 1 por essa margem.</strong> Esse é o ROAS de equilíbrio.</li>
+      </ol>
+
+      <h3>Exemplo com números (ilustrativo)</h3>
+      <p>Imagine um produto vendido a R$ 200:</p>
+      <ul>
+        <li>Custo do produto: R$ 70</li>
+        <li>Impostos e taxa de pagamento: R$ 40 (20% do preço)</li>
+        <li>Frete e embalagem pagos pela loja: R$ 20</li>
+      </ul>
+      <p>Sobram R$ 70 de margem de contribuição, ou 35% do preço. O ROAS de equilíbrio é 1 ÷ 0,35 = <strong>2,86</strong>. Com ROAS 2,86 o anúncio se paga e o lucro é zero. Com ROAS 2, a loja perde R$ 0,15 a cada R$ 1 investido no anúncio.</p>
+
+      <blockquote><p>ROAS bonito no painel não paga boleto. O que paga é o ROAS acima do equilíbrio da sua margem.</p></blockquote>
+
+      <h2>Como calcular o ROAS necessário para ter lucro?</h2>
+      <p>O equilíbrio é o piso. Para definir a meta de campanha, inclua o lucro que você quer sobre a receita: <strong>ROAS-alvo = 1 ÷ (margem de contribuição − lucro desejado)</strong>.</p>
+      <p>No exemplo acima, com margem de 35% e lucro desejado de 10% da receita, o ROAS-alvo é 1 ÷ 0,25 = <strong>4,0</strong>. Repare como o número sobe rápido: um lucro de 10 pontos percentuais exige bem mais do que o equilíbrio. É esse ROAS-alvo que deve estar na regra de escala da conta, como no método de <a href="./como-escalar-verba-de-anuncio-ecommerce.html">escalar verba por degraus</a>.</p>
+
+      <h2>Por que o ROAS de equilíbrio muda de produto para produto?</h2>
+      <p>Porque cada SKU tem custo e preço diferentes. Um kit com margem de 50% tem ROAS de equilíbrio 2,0; um produto de entrada com margem de 25% tem equilíbrio 4,0. Se a campanha mistura os dois e você olha só o ROAS geral, pode estar subsidiando o produto ruim com o bom sem perceber.</p>
+      <p>Duas ações práticas:</p>
+      <ul>
+        <li>Calcule o equilíbrio dos <strong>5 a 10 produtos que mais recebem verba</strong>, não só da média da loja.</li>
+        <li>Direcione verba e criativo para quem tem folga de margem. Aumentar o ticket com kits e upsell também sobe a margem por pedido — veja <a href="./como-aumentar-ticket-medio-ecommerce.html">como aumentar o ticket médio do e-commerce</a>.</li>
+      </ul>
+
+      <h2>Erros que distorcem o ROAS de equilíbrio</h2>
+      <ul>
+        <li><strong>Esquecer o frete grátis.</strong> Se a loja banca o frete, ele entra como custo variável. Ver <a href="./frete-gratis-no-ecommerce.html">frete grátis no e-commerce</a>.</li>
+        <li><strong>Ignorar devolução e troca.</strong> Pedido devolvido some da receita, mas o gasto em anúncio ficou. Veja <a href="./devolucao-e-logistica-reversa-no-ecommerce.html">devolução e logística reversa</a>.</li>
+        <li><strong>Não descontar a taxa de aprovação.</strong> Pedido recusado no checkout ou Pix não pago não vira receita — leia sobre <a href="./meios-de-pagamento-e-taxa-de-aprovacao-ecommerce.html">taxa de aprovação</a>.</li>
+        <li><strong>Usar o ROAS do Gerenciador como verdade.</strong> Ele é um dado de atribuição e pode divergir da Shopify. Entenda em <a href="./roas-meta-nao-bate-com-vendas-shopify.html">por que o ROAS do Gerenciador não bate com as vendas da Shopify</a>.</li>
+        <li><strong>Esquecer custos fixos do anúncio.</strong> Gestor, ferramentas e produção de criativo não entram na margem de contribuição, mas entram na conta final do negócio.</li>
+      </ul>
+
+      <h2>Quando vale operar abaixo do ROAS de equilíbrio?</h2>
+      <p>Só quando existe um motivo mensurável: o cliente recompra e o LTV paga o prejuízo da primeira compra. Nesse caso, a conta correta passa a ser LTV sobre CAC, e não ROAS de primeira compra. As condições mínimas:</p>
+      <ul>
+        <li>Taxa de recompra <strong>comprovada nos seus dados</strong>, não estimada.</li>
+        <li>Caixa para esperar o retorno sem estrangular o estoque.</li>
+        <li>Uma operação de retenção funcionando (e-mail, WhatsApp, pós-venda).</li>
+      </ul>
+      <p>Sem isso, abaixo do equilíbrio é só prejuízo com nome bonito. Quando a recompra existe, ela transforma o jogo — é a lógica da <a href="./maquina-de-roi-shopify.html">máquina de ROI no Shopify</a>.</p>
+
+      <h2>Como usar o ROAS de equilíbrio na rotina da conta</h2>
+      <ol>
+        <li><strong>Escreva o número</strong> (equilíbrio e ROAS-alvo) no topo do relatório da conta.</li>
+        <li><strong>Pause</strong> conjuntos e criativos que ficam abaixo do equilíbrio depois de volume suficiente de dados para decidir.</li>
+        <li><strong>Escale</strong> só o que está acima do ROAS-alvo, aos poucos.</li>
+        <li><strong>Reavalie o cálculo</strong> a cada mudança de preço, frete, imposto ou custo do fornecedor.</li>
+        <li><strong>Feche o mês</strong> cruzando gasto total em anúncios com a receita real da Shopify, não só com o painel de anúncios.</li>
+      </ol>
+      <p>Essa disciplina é o que separa ROI escalável de sorte. Faz parte do que eu aplico nas contas que gerencio — o estudo completo está em <a href="./roi-escalavel-trafego-pago.html">o que é ROI escalável em tráfego pago</a>. E se você ainda está definindo a verba, veja <a href="./quanto-investir-em-trafego-pago-ecommerce.html">quanto investir em tráfego pago para e-commerce</a>.</p>
+
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details open><summary>O que é ROAS de equilíbrio (break-even)?</summary><p>É o ROAS mínimo em que a venda gerada pelo anúncio cobre todos os custos variáveis do pedido e o próprio gasto com anúncio, deixando o lucro em zero. Abaixo dele a loja perde dinheiro em cada venda; acima, passa a lucrar. Calcula-se dividindo 1 pela margem de contribuição em percentual.</p></details>
+        <details><summary>Como calcular o ROAS de equilíbrio?</summary><p>Some os custos variáveis do pedido (produto, impostos, taxa de pagamento, frete, embalagem), subtraia do preço de venda e divida o resultado pelo preço para achar a margem de contribuição. O ROAS de equilíbrio é 1 dividido por essa margem. Com margem de 35%, por exemplo, o ROAS de equilíbrio é cerca de 2,86.</p></details>
+        <details><summary>Qual é um bom ROAS para e-commerce?</summary><p>Não existe número universal. Um bom ROAS é o que fica acima do ROAS de equilíbrio da sua loja com folga para o lucro que você quer. Uma loja com margem alta lucra com ROAS baixo; uma com margem apertada precisa de ROAS bem maior para o mesmo resultado.</p></details>
+        <details><summary>Posso aceitar ROAS abaixo do equilíbrio?</summary><p>Só de forma planejada: quando o LTV (valor do cliente ao longo do tempo) e a taxa de recompra comprovada compensam o prejuízo na primeira compra, e o caixa aguenta esperar o retorno. Sem dado de recompra, operar abaixo do equilíbrio é apenas perder dinheiro.</p></details>
+        <details><summary>O ROAS do Meta Ads serve para calcular o equilíbrio?</summary><p>O ROAS do Gerenciador é um dado de atribuição e pode divergir das vendas reais da Shopify. Use-o para otimizar campanhas, mas confirme o resultado cruzando gasto total em anúncios com a receita real do painel da loja.</p></details>
+      </div>
+
+      <p>Quer que eu calcule o ROAS de equilíbrio da sua loja e monte a meta de escala em cima da sua margem real? Volte ao <a href="../marcas.html">painel de Marcas &amp; E-commerce</a> ou fale comigo direto no WhatsApp.</p>
+    </div>
+
+    <aside class="svc-hub">
+      <span class="svc-k">Serviço</span>
+      <b>Tráfego pago com ROI escalável</b>
+      <p>Estrutura de campanha, criativo, rastreamento e escala de verba para lojas Shopify e e-commerces.</p>
+      <a href="../trafego-pago.html">Ver como funciona <span class="arrow">→</span></a>
+    </aside>
+
+    <div class="author-box">
+      <img src="../img/thomas-macedo-palestra.jpeg" alt="Thomas Macedo" />
+      <div>
+        <div class="a-name"><a href="../sobre.html" style="color:inherit;border-bottom:1px solid var(--line-strong)">Thomas Macedo</a></div>
+        <p class="a-bio">Fundador da Gene Company e diretor da LINCE Performance. Especialista em sistemas e agentes de IA, criação de marcas e tráfego pago com ROI escalável para empresas. Santos/BR, atende Brasil e exterior. <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" target="_blank" rel="noopener">Fale comigo no WhatsApp →</a></p>
+      </div>
+    </div>
+  </article>
+
+  <section class="related">
+    <div class="wrap-narrow" style="padding:0">
+      <p class="eyebrow eyebrow-ink" style="display:block;margin-bottom:8px">Continue lendo</p>
+      <div class="related-grid">
+        <a href="../artigos/roas-cac-ltv-margem-de-contribuicao.html"><span class="r-cat">E-commerce</span><h3>ROAS, CAC, LTV e margem de contribuição: as 4 métricas do e-commerce</h3></a>
+        <a href="../artigos/como-escalar-verba-de-anuncio-ecommerce.html"><span class="r-cat">E-commerce</span><h3>Como escalar verba de anúncio sem quebrar a operação: o método por degraus</h3></a>
+        <a href="../artigos/roas-meta-nao-bate-com-vendas-shopify.html"><span class="r-cat">E-commerce</span><h3>Por que o ROAS do Gerenciador não bate com as vendas da Shopify</h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2 class="display mt-m" style="font-size:clamp(2.2rem,5vw,4rem)">Quero vender mais<br>com lucro.</h2>
+      <p class="lead mt-m" style="color:rgba(244,241,234,.8);max-width:48ch">Conte sobre o seu negócio e receba um diagnóstico do seu tráfego, criativos, marca e atendimento com IA.</p>
+      <div class="contact-row">
+        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" class="btn" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
+        <a href="https://www.instagram.com/thomasmacedo.ads" class="link-underline" target="_blank" rel="noopener" style="color:var(--paper)">Instagram @thomasmacedo.ads</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <span>© 2026 Thomas Macedo — IA, criação de marcas e tráfego pago. Santos, Baixada Santista, Brasil &amp; exterior.</span>
+        <div class="foot-links">
+          <a href="../index.html">TikTok &amp; Performance</a>
+          <a href="../marcas.html">Marcas &amp; E-commerce</a>
+          <a href="../artigos/">Artigos</a>
+          <a href="../tiktok-shop.html">TikTok Shop</a>
+          <a href="../trafego-pago.html">Tráfego pago</a>
+          <a href="../agentes-de-ia.html">Agentes de IA</a>
+          <a href="../sobre.html">Sobre</a>
+          <a href="https://www.instagram.com/thomasmacedo.ads" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/thomas-macedo-23896216a/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/102946615/" target="_blank" rel="noopener">LINCE Performance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
+</body>
+</html>

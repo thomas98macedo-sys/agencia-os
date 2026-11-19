@@ -65,6 +65,7 @@
 - [Posicionamento de marca: como escolher o lugar que a sua marca ocupa na cabeça do cliente](https://www.thomas-macedo.com/artigos/posicionamento-de-marca.html): Posicionamento de marca é a escolha do lugar que a sua marca vai ocupar na memória do cliente. Veja o método, a frase de posicionamento pronta, os territórios possíveis e como testar antes de reformar a marca inteira.
 
 ## Artigos recentes
+- [Como calcular o ROI de um agente de IA: payback, custo evitado e receita incremental](https://www.thomas-macedo.com/artigos/como-calcular-roi-de-agente-de-ia.html): A conta do retorno de um agente de IA: custo total, ganho real, payback e os erros que fazem o ROI parecer maior do que é.
 - [Reativar clientes inativos com IA no WhatsApp: como acordar a base sem queimar o número](https://www.thomas-macedo.com/artigos/reativar-clientes-inativos-com-ia-whatsapp.html): Como um agente de IA reativa clientes que pararam de comprar: segmentação, mensagem, ritmo de envio e como evitar bloqueio no WhatsApp.
 - [ROAS de equilíbrio: como calcular o ROAS mínimo da sua loja Shopify](https://www.thomas-macedo.com/artigos/roas-de-equilibrio-break-even-ecommerce.html): O ROAS de equilíbrio é o número abaixo do qual o anúncio dá prejuízo. Veja a fórmula, um exemplo com números e os erros que distorcem o cálculo.
 - [Como validar um produto de marca própria antes de pagar o primeiro lote](https://www.thomas-macedo.com/artigos/validar-produto-marca-propria-antes-do-primeiro-lote.html): Pré-venda, lote-piloto e teste de demanda: como reduzir o risco de estoque parado antes de investir no primeiro lote da sua marca própria.
@@ -74,7 +75,6 @@
 - [Ferramentas para criar agentes de IA: no-code, low-code ou código](https://www.thomas-macedo.com/artigos/ferramentas-para-criar-agente-de-ia.html): n8n, Make, Dify, plataformas prontas ou código próprio? O guia para escolher com o que construir o agente de IA da sua empresa — sem travar depois.
 - [Fine-tuning, RAG ou prompt: como dar o conhecimento da sua empresa a um agente de IA](https://www.thomas-macedo.com/artigos/fine-tuning-rag-ou-prompt-para-agente-de-ia.html): As três formas de ensinar uma empresa a um agente de IA — prompt, RAG e fine-tuning. Qual escolher primeiro sem queimar dinheiro.
 - [Mensagem de recuperação de venda: exemplos prontos de WhatsApp que convertem](https://www.thomas-macedo.com/artigos/mensagem-de-recuperacao-de-venda-exemplos.html): Os textos exatos para recuperar carrinho, Pix e boleto não pago — a estrutura que funciona e os erros que fazem o cliente bloquear.
-- [CBO ou ABO no Meta Ads para e-commerce: qual estrutura de orçamento escala melhor](https://www.thomas-macedo.com/artigos/cbo-ou-abo-meta-ads-ecommerce.html): CBO deixa a Meta distribuir a verba; ABO trava o orçamento por conjunto. Veja quando usar cada um para testar e escalar sem derrubar o ROAS.
 
 ## Prova social
 - Marcas que passaram pelo processo de escala com Thomas Macedo: China Link Trading, China Link na Estrada, Lincoln Fracari, Tuyo Brasil, Apex Performance, LM Woodwork, Friga Store, Laser Rosa, Relive Med Clinic, Moby Dick Santos, Texas Firearms, entre centenas de outras operações.

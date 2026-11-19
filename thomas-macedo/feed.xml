@@ -5,8 +5,16 @@
 <link>https://www.thomas-macedo.com/</link>
 <description>Uma matéria por dia sobre agentes de IA, agência escalada, tráfego pago, e-commerce e criação de marcas. Por Thomas Macedo (Gene Company / LINCE Performance).</description>
 <language>pt-BR</language>
-<lastBuildDate>Wed, 18 Nov 2026 10:31:35 +0000</lastBuildDate>
+<lastBuildDate>Thu, 19 Nov 2026 10:31:28 +0000</lastBuildDate>
 <atom:link href="https://www.thomas-macedo.com/feed.xml" rel="self" type="application/rss+xml" />
+<item>
+<title>Como calcular o ROI de um agente de IA: payback, custo evitado e receita incremental</title>
+<link>https://www.thomas-macedo.com/artigos/como-calcular-roi-de-agente-de-ia.html</link>
+<guid isPermaLink="true">https://www.thomas-macedo.com/artigos/como-calcular-roi-de-agente-de-ia.html</guid>
+<description>O ROI de um agente de IA é o ganho líquido (receita incremental + custo evitado − custo total) dividido pelo custo total. Veja a conta, o payback e os erros que inflam o número.</description>
+<author>thomas98macedo@gmail.com (Thomas Macedo)</author>
+<pubDate>Thu, 19 Nov 2026 10:00:00 +0000</pubDate>
+</item>
 <item>
 <title>Reativar clientes inativos com IA no WhatsApp: como acordar a base sem queimar o número</title>
 <link>https://www.thomas-macedo.com/artigos/reativar-clientes-inativos-com-ia-whatsapp.html</link>

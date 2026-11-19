@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TXSF2K6K');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <script>try{var q=new URLSearchParams(location.search).get("paleta");if(q)localStorage.setItem("paleta",q);if((q||localStorage.getItem("paleta"))==="classica")document.documentElement.classList.add("pal-classica");if(localStorage.getItem("tema")==="escuro")document.documentElement.setAttribute("data-theme","dark");var fq=new URLSearchParams(location.search).get("fonte");if(fq)localStorage.setItem("fonte",fq);var ff=fq||localStorage.getItem("fonte");var FF={tiktok:"Hanken+Grotesk:wght@800",jakarta:"Plus+Jakarta+Sans:wght@800",inter:"Inter+Tight:wght@800"};if(FF[ff]){document.documentElement.setAttribute("data-fonte",ff);var l=document.createElement("link");l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family="+FF[ff]+"&display=swap";document.head.appendChild(l)}}catch(e){}</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Como calcular o ROI de um agente de IA: payback, custo evitado e receita incremental | Thomas Macedo</title>
+  <meta name="description" content="O ROI de um agente de IA é o ganho líquido (receita incremental + custo evitado − custo total) dividido pelo custo total. Veja a conta, o payback e os erros que inflam o número." />
+  <meta name="keywords" content="ROI de agente de IA, como calcular ROI de IA, retorno de agentes de IA, payback de IA, custo de agente de IA, medir resultado de IA, Thomas Macedo" />
+  <meta name="author" content="Thomas Macedo" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://www.thomas-macedo.com/artigos/como-calcular-roi-de-agente-de-ia.html" />
+  <meta name="theme-color" content="#FAF8F3" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Thomas Macedo" />
+  <meta property="og:title" content="Como calcular o ROI de um agente de IA (sem inflar o número)" />
+  <meta property="og:description" content="A conta do retorno de um agente de IA: custo total, ganho real, payback e os erros que fazem o ROI parecer maior do que é." />
+  <meta property="og:url" content="https://www.thomas-macedo.com/artigos/como-calcular-roi-de-agente-de-ia.html" />
+  <meta property="og:image" content="https://www.thomas-macedo.com/img/thomas-macedo-palestra-2.jpeg" />
+  <meta property="article:author" content="Thomas Macedo" />
+  <meta property="article:published_time" content="2026-11-19" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Como calcular o ROI de um agente de IA (sem inflar o número)" />
+  <meta name="twitter:description" content="A conta do retorno de um agente de IA: custo total, ganho real, payback e os erros que fazem o ROI parecer maior do que é." />
+  <meta name="twitter:image" content="https://www.thomas-macedo.com/img/thomas-macedo-palestra-2.jpeg" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BlogPosting",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.thomas-macedo.com/artigos/como-calcular-roi-de-agente-de-ia.html"},
+    "headline":"Como calcular o ROI de um agente de IA: payback, custo evitado e receita incremental",
+    "description":"O ROI de um agente de IA é o ganho líquido (receita incremental + custo evitado − custo total) dividido pelo custo total. Veja a conta, o payback e os erros que inflam o número.",
+    "image":"https://www.thomas-macedo.com/img/thomas-macedo-palestra-2.jpeg",
+    "datePublished":"2026-11-19","dateModified":"2026-11-19",
+    "inLanguage":"pt-BR",
+    "author":{"@type":"Person","@id":"https://www.thomas-macedo.com/#thomas-macedo","name":"Thomas Macedo","url":"https://www.thomas-macedo.com/","jobTitle":"Especialista em IA, Criação de Marcas e Tráfego Pago","worksFor":{"@type":"Organization","name":"Gene Company"},"sameAs":["https://www.instagram.com/thomasmacedo.ads","https://www.linkedin.com/in/thomas-macedo-23896216a/"]},
+    "publisher":{"@id":"https://www.thomas-macedo.com/#thomas-macedo"},
+    "keywords":"ROI de agente de IA, como calcular ROI de IA, retorno de agentes de IA, payback de IA, custo de agente de IA, medir resultado de IA, Thomas Macedo"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.thomas-macedo.com/"},
+      {"@type":"ListItem","position":2,"name":"Artigos","item":"https://www.thomas-macedo.com/artigos/"},
+      {"@type":"ListItem","position":3,"name":"Como calcular o ROI de um agente de IA","item":"https://www.thomas-macedo.com/artigos/como-calcular-roi-de-agente-de-ia.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[{"@type":"Question","name":"Como calcular o ROI de um agente de IA?","acceptedAnswer":{"@type":"Answer","text":"Some a receita incremental e o custo evitado que o agente gerou, subtraia o custo total (modelo, plataforma, implantação, manutenção e tempo da equipe) e divida o resultado pelo custo total. O ganho só vale se for comparado a uma linha de base medida antes do agente."}},{"@type":"Question","name":"Em quanto tempo um agente de IA se paga?","acceptedAnswer":{"@type":"Answer","text":"Depende do processo. Agentes em processos de alto volume e dor clara, como atendimento e recuperação de vendas, costumam mostrar payback mais rápido do que projetos amplos e sem métrica. O prazo se calcula dividindo o investimento inicial pelo ganho líquido mensal."}},{"@type":"Question","name":"Quais custos entram na conta do ROI de IA?","acceptedAnswer":{"@type":"Answer","text":"Uso do modelo (tokens), plataforma e integrações, implantação, base de conhecimento, manutenção e revisão contínua, monitoramento e o tempo humano que ainda acompanha o agente. Deixar de fora a manutenção e o tempo da equipe é o erro mais comum."}},{"@type":"Question","name":"O ROI de IA é só economia de custo?","acceptedAnswer":{"@type":"Answer","text":"Não. Há três fontes: custo evitado (horas e retrabalho), receita incremental (vendas recuperadas, leads atendidos fora do horário) e ganho de capacidade (atender mais sem contratar na mesma proporção). Medir só economia costuma subestimar o retorno de agentes comerciais."}},{"@type":"Question","name":"Como saber se o resultado veio do agente e não de outra coisa?","acceptedAnswer":{"@type":"Answer","text":"Compare com uma linha de base anterior ou com um grupo de controle: parte dos contatos atendida pelo fluxo antigo e parte pelo agente, no mesmo período. Sem comparação, sazonalidade e campanhas de tráfego se misturam ao resultado e inflam o ROI."}}]
+  }
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXSF2K6K"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="../index.html" class="wordmark">Thomas <span>Macedo</span></a>
+        <div class="nav-links">
+          <a href="../index.html" class="hide-mob">TikTok &amp; Performance</a>
+          <a href="../marcas.html" class="hide-mob">Marcas &amp; E-commerce</a>
+          <a href="../artigos/" class="active hide-mob">Artigos</a>
+          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="nav-cta" target="_blank" rel="noopener">Falar comigo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap"><nav class="crumb"><a href="../index.html">Início</a><span>/</span><a href="../artigos/">Artigos</a><span>/</span>Como calcular o ROI de um agente de IA</nav></div>
+
+  <article>
+    <header class="article-head">
+      <span class="eyebrow">Inteligência Artificial</span>
+      <h1>Como calcular o ROI de um agente de IA: payback, custo evitado e receita incremental</h1>
+      <p class="dek">“A IA vai se pagar” não é uma conta. Aqui está a conta de verdade: o que entra no custo, o que conta como ganho e como não enganar a si mesmo com o número.</p>
+      <div class="article-meta">
+        <span>Por Thomas Macedo</span><span class="dot"></span><span>8 min de leitura</span><span class="dot"></span><span>Atualizado em 2026</span>
+      </div>
+    </header>
+
+    <div class="article-cover">
+      <img src="../img/thomas-macedo-palestra-2.jpeg" alt="Thomas Macedo falando sobre retorno de agentes de IA em uma palestra" width="1000" height="500" style="object-position:center 40%" />
+    </div>
+
+    <div class="prose">
+      <p><strong>O ROI de um agente de IA é o ganho líquido dividido pelo custo total: (receita incremental + custo evitado − custo total) ÷ custo total.</strong> O número só é confiável se o ganho for comparado a uma linha de base medida antes do agente e se o custo incluir tudo o que o agente consome, não só a mensalidade da ferramenta. O payback é o investimento inicial dividido pelo ganho líquido mensal.</p>
+
+      <p>Eu construo e opero agentes de IA em empresas reais, e o erro que mais vejo não é o agente falhar. É a empresa não saber dizer, três meses depois, se ele valeu a pena. Vou mostrar como fazer essa conta sem maquiagem.</p>
+
+      <div class="callout">
+        <span class="k">Resumo rápido</span>
+        <ul>
+          <li><strong>ROI = (ganho − custo total) ÷ custo total.</strong> Payback = investimento ÷ ganho líquido mensal.</li>
+          <li>O ganho tem <strong>três fontes</strong>: receita incremental, custo evitado e capacidade extra.</li>
+          <li>O custo tem de incluir <strong>manutenção, monitoramento e tempo da equipe</strong>.</li>
+          <li>Sem <strong>linha de base</strong> ou grupo de controle, o ROI é opinião.</li>
+        </ul>
+      </div>
+
+      <h2>Qual é a fórmula do ROI de um agente de IA?</h2>
+      <p>A fórmula é simples. O difícil é preencher cada termo com honestidade:</p>
+      <ul>
+        <li><strong>ROI (%)</strong> = (ganho líquido ÷ custo total) × 100</li>
+        <li><strong>Ganho líquido</strong> = receita incremental + custo evitado − custo total</li>
+        <li><strong>Payback (meses)</strong> = investimento inicial ÷ ganho líquido mensal</li>
+      </ul>
+      <p>Se o agente custou R$ 1 e devolveu R$ 3 de ganho bruto, o ganho líquido é R$ 2 e o ROI é 200%. A matemática é de ensino fundamental. O que separa um ROI real de um inflado é o que você aceita colocar em cada termo.</p>
+
+      <h2>Quais são as três fontes de ganho de um agente de IA?</h2>
+      <h3>1. Receita incremental</h3>
+      <p>É a venda que não existiria sem o agente: o lead que chegou às 23h e foi atendido na hora, o carrinho recuperado, o orçamento que travou e voltou. É a fonte mais valiosa em agentes comerciais e a mais subestimada por quem só olha economia. Para o caso de vendas, veja <a href="../artigos/como-medir-agente-de-recuperacao-de-vendas.html">como medir o resultado de um agente de recuperação de vendas</a>.</p>
+
+      <h3>2. Custo evitado</h3>
+      <p>São horas de trabalho repetitivo que deixaram de ser gastas e retrabalho que deixou de existir. Atenção: custo evitado só vira dinheiro se a hora liberada for realocada ou se uma contratação deixar de acontecer. Hora liberada que vira hora ociosa não paga a conta.</p>
+
+      <h3>3. Capacidade extra</h3>
+      <p>É atender mais volume sem contratar na mesma proporção. Em picos como Black Friday, essa capacidade é a diferença entre perder e atender o cliente. É real, mas só entre no cálculo se você consegue atribuir um valor a ela, como o ticket médio dos atendimentos que antes seriam perdidos.</p>
+
+      <h2>O que entra no custo total de um agente de IA?</h2>
+      <p>Aqui está o ponto em que quase todo cálculo mente por omissão. O custo total inclui:</p>
+      <ul>
+        <li><strong>Uso do modelo:</strong> tokens por conversa vezes o volume. Detalhei a conta em <a href="../artigos/custo-por-conversa-de-agente-de-ia.html">custo por conversa de um agente de IA</a>.</li>
+        <li><strong>Plataforma e integrações:</strong> mensalidades, API oficial do WhatsApp, conexão com CRM e ERP.</li>
+        <li><strong>Implantação:</strong> desenho do fluxo, base de conhecimento, testes. É o investimento inicial do payback.</li>
+        <li><strong>Manutenção e revisão:</strong> ajustar instrução, atualizar preços e políticas, corrigir falhas encontradas nas conversas.</li>
+        <li><strong>Monitoramento:</strong> alguém precisa ler conversas e olhar métricas. Veja <a href="../artigos/observabilidade-de-agentes-de-ia.html">observabilidade de agentes de IA</a>.</li>
+        <li><strong>Tempo humano no handoff:</strong> a pessoa que assume quando o agente passa a conversa adiante tem custo.</li>
+      </ul>
+      <p>Para uma visão de faixas de investimento no Brasil, o artigo <a href="../artigos/quanto-custa-ia-para-empresas.html">quanto custa implementar IA e agentes numa empresa</a> complementa este.</p>
+
+      <h2>Exemplo prático de cálculo (hipotético)</h2>
+      <p>Os números abaixo são ilustrativos, só para mostrar a mecânica. Não são resultado de um cliente específico.</p>
+      <ul>
+        <li>Investimento inicial: R$ 12.000.</li>
+        <li>Custo mensal total (modelo, plataforma, manutenção, tempo de revisão): R$ 2.000.</li>
+        <li>Receita incremental atribuída ao agente: R$ 9.000 por mês, já descontada a margem de contribuição.</li>
+        <li>Custo evitado realocado: R$ 1.500 por mês.</li>
+      </ul>
+      <p>Ganho mensal bruto: R$ 10.500. Ganho líquido mensal: R$ 10.500 − R$ 2.000 = R$ 8.500. Payback: R$ 12.000 ÷ R$ 8.500 ≈ 1,4 mês. Repare que usei a <strong>margem</strong> da receita, não o faturamento. Contar faturamento como ganho é o jeito mais rápido de inflar o ROI. Se você precisa revisar essa lógica, o artigo sobre <a href="../artigos/roas-cac-ltv-margem-de-contribuicao.html">ROAS, CAC, LTV e margem de contribuição</a> mostra por quê.</p>
+
+      <blockquote><p>Se o seu ROI de IA só fecha quando você ignora manutenção e conta faturamento em vez de margem, ele não fecha.</p></blockquote>
+
+      <h2>Como provar que o resultado veio do agente?</h2>
+      <p>Resultado sem comparação não prova nada. Três jeitos, do mais forte ao mais fraco:</p>
+      <ol>
+        <li><strong>Grupo de controle:</strong> parte dos contatos segue o fluxo antigo e parte passa pelo agente, no mesmo período. É o método mais limpo.</li>
+        <li><strong>Antes e depois com linha de base:</strong> meça tempo de resposta, conversão e horas gastas por pelo menos algumas semanas antes de ligar o agente.</li>
+        <li><strong>Atribuição por evento:</strong> marque no CRM o que foi vendido a partir de conversa do agente. Funciona, mas exige disciplina de registro.</li>
+      </ol>
+      <p>Sem isso, sazonalidade e campanhas de tráfego se misturam ao resultado. A consultoria <a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" rel="noopener nofollow">McKinsey, em sua pesquisa sobre o estado da IA</a>, aponta que o valor aparece quando a IA é aplicada a fluxos concretos de trabalho, o que reforça a lógica de medir processo a processo e não “a IA” em geral.</p>
+
+      <h2>Quais erros fazem o ROI de IA parecer maior do que é?</h2>
+      <ul>
+        <li><strong>Contar horas liberadas como dinheiro</strong> sem que ninguém use essas horas.</li>
+        <li><strong>Usar faturamento em vez de margem</strong> como ganho.</li>
+        <li><strong>Ignorar o custo de manutenção</strong> depois do go-live.</li>
+        <li><strong>Atribuir ao agente vendas que viriam de qualquer jeito</strong> (cliente que já ia comprar).</li>
+        <li><strong>Medir cedo demais</strong>, no pico de curiosidade, ou tarde demais, sem lembrar da linha de base.</li>
+        <li><strong>Esquecer o custo de falha:</strong> uma resposta errada que gera reembolso ou cliente perdido. Veja <a href="../artigos/erros-ao-implantar-agente-de-ia.html">os erros mais caros ao implantar um agente de IA</a>.</li>
+      </ul>
+
+      <h2>Quando o ROI de um agente de IA é negativo (e o que fazer)</h2>
+      <p>Acontece, e dizer isso faz parte de ser honesto. O ROI costuma ser fraco quando o processo tem volume baixo, quando a dor não existia de verdade, ou quando o agente foi colocado onde a decisão exige julgamento humano sensível. Nesses casos, a resposta correta é reduzir o escopo, corrigir o ponto que vaza ou desligar. Veja <a href="../artigos/onde-nao-usar-ia-no-negocio.html">onde a IA não deve ser usada no seu negócio</a>.</p>
+
+      <h2>Como começar a medir (checklist)</h2>
+      <ol>
+        <li>Escolha um processo e defina a métrica principal (venda recuperada, tempo de resposta, horas).</li>
+        <li>Meça a linha de base antes de ligar o agente.</li>
+        <li>Liste todos os custos, inclusive o tempo da equipe.</li>
+        <li>Defina o período de avaliação e o grupo de comparação.</li>
+        <li>Revise o cálculo todo mês e decida: escalar, ajustar ou desligar.</li>
+      </ol>
+      <p>Esse ritmo está no plano de <a href="../artigos/implantar-agentes-de-ia-em-30-dias.html">implantar agentes de IA em 30 dias</a>, e a visão geral do que montar está na <a href="../index.html">página inicial</a> do meu site. É assim que trabalho: um processo, uma métrica, uma decisão baseada em número.</p>
+
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details open><summary>Como calcular o ROI de um agente de IA?</summary><p>Some a receita incremental e o custo evitado que o agente gerou, subtraia o custo total (modelo, plataforma, implantação, manutenção e tempo da equipe) e divida o resultado pelo custo total. O ganho só vale se for comparado a uma linha de base medida antes do agente.</p></details>
+        <details><summary>Em quanto tempo um agente de IA se paga?</summary><p>Depende do processo. Agentes em processos de alto volume e dor clara, como atendimento e recuperação de vendas, costumam mostrar payback mais rápido do que projetos amplos e sem métrica. O prazo se calcula dividindo o investimento inicial pelo ganho líquido mensal.</p></details>
+        <details><summary>Quais custos entram na conta do ROI de IA?</summary><p>Uso do modelo (tokens), plataforma e integrações, implantação, base de conhecimento, manutenção e revisão contínua, monitoramento e o tempo humano que ainda acompanha o agente. Deixar de fora a manutenção e o tempo da equipe é o erro mais comum.</p></details>
+        <details><summary>O ROI de IA é só economia de custo?</summary><p>Não. Há três fontes: custo evitado (horas e retrabalho), receita incremental (vendas recuperadas, leads atendidos fora do horário) e ganho de capacidade (atender mais sem contratar na mesma proporção). Medir só economia costuma subestimar o retorno de agentes comerciais.</p></details>
+        <details><summary>Como saber se o resultado veio do agente e não de outra coisa?</summary><p>Compare com uma linha de base anterior ou com um grupo de controle: parte dos contatos atendida pelo fluxo antigo e parte pelo agente, no mesmo período. Sem comparação, sazonalidade e campanhas de tráfego se misturam ao resultado e inflam o ROI.</p></details>
+      </div>
+    </div>
+
+    <aside class="svc-hub">
+      <span class="svc-k">Serviço</span>
+      <b>Agentes de IA para empresas</b>
+      <p>Agentes que atendem, qualificam e agendam no WhatsApp 24h. A Friday agendou 41 consultorias sozinha.</p>
+      <a href="../agentes-de-ia.html">Ver como funciona <span class="arrow">→</span></a>
+    </aside>
+
+    <div class="author-box">
+      <img src="../img/thomas-macedo-palestra.jpeg" alt="Thomas Macedo" />
+      <div>
+        <div class="a-name"><a href="../sobre.html" style="color:inherit;border-bottom:1px solid var(--line-strong)">Thomas Macedo</a></div>
+        <p class="a-bio">Fundador da Gene Company e diretor da LINCE Performance. Especialista em sistemas e agentes de IA, criação de marcas e tráfego pago com ROI escalável para empresas. Santos/BR, atende Brasil e exterior. <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" target="_blank" rel="noopener">Fale comigo no WhatsApp →</a></p>
+      </div>
+    </div>
+  </article>
+
+  <section class="related">
+    <div class="wrap-narrow" style="padding:0">
+      <p class="eyebrow eyebrow-ink" style="display:block;margin-bottom:8px">Continue lendo</p>
+      <div class="related-grid">
+        <a href="../artigos/custo-por-conversa-de-agente-de-ia.html"><span class="r-cat">Inteligência Artificial</span><h3>Custo por conversa de um agente de IA: como calcular tokens, modelo e volume</h3></a>
+        <a href="../artigos/como-medir-agente-de-recuperacao-de-vendas.html"><span class="r-cat">Inteligência Artificial</span><h3>Como medir o resultado de um agente de recuperação de vendas</h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2 class="display mt-m" style="font-size:clamp(2.2rem,5vw,4rem)">Quero IA<br>na minha empresa.</h2>
+      <p class="lead mt-m" style="color:rgba(244,241,234,.8);max-width:48ch">Conte sobre o seu negócio e receba um diagnóstico do seu tráfego, criativos, marca e atendimento com IA.</p>
+      <div class="contact-row">
+        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" class="btn" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
+        <a href="https://www.instagram.com/thomasmacedo.ads" class="link-underline" target="_blank" rel="noopener" style="color:var(--paper)">Instagram @thomasmacedo.ads</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <span>© 2026 Thomas Macedo — IA, criação de marcas e tráfego pago. Santos, Baixada Santista, Brasil &amp; exterior.</span>
+        <div class="foot-links">
+          <a href="../index.html">TikTok &amp; Performance</a>
+          <a href="../marcas.html">Marcas &amp; E-commerce</a>
+          <a href="../artigos/">Artigos</a>
+          <a href="../tiktok-shop.html">TikTok Shop</a>
+          <a href="../trafego-pago.html">Tráfego pago</a>
+          <a href="../agentes-de-ia.html">Agentes de IA</a>
+          <a href="../sobre.html">Sobre</a>
+          <a href="https://www.instagram.com/thomasmacedo.ads" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/thomas-macedo-23896216a/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/102946615/" target="_blank" rel="noopener">LINCE Performance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
+</body>
+</html>

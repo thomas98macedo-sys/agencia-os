@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
-<title>Thomas Macedo — Agentes de IA, marketing e marcas</title>
+<title>Thomas Macedo — TikTok Shop, marcas, tráfego pago e agentes de IA</title>
 <link>https://www.thomas-macedo.com/</link>
-<description>Uma matéria por dia sobre agentes de IA, agência escalada, tráfego pago, e-commerce e criação de marcas. Por Thomas Macedo (Gene Company / LINCE Performance).</description>
+<description>Uma matéria por dia sobre TikTok Shop, lançamento de marcas, tráfego pago para marcas, negócios locais e clínicas, agentes de IA, recuperação de vendas e atendimento X1. Por Thomas Macedo (Gene Company / LINCE Performance).</description>
 <language>pt-BR</language>
-<lastBuildDate>Sun, 22 Nov 2026 10:31:20 +0000</lastBuildDate>
+<lastBuildDate>Mon, 23 Nov 2026 10:31:28 +0000</lastBuildDate>
 <atom:link href="https://www.thomas-macedo.com/feed.xml" rel="self" type="application/rss+xml" />
+<item>
+<title>TikTok Shop vale a pena para uma marca pequena no Brasil?</title>
+<link>https://www.thomas-macedo.com/artigos/tiktok-shop-vale-a-pena-marca-pequena.html</link>
+<guid isPermaLink="true">https://www.thomas-macedo.com/artigos/tiktok-shop-vale-a-pena-marca-pequena.html</guid>
+<description>Vale a pena vender no TikTok Shop com uma marca pequena? Depende do preço, da margem e do criativo. Veja taxas, requisitos e a conta para fazer antes de listar.</description>
+<author>thomas98macedo@gmail.com (Thomas Macedo)</author>
+<pubDate>Mon, 23 Nov 2026 10:00:00 +0000</pubDate>
+</item>
 <item>
 <title>Relatório de assessoria de marketing: o que deve ter e como ler os números</title>
 <link>https://www.thomas-macedo.com/artigos/relatorio-de-assessoria-de-marketing-o-que-cobrar.html</link>

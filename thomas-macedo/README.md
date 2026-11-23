@@ -39,7 +39,7 @@ Por que HTML estático e não React? Para SEO de marca pessoal, HTML estático c
 - **Página 2**: criação de marcas, marca própria e escala em e-commerce com UGC e influenciadores
 - **Região**: Santos e Baixada Santista + online no Brasil
 - **WhatsApp**: (13) 99150-1840 (`wa.me/5513991501840`)
-- **Instagram**: [@thomasmacedo.ads](https://www.instagram.com/thomasmacedo.ads)
+- **Instagram**: [@thomasmacedoo](https://www.instagram.com/thomasmacedoo)
 - **Fotos reais**: hero + galeria de palestras (na pasta `img/`)
 
 ## ✏️ FALTA VOCÊ ME PASSAR / EDITAR

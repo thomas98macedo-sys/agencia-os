@@ -12,7 +12,7 @@ Wikidata NÃO exige notoriedade como a Wikipedia, e alimenta direto o Google Kno
 - field of work (P101) = artificial intelligence, digital marketing, branding
 - employer / founder of (P1454/P112) = Gene Company / LINCE Performance
 - official website (P856) = https://thomas-macedo.com
-- Instagram username (P2003) = thomasmacedo.ads
+- Instagram username (P2003) = thomasmacedoo
 - country of citizenship (P27) = Brazil
 - residence/work location = Santos
 

@@ -6,7 +6,7 @@
 **Cidade:** Santos, São Paulo, Brasil
 **Atende:** Brasil e exterior
 **Site:** https://www.thomas-macedo.com
-**Instagram:** https://www.instagram.com/thomasmacedo.ads
+**Instagram:** https://www.instagram.com/thomasmacedoo
 **LinkedIn:** https://www.linkedin.com/in/thomas-macedo-23896216a/
 **WhatsApp:** +55 13 99150-1840
 

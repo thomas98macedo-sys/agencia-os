@@ -77,6 +77,7 @@
 - [Por que o Criativo é o que Mais Vende — Anúncios de Alta Estética](https://www.thomas-macedo.com/artigos/criativos-de-alta-estetica.html): Criativos de alta estética vendem mais: veja como roteiro, gravação e edição transformam anúncios em resultado. Por Thomas Macedo, especialista em tráfego.
 
 ## Agentes de IA e automação
+- [Agentes de IA que trabalham sozinhos: como montar uma operação 24 horas](https://www.thomas-macedo.com/artigos/agentes-de-ia-operacao-24-horas.html): Uma operação 24h com agentes de IA exige gatilho, ferramentas, limites, handoff humano e monitoramento. Veja como montar uma que roda sozinha sem perder o controle.
 - [Como calcular o ROI de um agente de IA: payback, custo evitado e receita incremental](https://www.thomas-macedo.com/artigos/como-calcular-roi-de-agente-de-ia.html): O ROI de um agente de IA é o ganho líquido (receita incremental + custo evitado − custo total) dividido pelo custo total. Veja a conta, o payback e os erros que inflam o número.
 - [Ferramentas para criar agentes de IA: no-code, low-code ou código (e qual escolher)](https://www.thomas-macedo.com/artigos/ferramentas-para-criar-agente-de-ia.html): n8n, Make, Dify, plataforma pronta ou código próprio? Veja as ferramentas para criar um agente de IA, as vantagens e limites de cada uma e como escolher sem travar na hora de escalar.
 - [Fine-tuning, RAG ou prompt: como dar o conhecimento da sua empresa a um agente de IA (e qual escolher)](https://www.thomas-macedo.com/artigos/fine-tuning-rag-ou-prompt-para-agente-de-ia.html): Existem três formas de ensinar uma empresa a um agente de IA: prompt (instrução), RAG (busca no seu conhecimento) e fine-tuning (treino do modelo). Veja a diferença, o custo e qual escolher primeiro.
@@ -148,6 +149,7 @@
 - [Como escalar uma agência de marketing no Brasil: processos, IA e produção própria](https://www.thomas-macedo.com/artigos/como-escalar-agencia-de-marketing.html): Escalar uma agência não é pegar mais clientes: é entregar mais resultado com a mesma qualidade. Veja como estruturar processos, IA e produção própria para crescer sem quebrar a operação.
 
 ## Artigos recentes
+- [Agentes de IA que trabalham sozinhos: como montar uma operação 24 horas](https://www.thomas-macedo.com/artigos/agentes-de-ia-operacao-24-horas.html): Uma operação 24h com agentes de IA exige gatilho, ferramentas, limites, handoff humano e monitoramento. Veja como montar uma que roda sozinha sem perder o controle.
 - [TikTok Shop vale a pena para uma marca pequena no Brasil?](https://www.thomas-macedo.com/artigos/tiktok-shop-vale-a-pena-marca-pequena.html): Vale a pena vender no TikTok Shop com uma marca pequena? Depende do preço, da margem e do criativo. Veja taxas, requisitos e a conta para fazer antes de listar.
 - [Relatório de assessoria de marketing: o que deve ter e como ler os números](https://www.thomas-macedo.com/artigos/relatorio-de-assessoria-de-marketing-o-que-cobrar.html): Um bom relatório de assessoria de marketing liga o investimento à venda: faturamento, custo de aquisição, margem, criativos, funil e plano do próximo ciclo. Veja o que cobrar.
 - [Lucratividade de agência de marketing: como calcular a margem por cliente e saber quando dizer não](https://www.thomas-macedo.com/artigos/lucratividade-de-agencia-de-marketing.html): Lucratividade de agência é o que sobra de cada cliente depois de todos os custos de entregá-lo. Veja como calcular a margem por cliente e escalar sem perder lucro.
@@ -157,7 +159,6 @@
 - [ROAS de equilíbrio: como calcular o ROAS mínimo da sua loja Shopify](https://www.thomas-macedo.com/artigos/roas-de-equilibrio-break-even-ecommerce.html): ROAS de equilíbrio é o retorno mínimo sobre anúncio em que a loja não perde nem ganha dinheiro: 1 dividido pela margem de contribuição. Veja a fórmula, um exemplo e os erros que distorcem o cálculo.
 - [Como validar um produto de marca própria antes de pagar o primeiro lote](https://www.thomas-macedo.com/artigos/validar-produto-marca-propria-antes-do-primeiro-lote.html): Validar um produto de marca própria é testar a demanda antes de comprar o lote cheio: pré-venda, lote-piloto e anúncios de teste. Veja o método para errar barato.
 - [Gestão de estoque no e-commerce: como evitar ruptura e estoque parado (giro, curva ABC e previsão de demanda)](https://www.thomas-macedo.com/artigos/gestao-de-estoque-ecommerce.html): Gestão de estoque no e-commerce é equilibrar ter o produto quando o cliente compra sem travar o caixa com estoque parado. Veja giro, curva ABC, ponto de reposição e previsão de demanda na prática.
-- [Quanto custa uma assessoria de marketing digital no Brasil: modelos de preço e o que está incluso](https://www.thomas-macedo.com/artigos/quanto-custa-assessoria-de-marketing-digital.html): Quanto custa uma assessoria de marketing digital no Brasil? Veja os modelos de cobrança (fee mensal, percentual da verba, performance), o que entra no valor e como saber se o preço vale o retorno.
 
 ## Prova social
 - Marcas que passaram pelo processo de escala com Thomas Macedo: China Link Trading, China Link na Estrada, Lincoln Fracari, Tuyo Brasil, Apex Performance, LM Woodwork, Friga Store, Laser Rosa, Relive Med Clinic, Moby Dick Santos, Texas Firearms, entre centenas de outras operações.
@@ -171,4 +172,4 @@
 - LinkedIn: https://www.linkedin.com/in/thomas-macedo-23896216a/
 - LINCE Performance: https://www.linkedin.com/company/102946615/
 - Feed RSS: https://www.thomas-macedo.com/feed.xml
-- Conteúdo integral de todos os 117 artigos: https://www.thomas-macedo.com/llms-full.txt
+- Conteúdo integral de todos os 118 artigos: https://www.thomas-macedo.com/llms-full.txt

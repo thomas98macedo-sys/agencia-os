@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TXSF2K6K');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="UTF-8" />
+  <script>try{var q=new URLSearchParams(location.search).get("paleta");if(q)localStorage.setItem("paleta",q);if((q||localStorage.getItem("paleta"))==="classica")document.documentElement.classList.add("pal-classica");if(localStorage.getItem("tema")==="escuro")document.documentElement.setAttribute("data-theme","dark");var fq=new URLSearchParams(location.search).get("fonte");if(fq)localStorage.setItem("fonte",fq);var ff=fq||localStorage.getItem("fonte");var FF={tiktok:"Hanken+Grotesk:wght@800",jakarta:"Plus+Jakarta+Sans:wght@800",inter:"Inter+Tight:wght@800"};if(FF[ff]){document.documentElement.setAttribute("data-fonte",ff);var l=document.createElement("link");l.rel="stylesheet";l.href="https://fonts.googleapis.com/css2?family="+FF[ff]+"&display=swap";document.head.appendChild(l)}}catch(e){}</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Agentes de IA que trabalham sozinhos: como montar uma operação 24 horas | Thomas Macedo</title>
+  <meta name="description" content="Uma operação 24h com agentes de IA exige gatilho, ferramentas, limites, handoff humano e monitoramento. Veja como montar uma que roda sozinha sem perder o controle." />
+  <meta name="keywords" content="agentes de IA que trabalham sozinhos, operação 24 horas com IA, agente de IA autônomo, automação com IA, agentes de IA para empresas, Thomas Macedo" />
+  <meta name="author" content="Thomas Macedo" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+  <link rel="canonical" href="https://www.thomas-macedo.com/artigos/agentes-de-ia-operacao-24-horas.html" />
+  <meta name="theme-color" content="#FAF8F3" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Thomas Macedo" />
+  <meta property="og:title" content="Agentes de IA que trabalham sozinhos: como montar uma operação 24 horas" />
+  <meta property="og:description" content="Gatilho, ferramentas, limites, handoff e monitoramento: o que uma operação com agentes de IA precisa para rodar sozinha." />
+  <meta property="og:url" content="https://www.thomas-macedo.com/artigos/agentes-de-ia-operacao-24-horas.html" />
+  <meta property="og:image" content="https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg" />
+  <meta property="article:author" content="Thomas Macedo" />
+  <meta property="article:published_time" content="2026-11-25" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Agentes de IA que trabalham sozinhos: como montar uma operação 24 horas" />
+  <meta name="twitter:description" content="Gatilho, ferramentas, limites, handoff e monitoramento: o que uma operação com agentes de IA precisa para rodar sozinha." />
+  <meta name="twitter:image" content="https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg" />
+
+  <link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+  <noscript><style>.reveal{opacity:1;transform:none}.img-reveal::after{display:none}.img-reveal img{transform:none}.img-reveal .chip{opacity:1;transform:none}[data-split] .wi{transform:none}.wa-float{opacity:1;transform:none;pointer-events:auto;visibility:visible}.k-line .fill{clip-path:none}</style></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BlogPosting",
+    "mainEntityOfPage":{"@type":"WebPage","@id":"https://www.thomas-macedo.com/artigos/agentes-de-ia-operacao-24-horas.html"},
+    "headline":"Agentes de IA que trabalham sozinhos: como montar uma operação que roda 24 horas",
+    "description":"Uma operação 24h com agentes de IA exige gatilho, ferramentas, limites, handoff humano e monitoramento. Veja como montar uma que roda sozinha sem perder o controle.",
+    "image":"https://www.thomas-macedo.com/img/thomas-macedo-ia-robo.jpeg",
+    "datePublished":"2026-11-25","dateModified":"2026-11-25",
+    "inLanguage":"pt-BR",
+    "author":{"@type":"Person","@id":"https://www.thomas-macedo.com/#thomas-macedo","name":"Thomas Macedo","url":"https://www.thomas-macedo.com/","jobTitle":"Especialista em IA, Criação de Marcas e Tráfego Pago","worksFor":{"@type":"Organization","name":"Gene Company"},"sameAs":["https://www.instagram.com/thomasmacedoo","https://www.linkedin.com/in/thomas-macedo-23896216a/"]},
+    "publisher":{"@id":"https://www.thomas-macedo.com/#thomas-macedo"},
+    "keywords":"agentes de IA que trabalham sozinhos, operação 24 horas com IA, agente de IA autônomo, automação com IA, agentes de IA para empresas, Thomas Macedo"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"BreadcrumbList",
+    "itemListElement":[
+      {"@type":"ListItem","position":1,"name":"Início","item":"https://www.thomas-macedo.com/"},
+      {"@type":"ListItem","position":2,"name":"Artigos","item":"https://www.thomas-macedo.com/artigos/"},
+      {"@type":"ListItem","position":3,"name":"Agentes de IA que trabalham sozinhos","item":"https://www.thomas-macedo.com/artigos/agentes-de-ia-operacao-24-horas.html"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org","@type":"FAQPage",
+    "mainEntity":[{"@type":"Question","name":"Dá para uma empresa rodar 24 horas só com agentes de IA?","acceptedAnswer":{"@type":"Answer","text":"Dá para rodar 24 horas os processos repetitivos e bem definidos, como atendimento, qualificação, agendamento e follow-up. Decisões sensíveis, exceções e negociações complexas continuam com pessoas, e o agente precisa saber transferir a conversa nesses casos."}},{"@type":"Question","name":"Um agente de IA trabalha sem nenhum humano supervisionando?","acceptedAnswer":{"@type":"Answer","text":"Ele executa sem um humano em cada passo, mas não sem supervisão. A operação precisa de logs, alertas e revisão periódica de conversas para detectar erros, ajustar a instrução e corrigir desvios antes que virem prejuízo."}},{"@type":"Question","name":"Por onde começar uma operação com agentes de IA?","acceptedAnswer":{"@type":"Answer","text":"Comece por um processo com dor clara e volume alto, geralmente o atendimento ou o primeiro contato com o lead no WhatsApp. Documente o processo, defina os limites do agente, teste com conversas reais e só depois amplie para outros processos."}},{"@type":"Question","name":"Quanto custa manter um agente de IA rodando o dia todo?","acceptedAnswer":{"@type":"Answer","text":"O custo depende do modelo de IA usado, do volume de conversas e das integrações. O cálculo correto é custo por conversa multiplicado pelo volume mensal, somado à manutenção, e comparado com o custo do atendimento humano equivalente e com a receita que o agente gera."}},{"@type":"Question","name":"O que acontece quando o agente de IA não sabe responder?","acceptedAnswer":{"@type":"Answer","text":"Um agente bem configurado reconhece o limite, não inventa resposta e transfere a conversa para uma pessoa com o contexto já resumido. Esse handoff humano é uma das peças centrais de qualquer operação autônoma."}}]
+  }
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLLXR3FH2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DLLXR3FH2R');
+  </script>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TXSF2K6K"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <div class="scroll-progress" aria-hidden="true"><i></i></div>
+
+  <header>
+    <div class="wrap">
+      <nav>
+        <a href="../index.html" class="wordmark">Thomas <span>Macedo</span></a>
+        <div class="nav-links">
+          <a href="../index.html" class="hide-mob">TikTok &amp; Performance</a>
+          <a href="../marcas.html" class="hide-mob">Marcas &amp; E-commerce</a>
+          <a href="../artigos/" class="active hide-mob">Artigos</a>
+          <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" class="nav-cta" target="_blank" rel="noopener">Falar comigo</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap"><nav class="crumb"><a href="../index.html">Início</a><span>/</span><a href="../artigos/">Artigos</a><span>/</span>Agentes de IA que trabalham sozinhos</nav></div>
+
+  <article>
+    <header class="article-head">
+      <span class="eyebrow">Inteligência Artificial</span>
+      <h1>Agentes de IA que trabalham sozinhos: como montar uma operação que roda 24 horas</h1>
+      <p class="dek">Agente que “trabalha sozinho” não é agente sem regras. É agente com gatilho, ferramentas, limites e alguém olhando os números. Aqui está a estrutura que faz a operação rodar de madrugada sem virar risco.</p>
+      <div class="article-meta">
+        <span>Por Thomas Macedo</span><span class="dot"></span><span>8 min de leitura</span><span class="dot"></span><span>Atualizado em 2026</span>
+      </div>
+    </header>
+
+    <div class="article-cover">
+      <img src="../img/thomas-macedo-ia-robo.jpeg" alt="Agentes de IA trabalhando sozinhos numa operação que roda 24 horas" width="1000" height="500" style="object-position:center 40%" />
+    </div>
+
+    <div class="prose">
+      <p><strong>Uma operação de agentes de IA que roda 24 horas é composta por cinco peças: um gatilho que acorda o agente, uma instrução clara, ferramentas conectadas aos sistemas da empresa, limites com transferência para humano e monitoramento contínuo.</strong> Sem qualquer uma delas, o agente até responde, mas não opera sozinho com segurança. Com as cinco, ele atende, qualifica e agenda de madrugada, no feriado e no pico, e a equipe só entra onde faz diferença.</p>
+
+      <p>Eu opero esse tipo de estrutura todos os dias. Vou direto ao que importa: o que significa “sozinho” de verdade, como montar cada peça e onde ainda precisa de gente.</p>
+
+      <div class="callout">
+        <span class="k">Resumo rápido</span>
+        <ul>
+          <li>“Sozinho” quer dizer <strong>sem humano em cada passo</strong>, não sem supervisão.</li>
+          <li>As 5 peças: <strong>gatilho, instrução, ferramentas, limites e monitoramento</strong>.</li>
+          <li>Comece por <strong>um processo</strong> com volume alto e regra clara.</li>
+          <li>O agente precisa saber <strong>quando parar e chamar uma pessoa</strong>.</li>
+        </ul>
+      </div>
+
+      <h2>O que significa um agente de IA trabalhar sozinho?</h2>
+      <p>Significa que ele recebe um estímulo (uma mensagem, um pedido, um horário), decide o que fazer dentro de regras definidas e executa a ação sem esperar aprovação humana a cada etapa. Não significa autonomia irrestrita. O agente que atende no WhatsApp às 3 da manhã tem o mesmo roteiro, os mesmos limites e a mesma base de conhecimento do que atende às 3 da tarde.</p>
+      <p>A diferença para a automação tradicional é que o agente lida com linguagem natural e imprevisto. Se quiser entender essa fronteira, veja <a href="./chatbot-automacao-ou-agente-de-ia.html">chatbot, automação ou agente de IA</a>.</p>
+
+      <h2>Quais são as 5 peças de uma operação de IA que roda 24 horas?</h2>
+      <table>
+        <thead><tr><th>Peça</th><th>O que é</th><th>O que acontece se faltar</th></tr></thead>
+        <tbody>
+          <tr><td>Gatilho</td><td>Mensagem recebida, formulário, carrinho abandonado, horário marcado</td><td>O agente fica parado ou depende de alguém para iniciar</td></tr>
+          <tr><td>Instrução</td><td>Papel, tom, regras e passo a passo do processo</td><td>Respostas inconsistentes e fora do padrão da marca</td></tr>
+          <tr><td>Ferramentas</td><td>Integração com WhatsApp, CRM, agenda, catálogo, ERP</td><td>Ele conversa, mas não resolve nada</td></tr>
+          <tr><td>Limites e handoff</td><td>O que pode fazer sozinho e quando passa para humano</td><td>Promessas indevidas, alucinação, cliente irritado sem saída</td></tr>
+          <tr><td>Monitoramento</td><td>Logs, métricas, alertas e revisão de conversas</td><td>Erro silencioso que se repete por semanas</td></tr>
+        </tbody>
+      </table>
+      <p>A anatomia completa de cada uma está em <a href="./anatomia-de-um-agente-de-ia.html">anatomia de um agente de IA</a>. Aqui o foco é como elas se encaixam numa operação contínua.</p>
+
+      <h2>Como montar uma operação de agentes de IA, passo a passo?</h2>
+      <ol>
+        <li><strong>Escolha um processo com volume e regra clara.</strong> Primeiro contato com lead, agendamento, status de pedido, recuperação de carrinho. Processo que depende de julgamento delicado fica para depois.</li>
+        <li><strong>Documente como um humano faz hoje.</strong> Perguntas que faz, critérios de decisão, exceções, quando escala. O agente só é tão bom quanto esse mapa.</li>
+        <li><strong>Escreva a instrução e carregue o conhecimento.</strong> Preços, políticas e catálogo entram numa base consultável. Veja <a href="./como-escrever-o-prompt-de-um-agente-de-ia.html">como escrever o prompt de um agente</a>.</li>
+        <li><strong>Conecte as ferramentas.</strong> Sem acesso à agenda e ao CRM, o agente só conversa. As opções estão em <a href="./integracoes-de-agentes-de-ia-crm-erp-whatsapp.html">integrações de agentes de IA</a>.</li>
+        <li><strong>Defina limites e handoff.</strong> Liste o que ele nunca faz (dar desconto fora da tabela, prometer prazo, opinar sobre saúde ou direito) e os gatilhos de transferência. Detalhes em <a href="./handoff-humano-em-agentes-de-ia.html">handoff humano em agentes de IA</a>.</li>
+        <li><strong>Teste com conversas reais antes de ligar.</strong> Use histórico verdadeiro de atendimento, não só cenários felizes. O roteiro está em <a href="./como-testar-agente-de-ia-antes-de-producao.html">como testar um agente antes de produção</a>.</li>
+        <li><strong>Ligue, monitore e ajuste.</strong> A primeira semana é de revisão diária de conversas. Depois, semanal.</li>
+      </ol>
+
+      <blockquote><p>Operação 24 horas não nasce de um agente genial. Nasce de um processo bem documentado, limites claros e alguém que lê as conversas toda semana.</p></blockquote>
+
+      <h2>Um agente de IA realmente atende e vende sem humano? Um caso real</h2>
+      <p>A Friday, agente de IA criada por mim, <a href="../agentes-de-ia.html">atendeu 341 empresários no WhatsApp, agendou 41 consultorias sem nenhum humano e gerou 19 contratos</a>. Ela conversa, entende a situação de cada empresário, qualifica e marca a consultoria direto na agenda. Nenhuma pessoa precisa estar online para isso acontecer.</p>
+      <p>Esse resultado vem de um processo estreito e bem definido (qualificar e agendar), não de um agente “que faz tudo”. Num estudo próprio com <a href="./o-que-88-empresarios-disseram-a-friday.html">88 empresários que conversaram com a Friday</a> depois de uma palestra, 49% disseram que o maior gargalo é gerar clientes e 76% querem resolver agora. Quem tem esse problema não pode esperar o horário comercial para ser atendido.</p>
+
+      <h2>Quantos agentes uma operação precisa?</h2>
+      <p>Começa com um. Quando o primeiro estabiliza, a tendência é dividir responsabilidades: um agente para atendimento, outro para recuperação de vendas, outro para pós-venda e outro para tarefas internas. Criei mais de 50 agentes de IA autônomos que rodam nas operações das minhas empresas, e a regra que se repete é que agente com função única erra menos do que agente com dez funções. Quando há vários, entra o desafio de coordená-los, tema de <a href="./orquestracao-de-agentes-de-ia-multiagente.html">orquestração de agentes de IA</a>. Se quiser ver como isso fica na prática, conheça o <a href="./multiverso-de-agentes-de-ia.html">Multiverso</a>, onde eu organizo esses agentes.</p>
+
+      <h2>O que nunca deixar um agente de IA decidir sozinho?</h2>
+      <ul>
+        <li><strong>Exceções financeiras:</strong> reembolso fora da política, desconto livre, renegociação.</li>
+        <li><strong>Temas regulados:</strong> orientação médica, jurídica ou fiscal. O agente informa o processo e encaminha para o profissional.</li>
+        <li><strong>Reclamação grave:</strong> cliente muito irritado ou ameaça de ação pede uma pessoa.</li>
+        <li><strong>Dados sensíveis sem base legal:</strong> trate com cuidado e confira as exigências da LGPD no artigo sobre <a href="./lgpd-e-seguranca-de-dados-em-agentes-de-ia.html">segurança de dados em agentes de IA</a>.</li>
+      </ul>
+      <p>Mais casos estão em <a href="./onde-nao-usar-ia-no-negocio.html">onde a IA não deve ser usada no seu negócio</a>.</p>
+
+      <h2>Como monitorar um agente que trabalha de madrugada?</h2>
+      <p>Três camadas bastam para começar:</p>
+      <ul>
+        <li><strong>Log de toda conversa</strong>, com a ação que o agente tomou em cada etapa.</li>
+        <li><strong>Métricas simples:</strong> volume, taxa de transferência para humano, agendamentos, tempo de resposta e conversas sem resolução.</li>
+        <li><strong>Alertas:</strong> falha de integração, pico de transferências, palavras de reclamação, fila parada.</li>
+      </ul>
+      <p>O detalhamento está em <a href="./observabilidade-de-agentes-de-ia.html">observabilidade de agentes de IA</a>. E antes de ligar qualquer coisa, vale conferir os <a href="./erros-ao-implantar-agente-de-ia.html">erros mais caros ao implantar um agente</a>.</p>
+
+      <h2>Operação 24 horas com IA compensa financeiramente?</h2>
+      <p>Compensa quando o agente cobre um processo de volume e o custo por conversa é menor que o custo do atendimento equivalente somado à venda que se perdia fora do horário. Faça a conta com <a href="./custo-por-conversa-de-agente-de-ia.html">custo por conversa</a> e <a href="./como-calcular-roi-de-agente-de-ia.html">ROI do agente de IA</a>, e não com a impressão de que “IA é barata”. Eu detalho a visão completa da empresa operada por agentes no livro <a href="./livro-a-empresa-que-trabalha-sozinha.html">“A Empresa que Trabalha Sozinha”</a>.</p>
+
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details open><summary>Dá para uma empresa rodar 24 horas só com agentes de IA?</summary><p>Dá para rodar 24 horas os processos repetitivos e bem definidos, como atendimento, qualificação, agendamento e follow-up. Decisões sensíveis, exceções e negociações complexas continuam com pessoas, e o agente precisa saber transferir a conversa nesses casos.</p></details>
+        <details><summary>Um agente de IA trabalha sem nenhum humano supervisionando?</summary><p>Ele executa sem um humano em cada passo, mas não sem supervisão. A operação precisa de logs, alertas e revisão periódica de conversas para detectar erros, ajustar a instrução e corrigir desvios antes que virem prejuízo.</p></details>
+        <details><summary>Por onde começar uma operação com agentes de IA?</summary><p>Comece por um processo com dor clara e volume alto, geralmente o atendimento ou o primeiro contato com o lead no WhatsApp. Documente o processo, defina os limites do agente, teste com conversas reais e só depois amplie para outros processos.</p></details>
+        <details><summary>Quanto custa manter um agente de IA rodando o dia todo?</summary><p>O custo depende do modelo de IA usado, do volume de conversas e das integrações. O cálculo correto é custo por conversa multiplicado pelo volume mensal, somado à manutenção, e comparado com o custo do atendimento humano equivalente e com a receita que o agente gera.</p></details>
+        <details><summary>O que acontece quando o agente de IA não sabe responder?</summary><p>Um agente bem configurado reconhece o limite, não inventa resposta e transfere a conversa para uma pessoa com o contexto já resumido. Esse handoff humano é uma das peças centrais de qualquer operação autônoma.</p></details>
+      </div>
+    </div>
+
+    <aside class="svc-hub">
+      <span class="svc-k">Serviço</span>
+      <b>Agentes de IA para empresas</b>
+      <p>Agentes que atendem, qualificam e agendam no WhatsApp 24h. A Friday agendou 41 consultorias sozinha.</p>
+      <a href="../agentes-de-ia.html">Ver como funciona <span class="arrow">→</span></a>
+    </aside>
+
+    <div class="author-box">
+      <img src="../img/thomas-macedo-palestra.jpeg" alt="Thomas Macedo" />
+      <div>
+        <div class="a-name"><a href="../sobre.html" style="color:inherit;border-bottom:1px solid var(--line-strong)">Thomas Macedo</a></div>
+        <p class="a-bio">Fundador da Gene Company e diretor da LINCE Performance, parceiro do TikTok for Business. Lança marcas, monta lojas no TikTok Shop, faz tráfego pago para marcas, negócios locais e clínicas e cria agentes de IA de atendimento e recuperação de vendas. Santos/SP, atende todo o Brasil. <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" target="_blank" rel="noopener">Fale comigo no WhatsApp →</a></p>
+      </div>
+    </div>
+  </article>
+
+  <section class="related">
+    <div class="wrap-narrow" style="padding:0">
+      <p class="eyebrow eyebrow-ink" style="display:block;margin-bottom:8px">Continue lendo</p>
+      <div class="related-grid">
+        <a href="../artigos/anatomia-de-um-agente-de-ia.html"><span class="r-cat">Inteligência Artificial</span><h3>Anatomia de um agente de IA que funciona: instrução, memória, ferramentas e limites</h3></a>
+        <a href="../artigos/handoff-humano-em-agentes-de-ia.html"><span class="r-cat">Inteligência Artificial</span><h3>Handoff humano em agentes de IA: quando o agente deve passar para uma pessoa</h3></a>
+        <a href="../artigos/observabilidade-de-agentes-de-ia.html"><span class="r-cat">Inteligência Artificial</span><h3>Observabilidade de agentes de IA: como monitorar, logar e auditar um agente em produção</h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="eyebrow">Vamos conversar</span>
+      <h2 class="display mt-m" style="font-size:clamp(2.2rem,5vw,4rem)">Quero IA<br>na minha empresa.</h2>
+      <p class="lead mt-m" style="color:rgba(244,241,234,.8);max-width:48ch">Conte sobre o seu negócio e receba um diagnóstico do seu tráfego, criativos, marca e atendimento com IA.</p>
+      <div class="contact-row">
+        <a href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20artigo" class="btn" target="_blank" rel="noopener">WhatsApp (13) 99150-1840 <span class="arrow">→</span></a>
+        <a href="https://www.instagram.com/thomasmacedoo" class="link-underline" target="_blank" rel="noopener" style="color:var(--paper)">Instagram @thomasmacedoo</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <span>© 2026 Thomas Macedo — IA, criação de marcas e tráfego pago. Santos, Baixada Santista, Brasil &amp; exterior.</span>
+        <div class="foot-links">
+          <a href="../index.html">TikTok &amp; Performance</a>
+          <a href="../marcas.html">Marcas &amp; E-commerce</a>
+          <a href="../artigos/">Artigos</a>
+          <a href="../tiktok-shop.html">TikTok Shop</a>
+          <a href="../trafego-pago.html">Tráfego pago</a>
+          <a href="../agentes-de-ia.html">Agentes de IA</a>
+          <a href="../sobre.html">Sobre</a>
+          <a href="https://www.instagram.com/thomasmacedoo" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/in/thomas-macedo-23896216a/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/102946615/" target="_blank" rel="noopener">LINCE Performance</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5513991501840?text=Ol%C3%A1%20Thomas%2C%20vim%20pelo%20seu%20site" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.477-.911zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="../site.js" defer></script>
+  <!-- Conversões (Thomas Macedo) -->
+  <script>
+  (function(){
+    function ev(name, params){ if(typeof gtag==='function'){ gtag('event', name, params||{}); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a');
+      if(!a) return;
+      var href = (a.getAttribute('href')||'').toLowerCase();
+      if(href.indexOf('wa.me')>-1 || href.indexOf('whatsapp')>-1){
+        ev('whatsapp_click', {link_url:href, location:location.pathname});
+      } else if(href.indexOf('instagram.com')>-1){
+        ev('social_click', {network:'instagram', location:location.pathname});
+      } else if(href.indexOf('linkedin.com')>-1){
+        ev('social_click', {network:'linkedin', location:location.pathname});
+      } else if(a.classList.contains('btn') || a.classList.contains('nav-cta')){
+        ev('cta_click', {label:(a.textContent||'').trim().slice(0,80), location:location.pathname});
+      }
+    }, true);
+    // Profundidade de rolagem
+    var hit={25:false,50:false,75:false,90:false};
+    function onScroll(){
+      var h=document.documentElement, b=document.body;
+      var st=(h.scrollTop||b.scrollTop), sh=(h.scrollHeight||b.scrollHeight)-h.clientHeight;
+      if(sh<=0) return;
+      var p=Math.round(st/sh*100);
+      [25,50,75,90].forEach(function(m){ if(p>=m && !hit[m]){ hit[m]=true; ev('scroll_depth', {percent:m, location:location.pathname}); } });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+  })();
+  </script>
+</body>
+</html>

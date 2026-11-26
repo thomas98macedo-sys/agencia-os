@@ -109,6 +109,7 @@
 - [Agentes de IA no WhatsApp: Automatize o Atendimento e Recupere Vendas](https://www.thomas-macedo.com/artigos/agentes-de-ia-no-whatsapp.html): Veja como agentes de IA no WhatsApp atendem 24h, qualificam leads e recuperam vendas sem perder o tom humano. Guia prático por Thomas Macedo, especialista em IA.
 
 ## Recuperação de vendas com IA
+- [Recuperação de carrinho abandonado na Nuvemshop com agente de IA no WhatsApp](https://www.thomas-macedo.com/artigos/recuperacao-de-carrinho-abandonado-nuvemshop.html): Para recuperar carrinho abandonado na Nuvemshop, conecte a loja a um agente de IA no WhatsApp que lê o checkout, fala com o cliente e devolve o link de pagamento. Veja o passo a passo.
 - [Reativar clientes inativos com IA no WhatsApp: como acordar a base sem queimar o número](https://www.thomas-macedo.com/artigos/reativar-clientes-inativos-com-ia-whatsapp.html): Reativar clientes inativos com IA é contatar quem parou de comprar com uma mensagem relevante e conversa de verdade no WhatsApp. Veja segmentação, ritmo e como evitar bloqueios.
 - [Mensagem de recuperação de venda: exemplos prontos de WhatsApp que trazem o cliente de volta](https://www.thomas-macedo.com/artigos/mensagem-de-recuperacao-de-venda-exemplos.html): Exemplos prontos de mensagem de recuperação de venda no WhatsApp — carrinho abandonado, Pix/boleto não pago e follow-up. Veja o que escrever, a estrutura que funciona e os erros que fazem o cliente…
 - [Taxa de recuperação de carrinho abandonado: qual é a média e quanto dá pra recuperar com IA](https://www.thomas-macedo.com/artigos/taxa-de-recuperacao-de-carrinho-abandonado.html): A taxa de recuperação de carrinho abandonado é a fração dos carrinhos perdidos que você reconquista. Veja o que é uma taxa boa, como calcular e o que esperar de um agente de IA no WhatsApp.
@@ -149,6 +150,7 @@
 - [Como escalar uma agência de marketing no Brasil: processos, IA e produção própria](https://www.thomas-macedo.com/artigos/como-escalar-agencia-de-marketing.html): Escalar uma agência não é pegar mais clientes: é entregar mais resultado com a mesma qualidade. Veja como estruturar processos, IA e produção própria para crescer sem quebrar a operação.
 
 ## Artigos recentes
+- [Recuperação de carrinho abandonado na Nuvemshop com agente de IA no WhatsApp](https://www.thomas-macedo.com/artigos/recuperacao-de-carrinho-abandonado-nuvemshop.html): Para recuperar carrinho abandonado na Nuvemshop, conecte a loja a um agente de IA no WhatsApp que lê o checkout, fala com o cliente e devolve o link de pagamento. Veja o passo a passo.
 - [Agentes de IA que trabalham sozinhos: como montar uma operação 24 horas](https://www.thomas-macedo.com/artigos/agentes-de-ia-operacao-24-horas.html): Uma operação 24h com agentes de IA exige gatilho, ferramentas, limites, handoff humano e monitoramento. Veja como montar uma que roda sozinha sem perder o controle.
 - [TikTok Shop vale a pena para uma marca pequena no Brasil?](https://www.thomas-macedo.com/artigos/tiktok-shop-vale-a-pena-marca-pequena.html): Vale a pena vender no TikTok Shop com uma marca pequena? Depende do preço, da margem e do criativo. Veja taxas, requisitos e a conta para fazer antes de listar.
 - [Relatório de assessoria de marketing: o que deve ter e como ler os números](https://www.thomas-macedo.com/artigos/relatorio-de-assessoria-de-marketing-o-que-cobrar.html): Um bom relatório de assessoria de marketing liga o investimento à venda: faturamento, custo de aquisição, margem, criativos, funil e plano do próximo ciclo. Veja o que cobrar.
@@ -158,7 +160,6 @@
 - [Reativar clientes inativos com IA no WhatsApp: como acordar a base sem queimar o número](https://www.thomas-macedo.com/artigos/reativar-clientes-inativos-com-ia-whatsapp.html): Reativar clientes inativos com IA é contatar quem parou de comprar com uma mensagem relevante e conversa de verdade no WhatsApp. Veja segmentação, ritmo e como evitar bloqueios.
 - [ROAS de equilíbrio: como calcular o ROAS mínimo da sua loja Shopify](https://www.thomas-macedo.com/artigos/roas-de-equilibrio-break-even-ecommerce.html): ROAS de equilíbrio é o retorno mínimo sobre anúncio em que a loja não perde nem ganha dinheiro: 1 dividido pela margem de contribuição. Veja a fórmula, um exemplo e os erros que distorcem o cálculo.
 - [Como validar um produto de marca própria antes de pagar o primeiro lote](https://www.thomas-macedo.com/artigos/validar-produto-marca-propria-antes-do-primeiro-lote.html): Validar um produto de marca própria é testar a demanda antes de comprar o lote cheio: pré-venda, lote-piloto e anúncios de teste. Veja o método para errar barato.
-- [Gestão de estoque no e-commerce: como evitar ruptura e estoque parado (giro, curva ABC e previsão de demanda)](https://www.thomas-macedo.com/artigos/gestao-de-estoque-ecommerce.html): Gestão de estoque no e-commerce é equilibrar ter o produto quando o cliente compra sem travar o caixa com estoque parado. Veja giro, curva ABC, ponto de reposição e previsão de demanda na prática.
 
 ## Prova social
 - Marcas que passaram pelo processo de escala com Thomas Macedo: China Link Trading, China Link na Estrada, Lincoln Fracari, Tuyo Brasil, Apex Performance, LM Woodwork, Friga Store, Laser Rosa, Relive Med Clinic, Moby Dick Santos, Texas Firearms, entre centenas de outras operações.
@@ -172,4 +173,4 @@
 - LinkedIn: https://www.linkedin.com/in/thomas-macedo-23896216a/
 - LINCE Performance: https://www.linkedin.com/company/102946615/
 - Feed RSS: https://www.thomas-macedo.com/feed.xml
-- Conteúdo integral de todos os 118 artigos: https://www.thomas-macedo.com/llms-full.txt
+- Conteúdo integral de todos os 119 artigos: https://www.thomas-macedo.com/llms-full.txt
